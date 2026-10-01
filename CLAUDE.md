@@ -11,7 +11,7 @@
 - Never force-push or rewrite history on `main`.
 
 ## Project
-Lumen is an AI book-picking assistant. A user describes what they want to read; Lumen returns 5–10 **real** English or Spanish books and shows where to buy or read them in Spain. The full spec (in Chinese) is `Lumen_Specifications.md`; follow it.
+Lumen is an AI book-picking assistant. A user describes what they want to read; Lumen returns 5–10 **real** English or Spanish books and shows where to buy or read them in Spain. The full spec is `Lumen_Specifications.md`; follow it.
 
 Core rule: the AI may only choose from books retrieved from real bibliographic APIs. Never let it invent titles. Every recommended ISBN must be in the retrieved candidate list (checked in code and enforced by a DB foreign key).
 
