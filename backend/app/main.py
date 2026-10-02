@@ -12,7 +12,7 @@ from app.cache import make_redis
 async def lifespan(app: FastAPI):
     # Initialize resources here
     settings = get_settings()
-    app.state.engine = make_engine(settings.database_url)
+    app.state.engine = make_engine(settings.database_url, echo=settings.sql_echo)
     app.state.redis = make_redis(settings.redis_url)
 
     yield  # This is where the application runs
@@ -22,5 +22,5 @@ async def lifespan(app: FastAPI):
     await app.state.engine.dispose()
 
 
-app = FastAPI(title="Lumen API", version="0.1.0")
+app = FastAPI(title="Lumen API", version="0.1.0", lifespan=lifespan)
 app.include_router(health_router)

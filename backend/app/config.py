@@ -5,7 +5,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env")
     database_url: str
     redis_url: str
-    sql_echo: bool = True
+    sql_echo: bool = False
 
 @lru_cache()
 def get_settings() -> Settings:
