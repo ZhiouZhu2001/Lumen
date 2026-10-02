@@ -1,7 +1,11 @@
-from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
-from .config import get_settings
-settings = get_settings()
+from redis.asyncio import Redis
 
-def make_redis(redis_url: str):
-    import aioredis
-    return aioredis.from_url(redis_url, decode_responses=True)
+def make_redis(redis_url: str) -> Redis:
+    return Redis.from_url(redis_url, decode_responses=True)
+
+async def check_redis(client: Redis) -> bool:
+    try:
+        return await client.ping()
+    except Exception as e:
+        return False
+        

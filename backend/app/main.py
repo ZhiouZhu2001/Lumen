@@ -1,16 +1,26 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
+
+from app.api.health import router as health_router
 from app.config import get_settings
 from app.db import make_engine
+from app.cache import make_redis
+
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Initialize resources here
-    app.state.engine = make_engine(get_settings().database_url)
+    settings = get_settings()
+    app.state.engine = make_engine(settings.database_url)
+    app.state.redis = make_redis(settings.redis_url)
 
     yield  # This is where the application runs
 
     # Clean up resources here
+    await app.state.redis.aclose()
     await app.state.engine.dispose()
 
+
 app = FastAPI(title="Lumen API", version="0.1.0")
+app.include_router(health_router)
