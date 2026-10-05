@@ -3,12 +3,13 @@ from collections.abc import Awaitable
 
 from fastapi import APIRouter, Request, Response
 
-from app.db import check_postgres
 from app.cache import check_redis
+from app.db import check_postgres
 
 router = APIRouter(prefix="/api")
 
 CHECK_TIMEOUT_SECONDS = 2
+
 
 async def _with_timeout(check: Awaitable[bool]) -> bool:
     try:

@@ -25,5 +25,19 @@ services:
       timeout: 3s
       retries: 10
 
+  backend:
+    build: ./backend
+    ports: 
+      - "8000:8000"
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      REDIS_URL: redis://redis:6379/0
+    depends_on:                        # wait until both are HEALTHY, not just started
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
 volumes:
   pgdata:

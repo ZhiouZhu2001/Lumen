@@ -1,11 +1,11 @@
 from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 
 from app.api.health import router as health_router
+from app.cache import make_redis
 from app.config import get_settings
 from app.db import make_engine
-from app.cache import make_redis
-
 
 
 @asynccontextmanager

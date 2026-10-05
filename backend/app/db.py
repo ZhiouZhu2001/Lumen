@@ -1,11 +1,15 @@
+import logging
+
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
-import logging
 
 logger = logging.getLogger(__name__)
 
+
 def make_engine(database_url: str, echo: bool = False) -> AsyncEngine:
-   return create_async_engine(database_url, pool_size=5, max_overflow=5, pool_pre_ping=True, echo=echo)
+    return create_async_engine(
+        database_url, pool_size=5, max_overflow=5, pool_pre_ping=True, echo=echo
+    )
 
 
 async def check_postgres(engine: AsyncEngine) -> bool:
