@@ -1,8 +1,8 @@
 """create books, searches, search_results
 
-Revision ID: b592f4503c7b
+Revision ID: 12fdf9646b5d
 Revises: 
-Create Date: 2026-10-06 18:14:27.314197
+Create Date: 2026-10-06 18:19:07.004566
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-revision: str = 'b592f4503c7b'
+revision: str = '12fdf9646b5d'
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -38,7 +38,7 @@ def upgrade() -> None:
     sa.Column('raw', postgresql.JSONB(astext_type=sa.Text()), nullable=True),
     sa.Column('fetched_at', postgresql.TIMESTAMP(timezone=True), server_default=sa.text('now()'), nullable=False),
     sa.CheckConstraint("isbn13 ~ '^[0-9]{13}$'", name=op.f('ck_books_isbn13_digits')),
-    sa.CheckConstraint("language IN ('en', 'es')", name=op.f('ck_books_ck_books_language_supported')),
+    sa.CheckConstraint("language IN ('en', 'es')", name=op.f('ck_books_language_supported')),
     sa.CheckConstraint('(rating_value IS NULL AND rating_count IS NULL AND rating_source IS NULL) OR (rating_value IS NOT NULL AND rating_count IS NOT NULL AND rating_source IS NOT NULL)', name=op.f('ck_books_rating_all_or_nothing')),
     sa.CheckConstraint('(rating_value IS NULL OR (rating_value >= 0 AND rating_value <= 5))', name=op.f('ck_books_rating_value_range')),
     sa.PrimaryKeyConstraint('isbn13', name=op.f('pk_books'))
@@ -53,7 +53,7 @@ def upgrade() -> None:
     sa.Column('retries', sa.Integer(), server_default='0', nullable=False),
     sa.Column('duration_ms', sa.Integer(), nullable=True),
     sa.Column('created_at', postgresql.TIMESTAMP(timezone=True), server_default=sa.text('now()'), nullable=False),
-    sa.CheckConstraint("language IN ('es','en')", name=op.f('ck_searches_ck_searches_language_supported')),
+    sa.CheckConstraint("language IN ('es','en')", name=op.f('ck_searches_language_supported')),
     sa.PrimaryKeyConstraint('id', name=op.f('pk_searches'))
     )
     op.create_index(op.f('ix_searches_created_at'), 'searches', ['created_at'], unique=False)

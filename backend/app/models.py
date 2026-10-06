@@ -34,7 +34,7 @@ class Book(Base):
     __tablename__ = "books"
     __table_args__ = (
         CheckConstraint("isbn13 ~ '^[0-9]{13}$'", name="isbn13_digits"),
-        CheckConstraint("language IN ('en', 'es')", name="ck_books_language_supported"),
+        CheckConstraint("language IN ('en', 'es')", name="language_supported"),
         CheckConstraint(
             "(rating_value IS NULL AND rating_count IS NULL AND rating_source IS NULL)"
             " OR (rating_value IS NOT NULL AND rating_count IS NOT NULL"
@@ -70,7 +70,7 @@ class Search(Base):
     __tablename__ = "searches"
     __table_args__ = (
         CheckConstraint(
-            "language IN ('es','en')", name="ck_searches_language_supported"
+            "language IN ('es','en')", name="language_supported"
         ),
     )
 
