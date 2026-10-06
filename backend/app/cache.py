@@ -12,6 +12,6 @@ def make_redis(redis_url: str) -> Redis:
 async def check_redis(client: Redis) -> bool:
     try:
         return await client.ping()
-    except Exception as e:
+    except Exception as e: # noqa: BLE001 - any failure means "down"
         logger.warning("Redis health check failed: %s", e)
         return False

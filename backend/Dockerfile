@@ -18,7 +18,17 @@ RUN uv sync --frozen --no-dev --no-install-project
 
 # Copy code
 COPY app ./app
+COPY alembic.ini ./
+COPY alembic ./alembic
 
 # Document the port, and start the server reachable from outside the container
 EXPOSE 8000
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Copy code and migrations
+COPY app ./app
+COPY alembic.ini ./
+COPY alembic ./alembic
+
+# Document the port, and start the server reachable from outside the container
+EXPOSE 8000
+# Apply database migrations, then start the server
+CMD ["sh", "-c", "alembic upgrade head && exec uvicorn app.main:app --host 0.0.0.0 --port 8000"]

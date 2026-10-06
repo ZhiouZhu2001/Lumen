@@ -1,10 +1,12 @@
 from functools import lru_cache
+from pathlib import Path
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+ROOT_ENV = Path(__file__).resolve().parents[2] / ".env"
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env")
+    model_config = SettingsConfigDict(env_file=ROOT_ENV, extra="ignore")
     database_url: str
     redis_url: str
     sql_echo: bool = False
