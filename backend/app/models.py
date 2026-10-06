@@ -65,35 +65,37 @@ class Book(Base):
         TIMESTAMP(timezone=True), server_default=func.now()
     )
 
+
 class Search(Base):
     __tablename__ = "searches"
     __table_args__ = (
-        CheckConstraint("language IN ('es','en')", name="ck_searches_language_supported"),
+        CheckConstraint(
+            "language IN ('es','en')", name="ck_searches_language_supported"
+        ),
     )
 
     id: Mapped[uuid.UUID] = mapped_column(primary_key=True, default=uuid.uuid4)
     query_text: Mapped[str] = mapped_column(Text)
-    parsed_query: Mapped[str | None] = mapped_column(JSONB)
+    parsed_query: Mapped[dict[str, Any] | None] = mapped_column(JSONB)
     language: Mapped[str] = mapped_column(CHAR(2))
-    filters: Mapped[str] = mapped_column(JSONB, server_default="{}")
+    filters: Mapped[dict[str, Any]] = mapped_column(JSONB, server_default="{}")
     candidate_count: Mapped[int] = mapped_column(server_default="0")
     retries: Mapped[int] = mapped_column(server_default="0")
     duration_ms: Mapped[int | None]
     created_at: Mapped[datetime] = mapped_column(
         TIMESTAMP(timezone=True), server_default=func.now(), index=True
     )
-    
+
+
 class SearchResult(Base):
     __tablename__ = "search_results"
-    __table_args__ = (
-        CheckConstraint("rank BETWEEN 1 AND 10", name="rank_range"),
-    )
+    __table_args__ = (CheckConstraint("rank BETWEEN 1 AND 10", name="rank_range"),)
 
-    search_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("searches.id", ondelete="CASCADE") ,primary_key=True)
-    isbn13: Mapped[str] = mapped_column(CHAR(13), ForeignKey("books.isbn13") ,primary_key=True)
+    search_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("searches.id", ondelete="CASCADE"), primary_key=True
+    )
+    isbn13: Mapped[str] = mapped_column(
+        CHAR(13), ForeignKey("books.isbn13"), primary_key=True
+    )
     rank: Mapped[int] = mapped_column(SmallInteger)
     reason: Mapped[str] = mapped_column(Text)
-
-
-
-

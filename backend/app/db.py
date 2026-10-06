@@ -17,6 +17,6 @@ async def check_postgres(engine: AsyncEngine) -> bool:
         async with engine.connect() as conn:
             await conn.execute(text("SELECT 1"))
         return True
-    except Exception as e: # noqa: BLE001 - any failure means "down"
+    except Exception as e:  # noqa: BLE001 - any failure means "down"
         logger.warning("Postgres health check failed: %s", e)
         return False
