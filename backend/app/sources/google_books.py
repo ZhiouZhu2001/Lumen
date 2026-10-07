@@ -21,7 +21,7 @@ async def search_google_books(
     api_key: str | None = None,
     max_results: int = 20,
 ) -> list[BookCandidate]:
-    """Search Google Books. Raises https.HTTPError if the request fails."""
+    """Search Google Books. Raises httpx.HTTPError if the request fails."""
     params: dict[str, str | int] = {
         "q": query,
         "langRestrict": language,
@@ -38,7 +38,7 @@ async def search_google_books(
 def parse_google_books(
     payload: dict[str, Any], language: Language
 ) -> list[BookCandidate]:
-    """Turn a Google Books response into canidates, skipping unusable items."""
+    """Turn a Google Books response into candidates, skipping unusable items."""
     books = []
     for item in payload.get("items", []):
         try:
@@ -54,13 +54,14 @@ def parse_google_books(
 
 
 def _parse_volume(item: dict[str, Any], language: Language) -> BookCandidate | None:
+    
     info = item.get("volumeInfo", {})
-
+    
     isbn13 = _pick_isbn13(info.get("industryIdentifiers", []))
     if isbn13 is None:
-        return None
+        return None # spec: books without an ISBN are dropped
     if info.get("language") != language:
-        return None
+        return None # langRestrict is a hint, not a guarantee
 
     return BookCandidate(
         isbn13=isbn13,
