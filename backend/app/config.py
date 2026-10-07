@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     database_url: str
     redis_url: str
     sql_echo: bool = False
+    google_books_api_key: str | None = None
 
 
 @lru_cache

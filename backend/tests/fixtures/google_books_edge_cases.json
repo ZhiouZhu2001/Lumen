@@ -1,0 +1,71 @@
+{
+  "kind": "books#volumes",
+  "totalItems": 7,
+  "items": [
+    {
+      "id": "complete",
+      "volumeInfo": {
+        "title": "Complete book",
+        "authors": ["Ana García", "Luis Pérez"],
+        "publishedDate": "2009-02-24",
+        "description": "A book with every field filled in.",
+        "industryIdentifiers": [
+          {"type": "ISBN_10", "identifier": "0307474720"},
+          {"type": "ISBN_13", "identifier": "9780307474728"}
+        ],
+        "pageCount": 496,
+        "categories": ["Fiction"],
+        "averageRating": 4.5,
+        "ratingsCount": 120,
+        "imageLinks": {"smallThumbnail": "http://books.google.com/small", "thumbnail": "http://books.google.com/thumb"},
+        "language": "es"
+      }
+    },
+    {
+      "id": "only-isbn10",
+      "volumeInfo": {
+        "title": "Only has an ISBN-10",
+        "industryIdentifiers": [{"type": "ISBN_10", "identifier": "843760494X"}],
+        "publishedDate": "1967",
+        "language": "es"
+      }
+    },
+    {
+      "id": "no-identifiers",
+      "volumeInfo": {"title": "Has no identifiers at all", "language": "es"}
+    },
+    {
+      "id": "other-identifier",
+      "volumeInfo": {
+        "title": "Only has an OTHER identifier",
+        "industryIdentifiers": [{"type": "OTHER", "identifier": "UOM:39015012345678"}],
+        "language": "es"
+      }
+    },
+    {
+      "id": "wrong-language",
+      "volumeInfo": {
+        "title": "English book in a Spanish search",
+        "industryIdentifiers": [{"type": "ISBN_13", "identifier": "9780000000002"}],
+        "language": "en"
+      }
+    },
+    {
+      "id": "rating-without-count",
+      "volumeInfo": {
+        "title": "Rating but no rating count",
+        "industryIdentifiers": [{"type": "ISBN_13", "identifier": "9788401242267"}],
+        "averageRating": 3.0,
+        "pageCount": 0,
+        "language": "es"
+      }
+    },
+    {
+      "id": "missing-title",
+      "volumeInfo": {
+        "industryIdentifiers": [{"type": "ISBN_13", "identifier": "9788437604947"}],
+        "language": "es"
+      }
+    }
+  ]
+}

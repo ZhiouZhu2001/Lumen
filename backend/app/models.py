@@ -69,9 +69,7 @@ class Book(Base):
 class Search(Base):
     __tablename__ = "searches"
     __table_args__ = (
-        CheckConstraint(
-            "language IN ('es','en')", name="language_supported"
-        ),
+        CheckConstraint("language IN ('es','en')", name="language_supported"),
     )
 
     id: Mapped[uuid.UUID] = mapped_column(primary_key=True, default=uuid.uuid4)

@@ -1,0 +1,1436 @@
+{
+  "kind": "books#volumes",
+  "totalItems": 349,
+  "items": [
+    {
+      "kind": "books#volume",
+      "id": "rsdFYoBrnCEC",
+      "etag": "uLQL6WgjioQ",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/rsdFYoBrnCEC",
+      "volumeInfo": {
+        "title": "El realismo mágico en la perspectiva europea",
+        "subtitle": "el caso de Gonzalo Torrente Ballester",
+        "authors": [
+          "Wojciech Charchalis"
+        ],
+        "publisher": "Peter Lang",
+        "publishedDate": "2005",
+        "description": "El libro trata del concepto de realismo mágico tomando como la base la convicción de que el realismo mágico es un fenómeno universal y no forma una corriente literaria restringida tan solo a América Latina. Después de un panorama de la evolución del concepto, seguido de un intento de definición del mismo, se pasa a un análisis de la obra del escritor español Gonzalo Torrente Ballester, para verificar si se puede calificar sus novellas como mágicorrealistas y, de este modo, probar la existencia del realismo mágico en España.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "082047052X"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9780820470528"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": true
+        },
+        "pageCount": 150,
+        "printType": "BOOK",
+        "categories": [
+          "Literary Collections"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "2.4.6.0.preview.1",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=rsdFYoBrnCEC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=rsdFYoBrnCEC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "es",
+        "previewLink": "http://books.google.es/books?id=rsdFYoBrnCEC&pg=PA2&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&cd=1&source=gbs_api",
+        "infoLink": "http://books.google.es/books?id=rsdFYoBrnCEC&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/El_realismo_m%C3%A1gico_en_la_perspectiva_eu.html?hl=&id=rsdFYoBrnCEC"
+      },
+      "saleInfo": {
+        "country": "ES",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "ES",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": true,
+          "acsTokenLink": "http://books.google.es/books/download/El_realismo_m%C3%A1gico_en_la_perspectiva_eu-sample-pdf.acsm?id=rsdFYoBrnCEC&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=rsdFYoBrnCEC&hl=&as_pt=BOOKS&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "... realismo y , con idéntica afición , a todo lo contrario ” ( Don Juan , Introducción , p . 9 ) , con lo que quiere indicar que la mezcla de lo real con lo fantástico en su narrativa es muy propia a su ... \u003cb\u003erealismo mágico\u003c/b\u003e , por 2."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "BSRtEAAAQBAJ",
+      "etag": "Z9EN32yv6OY",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/BSRtEAAAQBAJ",
+      "volumeInfo": {
+        "title": "Realismo mágico o una visión multidimensional de la realidad",
+        "authors": [
+          "Alejandro Martínez"
+        ],
+        "publisher": "Editorial Verbum",
+        "publishedDate": "2022-04-27",
+        "description": "Tal vez la característica que haga del realismo mágico una narrativa tan acogida es su cualidad transgresora, que se insinúa en el término mismo. El oxímoron ‘realismo mágico’ revela que las categorías de lo mágico y lo real se cuestionan por su yuxtaposición. Si se presenta lo mágico como parte de la realidad cotidiana, entonces se erosiona lo que es mágico y lo que es real; de igual modo, al alternar entre lo real y lo mágico. En este sentido, lo mágico permanece identificable como mágico y real como real, pero, a diferencia de la narrativa realista canónica, se le otorga el mismo tratamiento de seriedad. Al tener que aceptar lo real o lo mágico como las versiones de los hechos, estas se socaban continuamente por la existencia de la otra versión. La raíz de la transgresión / subversión reside en que, al cuestionar la categoría de verdad y quebrar la de lo real, los límites de otras categorías se vuelven vulnerables. La categoría de lo real no queda definida y, por consiguiente, las suposiciones de verdad están en juego. El poder transgresor del realismo mágico provee el medio de socavar la noción de una determinada verdad científica y lógica, quebrando la noción de una verdad única absoluta y dando una versión multidimensional de la realidad. Este estudio se encamina a explorar esta narrativa en la indeleble impronta de la literatura latinoamericana.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_13",
+            "identifier": "9788413378282"
+          },
+          {
+            "type": "ISBN_10",
+            "identifier": "8413378281"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": true
+        },
+        "pageCount": 82,
+        "printType": "BOOK",
+        "categories": [
+          "Literary Collections"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "0.1.2.0.preview.1",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=BSRtEAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=BSRtEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "es",
+        "previewLink": "http://books.google.es/books?id=BSRtEAAAQBAJ&pg=PA63&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&cd=2&source=gbs_api",
+        "infoLink": "https://play.google.com/store/books/details?id=BSRtEAAAQBAJ&source=gbs_api",
+        "canonicalVolumeLink": "https://play.google.com/store/books/details?id=BSRtEAAAQBAJ"
+      },
+      "saleInfo": {
+        "country": "ES",
+        "saleability": "FOR_SALE",
+        "isEbook": true,
+        "listPrice": {
+          "amount": 8.42,
+          "currencyCode": "EUR"
+        },
+        "retailPrice": {
+          "amount": 8,
+          "currencyCode": "EUR"
+        },
+        "buyLink": "https://play.google.com/store/books/details?id=BSRtEAAAQBAJ&rdid=book-BSRtEAAAQBAJ&rdot=1&source=gbs_api",
+        "offers": [
+          {
+            "finskyOfferType": 1,
+            "listPrice": {
+              "amountInMicros": 8420000,
+              "currencyCode": "EUR"
+            },
+            "retailPrice": {
+              "amountInMicros": 8000000,
+              "currencyCode": "EUR"
+            },
+            "giftable": true
+          }
+        ]
+      },
+      "accessInfo": {
+        "country": "ES",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": true,
+          "acsTokenLink": "http://books.google.es/books/download/Realismo_m%C3%A1gico_o_una_visi%C3%B3n_multidime-sample-pdf.acsm?id=BSRtEAAAQBAJ&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=BSRtEAAAQBAJ&hl=&as_pt=BOOKS&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "Alejandro Martínez. proyecto del \u003cb\u003erealismo mágico\u003c/b\u003e para revelar la íntima interde- pendencia entre la realidad y la fantasía la comparten los mo- dernistas , pero el \u003cb\u003erealismo mágico\u003c/b\u003e y el modernismo proceden por medios muy diferentes . El&nbsp;..."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "eBii6qFIDMAC",
+      "etag": "xSdhTVVQTnU",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/eBii6qFIDMAC",
+      "volumeInfo": {
+        "title": "Realismo Mágico",
+        "authors": [
+          "Franz Roh"
+        ],
+        "publishedDate": "1927",
+        "industryIdentifiers": [
+          {
+            "type": "OTHER",
+            "identifier": "UGA:32108028999525"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 230,
+        "printType": "BOOK",
+        "categories": [
+          "Expressionism (Art)"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "0.4.3.0.preview.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=eBii6qFIDMAC&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=eBii6qFIDMAC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        },
+        "language": "es",
+        "previewLink": "http://books.google.es/books?id=eBii6qFIDMAC&q=realismo+m%C3%A1gico&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&cd=3&source=gbs_api",
+        "infoLink": "http://books.google.es/books?id=eBii6qFIDMAC&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Realismo_M%C3%A1gico.html?hl=&id=eBii6qFIDMAC"
+      },
+      "saleInfo": {
+        "country": "ES",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "ES",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=eBii6qFIDMAC&hl=&as_pt=BOOKS&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "Franz Roh. $ \u003cb\u003eREALISMO MAGICO\u003c/b\u003e POST EXPRESIONISMO BIBLIOTECA DE LA REVISTA DE OCCIDENTE."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "UWtDv2tf7msC",
+      "etag": "szv3fEZ/A+Y",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/UWtDv2tf7msC",
+      "volumeInfo": {
+        "title": "Lectura crítica de la literatura americana",
+        "subtitle": "inventarios, invenciones y revisiones",
+        "authors": [
+          "Saúl Sosnowski"
+        ],
+        "publisher": "Fundacion Biblioteca Ayacuch",
+        "publishedDate": "1996",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "9802762938"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9789802762934"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 830,
+        "printType": "BOOK",
+        "categories": [
+          "Criticism"
+        ],
+        "averageRating": 5,
+        "ratingsCount": 1,
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "2.4.5.0.preview.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=UWtDv2tf7msC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=UWtDv2tf7msC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "es",
+        "previewLink": "http://books.google.es/books?id=UWtDv2tf7msC&pg=PR79&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&cd=4&source=gbs_api",
+        "infoLink": "http://books.google.es/books?id=UWtDv2tf7msC&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Lectura_cr%C3%ADtica_de_la_literatura_americ.html?hl=&id=UWtDv2tf7msC"
+      },
+      "saleInfo": {
+        "country": "ES",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "ES",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=UWtDv2tf7msC&hl=&as_pt=BOOKS&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "... \u003cb\u003erealismo mágico\u003c/b\u003e ” : Angel Flores , “ Magical Realism in Spanish - American Fiction &quot; , Hispania , XXXVIII , 1 ( 1955 ) , pp . 187-92 , reproducido luego como “ El \u003cb\u003erealismo mágico\u003c/b\u003e en la narrativa hispanoamericana &quot; en Angel Flores&nbsp;..."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "ajddAAAAMAAJ",
+      "etag": "/8yPpyuv+Z0",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/ajddAAAAMAAJ",
+      "volumeInfo": {
+        "title": "Realismo mágico, pintura y literatura, 1918-1981",
+        "publishedDate": "1994",
+        "industryIdentifiers": [
+          {
+            "type": "OTHER",
+            "identifier": "UTEXAS:059173001593343"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 56,
+        "printType": "BOOK",
+        "categories": [
+          "Arts, Modern"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "0.9.4.0.preview.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=ajddAAAAMAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=ajddAAAAMAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        },
+        "language": "es",
+        "previewLink": "http://books.google.es/books?id=ajddAAAAMAAJ&q=realismo+m%C3%A1gico&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&cd=5&source=gbs_api",
+        "infoLink": "http://books.google.es/books?id=ajddAAAAMAAJ&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Realismo_m%C3%A1gico_pintura_y_literatura_19.html?hl=&id=ajddAAAAMAAJ"
+      },
+      "saleInfo": {
+        "country": "ES",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "ES",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=ajddAAAAMAAJ&hl=&as_pt=BOOKS&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "El \u003cb\u003erealismo mágico\u003c/b\u003e en la pintura y en la literatura de tres continentes : 1918-1978 Aunque Aunque casi todos los conferencistas solemos prometer al público contestar a todas sus preguntas después de la ... \u003cb\u003erealismo mágico\u003c/b\u003e ..."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "z-EoAQAAIAAJ",
+      "etag": "00swRXdM2Zs",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/z-EoAQAAIAAJ",
+      "volumeInfo": {
+        "title": "El realismo mágico",
+        "subtitle": "Borges, Carpentier, Cortázar, García Márquez, Onetti, Rulfo : con introducción y antecedentes, aspectos generales, sinopsis, comentario y análisis guiado, autoevaluación y bibliografía",
+        "authors": [
+          "Yolanda Argudín Vázquez"
+        ],
+        "publishedDate": "1992",
+        "industryIdentifiers": [
+          {
+            "type": "OTHER",
+            "identifier": "UCSC:32106013806747"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 88,
+        "printType": "BOOK",
+        "categories": [
+          "Authors, Spanish American"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "3.9.2.0.preview.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=z-EoAQAAIAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=z-EoAQAAIAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        },
+        "language": "es",
+        "previewLink": "http://books.google.es/books?id=z-EoAQAAIAAJ&q=realismo+m%C3%A1gico&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&cd=6&source=gbs_api",
+        "infoLink": "http://books.google.es/books?id=z-EoAQAAIAAJ&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/El_realismo_m%C3%A1gico.html?hl=&id=z-EoAQAAIAAJ"
+      },
+      "saleInfo": {
+        "country": "ES",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "ES",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=z-EoAQAAIAAJ&hl=&as_pt=BOOKS&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "... \u003cb\u003erealismo mágico\u003c/b\u003e explica que la realidad se transforma en un mundo mágico sin que aquélla se deforme . 6. La metamorfosis , porque la realidad cotidiana se ve inundada por un hecho fantástico . 7. Desde las obras de los primeros&nbsp;..."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "N1qI2lt7mRAC",
+      "etag": "P3puVV7n8iU",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/N1qI2lt7mRAC",
+      "volumeInfo": {
+        "title": "Los pasos recobrados",
+        "subtitle": "ensayos de teoría y crítica literaria",
+        "authors": [
+          "Alejo Carpentier"
+        ],
+        "publisher": "Fundacion Biblioteca Ayacuch",
+        "publishedDate": "2003",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "9802763543"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9789802763542"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 464,
+        "printType": "BOOK",
+        "categories": [
+          "Latin American literature"
+        ],
+        "averageRating": 2,
+        "ratingsCount": 2,
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "0.5.5.0.preview.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=N1qI2lt7mRAC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=N1qI2lt7mRAC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "es",
+        "previewLink": "http://books.google.es/books?id=N1qI2lt7mRAC&pg=PA81&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&cd=7&source=gbs_api",
+        "infoLink": "http://books.google.es/books?id=N1qI2lt7mRAC&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Los_pasos_recobrados.html?hl=&id=N1qI2lt7mRAC"
+      },
+      "saleInfo": {
+        "country": "ES",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "ES",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=N1qI2lt7mRAC&hl=&as_pt=BOOKS&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "... maravilloso . Pero muchas personas me dicen a veces : “ Pero en fin , hay una cosa que se ha llamado el \u003cb\u003erealismo mágico\u003c/b\u003e ; ¿ qué dife- rencia hay entre el \u003cb\u003erealismo mágico\u003c/b\u003e y lo real maravilloso ? ” . Y si nos ponemos a ver , ¿ qué&nbsp;..."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "WF9dAAAAMAAJ",
+      "etag": "vEtyM30lQh8",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/WF9dAAAAMAAJ",
+      "volumeInfo": {
+        "title": "Realismo mágico y lo real maravilloso",
+        "subtitle": "una cuestión de verosimilitud : espacio y actitud en cuatro novelas latinoamericanas",
+        "authors": [
+          "Alicia Llarena",
+          "Alicia Llarena Rosales"
+        ],
+        "publisher": "Hispamerica",
+        "publishedDate": "1997",
+        "industryIdentifiers": [
+          {
+            "type": "OTHER",
+            "identifier": "UOM:39015042157415"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 342,
+        "printType": "BOOK",
+        "categories": [
+          "Literary Criticism"
+        ],
+        "averageRating": 3,
+        "ratingsCount": 1,
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "0.9.3.0.preview.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=WF9dAAAAMAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=WF9dAAAAMAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        },
+        "language": "es",
+        "previewLink": "http://books.google.es/books?id=WF9dAAAAMAAJ&q=realismo+m%C3%A1gico&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&cd=8&source=gbs_api",
+        "infoLink": "http://books.google.es/books?id=WF9dAAAAMAAJ&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Realismo_m%C3%A1gico_y_lo_real_maravilloso.html?hl=&id=WF9dAAAAMAAJ"
+      },
+      "saleInfo": {
+        "country": "ES",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "ES",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=WF9dAAAAMAAJ&hl=&as_pt=BOOKS&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "... \u003cb\u003eRealismo\u003c/b\u003e Maravilloso . En cuanto a las relaciones pragmáticas , Chiampi establece una distin- ción entre la poética fantástica y la poética realmaravillosa , señalando que el efecto discursivo de la primera es el &quot; miedo ” , frente al&nbsp;..."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "HqxOt92WKZoC",
+      "etag": "rp1THWiqI20",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/HqxOt92WKZoC",
+      "volumeInfo": {
+        "title": "Noticias historiales de Venezuela",
+        "authors": [
+          "Pedro Simón"
+        ],
+        "publisher": "Fundacion Biblioteca Ayacuch",
+        "publishedDate": "1992",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "9802762083"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9789802762088"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 464,
+        "printType": "BOOK",
+        "categories": [
+          "Indians"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "2.4.6.0.preview.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=HqxOt92WKZoC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=HqxOt92WKZoC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "es",
+        "previewLink": "http://books.google.es/books?id=HqxOt92WKZoC&pg=PR40&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&cd=9&source=gbs_api",
+        "infoLink": "http://books.google.es/books?id=HqxOt92WKZoC&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Noticias_historiales_de_Venezuela.html?hl=&id=HqxOt92WKZoC"
+      },
+      "saleInfo": {
+        "country": "ES",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "ES",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=HqxOt92WKZoC&hl=&as_pt=BOOKS&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "... \u003cb\u003erealismo mágico\u003c/b\u003e &quot; 46 . Seguramente un analista de la literatura , un crítico , podría encontrar las diferencias y semejanzas que haya entre \u003cb\u003erealismo mágico\u003c/b\u003e ( original de Arturo Uslar Pietri ) y real maravilloso ( original de Alejo&nbsp;..."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "U31AAAAAYAAJ",
+      "etag": "KaepKG4kGSQ",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/U31AAAAAYAAJ",
+      "volumeInfo": {
+        "title": "El realismo mágico y otros ensayos",
+        "authors": [
+          "Enrique Anderson Imbert"
+        ],
+        "publishedDate": "1976",
+        "industryIdentifiers": [
+          {
+            "type": "OTHER",
+            "identifier": "UTEXAS:059173026907780"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 188,
+        "printType": "BOOK",
+        "categories": [
+          "Critica literaria"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "0.5.3.0.preview.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=U31AAAAAYAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=U31AAAAAYAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        },
+        "language": "es",
+        "previewLink": "http://books.google.es/books?id=U31AAAAAYAAJ&q=realismo+m%C3%A1gico&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&cd=10&source=gbs_api",
+        "infoLink": "http://books.google.es/books?id=U31AAAAAYAAJ&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/El_realismo_m%C3%A1gico_y_otros_ensayos.html?hl=&id=U31AAAAAYAAJ"
+      },
+      "saleInfo": {
+        "country": "ES",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "ES",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=U31AAAAAYAAJ&hl=&as_pt=BOOKS&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "Enrique Anderson Imbert. cuando parece que va a separar &quot; \u003cb\u003erealismo mágico\u003c/b\u003e &quot; de &quot; literatura fantástica &quot; las refunde al dar como ejemplo de &quot; \u003cb\u003erealismo mágico\u003c/b\u003e &quot; el cuento de Carpen- tier &quot; Viaje a la semilla &quot; , cuento que por narrar una&nbsp;..."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "VPpeAAAAMAAJ",
+      "etag": "yGSyVUt68LE",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/VPpeAAAAMAAJ",
+      "volumeInfo": {
+        "title": "Realismo mágico y lo real maravilloso en El reino de este mundo y El siglo de las luces",
+        "authors": [
+          "Juan Barroso"
+        ],
+        "publishedDate": "1977",
+        "industryIdentifiers": [
+          {
+            "type": "OTHER",
+            "identifier": "UOM:39015001539256"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 184,
+        "printType": "BOOK",
+        "categories": [
+          "Marvelous, The, in literature"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "0.5.1.0.preview.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=VPpeAAAAMAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=VPpeAAAAMAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        },
+        "language": "es",
+        "previewLink": "http://books.google.es/books?id=VPpeAAAAMAAJ&q=realismo+m%C3%A1gico&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&cd=11&source=gbs_api",
+        "infoLink": "http://books.google.es/books?id=VPpeAAAAMAAJ&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Realismo_m%C3%A1gico_y_lo_real_maravilloso_e.html?hl=&id=VPpeAAAAMAAJ"
+      },
+      "saleInfo": {
+        "country": "ES",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "ES",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=VPpeAAAAMAAJ&hl=&as_pt=BOOKS&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "... \u003cb\u003erealismo mágico\u003c/b\u003e &quot; y &quot; lo real mara- villoso &quot; , así como la inclusión de Alejo Carpentier como autor mágicorrealista . Se establece además una ... realismo mágico &quot; y el carpenteriano de &quot; lo real maravilloso 10 JUAN BARROSO."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "7vUfapNfESkC",
+      "etag": "ruVQUwBBoDI",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/7vUfapNfESkC",
+      "volumeInfo": {
+        "title": "Ficciones ; El aleph ; El informe de Brodie",
+        "authors": [
+          "Jorge Luis Borges",
+          "Horacio Jorge Becco"
+        ],
+        "publisher": "Fundacion Biblioteca Ayacuch",
+        "publishedDate": "1986",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "9802760013"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9789802760015"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 332,
+        "printType": "BOOK",
+        "categories": [
+          "Argentine literature"
+        ],
+        "averageRating": 4.5,
+        "ratingsCount": 4,
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "0.4.5.0.preview.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=7vUfapNfESkC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=7vUfapNfESkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "es",
+        "previewLink": "http://books.google.es/books?id=7vUfapNfESkC&pg=PR17&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&cd=12&source=gbs_api",
+        "infoLink": "http://books.google.es/books?id=7vUfapNfESkC&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Ficciones_El_aleph_El_informe_de_Brodie.html?hl=&id=7vUfapNfESkC"
+      },
+      "saleInfo": {
+        "country": "ES",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "ES",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=7vUfapNfESkC&hl=&as_pt=BOOKS&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "... \u003cb\u003erealismo mágico\u003c/b\u003e » en favor de « realismo maravilloso » , designación que en su opinión presenta « ventajas de orden lexical , poético e histórico » .1s Como tal , el realismo maravilloso se opone a lo fantástico ( en cuyo universo se&nbsp;..."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "ZSnSaQXsYG4C",
+      "etag": "b5GySa1niaU",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/ZSnSaQXsYG4C",
+      "volumeInfo": {
+        "title": "Posiciones en la enseñanza",
+        "authors": [
+          "Elizabeth Ellsworth"
+        ],
+        "publisher": "Ediciones AKAL",
+        "publishedDate": "2005-06",
+        "description": "Análisis crítico de la función pedagógica a partir del concepto de direccionalidad heredado de los estudios fílmicos y de medios.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_13",
+            "identifier": "9788446015833"
+          },
+          {
+            "type": "ISBN_10",
+            "identifier": "8446015838"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": true
+        },
+        "pageCount": 199,
+        "printType": "BOOK",
+        "categories": [
+          "Education"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "1.4.3.0.preview.1",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=ZSnSaQXsYG4C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=ZSnSaQXsYG4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "es",
+        "previewLink": "http://books.google.es/books?id=ZSnSaQXsYG4C&pg=RA1-PA179&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&cd=13&source=gbs_api",
+        "infoLink": "http://books.google.es/books?id=ZSnSaQXsYG4C&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Posiciones_en_la_ense%C3%B1anza.html?hl=&id=ZSnSaQXsYG4C"
+      },
+      "saleInfo": {
+        "country": "ES",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "ES",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": true,
+          "acsTokenLink": "http://books.google.es/books/download/Posiciones_en_la_ense%C3%B1anza-sample-pdf.acsm?id=ZSnSaQXsYG4C&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=ZSnSaQXsYG4C&hl=&as_pt=BOOKS&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "Elizabeth Ellsworth. \u003cb\u003erealismo mágico\u003c/b\u003e como un fenómeno de influencia mundial con una larga historia. Entre los escritores que a menudo se identifican con el \u003cb\u003erealismo mágico\u003c/b\u003e se encuentran Toni Morrison, Günter Grass, Salman Rushdie, Derek&nbsp;..."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "Rt5WAAAAYAAJ",
+      "etag": "26OjbjONsec",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/Rt5WAAAAYAAJ",
+      "volumeInfo": {
+        "title": "Realismo \"mágico\" en Cervantes",
+        "subtitle": "Don Quijote",
+        "authors": [
+          "Arturo Serrano Plaja"
+        ],
+        "publishedDate": "1967",
+        "industryIdentifiers": [
+          {
+            "type": "OTHER",
+            "identifier": "UVA:X000884187"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 256,
+        "printType": "BOOK",
+        "categories": [
+          "Sawyer, Tom (Fictitious character)"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "0.5.1.0.preview.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=Rt5WAAAAYAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=Rt5WAAAAYAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        },
+        "language": "es",
+        "previewLink": "http://books.google.es/books?id=Rt5WAAAAYAAJ&q=realismo+m%C3%A1gico&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&cd=14&source=gbs_api",
+        "infoLink": "http://books.google.es/books?id=Rt5WAAAAYAAJ&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Realismo_m%C3%A1gico_en_Cervantes.html?hl=&id=Rt5WAAAAYAAJ"
+      },
+      "saleInfo": {
+        "country": "ES",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "ES",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=Rt5WAAAAYAAJ&hl=&as_pt=BOOKS&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "... magia , más un complemento de malicia -de cierta malicia . Se trata de un trozo de Huckleberry Finn en el que Tom , Huck y los &#39; suyos ... \u003cb\u003eRealismo mágico\u003c/b\u003e . - 3 allí centenares de soldados , elefantes , un tesoro y ¿ Loco o cuerdo ? 33."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "OU1lAAAAMAAJ",
+      "etag": "45sKCm2Oq18",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/OU1lAAAAMAAJ",
+      "volumeInfo": {
+        "title": "Comentarios filológicos sobre el realismo mágico",
+        "authors": [
+          "José Manuel Camacho Delgado"
+        ],
+        "publisher": "Arco Libros",
+        "publishedDate": "2006",
+        "description": "El libro Comentarios filológicos sobre el realismo mágico es un acercamiento teórico y práctico a una de las corrientes literarias más singulares e importantes de la narrativa hispanoamericana del siglo XX. En el capítulo introductorio, el autor hace un recorrido por los orígenes de este movimiento estético, señalando las oportunas filiaciones técnicas y formales con el surrealismo francés del que participaron algunos de sus representantes - como Miguel Ángel Asturias, Alejo Carpentier o Arturo Uslar Pietri-, reconstruyendo la controversia crítica existente sobre el origen y la paternidad del marbete “realismo mágico”, aplicado al ámbito de las letras, al tiempo que se pone en relación a esta corriente con la conciencia mítica hispanoamericana y sus conexiones con las culturas precolombinas, el mestizaje cultural o el sincretismo religioso característico de estos pueblos. La obra se centra en dos de sus principales artífices, el escritor guatemalteco Miguel Ángel Asturias (Premio Nobel 1967) y el cubano Alejo Carpentier. Del primero de ellos se analizan textos pertenecientes a su novela El Señor Presidente (1946), obra que consagra no sólo la estética del realismo mágico, sino también la tipología de la novela de la dictadura. Para Carpentier se han elegido textos de El reino de este mundo (1949), novela emblemática de la nueva narrativa hispanoamericana, cuyo “Prólogo” es un manifiesto programático de su concepción de la nueva estética, a la que el escritor llamó “lo real maravilloso”. Cada una de las obras propuestas, además de contar con una introducción general, son analizadas desde una doble perspectiva -exocrítica (lectura contextual) y endocrítica (análisis filológico del texto)- con el objeto de ofrecer una visión lo más compleja y ecléctica posible del quehacer literario.",
+        "industryIdentifiers": [
+          {
+            "type": "OTHER",
+            "identifier": "UOM:39015069333766"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 92,
+        "printType": "BOOK",
+        "categories": [
+          "Magic realism (Literature)."
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "0.5.2.0.preview.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=OU1lAAAAMAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=OU1lAAAAMAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        },
+        "language": "es",
+        "previewLink": "http://books.google.es/books?id=OU1lAAAAMAAJ&q=realismo+m%C3%A1gico&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&cd=15&source=gbs_api",
+        "infoLink": "http://books.google.es/books?id=OU1lAAAAMAAJ&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Comentarios_filol%C3%B3gicos_sobre_el_realis.html?hl=&id=OU1lAAAAMAAJ"
+      },
+      "saleInfo": {
+        "country": "ES",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "ES",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=OU1lAAAAMAAJ&hl=&as_pt=BOOKS&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "... mágico tuvo que ajustarse a una nueva categoría conceptual , dejando a un lado el mundo de las imágenes , y tomando en consi- deración los nuevos márgenes semánticos ganados por la palabra . En esta nueva dimensión el \u003cb\u003erealismo mágico\u003c/b\u003e&nbsp;..."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "C8FHAAAAYAAJ",
+      "etag": "U4XQZqkpR3w",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/C8FHAAAAYAAJ",
+      "volumeInfo": {
+        "title": "Realismo mágico y conciencia mítica en América Latina",
+        "subtitle": "textos y contextos",
+        "authors": [
+          "Graciela N. Ricci Della Grisa"
+        ],
+        "publishedDate": "1985",
+        "industryIdentifiers": [
+          {
+            "type": "OTHER",
+            "identifier": "UTEXAS:059173026905741"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 236,
+        "printType": "BOOK",
+        "categories": [
+          "Latin American fiction"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "0.5.2.0.preview.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=C8FHAAAAYAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=C8FHAAAAYAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        },
+        "language": "es",
+        "previewLink": "http://books.google.es/books?id=C8FHAAAAYAAJ&q=realismo+m%C3%A1gico&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&cd=16&source=gbs_api",
+        "infoLink": "http://books.google.es/books?id=C8FHAAAAYAAJ&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Realismo_m%C3%A1gico_y_conciencia_m%C3%ADtica_en.html?hl=&id=C8FHAAAAYAAJ"
+      },
+      "saleInfo": {
+        "country": "ES",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "ES",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=C8FHAAAAYAAJ&hl=&as_pt=BOOKS&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "... Fantástico y Neo - fantástico : diferencias 122 IV.1.4 . Narrativa realista . fantástica y real - mágico - maravillosa : coincidencias y disidencias 124 IV.2 . \u003cb\u003eRealismo Mágico\u003c/b\u003e Maravilloso : ¿ transgresión categorial o superación de&nbsp;..."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "Zk5IAAAAYAAJ",
+      "etag": "Twlevm3cqTM",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/Zk5IAAAAYAAJ",
+      "volumeInfo": {
+        "title": "El realismo mágico en el cuento hispanoamericano",
+        "authors": [
+          "Angel Flores"
+        ],
+        "publishedDate": "1985",
+        "industryIdentifiers": [
+          {
+            "type": "OTHER",
+            "identifier": "UTEXAS:059173026936360"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 290,
+        "printType": "BOOK",
+        "categories": [
+          "Cuentos latinoamericanos"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "1.5.4.0.preview.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=Zk5IAAAAYAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=Zk5IAAAAYAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        },
+        "language": "es",
+        "previewLink": "http://books.google.es/books?id=Zk5IAAAAYAAJ&q=realismo+m%C3%A1gico&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&cd=17&source=gbs_api",
+        "infoLink": "http://books.google.es/books?id=Zk5IAAAAYAAJ&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/El_realismo_m%C3%A1gico_en_el_cuento_hispano.html?hl=&id=Zk5IAAAAYAAJ"
+      },
+      "saleInfo": {
+        "country": "ES",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "ES",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=Zk5IAAAAYAAJ&hl=&as_pt=BOOKS&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "Angel Flores. EL AMBITO DEL REALISMO Ralph Flores El término &quot; realismo &quot; es problemático - por ser difuso , pro- teico- ya se use para describir una actitud hacia la ... REALISMO Y \u003cb\u003eREALISMO MAGICO\u003c/b\u003e El ámbito del realismo - Ralph Flores."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "hciEAAAAIAAJ",
+      "etag": "Liw10i5RKzQ",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/hciEAAAAIAAJ",
+      "volumeInfo": {
+        "title": "Historia verdadera del realismo mágico",
+        "authors": [
+          "Seymour Menton"
+        ],
+        "publisher": "Fondo de Cultura Economica USA",
+        "publishedDate": "1998",
+        "description": "El cr tico alem n Franz Roh acu en 1925 el t rmino \"realismo m gico\" como respuesta a la nuevas tendencias en el mundo pl stico despu s del expresionismo. Tiempo despu s, varios cr ticos literarios confundieron el realismo m gico con lo fant stico; otros con el surrealismo y muchos latinoamericanos han hecho lo propio con lo real maravilloso. la presente obra es un desaf o abierto a la multiplicidad de estudios que, primordialmente de orientaci n te rica, han intentado sin xito definir el t rmino \"realismo m gico\".",
+        "industryIdentifiers": [
+          {
+            "type": "OTHER",
+            "identifier": "UCSC:32106016749340"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 272,
+        "printType": "BOOK",
+        "categories": [
+          "Art"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "0.12.2.0.preview.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=hciEAAAAIAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=hciEAAAAIAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        },
+        "language": "es",
+        "previewLink": "http://books.google.es/books?id=hciEAAAAIAAJ&q=realismo+m%C3%A1gico&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&cd=18&source=gbs_api",
+        "infoLink": "http://books.google.es/books?id=hciEAAAAIAAJ&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Historia_verdadera_del_realismo_m%C3%A1gico.html?hl=&id=hciEAAAAIAAJ"
+      },
+      "saleInfo": {
+        "country": "ES",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "ES",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=hciEAAAAIAAJ&hl=&as_pt=BOOKS&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "El cr tico alem n Franz Roh acu en 1925 el t rmino &quot;realismo m gico&quot; como respuesta a la nuevas tendencias en el mundo pl stico despu s del expresionismo."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "tynaxRB18ZwC",
+      "etag": "Nn4vrjjbT98",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/tynaxRB18ZwC",
+      "volumeInfo": {
+        "title": "El cuento fantástico en Puerto Rico y Cuba",
+        "subtitle": "estudio teórico y su aplicación a varios cuentos contemporáneos",
+        "authors": [
+          "Mervin Román Capeles"
+        ],
+        "publisher": "Edition Reichenberger",
+        "publishedDate": "1995",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "3930700085"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9783930700080"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": true
+        },
+        "pageCount": 160,
+        "printType": "BOOK",
+        "categories": [
+          "Cuban fiction"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "1.5.5.0.preview.1",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=tynaxRB18ZwC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=tynaxRB18ZwC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "es",
+        "previewLink": "http://books.google.es/books?id=tynaxRB18ZwC&pg=PA24&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&cd=19&source=gbs_api",
+        "infoLink": "http://books.google.es/books?id=tynaxRB18ZwC&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/El_cuento_fant%C3%A1stico_en_Puerto_Rico_y_C.html?hl=&id=tynaxRB18ZwC"
+      },
+      "saleInfo": {
+        "country": "ES",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "ES",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": true,
+          "acsTokenLink": "http://books.google.es/books/download/El_cuento_fant%C3%A1stico_en_Puerto_Rico_y_C-sample-pdf.acsm?id=tynaxRB18ZwC&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=tynaxRB18ZwC&hl=&as_pt=BOOKS&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "... \u003cb\u003erealismo mágico\u003c/b\u003e , que a veces se confunde con lo fantástico . Anderson Imbert en su ensayo &quot; El &#39; \u003cb\u003erealismo mágico\u003c/b\u003e &#39; en la ficción hispanoamericana &quot; hace una distinción entre lo fantástico y el \u003cb\u003erealismo mágico\u003c/b\u003e . Primeramente , equipara lo&nbsp;..."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "9toHAQAAIAAJ",
+      "etag": "X52LQKjQkK0",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/9toHAQAAIAAJ",
+      "volumeInfo": {
+        "title": "El realismo mágico y otras herencias de Julio Cortázar",
+        "authors": [
+          "Teresinka Pereira"
+        ],
+        "publishedDate": "1976",
+        "industryIdentifiers": [
+          {
+            "type": "OTHER",
+            "identifier": "STANFORD:36105039071902"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 44,
+        "printType": "BOOK",
+        "categories": [
+          "Fantasy fiction, Latin American"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "0.6.1.0.preview.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=9toHAQAAIAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=9toHAQAAIAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        },
+        "language": "es",
+        "previewLink": "http://books.google.es/books?id=9toHAQAAIAAJ&q=realismo+m%C3%A1gico&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&cd=20&source=gbs_api",
+        "infoLink": "http://books.google.es/books?id=9toHAQAAIAAJ&dq=realismo+m%C3%A1gico&hl=&as_pt=BOOKS&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/El_realismo_m%C3%A1gico_y_otras_herencias_de.html?hl=&id=9toHAQAAIAAJ"
+      },
+      "saleInfo": {
+        "country": "ES",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "ES",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=9toHAQAAIAAJ&hl=&as_pt=BOOKS&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "... \u003cb\u003erealismo mágico\u003c/b\u003e en Hispanoamérica &quot; donde el editc traza una rapida historia del término y del desarrollo del \u003cb\u003erealismo mágico\u003c/b\u003e . Carter apunta cómo la primera obra que ha dado fuerza al movimiento de literatura realista mágica er&nbsp;..."
+      }
+    }
+  ]
+}
