@@ -17,7 +17,7 @@ SOURCE = "open_library"
 
 FIELDS = (
     "key,title,author_name,isbn,language,first_publish_year,"
-    "number_of_page_median,rating_average,ratings_count,cover_i,subject"
+    "number_of_pages_median,ratings_average,ratings_count,cover_i,subject"
 )
 
 # Open Library uses 3-letter (MARC) language codes.
@@ -57,7 +57,7 @@ async def search_open_library(
 ) -> list[BookCandidate]:
     """Search Open Library. Raises httpx.HTTPError if the request fails."""
     params: dict[str, str | int] = {
-        "q": f"{query} language: {LANGUAGE_CODES[language]}",
+        "q": f"{query} language:{LANGUAGE_CODES[language]}",
         "fields": FIELDS,
         "limit": limit,
     }
@@ -81,8 +81,8 @@ def parse_open_library(
                 "Skipping invalid Open Library doc %s: %s", doc.get("key"), e
             )
             continue
-    if book is not None:
-        books.append(doc)
+        if book is not None:
+            books.append(book)
 
     return books
 

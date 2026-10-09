@@ -40,6 +40,6 @@ def _fill_gaps(base: BookCandidate, extra: BookCandidate) -> BookCandidate:
         for field in FILLABLE_FIELDS
         if not getattr(base, field) and getattr(extra, field)
     }
-    updates["source"] = f"{base.source} + {extra.source}"
+    updates["source"] = f"{base.source}+{extra.source}"
     # model_copy returns a NEW object; the input books are never modified
     return base.model_copy(update=updates)
