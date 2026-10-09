@@ -1,0 +1,54 @@
+{
+  "numFound": 7,
+  "start": 0,
+  "docs": [
+    {
+      "key": "/works/OL1W",
+      "title": "Complete work",
+      "author_name": ["Ana García"],
+      "isbn": ["0307474720", "9788437604947"],
+      "language": ["spa", "eng"],
+      "first_publish_year": 1967,
+      "number_of_pages_median": 471,
+      "ratings_average": 4.26,
+      "ratings_count": 310,
+      "cover_i": 12345,
+      "subject": ["Fiction", "Magic realism", "Families", "Colombia", "Classics", "Nobel"]
+    },
+    {
+      "key": "/works/OL2W",
+      "title": "English-only work",
+      "isbn": ["9780000000002"],
+      "language": ["eng"]
+    },
+    {
+      "key": "/works/OL3W",
+      "title": "Spanish work without any ISBN",
+      "language": ["spa"]
+    },
+    {
+      "key": "/works/OL4W",
+      "title": "Spanish work with only English-market ISBNs",
+      "isbn": ["9780000000002"],
+      "language": ["spa"]
+    },
+    {
+      "key": "/works/OL5W",
+      "title": "Work without a language field",
+      "isbn": ["9788401242267"]
+    },
+    {
+      "key": "/works/OL6W",
+      "title": "Argentine edition, no rating count, no cover",
+      "isbn": ["not-an-isbn", "978-950-07-1234-7"],
+      "language": ["spa"],
+      "ratings_average": 3.0,
+      "ratings_count": 0
+    },
+    {
+      "key": "/works/OL7W",
+      "isbn": ["9788401242267"],
+      "language": ["spa"]
+    }
+  ]
+}

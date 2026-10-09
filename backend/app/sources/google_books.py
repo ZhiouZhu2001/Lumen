@@ -54,14 +54,14 @@ def parse_google_books(
 
 
 def _parse_volume(item: dict[str, Any], language: Language) -> BookCandidate | None:
-    
+
     info = item.get("volumeInfo", {})
-    
+
     isbn13 = _pick_isbn13(info.get("industryIdentifiers", []))
     if isbn13 is None:
-        return None # spec: books without an ISBN are dropped
+        return None  # spec: books without an ISBN are dropped
     if info.get("language") != language:
-        return None # langRestrict is a hint, not a guarantee
+        return None  # langRestrict is a hint, not a guarantee
 
     return BookCandidate(
         isbn13=isbn13,
