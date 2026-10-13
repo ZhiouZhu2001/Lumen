@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 OPEN_LIBRARY_URL = "https://openlibrary.org/search.json"
 SOURCE = "open_library"
 
-# Only as for the fields we use: smaller, faster responses.
+# Only ask for the fields we use: smaller, faster responses.
 
 FIELDS = (
     "key,title,author_name,isbn,language,first_publish_year,"
@@ -110,7 +110,7 @@ def _parse_doc(doc: dict[str, Any], language: Language) -> BookCandidate | None:
 
 
 def _pick_isbn13(raw_isbns: list[str], language: Language) -> str | None:
-    # A word lists ISBNs of ALL its editions (Spanish, English, French...).
+    # A work lists ISBNs of ALL its editions (Spanish, English, French...).
     # Take the first one published in the requested language's market.
     for raw in raw_isbns:
         isbn13 = to_isbn13(raw)
