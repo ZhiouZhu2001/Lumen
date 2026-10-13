@@ -67,19 +67,20 @@ async def test_search_sends_expected_params() -> None:
     def handler(request: httpx.Request) -> httpx.Response:
         seen["url"] = str(request.url.copy_with(query=None))
         seen["params"] = dict(request.url.params)
+        seen["api_key_header"] = request.headers.get("X-Goog-Api-Key")
         return httpx.Response(200, json=load("google_books_edge_cases.json"))
 
     async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
         books = await search_google_books(client, "realismo mágico", "es", api_key="k")
 
     assert seen["url"] == GOOGLE_BOOKS_URL
-    assert seen["params"] == {
+    assert seen["params"] == {  # no "key" here: it must never be in the URL
         "q": "realismo mágico",
         "langRestrict": "es",
         "printType": "books",
         "maxResults": "20",
-        "key": "k",
     }
+    assert seen["api_key_header"] == "k"
     assert len(books) == 3
 
 

@@ -28,9 +28,8 @@ async def search_google_books(
         "printType": "books",
         "maxResults": max_results,
     }
-    if api_key:
-        params["key"] = api_key
-    response = await client.get(GOOGLE_BOOKS_URL, params=params)
+    headers = {"X-Goog-Api-Key": api_key} if api_key else {}
+    response = await client.get(GOOGLE_BOOKS_URL, params=params, headers=headers)
     response.raise_for_status()
     return parse_google_books(response.json(), language)
 
