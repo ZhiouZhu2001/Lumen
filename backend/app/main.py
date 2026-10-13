@@ -6,6 +6,7 @@ from app.api.health import router as health_router
 from app.cache import make_redis
 from app.config import get_settings
 from app.db import make_engine
+from app.http_client import make_http_client
 
 
 @asynccontextmanager
@@ -14,10 +15,12 @@ async def lifespan(app: FastAPI):
     settings = get_settings()
     app.state.engine = make_engine(settings.database_url, echo=settings.sql_echo)
     app.state.redis = make_redis(settings.redis_url)
+    app.state.http = make_http_client()
 
     yield  # This is where the application runs
 
     # Clean up resources here
+    await app.state.http.aclose()
     await app.state.redis.aclose()
     await app.state.engine.dispose()
 

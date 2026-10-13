@@ -14,7 +14,8 @@ FILLABLE_FIELDS = (
 
 
 def merge_candidates(
-    primary: list[BookCandidate], secondary : list[BookCandidate],
+    primary: list[BookCandidate],
+    secondary: list[BookCandidate],
 ) -> list[BookCandidate]:
     """Combine two sources into one list with one book per ISBN-13.
 
