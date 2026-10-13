@@ -7,7 +7,7 @@ async def test_client_sends_user_agent() -> None:
     seen = {}
 
     def handler(request: httpx.Request) -> httpx.Response:
-        seen["user_agent"] = request.headers["User_Agent"]
+        seen["user_agent"] = request.headers["User-Agent"]
         return httpx.Response(200)
 
     async with make_http_client(transport=httpx.MockTransport(handler)) as client:
