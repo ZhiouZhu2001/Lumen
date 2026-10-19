@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
   },
   // Send every /api/... request from the browser on to the backend.
   async rewrites() {
-    return [{ source: "/api/:path", destination: `${BACKEND_URL}/api/:path*` }];
+    return [{ source: "/api/:path*", destination: `${BACKEND_URL}/api/:path*` }];
   },
 };
 

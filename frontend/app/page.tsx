@@ -68,7 +68,7 @@ export default function Home() {
         {books.map((book) => (
           <li key={book.isbn13}>
             <span className="font-medium">{book.title}</span>
-            <span className="text-zinc-600"> - {book.authors.join(",")}</span>
+            <span className="text-zinc-600"> - {book.authors.join(", ")}</span>
           </li>
         ))}
       </ul>
