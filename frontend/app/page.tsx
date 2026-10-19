@@ -2,12 +2,8 @@
 
 import { useState, type FormEvent } from "react";
 
-type Book = {
-  isbn13: string,
-  title: string,
-  authors: string[],
-  published_year: number | null;
-}
+import BookCard from "@/components/BookCard";
+import type { Book } from "@/lib/types";
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -66,10 +62,7 @@ export default function Home() {
 
       <ul className="mt-6 space-y-2">
         {books.map((book) => (
-          <li key={book.isbn13}>
-            <span className="font-medium">{book.title}</span>
-            <span className="text-zinc-600"> - {book.authors.join(", ")}</span>
-          </li>
+          <BookCard key={book.isbn13} book={book}/>
         ))}
       </ul>
     </main>

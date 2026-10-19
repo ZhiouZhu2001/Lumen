@@ -19,6 +19,13 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [{ source: "/api/:path*", destination: `${BACKEND_URL}/api/:path*` }];
   },
+  // Book covers come from these two sites; next/image only loads allowed hosts.
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "books.google.com" },
+      { protocol: "https", hostname: "covers.openlibrary.org" },
+    ],
+  },
 };
 
 export default nextConfig;
