@@ -60,11 +60,11 @@ export default function Home() {
        
        {error && <p className="mt-4 text-red-600">{error}</p>}
 
-      <ul className="mt-6 space-y-2">
+      <div className="mt-6 space-y-2">
         {books.map((book) => (
           <BookCard key={book.isbn13} book={book}/>
         ))}
-      </ul>
+      </div>
     </main>
   );
 }
