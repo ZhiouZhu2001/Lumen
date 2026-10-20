@@ -1,1 +1,15 @@
-{}
+{
+  "HomePage": {
+    "tagline": "Find your next book.",
+    "placeholder": "magical realism",
+    "search": "Search",
+    "searching": "Searching…",
+    "searchFailed": "Search failed. Please try again."
+  },
+  "BookCard": {
+    "coverAlt": "Cover of {title}",
+    "noCover": "No cover",
+    "ratings": "{count, plural, one {# rating} other {# ratings}}",
+    "noRating": "No rating yet"
+  }
+}

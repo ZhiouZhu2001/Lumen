@@ -1,1 +1,15 @@
-{}
+{
+  "HomePage": {
+    "tagline": "Encuentra tu próximo libro.",
+    "placeholder": "realismo mágico",
+    "search": "Buscar",
+    "searching": "Buscando…",
+    "searchFailed": "La búsqueda ha fallado. Inténtalo de nuevo."
+  },
+  "BookCard": {
+    "coverAlt": "Portada de {title}",
+    "noCover": "Sin portada",
+    "ratings": "{count, plural, one {# valoración} other {# valoraciones}}",
+    "noRating": "Sin valoraciones todavía"
+  }
+}
