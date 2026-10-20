@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, type SubmitEvent } from "react";
 
 import BookCard from "@/components/BookCard";
 import type { Book, Language } from "@/lib/types";
@@ -28,7 +28,7 @@ export default function Home() {
     setError(null);
   }
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>){
+  async function handleSubmit(event: SubmitEvent<HTMLFormElement>){
     event.preventDefault();
     setLoading(true);
     setError(null);
