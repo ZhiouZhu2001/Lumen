@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { notFound } from "next/navigation";
-import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale } from "next-intl/server";
 
 import { routing } from "@/i18n/routing";
 
@@ -30,13 +29,9 @@ export function generateStaticParams() {
 
 export default async function LocaleLayout({
   children,
-  params,
 }: LayoutProps<"/[locale]">) {
-  const { locale } = await params;
-  if (!hasLocale(routing.locales, locale)) {
-    notFound(); // e.g. /fr → 404
-  }
-  setRequestLocale(locale);
+  // Comes from i18n/request.ts, which also rejects unknown languages (404)
+  const locale = await getLocale();
 
   return (
     <html
