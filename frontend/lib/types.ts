@@ -15,3 +15,5 @@ export type Book = {
     rating: Rating | null;
 };
 
+// The two book languages Lumen supports (must match the backend's Language).
+export type Language = "en" | "es"
