@@ -4,9 +4,11 @@ from pydantic import BaseModel
 
 from app.config import get_settings
 
+
 class LLMError(Exception):
-    """The model call failed or gave unusable output 
+    """The model call failed or gave unusable output
     (API error code: llm_failed)"""
+
 
 def create_chat_model() -> BaseChatModel:
     settings = get_settings()
@@ -17,15 +19,16 @@ def create_chat_model() -> BaseChatModel:
         max_retries=2,
     )
 
+
 async def ask_structured[T: BaseModel](
-    model: BaseChatModel, 
+    model: BaseChatModel,
     schema: type[T],
-    system:str,
+    system: str,
     user: str,
 ) -> T:
     structured = model.with_structured_output(schema)
     try:
-        result = await structured.ainvoke([("system",system),("user",user)])
+        result = await structured.ainvoke([("system", system), ("user", user)])
     except Exception as e:
         raise LLMError(f"{schema.__name__} call failed: {e}") from e
     if not isinstance(result, schema):
