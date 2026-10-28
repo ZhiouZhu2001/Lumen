@@ -11,13 +11,20 @@ LANGUAGE_NAMES: dict[Language, str] = {"es": "Spanish", "en": "English"}
 SYSTEM_PROMPT = """You turn a reader's wish into searches for a book catalog.
 The reader wants books written in {language_name}.
 
-searches: 1 to 3 short catalog searches (1 to 4 words each) in {language_name},
-like a librarian would type them: topics, settings, moods, genres.
+searches: 1 to 3 catalog searches in {language_name}, 2 to 4 words each.
+Each search is sent on its own, so each one must combine the kind of book
+with a concrete subject, setting or author, like a librarian would type it.
+Catalogs do not index moods or pace: leave out words like sad, cozy,
+fast-paced or twists, and use the genre that fits them instead.
 Only use book titles or author names the reader wrote. Never invent them.
 
-genre: the main genre in English and lowercase (for example "thriller",
-"romance", "science fiction"), or null if the wish doesn't imply one."""
+genre: the most specific main genre in English and lowercase (for example
+"psychological thriller", "cozy mystery", "historical fiction"). Never just
+"fiction". Use null if the wish doesn't imply one.
 
+Example: "quiero una novela triste sobre el mar" in Spanish gives
+searches ["novela mar", "novela naufragio", "novela pescadores"],
+genre "literary fiction"."""
 
 class ParsedQuery(BaseModel):
     searches: list[str] = Field(description="1 to 3 short catalog searches")
