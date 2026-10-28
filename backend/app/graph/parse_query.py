@@ -12,11 +12,11 @@ SYSTEM_PROMPT = """You turn a reader's wish into searches for a book catalog.
 The reader wants books written in {language_name}.
 
 searches: 1 to 3 short catalog searches (1 to 4 words each) in {language_name},
-like a librarian would type them: topic, settings, moods, genres.
+like a librarian would type them: topics, settings, moods, genres.
 Only use book titles or author names the reader wrote. Never invent them.
 
 genre: the main genre in English and lowercase (for example "thriller",
-"romance","science fiction"), or null if the wish doesn't imply one."""
+"romance", "science fiction"), or null if the wish doesn't imply one."""
 
 
 class ParsedQuery(BaseModel):
@@ -47,5 +47,5 @@ def clean_parsed_query(parsed: ParsedQuery, query: str) -> ParsedQuery:
         search = " ".join(search.split())  # trim and collapse inner spaces
         if search and search.casefold() not in {s.casefold() for s in searches}:
             searches.append(search)
-        genre = (parsed.genre or "").strip().lower() or None
-        return ParsedQuery(searches=searches[:MAX_SEARCHES] or [query], genre=genre)
+    genre = (parsed.genre or "").strip().lower() or None
+    return ParsedQuery(searches=searches[:MAX_SEARCHES] or [query], genre=genre)
