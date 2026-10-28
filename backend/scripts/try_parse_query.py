@@ -7,7 +7,7 @@ from app.llm import create_chat_model
 from app.sources.schemas import Language
 
 EXAMPLES: list[tuple[str, Language]] = [
-    ("quiero una novela triste sobre el mar", "es"),
+     ("una historia de amor durante la Guerra Civil", "es"),
     ("fast-paced Spanish thriller with twists", "es"),
     ("something cozy like Agatha Christie", "en"),
 ]
