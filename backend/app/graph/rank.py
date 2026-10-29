@@ -38,7 +38,7 @@ class ModelPicks(BaseModel):
 
 
 class Pick(BaseModel):
-    isb13: str
+    isbn13: str
     rank: int
     reason: str
 
