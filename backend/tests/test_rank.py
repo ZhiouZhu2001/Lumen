@@ -30,10 +30,10 @@ CANDIDATES = [book(1), book(2), book(3)]
 ISBN_1, ISBN_2, ISBN_3 = (b.isbn13 for b in CANDIDATES)
 
 
-def test_books_with_a_description_come_first() -> None:
+def test_books_without_a_description_are_left_out() -> None:
     books = [book(1, None), book(2), book(3, ""), book(4)]
-    selected = select_for_ranking(books)
-    assert [b.title for b in selected] == ["Book 2", "Book 4", "Book 1", "Book 3"]
+    assert [b.title for b in select_for_ranking(books)] == ["Book 2", "Book 4"]
+    assert select_for_ranking([book(1, None)]) == []
 
 
 def test_at_most_30_books_are_sent_to_the_model() -> None:
