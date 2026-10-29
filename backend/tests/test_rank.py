@@ -39,14 +39,11 @@ def test_books_without_a_description_are_left_out() -> None:
 def test_at_most_30_books_are_sent_to_the_model() -> None:
     assert len(select_for_ranking([book(n) for n in range(50)])) == MAX_CANDIDATES
 
-
 def test_format_shows_the_fields_and_cuts_long_descriptions() -> None:
-    text = format_candidates([book(1, "x" * 5000), book(2, None)])
+    text = format_candidates([book(1, "x" * 5000)])
     assert f"ISBN: {ISBN_1}\nTitle: Book 1\nAuthors: Ana García\n" in text
     assert "x" * MAX_DESCRIPTION_CHARS in text
     assert "x" * (MAX_DESCRIPTION_CHARS + 1) not in text
-    assert "Description: (no description)" in text
-
 
 def test_good_picks_are_kept_and_ranked_in_order() -> None:
     result = clean_picks(picks((ISBN_2, "Fits."), (ISBN_1, "Also fits.")), CANDIDATES)

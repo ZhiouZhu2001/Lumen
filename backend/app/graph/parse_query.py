@@ -14,6 +14,9 @@ The reader wants books written in {language_name}.
 searches: 1 to 3 catalog searches in {language_name}, 2 to 4 words each.
 Each search is sent on its own, so each one must combine the kind of book
 with a concrete subject, setting or author, like a librarian would type it.
+Every search must keep the main subject of the wish (its topic, place or
+period). A genre with one general word is too broad to be useful.
+Catalogs do not index moods or pace: leave out words like sad, cozy,
 Catalogs do not index moods or pace: leave out words like sad, cozy,
 fast-paced or twists, and use the genre that fits them instead.
 Only use book titles or author names the reader wrote. Never invent them.
