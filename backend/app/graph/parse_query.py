@@ -31,6 +31,7 @@ Example: "quiero una novela triste sobre el mar" in Spanish gives
 searches ["novela mar", "novela naufragio", "novela pescadores"],
 genre "literary fiction"."""
 
+
 class ParsedQuery(BaseModel):
     searches: list[str] = Field(description="1 to 3 short catalog searches")
     genre: str | None = Field(description="Main genre in English, or null")
