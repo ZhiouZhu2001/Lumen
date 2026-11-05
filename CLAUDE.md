@@ -1,12 +1,27 @@
 # CLAUDE.md
 
+## Project execution rules
+
+- Read and follow the root `AGENTS.md` for the implementation workflow, automatic per-round branches, mandatory records in `update_version/Lumen_Update_Version_<N>.md`, user approval before major changes, and explicit confirmation before GitHub pushes.
+- These rules supplement the project conventions below.
+
+## Repository language
+
+- Use English as the primary language for uploaded code, identifiers, comments, docstrings, project documents, configuration explanations, update records, commit titles and bodies, and GitHub descriptions.
+- Preserve intentional English/Spanish localization, original bibliographic text, and language-specific queries or fixtures required by the specification.
+- Write all new update records in English and check changed files and submission text for compliance before uploading. Conversation replies may use the user's preferred language.
+
 ## Authorship and attribution
 - ZhiouZhu2001 is the sole author and distributor of this project.
-- Never list Claude or Anthropic as an author, co-author, contributor, maintainer or distributor anywhere: source files, LICENSE, README, package metadata or docs.
-- Do not add `Co-Authored-By: Claude ...` or any other Claude/Anthropic trailer to commit messages.
-- Do not add "Generated with Claude Code" or similar lines to pull request descriptions, issues or comments.
+- Never list Codex, OpenAI, Claude, Anthropic, any other AI tool or any other person as a project author, co-author, collaborator, contributor, maintainer or distributor in source files, LICENSE, README, package metadata, update records or other project content.
+- Do not add any `Co-Authored-By` trailer or assistant attribution to commit titles, commit bodies, GitHub descriptions, pull requests, issues or comments.
+- Do not add "Generated with ...", "Assisted by ..." or similar attribution or acknowledgements.
+- Before committing or uploading, verify the author and committer identities and review pending content for unwanted attribution. Use the user's verified Git identity; never invent a name or email. Do not add GitHub collaborators without explicit user authorization.
 
 ## Git
+- Before each implementation round, create and switch to a new local `codex/` branch as specified in `AGENTS.md`.
+- Prepare a clear commit title and description covering the problem, changes, validation and impact. Include the description in the commit body when uploading.
+- Push only after the user explicitly confirms the reviewed round and branch. Keep unrelated working-tree changes out of the submission.
 - Do not create pull requests unless explicitly asked.
 - Never force-push or rewrite history on `main`.
 
