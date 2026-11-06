@@ -47,6 +47,13 @@ grounding. Link host/rule checks do not prove that a store stocks a book or that
 a URL template works; the specification's manual store-template verification is
 still required when channels are implemented.
 
+The same unchanged proper-word heuristic now lives in `app/grounding.py` and is
+also applied before accepting production picks. The approved 2026-11-06 flow
+retries after ranking when fewer than five validated recommendations remain,
+up to two broadenings and six logical model invocations. Valid earlier picks
+are retained. Failed normal-query counts still fail this suite after the budget
+is exhausted; the fallback is not a waiver of the evaluation requirement.
+
 Individual results use `pass`, `fail`, `blocked` or `not_applicable`. Missing
 product evidence is `blocked`. Only first-book latency for nonsense input is
 `not_applicable`, because such input must produce no book. A provider failure or
@@ -93,6 +100,20 @@ source description so reason checks can be reproduced; `ranking_input` records
 the existing 600-character description limit and 30-book limit. Cover URLs and
 raw provider payloads are excluded from these snapshots. The fingerprints identify
 the evaluated source even when its working tree has uncommitted changes.
+
+After the approved ranking-feedback change, reports also contain `model_calls`
+and `ranking_rounds`. Every round retains its actual priority shortlist, formatted
+ranking input, proposed picks, accepted picks and validation feedback. The
+top-level shortlist/input comes from the final actual round, not a reconstruction
+of the first 30 accumulated candidates. `model_calls` counts logical structured
+model invocations, not catalog requests or transport retries within a provider SDK.
+
+Initial parsing now declares whether the input has meaningful reading intent.
+Unintelligible input returns zero picks without catalog calls or broadening;
+it is not converted into a generic reading request. This is a model-based intent
+decision, not a hardcoded list of evaluation queries. Old parsed-query snapshots
+remain readable because the new field defaults to a meaningful request when
+absent.
 
 To recheck a complete version 2 capture offline, run from `backend/`:
 

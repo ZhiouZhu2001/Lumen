@@ -96,6 +96,8 @@ async def run_case(graph, case: EvalCase, timeout: float) -> dict:
     }
     candidates = {b.isbn13: b for b in state["candidates"]}
     shortlist = select_for_ranking(state["candidates"]) if not error_code else None
+    rounds = state.get("ranking_rounds", []) if not error_code else None
+    last_round = rounds[-1] if rounds else None
     return {
         "id": case.id,
         "query": case.query,
@@ -120,8 +122,22 @@ async def run_case(graph, case: EvalCase, timeout: float) -> dict:
                 for b in state["candidates"]
             )
         ),
-        "shortlist_isbns": None if shortlist is None else [b.isbn13 for b in shortlist],
-        "ranking_input": None if shortlist is None else format_candidates(shortlist),
+        "shortlist_isbns": (
+            last_round["shortlist_isbns"]
+            if last_round
+            else None
+            if shortlist is None
+            else [b.isbn13 for b in shortlist]
+        ),
+        "ranking_input": (
+            last_round["ranking_input"]
+            if last_round
+            else None
+            if shortlist is None
+            else format_candidates(shortlist)
+        ),
+        "model_calls": None if error_code else state.get("model_calls"),
+        "ranking_rounds": rounds,
         "candidate_evidence": (
             None
             if error_code

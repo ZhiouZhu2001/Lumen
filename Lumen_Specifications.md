@@ -89,11 +89,11 @@ lumen/
 
 ## 4. LangGraph Flow
 
-This is a fixed graph, not a free-form agent: there is only one branch ("are there enough candidates?"), with at most 2 retries, so cost and behavior are predictable.
+This is a fixed graph, not a free-form agent. In the refinement approved by the user on 2026-11-06, its single branch runs after ranking and validation ("are there enough validated recommendations?"), with at most 2 broadening retries. The flow is `parse -> search -> rank and validate -> finish or broaden -> search`. It stops when at least five valid matching recommendations are available or the retry budget is exhausted.
 
 &#91;embedded content: LangGraph search graph · 6 nodes, 1 retry loop\]
 
-If there are still no candidates after 2 retries, push `no_results` directly; if there are candidates but fewer than 5, continue picking with the existing candidates.
+Preserve valid picks across rounds, and prioritize retained picks and newly retrieved candidates within the 30-book ranking limit. After 2 retries, return the valid subset even if fewer than five remain; return `no_results` if the model validly chose none. Persistently malformed nonempty model output remains `llm_failed`. Model/provider and upstream failures retain their separate error paths. A successful first round uses two logical model invocations; the maximum is six: one parse, two broadenings and three rankings. No unbounded repair loop is allowed.
 
 **Graph state**
 
@@ -108,6 +108,13 @@ class SearchState(TypedDict):
     picks: list[Pick]            # [{isbn13, rank, reason}]
     results: list[BookCard]      # final cards with buy links
 ```
+
+The approved implementation also retains validation feedback, newly retrieved
+ISBNs, logical model-call counts and per-round ranking evidence. Initial parsing
+identifies whether the input has meaningful reading intent. Unintelligible input
+returns no results without catalog requests or broadening; it must not be turned
+into an invented generic reading request. This does not reject uncommon but
+meaningful topics, names or genres.
 
 **Rules**
 

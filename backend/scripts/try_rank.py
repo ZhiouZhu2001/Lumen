@@ -1,4 +1,4 @@
-"""Manual check of the whole pipeline so far. Run: uv run python scripts/try_rank.py"""
+"""Manual single-attempt ranking check; use scripts.try_graph for bounded retries."""
 
 import asyncio
 
@@ -25,9 +25,15 @@ async def main() -> None:
         )
         print(f"candidates: {len(candidates)}\n")
         titles = {book.isbn13: book.title for book in candidates}
-        for pick in await rank_and_explain(model, QUERY, LANGUAGE, candidates):
+        attempt = await rank_and_explain(model, QUERY, LANGUAGE, candidates)
+        for pick in attempt.picks:
             print(f"{pick.rank}. {titles[pick.isbn13]} ({pick.isbn13})")
             print(f"   {pick.reason}\n")
+        if attempt.feedback:
+            print("Validation feedback:")
+            for issue in attempt.feedback:
+                print(f"- {issue}")
 
 
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())

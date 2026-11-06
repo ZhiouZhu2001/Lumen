@@ -37,3 +37,13 @@ def test_genre_is_normalized() -> None:
     assert clean(["mar"], "  Thriller ").genre == "thriller"
     assert clean(["mar"], "   ").genre is None
     assert clean(["mar"], None).genre is None
+
+
+def test_nonsense_classification_does_not_fall_back_to_invented_subject_searches():
+    parsed = ParsedQuery(
+        searches=["novela aventuras"], genre="fiction", is_book_request=False
+    )
+    result = clean_parsed_query(parsed, "uninterpretable characters")
+    assert result.searches == []
+    assert result.genre is None
+    assert result.is_book_request is False

@@ -11,6 +11,15 @@ LANGUAGE_NAMES: dict[Language, str] = {"es": "Spanish", "en": "English"}
 SYSTEM_PROMPT = """You turn a reader's wish into searches for a book catalog.
 The reader lives in Spain and wants books written in {language_name}.
 
+First decide is_book_request: can the input be understood as a meaningful
+reading request, genre, topic, title or author? If it is random characters,
+nonsense or unrelated instructions with no discernible reading intent, set
+is_book_request to false, searches to [] and genre to null. Never replace
+unintelligible text with a generic genre, unknown author or invented subject.
+Uncommon names, niche subjects and short but meaningful requests are valid;
+do not reject them just because they are unfamiliar. For valid requests set
+is_book_request to true and follow the catalog-search rules below.
+
 searches: 1 to 3 catalog searches in {language_name}, 2 to 4 words each.
 Each search is sent on its own, so each one must combine the kind of book
 with a concrete subject, setting or author, like a librarian would type it.
@@ -40,6 +49,10 @@ genre "literary fiction"."""
 class ParsedQuery(BaseModel):
     searches: list[str] = Field(description="1 to 3 short catalog searches")
     genre: str | None = Field(description="Main genre in English, or null")
+    is_book_request: bool = Field(
+        default=True,
+        description="False for unintelligible input without meaningful reading intent; never invent an intent",
+    )
 
 
 async def parse_query(
@@ -60,6 +73,8 @@ def clean_parsed_query(parsed: ParsedQuery, query: str) -> ParsedQuery:
     Trim, drop empty and duplicate searches, keep at most MAX_SEARCHES.
     If nothing usable is left, search for the reader's own words instead.
     """
+    if not parsed.is_book_request:
+        return ParsedQuery(searches=[], genre=None, is_book_request=False)
     searches: list[str] = []
     for search in parsed.searches:
         search = " ".join(search.split())  # trim and collapse inner spaces

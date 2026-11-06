@@ -51,7 +51,7 @@ MVP excludes: login, personalization, Chinese books, live price scraping, AI rat
 - `make eval` — 20-query eval set; all 6 checks must pass before merging prompt or retrieval changes
 
 ## Conventions
-- LangGraph is a fixed graph, not a free agent: one branch ("enough candidates?"), max 2 retries.
+- LangGraph is a fixed graph, not a free agent: one branch after ranking ("enough validated recommendations?"), max 2 broadening retries. The user approved this refinement on 2026-11-06; retain valid picks and prioritize newly retrieved candidates within the 30-book limit. At most one parsing call, two broadening calls and three ranking calls are allowed per search (six logical model invocations).
 - Only `parse_query`, `broaden` and `rank_and_explain` call the model, always with Pydantic structured output.
 - `rank_and_explain` sees at most 30 candidates (ISBN, title, authors, description). Reasons may only use facts from the description and are written in the UI language.
 - Merge books by ISBN-13; drop books without an ISBN.

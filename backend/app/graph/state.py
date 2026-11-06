@@ -1,13 +1,13 @@
-from typing import Literal, TypedDict
+from typing import Literal, NotRequired, TypedDict
 
 from langgraph.graph import END
 
 from app.graph.parse_query import ParsedQuery
-from app.graph.rank import Pick, select_for_ranking
+from app.graph.rank import Pick
 from app.sources.schemas import BookCandidate, Language
 
 MAX_RETRIES = 2  # spec: broaden at most twice
-MIN_CANDIDATES = 5  # spec: rank once at least five usable candidates are available
+MIN_PICKS = 5  # Approved flow: stop only after validating enough recommendations.
 
 
 class SearchState(TypedDict):
@@ -18,17 +18,21 @@ class SearchState(TypedDict):
     candidates: list[BookCandidate]  # all books found so far, merged by ISBN
     retries: int
     picks: list[Pick]
+    feedback: NotRequired[list[str]]
+    new_isbns: NotRequired[list[str]]
+    model_calls: NotRequired[int]
+    ranking_rounds: NotRequired[list[dict]]
+    request_understood: NotRequired[bool]
 
 
-def route_after_search(
+def route_after_ranking(
     state: SearchState,
-) -> Literal["rank_and_explain", "broaden", "__end__"]:
-    """The graph's only branch: enough candidates?"""
-    rankable = len(select_for_ranking(state["candidates"]))
-    if rankable >= MIN_CANDIDATES:
-        return "rank_and_explain"
+) -> Literal["broaden", "__end__"]:
+    """The graph's only branch: enough validated recommendations?"""
+    if not state.get("request_understood", True):
+        return END
+    if len(state["picks"]) >= MIN_PICKS:
+        return END
     if state["retries"] < MAX_RETRIES:
         return "broaden"
-    if rankable > 0:
-        return "rank_and_explain"  # spec: fewer than 5 is fine, pick from those
-    return END  # spec: still nothing after 2 retries -> no_results
+    return END  # Exhausted: preserve the valid subset, or report no_results.

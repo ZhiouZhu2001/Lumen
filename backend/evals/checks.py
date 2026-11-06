@@ -1,7 +1,5 @@
 """Six specification checks; absent product evidence never counts as a pass."""
 
-import re
-import unicodedata
 from collections import Counter
 from pathlib import Path
 from typing import Literal
@@ -11,6 +9,7 @@ import yaml
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from app.graph.state import SearchState
+from app.grounding import unknown_proper_words
 from app.sources.isbn import to_isbn13
 from app.sources.schemas import Language
 
@@ -109,24 +108,6 @@ def outcome(ok: bool, success: str, failure: str) -> CheckResult:
     return CheckResult(
         status="pass" if ok else "fail", detail=success if ok else failure
     )
-
-
-def words(text: str) -> set[str]:
-    normalized = unicodedata.normalize("NFKD", text).casefold()
-    normalized = "".join(c for c in normalized if not unicodedata.combining(c))
-    return set(re.findall(r"[^\W\d_]+", normalized))
-
-
-def unknown_proper_words(reason: str, allowed: str) -> list[str]:
-    """Heuristic only: skip sentence-initial words, inspect other capitalized words."""
-    permitted = words(allowed)
-    unknown = set()
-    for sentence in re.split(r"(?<=[.!?])\s+", reason.strip()):
-        tokens = re.findall(r"[^\W\d_]+", sentence)
-        for token in tokens[1:]:
-            if token != "I" and token[0].isupper() and not words(token) <= permitted:
-                unknown.add(token)
-    return sorted(unknown)
 
 
 def check_links(

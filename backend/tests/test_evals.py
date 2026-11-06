@@ -328,6 +328,26 @@ async def test_failed_workflow_has_no_fabricated_candidate_snapshot():
         assert result[key] is None
 
 
+async def test_report_uses_actual_priority_shortlist_instead_of_reconstructing_first_thirty():
+    captured = state()
+    captured["model_calls"] = 4
+    captured["ranking_rounds"] = [
+        {
+            "shortlist_isbns": [captured["candidates"][-1].isbn13],
+            "ranking_input": "Captured priority ordering and truncation.",
+        }
+    ]
+    result = await run_case(
+        Mock(ainvoke=AsyncMock(return_value=captured)), case(), timeout=1
+    )
+    assert (
+        result["shortlist_isbns"] == captured["ranking_rounds"][-1]["shortlist_isbns"]
+    )
+    assert result["ranking_input"] == captured["ranking_rounds"][-1]["ranking_input"]
+    assert result["model_calls"] == 4
+    assert result["ranking_rounds"] == captured["ranking_rounds"]
+
+
 def test_checkpoint_reports_preserve_partial_status(tmp_path):
     path = tmp_path / "results" / "check.json"
     report = {"complete": False, "gate_passed": False, "cases": []}

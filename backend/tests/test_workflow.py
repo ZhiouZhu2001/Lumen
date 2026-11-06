@@ -106,7 +106,9 @@ async def test_rounds_accumulate_unique_books_and_only_new_searches(monkeypatch)
     source = stub_sources(monkeypatch, BOOKS[:2], BOOKS[1:4], BOOKS[3:])
     model = scripted_model(
         parsed("novela mar"),
+        chosen(BOOKS[:2]),
         parsed("NOVELA MAR", "novela naufragio"),
+        chosen(BOOKS[:4]),
         parsed("novela naufragio", "novela pescadores"),
         chosen(BOOKS),
     )
@@ -127,7 +129,10 @@ async def test_rounds_accumulate_unique_books_and_only_new_searches(monkeypatch)
 async def test_broadening_stops_as_soon_as_enough_books_are_found(monkeypatch):
     source = stub_sources(monkeypatch, BOOKS[:2], BOOKS)
     model = scripted_model(
-        parsed("novela mar"), parsed("novela naufragio"), chosen(BOOKS)
+        parsed("novela mar"),
+        chosen(BOOKS[:2]),
+        parsed("novela naufragio"),
+        chosen(BOOKS),
     )
     result = await execute(model)
     assert result["retries"] == 1
@@ -139,7 +144,9 @@ async def test_remaining_books_are_ranked_after_two_broadening_attempts(monkeypa
     source = stub_sources(monkeypatch, BOOKS[:3], BOOKS[:3], BOOKS[:3])
     model = scripted_model(
         parsed("novela mar"),
+        chosen(BOOKS[:3]),
         parsed("novela naufragio"),
+        chosen(BOOKS[:3]),
         parsed("novela pescadores"),
         chosen(BOOKS[:3]),
     )
@@ -150,7 +157,7 @@ async def test_remaining_books_are_ranked_after_two_broadening_attempts(monkeypa
 
 
 @pytest.mark.parametrize("description", [None, "", " \n\t "])
-async def test_books_without_usable_descriptions_end_without_ranking(
+async def test_books_without_usable_descriptions_end_without_model_ranking(
     monkeypatch, description
 ):
     books = [book(n, description) for n in range(10)]
@@ -169,7 +176,9 @@ async def test_repeated_broadened_searches_make_no_extra_source_calls(monkeypatc
     source = stub_sources(monkeypatch, BOOKS[:2])
     model = scripted_model(
         parsed("novela mar"),
+        chosen(BOOKS[:2]),
         parsed("NOVELA MAR"),
+        chosen(BOOKS[:2]),
         parsed("Novela Mar"),
         chosen(BOOKS[:2]),
     )
@@ -181,15 +190,31 @@ async def test_repeated_broadened_searches_make_no_extra_source_calls(monkeypatc
 
 
 async def test_valid_empty_picks_are_a_no_results_outcome(monkeypatch):
-    stub_sources(monkeypatch, BOOKS)
-    result = await execute(scripted_model(parsed("novela mar"), ModelPicks(picks=[])))
-    assert result["retries"] == 0
+    stub_sources(monkeypatch, BOOKS, BOOKS, BOOKS)
+    result = await execute(
+        scripted_model(
+            parsed("novela mar"),
+            ModelPicks(picks=[]),
+            parsed("novela naufragio"),
+            ModelPicks(picks=[]),
+            parsed("novela pescadores"),
+            ModelPicks(picks=[]),
+        )
+    )
+    assert result["retries"] == 2
     assert result["picks"] == []
 
 
 async def test_nonempty_output_with_only_invented_isbns_is_a_model_failure(monkeypatch):
-    stub_sources(monkeypatch, BOOKS)
-    model = scripted_model(parsed("novela mar"), chosen([book(99)]))
+    stub_sources(monkeypatch, BOOKS, BOOKS, BOOKS)
+    model = scripted_model(
+        parsed("novela mar"),
+        chosen([book(99)]),
+        parsed("novela naufragio"),
+        chosen([book(99)]),
+        parsed("novela pescadores"),
+        chosen([book(99)]),
+    )
     with pytest.raises(LLMError, match="no valid picks"):
         await execute(model)
 
@@ -201,7 +226,10 @@ async def test_model_failures_are_not_reported_as_no_results(monkeypatch, stage)
         model = scripted_model(failure)
     else:
         stub_sources(monkeypatch, BOOKS if stage == "ranking" else BOOKS[:2])
-        model = scripted_model(parsed("novela mar"), failure)
+        outputs = [parsed("novela mar")]
+        if stage == "broadening":
+            outputs.append(chosen(BOOKS[:2]))
+        model = scripted_model(*outputs, failure)
     with pytest.raises(LLMError, match="call failed"):
         await execute(model)
 
@@ -232,13 +260,11 @@ async def test_one_source_failing_uses_recorded_results_from_the_other(failing_h
         (FIXTURES / "open_library_edge_cases.json").read_text("utf-8")
     )
     eligible = select_for_ranking(parse_google_books(google, "es"))
-    outputs = [
-        parsed("novela mar"),
-        parsed("novela naufragio"),
-        parsed("novela pescadores"),
-    ]
-    if failing_host == "openlibrary.org":
-        outputs.append(chosen(eligible))
+    outputs = []
+    for search in ("novela mar", "novela naufragio", "novela pescadores"):
+        outputs.append(parsed(search))
+        if failing_host == "openlibrary.org":
+            outputs.append(chosen(eligible))
     seen = []
 
     def handler(request):
@@ -271,7 +297,10 @@ async def test_successful_empty_catalogs_end_normally_after_two_retries():
 async def test_streamed_node_updates_follow_the_bounded_branch(monkeypatch):
     stub_sources(monkeypatch, BOOKS[:2], BOOKS)
     model = scripted_model(
-        parsed("novela mar"), parsed("novela naufragio"), chosen(BOOKS)
+        parsed("novela mar"),
+        chosen(BOOKS[:2]),
+        parsed("novela naufragio"),
+        chosen(BOOKS),
     )
     async with httpx.AsyncClient(
         transport=httpx.MockTransport(reject_network)
@@ -282,4 +311,108 @@ async def test_streamed_node_updates_follow_the_bounded_branch(monkeypatch):
             async for update in graph.astream(initial_state(), stream_mode="updates")
             for node in update
         ]
-    assert nodes == ["parse_query", "search", "broaden", "search", "rank_and_explain"]
+    assert nodes == [
+        "parse_query",
+        "search",
+        "rank_and_explain",
+        "broaden",
+        "search",
+        "rank_and_explain",
+    ]
+
+
+async def test_insufficient_valid_picks_retry_and_include_new_books_beyond_old_thirty(
+    monkeypatch,
+):
+    old = [book(n) for n in range(30)]
+    fresh = [book(100), book(101)]
+    source = stub_sources(monkeypatch, old, fresh)
+    model = scripted_model(
+        parsed("novela mar"),
+        chosen(old[:3]),
+        parsed("novela naufragio"),
+        chosen(fresh),
+    )
+    result = await execute(model)
+    assert result["retries"] == 1
+    assert len(result["picks"]) == 5
+    assert {p.isbn13 for p in result["picks"]} == {b.isbn13 for b in [*old[:3], *fresh]}
+    assert source.await_count == 2
+    assert model.with_structured_output.call_count == 4
+    assert result["model_calls"] == 4
+    assert len(result["ranking_rounds"]) == 2
+    assert len(result["ranking_rounds"][0]["accepted_picks"]) == 3
+    assert len(result["ranking_rounds"][1]["accepted_picks"]) == 5
+    ranking_input = model.with_structured_output.return_value.ainvoke.await_args_list[
+        -1
+    ].args[0][1][1]
+    assert all(b.isbn13 in ranking_input for b in [*old[:3], *fresh])
+
+
+async def test_unsupported_names_are_rejected_and_repaired_within_retry_budget(
+    monkeypatch,
+):
+    stub_sources(monkeypatch, BOOKS, [])
+    bad = chosen(BOOKS)
+    bad.picks[0].reason = "A trip to Atlantis. It fits your request."
+    model = scripted_model(
+        parsed("novela mar"),
+        bad,
+        parsed("novela naufragio"),
+        chosen(BOOKS[:1]),
+    )
+    result = await execute(model)
+    assert result["retries"] == 1
+    assert len(result["picks"]) == 5
+    assert all("Atlantis" not in p.reason for p in result["picks"])
+    messages = model.with_structured_output.return_value.ainvoke.await_args_list
+    assert "Atlantis" in messages[-1].args[0][1][1]
+    assert "Atlantis" in messages[-2].args[0][1][1]
+
+
+async def test_unsuitable_described_books_use_at_most_six_model_calls(monkeypatch):
+    source = stub_sources(monkeypatch, BOOKS, BOOKS, BOOKS)
+    model = scripted_model(
+        parsed("novela mar"),
+        ModelPicks(picks=[]),
+        parsed("novela naufragio"),
+        ModelPicks(picks=[]),
+        parsed("novela pescadores"),
+        ModelPicks(picks=[]),
+    )
+    result = await execute(model)
+    assert result["retries"] == 2
+    assert result["picks"] == []
+    assert source.await_count == 3
+    assert model.with_structured_output.call_count == 6
+    assert result["model_calls"] == 6
+
+
+async def test_valid_picks_survive_empty_later_rankings_and_remain_deduplicated(
+    monkeypatch,
+):
+    stub_sources(monkeypatch, BOOKS, [], [])
+    model = scripted_model(
+        parsed("novela mar"),
+        chosen(BOOKS[:3]),
+        parsed("novela naufragio"),
+        ModelPicks(picks=[]),
+        parsed("novela pescadores"),
+        chosen(BOOKS[:1]),
+    )
+    result = await execute(model)
+    assert result["retries"] == 2
+    assert len(result["picks"]) == 3
+    assert len({p.isbn13 for p in result["picks"]}) == 3
+    assert [p.rank for p in result["picks"]] == [1, 2, 3]
+    assert result["model_calls"] == 6
+
+
+async def test_nonsense_never_broadens_into_an_invented_reading_request(monkeypatch):
+    source = stub_sources(monkeypatch, BOOKS)
+    model = scripted_model(ParsedQuery(searches=[], genre=None, is_book_request=False))
+    result = await execute(model)
+    assert result["picks"] == []
+    assert result["retries"] == 0
+    assert result["model_calls"] == 1
+    source.assert_not_awaited()

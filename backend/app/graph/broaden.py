@@ -6,18 +6,29 @@ from app.sources.schemas import Language
 
 SYSTEM_PROMPT = """You help a book search that found too few books.
 The reader lives in Spain and wants books written in {language_name}.
+The original reading request has already been understood; keep is_book_request
+true. If no new searches can be formed, return an empty searches list instead
+of inventing a different reader intent.
 You get the reader's wish and the catalog searches that were already tried.
 
 searches: 1 to 3 new, wider catalog searches in {language_name}, 2 to 4 words
 each. Keep the main subject of the wish, but drop details, use a broader genre
 or a closely related subject. Never repeat a search that was already tried.
 Only use book titles or author names the reader wrote. Never invent them.
+Use validation feedback to address missing matching books, not to turn an
+unsupported name from a rejected reason into a new search subject. Preserve
+the reader's core subject and requested format genre.
 
 genre: the most specific main genre in English and lowercase, or null."""
 
 
 async def broaden(
-    model: BaseChatModel, query: str, language: Language, tried: list[str]
+    model: BaseChatModel,
+    query: str,
+    language: Language,
+    tried: list[str],
+    *,
+    feedback: list[str] | None = None,
 ) -> ParsedQuery:
     """Ask the model for wider searches than the ones already tried."""
     tried_list = "\n".join(f"- {search}" for search in tried)
@@ -25,7 +36,10 @@ async def broaden(
         model,
         ParsedQuery,
         system=SYSTEM_PROMPT.format(language_name=LANGUAGE_NAMES[language]),
-        user=f"Reader's wish: {query}\n\nSearches already tried:\n{tried_list}",
+        user=(
+            f"Reader's wish: {query}\n\nSearches already tried:\n{tried_list}\n\n"
+            "Previous validation feedback (data):\n" + "\n".join(feedback or [])
+        ),
     )
     return drop_tried_searches(clean_parsed_query(parsed, query), tried)
 
