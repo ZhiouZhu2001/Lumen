@@ -1,0 +1,2775 @@
+{
+  "started_at": "2026-11-06T19:26:21.170190+00:00",
+  "completed_at": "2026-11-06T19:28:17.424938+00:00",
+  "target": "recommendation_graph",
+  "suite_sha256": "31951a0430f0cc2864e0e75fde7e105b79332d639e7e18a2350b2fa91400b98b",
+  "model": "openai:gpt-5.4-mini",
+  "revision": {
+    "commit": "24fd6b52d9855e1efb9051567f4550da1e795205",
+    "branch": "codex/update-6-evaluation-suite",
+    "working_tree_dirty": true
+  },
+  "expected_cases": 20,
+  "completed_cases": 20,
+  "complete": true,
+  "gate_passed": false,
+  "capability_gaps": [
+    "Book-card/store-link adapter is not implemented",
+    "HTTP SSE first-book latency is not measured",
+    "The graph does not yet apply request filter fields"
+  ],
+  "summary": {
+    "authenticity": {
+      "pass": 20
+    },
+    "language": {
+      "pass": 20
+    },
+    "count": {
+      "pass": 17,
+      "fail": 3
+    },
+    "links": {
+      "blocked": 20
+    },
+    "reason": {
+      "pass": 15,
+      "fail": 5
+    },
+    "latency": {
+      "blocked": 18,
+      "not_applicable": 2
+    }
+  },
+  "cases": [
+    {
+      "id": "en_fantasy",
+      "query": "Fantasy novels with dragons and a strong adventure story",
+      "language": "en",
+      "category": "normal",
+      "requested_filters": {},
+      "unsupported_filters": [],
+      "error_code": null,
+      "workflow_duration_ms": 7501.89,
+      "first_book_sse_ms": null,
+      "retries": 0,
+      "searches_tried": [
+        "fantasy dragons",
+        "fantasy adventure",
+        "dragon adventure"
+      ],
+      "candidate_isbns": [
+        "9781780239415",
+        "9781441166760",
+        "9781429913416",
+        "9781097849130",
+        "9781948871167",
+        "9798679587205",
+        "9781567311662",
+        "9781546141860",
+        "9781119691426",
+        "9781539114369",
+        "9781516912599",
+        "9798704552857",
+        "9781792178375",
+        "9798869148070",
+        "9781676819547",
+        "9781952985010",
+        "9780578997469",
+        "9781338547047",
+        "9781718160729",
+        "9781338547023",
+        "9781568823652",
+        "9781338587593",
+        "9781338802276",
+        "9791224710264",
+        "9798635769720",
+        "9780545836548",
+        "9781678371852",
+        "9781338268553",
+        "9798191718316",
+        "9781338306224",
+        "9789004547087",
+        "9781510110120",
+        "9781088120064",
+        "9780994828378",
+        "9788832506945",
+        "9781998810376",
+        "9781980969846",
+        "9798902693321",
+        "9780545925396",
+        "9798485464318",
+        "9798900233321",
+        "9780795914881",
+        "9781511400886",
+        "9781477214282",
+        "9781481404426",
+        "9798998113215",
+        "9781916141919",
+        "9781717581587",
+        "9781491511305",
+        "9781508217022",
+        "9781565657717",
+        "9780140087185",
+        "9781543207156",
+        "9781101965481",
+        "9780783885063",
+        "9781560600756",
+        "9780340997178",
+        "9780807261903",
+        "9781593551834",
+        "9781864719857",
+        "9781435257894",
+        "9781913988302",
+        "9781561005123",
+        "9781591160069",
+        "9781338883282",
+        "9781935682028",
+        "9780545316484",
+        "9780520929920",
+        "9781402511530",
+        "9781843651420",
+        "9780881108903",
+        "9781543029086",
+        "9781580869065",
+        "9780356501147",
+        "9780823016662",
+        "9781948247337",
+        "9781665937412",
+        "9781473322202",
+        "9781600618192",
+        "9781398502963",
+        "9780545747677",
+        "9781801300094",
+        "9781546739869",
+        "9780345242259",
+        "9780583124980",
+        "9780425180969",
+        "9781606864203",
+        "9780671626198",
+        "9780345502520",
+        "9780062677594",
+        "9780829702910",
+        "9780765358363",
+        "9781405662420",
+        "9780345316660",
+        "9780241585382",
+        "9780786968961",
+        "9781838152918"
+      ],
+      "recommendations": [
+        {
+          "isbn13": "9781429913416",
+          "title": "The Ring of Five Dragons",
+          "rank": 1,
+          "reason": "This is a fantasy novel with a large-scale setting and plenty of action. It also centers on a world of fantasy where powerful forces and conflict drive the story, which fits a reader looking for an adventure tale."
+        },
+        {
+          "isbn13": "9781948871167",
+          "title": "Dragon's Dare",
+          "rank": 2,
+          "reason": "This book is a fantasy novel that features dragons, myth, and nightmare creatures. The story is driven by urgent conflict and a desperate campaign, giving it a strong adventurous feel."
+        },
+        {
+          "isbn13": "9798679587205",
+          "title": "Mist Dragon",
+          "rank": 3,
+          "reason": "This is a fantasy novel about dragon misfits trying to save the dragons of Lorach. It involves danger, a looming attack, and difficult choices, which makes it a good match for a dragon-centered adventure story."
+        },
+        {
+          "isbn13": "9781718160729",
+          "title": "Realm of Beasts",
+          "rank": 4,
+          "reason": "This fantasy novel includes a dangerous beast, an undead creature, and characters moving through a world of magic and imbalance. The setup promises conflict and peril, which suits a reader wanting an adventurous fantasy story."
+        },
+        {
+          "isbn13": "9780578997469",
+          "title": "The Portal Guardians",
+          "rank": 5,
+          "reason": "This is a fantasy story with elves, an old dragon, and travel into another world. The description emphasizes magical action and an unfolding adventure, which matches the wish for a fantasy novel with dragons."
+        },
+        {
+          "isbn13": "9780545836548",
+          "title": "The Phoenix of Destiny: An Epic Kingdom of Fantasy Adventure (Geronimo Stilton and the Kingdom of Fantasy: Special Edition)",
+          "rank": 6,
+          "reason": "This is an epic fantasy adventure set in the Kingdom of Fantasy. It features a quest, dangerous missions, and many fantastical creatures, so it fits the adventure side of the request very well."
+        },
+        {
+          "isbn13": "9798191718316",
+          "title": "The Saviour",
+          "rank": 7,
+          "reason": "This fantasy novel follows a boy whose life is destroyed and who vows to find his missing sister. The quest-driven setup and serious dangers give it a strong adventure focus."
+        }
+      ],
+      "checks": {
+        "authenticity": {
+          "status": "pass",
+          "detail": "All recommended ISBNs are unique retrieved candidates"
+        },
+        "language": {
+          "status": "pass",
+          "detail": "Recommendation languages match the request"
+        },
+        "count": {
+          "status": "pass",
+          "detail": "7 recommendations within 5-10"
+        },
+        "links": {
+          "status": "blocked",
+          "detail": "Book-card/store-link adapter is not implemented"
+        },
+        "reason": {
+          "status": "pass",
+          "detail": "Reasons have descriptions and pass the proper-word heuristic"
+        },
+        "latency": {
+          "status": "blocked",
+          "detail": "No HTTP SSE first-book measurement; graph duration is not a substitute"
+        }
+      }
+    },
+    {
+      "id": "en_thriller",
+      "query": "A fast-paced psychological thriller with surprising twists",
+      "language": "en",
+      "category": "normal",
+      "requested_filters": {},
+      "unsupported_filters": [],
+      "error_code": null,
+      "workflow_duration_ms": 6652.21,
+      "first_book_sse_ms": null,
+      "retries": 0,
+      "searches_tried": [
+        "psychological thriller",
+        "domestic suspense",
+        "serial killer"
+      ],
+      "candidate_isbns": [
+        "9781504071260",
+        "9781803149455",
+        "9788563909190",
+        "9781786817020",
+        "9798274198080",
+        "9781913942212",
+        "9781835256749",
+        "9798217261970",
+        "9798864444832",
+        "9780997711882",
+        "9798183522754",
+        "9798950152139",
+        "9781838889593",
+        "9781912604258",
+        "9781805492122",
+        "9781838881689",
+        "9783565662685",
+        "9780984915118",
+        "9798340754608",
+        "9781400026999",
+        "9780698136243",
+        "9782384761708",
+        "9781539101819",
+        "9780062910653",
+        "9781733630610",
+        "9781105243912",
+        "9783319442815",
+        "9781530414222",
+        "9781932595499",
+        "9781801625876",
+        "9781608058433",
+        "9781728267760",
+        "9781984879851",
+        "9781412974424",
+        "9780761924371",
+        "9781929399161",
+        "9798294278427",
+        "9781538768549",
+        "9781420513981",
+        "9781464238826",
+        "9781464228599",
+        "9780349132617",
+        "9781250141316",
+        "9781464228605",
+        "9781728296197",
+        "9781538750612",
+        "9781250207418",
+        "9781529125368",
+        "9780008338428",
+        "9781620064399",
+        "9781800198272",
+        "9781666527261",
+        "9781848459243",
+        "9781690582199",
+        "9780143122548",
+        "9781405919098",
+        "9780063246591",
+        "9781695984004",
+        "9780999155592",
+        "9781980776864",
+        "9781805081975",
+        "9781504089616",
+        "9780446694933",
+        "9781735900933",
+        "9781504096621",
+        "9781416563792",
+        "9780007547395",
+        "9781602862005",
+        "9780778334224",
+        "9780345502766",
+        "9781490623542",
+        "9781786495983",
+        "9780963242204",
+        "9781859584972",
+        "9780783500010",
+        "9780747237310",
+        "9780765322470",
+        "9781594601781",
+        "9781635768602",
+        "9781429598682",
+        "9781882071838",
+        "9781848177185",
+        "9780786554201",
+        "9781250297617",
+        "9781409023296",
+        "9781845631321",
+        "9780446196611",
+        "9781857972108",
+        "9781786488473",
+        "9781848847392",
+        "9781572151444"
+      ],
+      "recommendations": [
+        {
+          "isbn13": "9781803149455",
+          "title": "The Birthday Reunion",
+          "rank": 1,
+          "reason": "This is a gritty domestic thriller with danger, manipulation, and escalating tension, which suits a fast-paced psychological thriller. The setup centers on an abusive husband, an escape plan, and a heroine who has to get out before things get worse."
+        },
+        {
+          "isbn13": "9781913942212",
+          "title": "The Little Lies",
+          "rank": 2,
+          "reason": "This is a psychological thriller built around a long-held secret, a man from the protagonist’s past, and a call that changes everything. The story also promises that Jodie starts to wonder who she can trust as everything begins to crumble around her."
+        },
+        {
+          "isbn13": "9781838881689",
+          "title": "My Perfect Wife: An Absolutely Unputdownable Domestic Suspense Novel",
+          "rank": 3,
+          "reason": "This is explicitly called an unputdownable domestic suspense novel, which fits a fast-paced psychological thriller well. It features a woman who suspects her husband and the girl next door are hiding something, and she has one last chance to prove what she knows."
+        },
+        {
+          "isbn13": "9781912604258",
+          "title": "Pressure",
+          "rank": 4,
+          "reason": "This is a tense locked-room style thriller with survivors trapped on a sunken submarine and a murderer among them. The pressure, mounting desperation, and shifting suspicions make it a strong match for a fast-paced thriller with twists."
+        },
+        {
+          "isbn13": "9781400026999",
+          "title": "Not a Happy Family",
+          "rank": 5,
+          "reason": "This is a domestic suspense novel full of secrets and murder within a wealthy family. The setup of a brutal family killing after a fraught dinner suggests a tense, twist-driven psychological thriller."
+        },
+        {
+          "isbn13": "9780997711882",
+          "title": "Saving Grace",
+          "rank": 6,
+          "reason": "This novel centers on paranoia, suspicion, and a woman who believes her husband may murder her for her inheritance. The protagonist tries to save herself by writing a novel inside the story, which gives it a psychological and twisty feel."
+        },
+        {
+          "isbn13": "9798217261970",
+          "title": "The Bad Sister",
+          "rank": 7,
+          "reason": "This is a family-centered psychological thriller with hidden tensions, suspicion, and a tragedy that turns a celebration into a nightmare. The description also promises a haunting reminder of a shocking event five years earlier and family members turning on one another."
+        },
+        {
+          "isbn13": "9781801625876",
+          "title": "The Serial Killer's Girl",
+          "rank": 8,
+          "reason": "This is presented as a gripping psychological thriller and a tense, dark, twisted page-turner. The description emphasizes high-octane suspense and a family connection to a killer, which matches the wish for surprising twists."
+        }
+      ],
+      "checks": {
+        "authenticity": {
+          "status": "pass",
+          "detail": "All recommended ISBNs are unique retrieved candidates"
+        },
+        "language": {
+          "status": "pass",
+          "detail": "Recommendation languages match the request"
+        },
+        "count": {
+          "status": "pass",
+          "detail": "8 recommendations within 5-10"
+        },
+        "links": {
+          "status": "blocked",
+          "detail": "Book-card/store-link adapter is not implemented"
+        },
+        "reason": {
+          "status": "pass",
+          "detail": "Reasons have descriptions and pass the proper-word heuristic"
+        },
+        "latency": {
+          "status": "blocked",
+          "detail": "No HTTP SSE first-book measurement; graph duration is not a substitute"
+        }
+      }
+    },
+    {
+      "id": "en_short_modern",
+      "query": "Short story collections by Spanish authors published after 2010",
+      "language": "en",
+      "category": "normal",
+      "requested_filters": {
+        "era": "2010s",
+        "length": "short"
+      },
+      "unsupported_filters": [
+        "era",
+        "length"
+      ],
+      "error_code": null,
+      "workflow_duration_ms": 5527.68,
+      "first_book_sse_ms": null,
+      "retries": 0,
+      "searches_tried": [
+        "short stories Spain",
+        "short story collections Spain",
+        "Spanish short fiction"
+      ],
+      "candidate_isbns": [
+        "9788577773770",
+        "9781393291633",
+        "9781519637048",
+        "9781914183799",
+        "9781950788071",
+        "9798184580258",
+        "9780141960302",
+        "9798223197454",
+        "9781522741008",
+        "9781786835109",
+        "9789391618803",
+        "9781712235195",
+        "9780241390528",
+        "9781514646083",
+        "9781802062588",
+        "9781260010374",
+        "9780486120454",
+        "9788376560175",
+        "9788026843917",
+        "9781317023920",
+        "9780313080838",
+        "9780359020010",
+        "9781343298354",
+        "9781444355215",
+        "9781672402545",
+        "9781950788514",
+        "9781700467010",
+        "9781535101110",
+        "9798273449350",
+        "9798614197070",
+        "9781529361889",
+        "9780606208215",
+        "9781913907044",
+        "9798725857580",
+        "9798531562319",
+        "9780684803340",
+        "9781851520886",
+        "9780140010671",
+        "9780140025002",
+        "9781415951231",
+        "9780394604565",
+        "9780312722227",
+        "9780895770332",
+        "9780353562059",
+        "9781986910644",
+        "9781299903944",
+        "9780440418573",
+        "9780440378648",
+        "9780312044732",
+        "9781443423175",
+        "9780023955419",
+        "9780915308644",
+        "9780393926125",
+        "9780413746603",
+        "9781546480488",
+        "9780701106676",
+        "9780155126152",
+        "9780307949295",
+        "9780963401922",
+        "9781545806944",
+        "9781684900343",
+        "9781015148338",
+        "9781784042875",
+        "9781428637689",
+        "9781725150980",
+        "9780912078809",
+        "9780312378608",
+        "9780802190734",
+        "9780590930031",
+        "9780545227605",
+        "9780140093131",
+        "9781800605633",
+        "9780828825559",
+        "9780007384815",
+        "9781408857175",
+        "9781722144180",
+        "9780340078297",
+        "9781802633900",
+        "9781530219025",
+        "9780140265415",
+        "9781501975486",
+        "9780736603744",
+        "9780394712277",
+        "9780451211088"
+      ],
+      "recommendations": [
+        {
+          "isbn13": "9780241390528",
+          "title": "The Penguin Book of Spanish Short Stories",
+          "rank": 1,
+          "reason": "This is a collection of Spanish short stories, and it brings together over fifty stories from the nineteenth century to the present day. It also features Spanish writers such as Emilia Pardo Bazán, Mercè Rodoreda, Manuel Rivas, Ana Maria Matute, and Javier Marías."
+        },
+        {
+          "isbn13": "9781514646083",
+          "title": "Spanish Short Stories for Beginners",
+          "rank": 2,
+          "reason": "This book is a collection of eight Spanish short stories, so it matches the format you want. The stories cover several genres, including science fiction, crime, history, and thriller."
+        },
+        {
+          "isbn13": "9781522741008",
+          "title": "Spanish Short Stories for Beginners",
+          "rank": 3,
+          "reason": "This is a collection of eight short stories written for learners of Spanish, so it is a short story collection. It is designed to help readers grow vocabulary and improve comprehension while reading."
+        },
+        {
+          "isbn13": "9781700467010",
+          "title": "Spanish Short Stories for Beginners Volume 2",
+          "rank": 4,
+          "reason": "This book offers twenty short stories for beginner Spanish learners, which makes it a clear short story collection. It is presented as entertaining reading material for immersion, with stories aimed at the beginner level."
+        },
+        {
+          "isbn13": "9798273449350",
+          "title": "10 Spanish Short Stories for Advanced Learners (C1-C2)",
+          "rank": 5,
+          "reason": "This title contains 10 short stories, each written specifically for advanced learners of Spanish. It is a short story collection and includes learning tools such as vocabulary support, comprehension questions, and exercises."
+        }
+      ],
+      "checks": {
+        "authenticity": {
+          "status": "pass",
+          "detail": "All recommended ISBNs are unique retrieved candidates"
+        },
+        "language": {
+          "status": "pass",
+          "detail": "Recommendation languages match the request"
+        },
+        "count": {
+          "status": "pass",
+          "detail": "5 recommendations within 5-10"
+        },
+        "links": {
+          "status": "blocked",
+          "detail": "Book-card/store-link adapter is not implemented"
+        },
+        "reason": {
+          "status": "pass",
+          "detail": "Reasons have descriptions and pass the proper-word heuristic"
+        },
+        "latency": {
+          "status": "blocked",
+          "detail": "No HTTP SSE first-book measurement; graph duration is not a substitute"
+        }
+      }
+    },
+    {
+      "id": "en_comics",
+      "query": "Graphic novels about superheroes and moral dilemmas",
+      "language": "en",
+      "category": "normal",
+      "requested_filters": {
+        "genre": "graphic novels"
+      },
+      "unsupported_filters": [
+        "genre"
+      ],
+      "error_code": null,
+      "workflow_duration_ms": 6386.02,
+      "first_book_sse_ms": null,
+      "retries": 0,
+      "searches_tried": [
+        "graphic novel superheroes",
+        "graphic novel moral dilemma",
+        "graphic novel superhero ethics"
+      ],
+      "candidate_isbns": [
+        "9781401220341",
+        "9780786456932",
+        "9781779510921",
+        "9781009379366",
+        "9780786451159",
+        "9780998666709",
+        "9781338734317",
+        "9783668554078",
+        "9781845766481",
+        "9781506714547",
+        "9781406214888",
+        "9780007550463",
+        "9781401288228",
+        "9783836556569",
+        "9781569805114",
+        "9780593379691",
+        "9781779518095",
+        "9780807772485",
+        "9781496858955",
+        "9781599475660",
+        "9781609386559",
+        "9781350098480",
+        "9780812695731",
+        "9783346370419",
+        "9781604730661",
+        "9781444334647",
+        "9780470396858",
+        "9780470270301",
+        "9783656353911",
+        "9781351396929",
+        "9780814213537",
+        "9780786485796",
+        "9780439298117",
+        "9780399549731",
+        "9781496591036",
+        "9781401209858",
+        "9781474710329",
+        "9781401218072",
+        "9781401216825",
+        "9780451474773",
+        "9780316265980",
+        "9781598694512",
+        "9781439588567",
+        "9781663629425",
+        "9781401209377",
+        "9781852860400",
+        "9781401216511",
+        "9781401216917",
+        "9781412936842",
+        "9781669012139",
+        "9781406285697",
+        "9781563899614",
+        "9780679405573",
+        "9781576835760",
+        "9780664231910",
+        "9781000261257",
+        "9781476669984",
+        "9780316256711",
+        "9780786459360"
+      ],
+      "recommendations": [
+        {
+          "isbn13": "9781401220341",
+          "title": "Kingdom Come",
+          "rank": 1,
+          "reason": "This is a graphic novel and one of the most acclaimed graphic novels of all time, so it clearly matches your request for graphic novels. It is also strongly associated with superheroes, which makes it a very natural fit for your theme."
+        },
+        {
+          "isbn13": "9781779510921",
+          "title": "Legion of Super-Heroes Vol. 1: Millennium",
+          "rank": 2,
+          "reason": "This is a comic book about the Legion of Super-Heroes, DC’s iconic team of the far future, so it matches your interest in superheroes. The team gathers to stop a galaxy from repeating its past mistakes, which fits the moral-dilemma side of your wish."
+        },
+        {
+          "isbn13": "9781401288228",
+          "title": "Shazam!: Power of Hope",
+          "rank": 3,
+          "reason": "This is a superhero story about Billy Batson, Captain Marvel’s adolescent alter ego, and it is presented as a classic tale in graphic novel form. The text says he discovers that human struggles are harder than fighting monster robots or volcanic eruptions, which points to a moral and emotional dimension."
+        },
+        {
+          "isbn13": "9781845766481",
+          "title": "The Brave and the Bold",
+          "rank": 4,
+          "reason": "This is explicitly a graphic novel and features a team-up of Superman, Green Lantern, Supergirl, Batman, Blue Beetle, and Lobo, so it fits the superhero part of your request well. The story involves the group investigating a weapon that alters probability, which suggests choices and consequences rather than simple action alone."
+        },
+        {
+          "isbn13": "9781779518095",
+          "title": "Superman: Action Comics Vol. 1: Warworld Rising",
+          "rank": 5,
+          "reason": "This book begins a new chapter in Superman’s life, so it clearly belongs in the superhero genre you asked for. The synopsis also says Clark Kent faces changes in his powers and must adapt to new threats, which gives the story a sense of challenge and decision-making."
+        },
+        {
+          "isbn13": "9781338734317",
+          "title": "Great Power, No Responsibility (Spider-Ham Graphic Novel)",
+          "rank": 6,
+          "reason": "This is an all-new original graphic novel featuring Spider-Ham, a superhero character from Into the Spider-Verse. It focuses on his day in New York and his recognition for protecting the city, making it a good fit if you want a lighter superhero graphic novel."
+        },
+        {
+          "isbn13": "9780593379691",
+          "title": "Katie the Catsitter 3: Secrets and Sidekicks",
+          "rank": 7,
+          "reason": "This is a middle-grade graphic novel series about growing up, friendship, and heroes, so it fits the graphic-novel format and superhero-adjacent theme. The story includes sidekick training and friendship drama, which adds the kind of personal conflict that can feel morally relevant."
+        }
+      ],
+      "checks": {
+        "authenticity": {
+          "status": "pass",
+          "detail": "All recommended ISBNs are unique retrieved candidates"
+        },
+        "language": {
+          "status": "pass",
+          "detail": "Recommendation languages match the request"
+        },
+        "count": {
+          "status": "pass",
+          "detail": "7 recommendations within 5-10"
+        },
+        "links": {
+          "status": "blocked",
+          "detail": "Book-card/store-link adapter is not implemented"
+        },
+        "reason": {
+          "status": "pass",
+          "detail": "Reasons have descriptions and pass the proper-word heuristic"
+        },
+        "latency": {
+          "status": "blocked",
+          "detail": "No HTTP SSE first-book measurement; graph duration is not a substitute"
+        }
+      }
+    },
+    {
+      "id": "en_free_classics",
+      "query": "Classic adventure novels available as free public-domain books",
+      "language": "en",
+      "category": "normal",
+      "requested_filters": {
+        "free_only": true
+      },
+      "unsupported_filters": [
+        "free_only"
+      ],
+      "error_code": null,
+      "workflow_duration_ms": 6180.8,
+      "first_book_sse_ms": null,
+      "retries": 0,
+      "searches_tried": [
+        "adventure novel",
+        "adventure classics",
+        "classic adventure"
+      ],
+      "candidate_isbns": [
+        "9784824177544",
+        "9783736804227",
+        "9781409475729",
+        "9780804718226",
+        "9798511587851",
+        "9783110951943",
+        "9798691145933",
+        "9798674356837",
+        "9781963956801",
+        "9781474241106",
+        "9782487116221",
+        "9781317363781",
+        "9798765135501",
+        "9780292782860",
+        "9788074844294",
+        "9781429962063",
+        "9798477473625",
+        "9788026868880",
+        "9780237524050",
+        "9781786568021",
+        "9781479402823",
+        "9780004708089",
+        "9781434446879",
+        "9780563364276",
+        "9780786472574",
+        "9781906165314",
+        "9780195132502",
+        "9781434438423",
+        "9788027221202",
+        "9780879728212",
+        "9780243587094",
+        "9781587029431",
+        "9798635412183",
+        "9780520929920",
+        "9781612035512",
+        "9780439551175",
+        "9781402511530",
+        "9780671784003",
+        "9781843651420",
+        "9781521386866",
+        "9780439005432",
+        "9781451621020",
+        "9780898793581",
+        "9781543029086",
+        "9780886463397",
+        "9780340681077",
+        "9781686310294",
+        "9780394742755",
+        "9781841155609",
+        "9780590307222",
+        "9781071210017",
+        "9780007386727",
+        "9780142401651",
+        "9780345242259",
+        "9781584725565",
+        "9780974664842",
+        "9780706430219",
+        "9780850485790",
+        "9781473322202",
+        "9781015539297",
+        "9781546739869",
+        "9781521907849",
+        "9781428161276",
+        "9781402553912",
+        "9781973527374",
+        "9780140350456",
+        "9780913035504",
+        "9781595477477"
+      ],
+      "recommendations": [
+        {
+          "isbn13": "9788026868880",
+          "title": "EXTRAORDINARY JOURNEYS – Complete Collection: 41 Adventure Classics in One Volume (Illustrated)",
+          "rank": 1,
+          "reason": "This is a collection of 41 adventure classics in one volume, which strongly matches a request for classic adventure novels. It is also presented as an illustrated ebook, making it a convenient public-domain style anthology for readers looking for many old adventure stories in one place."
+        },
+        {
+          "isbn13": "9781434446879",
+          "title": "The G.A. Henty MEGAPACK ®",
+          "rank": 2,
+          "reason": "This volume collects 20 classic adventure novels by G.A. Henty, so it fits a reader specifically seeking classic adventure fiction. The description highlights that it includes more than 4,500 pages of adventure stories, giving you a large public-domain-style selection in one book."
+        },
+        {
+          "isbn13": "9783736804227",
+          "title": "She",
+          "rank": 3,
+          "reason": "This book is explicitly described as a novel and as 'A History of Adventure,' so it fits the wish for a classic adventure novel. The story follows a journey to a lost kingdom in the African interior, which is exactly the kind of adventure setting you asked for."
+        },
+        {
+          "isbn13": "9798691145933",
+          "title": "The Great Shadow Illustrated",
+          "rank": 4,
+          "reason": "This is described as an action and adventure novel by Sir Arthur Conan Doyle, so it fits the request very well. It is also explicitly identified as a novel published in 1892, which suits a reader looking for a classic title."
+        },
+        {
+          "isbn13": "9798511587851",
+          "title": "The Black Arrow",
+          "rank": 5,
+          "reason": "This book is a historical adventure novel and romance novel, so it matches a request for classic adventure fiction. The description clearly identifies it as an 1888 novel by Robert Louis Stevenson."
+        },
+        {
+          "isbn13": "9798477473625",
+          "title": "The Black Arrow Annotated: Illustratred Edition",
+          "rank": 6,
+          "reason": "This is described as a historical adventure novel and a romance novel, which fits the wish for a classic adventure novel. It is also identified as an 1888 novel by Robert Louis Stevenson, making it a strong classic choice."
+        },
+        {
+          "isbn13": "9798674356837",
+          "title": "Kim",
+          "rank": 7,
+          "reason": "This book is called a rousing adventure novel, so it directly matches the request for classic adventure fiction. The description also identifies it as an adventure novel by Rudyard Kipling, which makes it a strong fit."
+        },
+        {
+          "isbn13": "9788027221202",
+          "title": "Hearts of Three (Adventure Classic)",
+          "rank": 8,
+          "reason": "This book is labeled an adventure classic, so it fits the wish very closely. The description emphasizes dangerous adventures, unknown lands, and treasure hunting, all of which are central adventure elements."
+        },
+        {
+          "isbn13": "9782487116221",
+          "title": "The Adventures of Tom Sawyer (Annoted)",
+          "rank": 9,
+          "reason": "This is a novel, and it centers on a young boy's mischievous escapades along the Mississippi River. While it is more of a boyhood story than a pure adventure novel, it is still a classic novel with adventure elements and a well-known public-domain feel."
+        }
+      ],
+      "checks": {
+        "authenticity": {
+          "status": "pass",
+          "detail": "All recommended ISBNs are unique retrieved candidates"
+        },
+        "language": {
+          "status": "pass",
+          "detail": "Recommendation languages match the request"
+        },
+        "count": {
+          "status": "pass",
+          "detail": "9 recommendations within 5-10"
+        },
+        "links": {
+          "status": "blocked",
+          "detail": "Book-card/store-link adapter is not implemented"
+        },
+        "reason": {
+          "status": "pass",
+          "detail": "Reasons have descriptions and pass the proper-word heuristic"
+        },
+        "latency": {
+          "status": "blocked",
+          "detail": "No HTTP SSE first-book measurement; graph duration is not a substitute"
+        }
+      }
+    },
+    {
+      "id": "en_science",
+      "query": "Accessible nonfiction about astronomy for a complete beginner",
+      "language": "en",
+      "category": "normal",
+      "requested_filters": {},
+      "unsupported_filters": [],
+      "error_code": null,
+      "workflow_duration_ms": 5474.98,
+      "first_book_sse_ms": null,
+      "retries": 0,
+      "searches_tried": [
+        "astronomy beginners",
+        "popular astronomy",
+        "introductory astronomy"
+      ],
+      "candidate_isbns": [
+        "9783030987718",
+        "9798192121306",
+        "9781646154890",
+        "9798868991240",
+        "9780521842624",
+        "9780131007765",
+        "9789401034142",
+        "9780241632383",
+        "9780321815354",
+        "9781404746183",
+        "9781108067843",
+        "9781020692383",
+        "9781101904824",
+        "9781447105558",
+        "9781891389719",
+        "9780521800907",
+        "9780321956262",
+        "9781118681527",
+        "9780442224226",
+        "9781285136462",
+        "9780471518662",
+        "9780534260361",
+        "9780136440635",
+        "9780863169991",
+        "9780130858481",
+        "9780131871656",
+        "9780137541287",
+        "9780130568519",
+        "9781461481577",
+        "9780008386740",
+        "9780861341054",
+        "9781541978126",
+        "9780920656662",
+        "9781541959538",
+        "9781541980372",
+        "9781541962538",
+        "9781541980020",
+        "9781541978249",
+        "9780572002565",
+        "9780130938015",
+        "9781934389256",
+        "9781541979536",
+        "9780665527401",
+        "9781377853581",
+        "9781015610835",
+        "9781406768459",
+        "9781283144629",
+        "9780548250761",
+        "9780344125775",
+        "9781022299580",
+        "9780665414565",
+        "9780665422157",
+        "9781021653208",
+        "9780470481455",
+        "9780387716688",
+        "9780030062285",
+        "9780135807026",
+        "9780757546112",
+        "9780201056747",
+        "9780072901887",
+        "9780131011090",
+        "9780787294779",
+        "9780131479975",
+        "9780030227646",
+        "9780721683874",
+        "9780534125226",
+        "9780787200565",
+        "9780073539492",
+        "9780808723516",
+        "9780840338761",
+        "9780801626890",
+        "9780787222987",
+        "9780840364593",
+        "9780201056730"
+      ],
+      "recommendations": [
+        {
+          "isbn13": "9798192121306",
+          "title": "Astronomy for Beginners",
+          "rank": 1,
+          "reason": "This is a simple, practical introduction to the universe for anyone who has never studied astronomy before. It explicitly says you do not need a telescope, a science degree, or any previous experience, and that it explains the basics in a clear and approachable way."
+        },
+        {
+          "isbn13": "9780241632383",
+          "title": "Stargazing for Beginners",
+          "rank": 2,
+          "reason": "This book is described as a complete introduction to observing and understanding the night sky. It is practical, starts from the basics, and explains stargazing in a way that demystifies the subject for beginners."
+        },
+        {
+          "isbn13": "9781646154890",
+          "title": "Astronomy For Beginners",
+          "rank": 3,
+          "reason": "This title is aimed at beginners and introduces astronomy from the ground up. It covers basic observational astronomy and the study of the solar system, making it a fit for someone starting with the subject."
+        },
+        {
+          "isbn13": "9780521800907",
+          "title": "Astronomy",
+          "rank": 4,
+          "reason": "This is an introductory astronomy textbook that equips the student with the essential tools for understanding the cosmos. The material has been streamlined to make the descriptions, concepts, and explanations clearer, which suits a beginner who wants accessible nonfiction."
+        },
+        {
+          "isbn13": "9780534260361",
+          "title": "Foundations of Astronomy",
+          "rank": 5,
+          "reason": "This book takes students on a journey to learning how we know what we know about the universe. It is designed to help the reader gain perspective on our planet in relation to the rest of the universe and understand the basic process of science."
+        },
+        {
+          "isbn13": "9780321815354",
+          "title": "Astronomy",
+          "rank": 6,
+          "reason": "This is a one-semester introduction to astronomy and is presented as a beginner's guide. It emphasizes the process of science, the size and scale of the universe, and the evolution of the cosmos, with student-friendly learning tools."
+        },
+        {
+          "isbn13": "9781118681527",
+          "title": "Introduction to Astronomy and Cosmology",
+          "rank": 7,
+          "reason": "This is a modern undergraduate textbook that combines theory with the latest developments in astronomy and cosmology. It is written for science students and includes worked examples and end-of-chapter problems to improve understanding."
+        },
+        {
+          "isbn13": "9781891389719",
+          "title": "Discovering the Cosmos",
+          "rank": 8,
+          "reason": "This book provides a rich, historical approach to introductory astronomy and is ideal for use in an introductory astronomy course for nonmajors. That makes it a good fit for a complete beginner looking for an accessible nonfiction starting point."
+        }
+      ],
+      "checks": {
+        "authenticity": {
+          "status": "pass",
+          "detail": "All recommended ISBNs are unique retrieved candidates"
+        },
+        "language": {
+          "status": "pass",
+          "detail": "Recommendation languages match the request"
+        },
+        "count": {
+          "status": "pass",
+          "detail": "8 recommendations within 5-10"
+        },
+        "links": {
+          "status": "blocked",
+          "detail": "Book-card/store-link adapter is not implemented"
+        },
+        "reason": {
+          "status": "pass",
+          "detail": "Reasons have descriptions and pass the proper-word heuristic"
+        },
+        "latency": {
+          "status": "blocked",
+          "detail": "No HTTP SSE first-book measurement; graph duration is not a substitute"
+        }
+      }
+    },
+    {
+      "id": "en_history",
+      "query": "Historical novels set during the Spanish Civil War",
+      "language": "en",
+      "category": "normal",
+      "requested_filters": {
+        "genre": "historical fiction"
+      },
+      "unsupported_filters": [
+        "genre"
+      ],
+      "error_code": null,
+      "workflow_duration_ms": 6254.02,
+      "first_book_sse_ms": null,
+      "retries": 0,
+      "searches_tried": [
+        "historical fiction Spanish Civil War",
+        "Spanish Civil War Madrid",
+        "Spanish Civil War Barcelona"
+      ],
+      "candidate_isbns": [
+        "9798887642529",
+        "9781948262903",
+        "9781681497280",
+        "9781491761021",
+        "9780785236702",
+        "9780578964119",
+        "9780521371582",
+        "9780857059185",
+        "9798634956428",
+        "9798692555519",
+        "9781847480880",
+        "9780593172056",
+        "9781468305258",
+        "9781040305669",
+        "9780802482778",
+        "9781909930520",
+        "9781139993043",
+        "9780199281831",
+        "9781782063025",
+        "9780415914086",
+        "9788461627370",
+        "9781316004579",
+        "9788461697298",
+        "9781835534083",
+        "9780804003766",
+        "9781782842408",
+        "9781845197834",
+        "9780271091891",
+        "9781782842385",
+        "9788233991746",
+        "9788484247463",
+        "9781946963635",
+        "9780900384394",
+        "9788447539277",
+        "9781845194369",
+        "9781805264149",
+        "9781529032710",
+        "9780230234499",
+        "9780429859298",
+        "9781134423408",
+        "9780547447339",
+        "9780615433509",
+        "9781804694039",
+        "9781667209609",
+        "9780554347363",
+        "9781432865863",
+        "9781958004326",
+        "9780719032219",
+        "9781722144180",
+        "9781802633900",
+        "9781420925272",
+        "9780854963188",
+        "9781098591946",
+        "9781636614700",
+        "9780030095405",
+        "9780375708763",
+        "9780743246392",
+        "9781447287957",
+        "9780557257454",
+        "9781537211381",
+        "9781784042875",
+        "9780692033333",
+        "9780753822807",
+        "9781139026154",
+        "9780393023374",
+        "9780256062755",
+        "9780393345919",
+        "9780544947238",
+        "9781842120064",
+        "9781139990738",
+        "9781845298517",
+        "9780671253301",
+        "9781566560863",
+        "9781877372384",
+        "9780394555652",
+        "9781849042475",
+        "9780374172992",
+        "9780230337435",
+        "9781322293356",
+        "9781519531117",
+        "9780842022293",
+        "9781844370498",
+        "9781556602306",
+        "9781280291784",
+        "9780300112955",
+        "9780230527393",
+        "9780521453141",
+        "9781845197940"
+      ],
+      "recommendations": [
+        {
+          "isbn13": "9781681497280",
+          "title": "General Escobar's War",
+          "rank": 1,
+          "reason": "This is a historical novel about the Spanish Civil War, set at the end of the conflict. It takes the form of an imagined diary by General Antonio Escobar and is described as a vivid and intimate account of political passions and their consequences."
+        },
+        {
+          "isbn13": "9781782063025",
+          "title": "An Englishman in Madrid",
+          "rank": 2,
+          "reason": "This is a novel set in Madrid as the country moves toward civil war. It follows an English art historian who meets key political figures and becomes involved in events linked to the coming conflict."
+        },
+        {
+          "isbn13": "9781468305258",
+          "title": "The Carpenter's Pencil",
+          "rank": 3,
+          "reason": "This novel is set in the dark days of the Spanish Civil War. It is described as a story of linked destinies during that period, which makes it a strong match for a historical novel set in the war."
+        },
+        {
+          "isbn13": "9780578964119",
+          "title": "The Dark Swallows: A Novel of the Spanish Civil War",
+          "rank": 4,
+          "reason": "This is explicitly called a novel of the Spanish Civil War. It follows two villages, two lovers, and two brothers, and the war destroys the lives and hopes of the people involved."
+        },
+        {
+          "isbn13": "9781847480880",
+          "title": "Wayfarers of Fate",
+          "rank": 5,
+          "reason": "This novel begins in Madrid in 1934 and then moves into the outbreak of civil war in Spain. The story follows Juan Avila as his family falls apart and his world changes under the pressure of the conflict."
+        },
+        {
+          "isbn13": "9780593172056",
+          "title": "A Long Petal of the Sea",
+          "rank": 6,
+          "reason": "This epic novel spans decades and follows two young people as they flee the aftermath of the Spanish Civil War. It is described as one of the richest portrayals of the war, so it fits readers looking for a historical novel connected to that period."
+        },
+        {
+          "isbn13": "9781946963635",
+          "title": "Homage to Catalonia",
+          "rank": 7,
+          "reason": "This is a personal account of fighting in the Spanish Civil War for the Republican army. It covers events in Catalonia, Barcelona, and the front lines in Aragon, so it fits the wartime setting even though it is not fiction."
+        },
+        {
+          "isbn13": "9780802482778",
+          "title": "Chronicles of the Spanish Civil War Series",
+          "rank": 8,
+          "reason": "This set contains three books in a series set in the Spanish Civil War. The stories place characters in a war-torn Spanish countryside and in the middle of a bloody battleground during the conflict."
+        }
+      ],
+      "checks": {
+        "authenticity": {
+          "status": "pass",
+          "detail": "All recommended ISBNs are unique retrieved candidates"
+        },
+        "language": {
+          "status": "pass",
+          "detail": "Recommendation languages match the request"
+        },
+        "count": {
+          "status": "pass",
+          "detail": "8 recommendations within 5-10"
+        },
+        "links": {
+          "status": "blocked",
+          "detail": "Book-card/store-link adapter is not implemented"
+        },
+        "reason": {
+          "status": "pass",
+          "detail": "Reasons have descriptions and pass the proper-word heuristic"
+        },
+        "latency": {
+          "status": "blocked",
+          "detail": "No HTTP SSE first-book measurement; graph duration is not a substitute"
+        }
+      }
+    },
+    {
+      "id": "en_sea",
+      "query": "A sad literary novel about the sea and solitude",
+      "language": "en",
+      "category": "normal",
+      "requested_filters": {},
+      "unsupported_filters": [],
+      "error_code": null,
+      "workflow_duration_ms": 5270.81,
+      "first_book_sse_ms": null,
+      "retries": 0,
+      "searches_tried": [
+        "literary fiction sea",
+        "literary fiction solitude",
+        "literary fiction sailors"
+      ],
+      "candidate_isbns": [
+        "9781784870058",
+        "9780685045664",
+        "9780691155982",
+        "9789354752636",
+        "9798217007714",
+        "9781907590276",
+        "9780330483292",
+        "9798592118302",
+        "9781662710056",
+        "9781258187927",
+        "9780434326136",
+        "9781849016254",
+        "9781502210241",
+        "9781350348035",
+        "9781315525990",
+        "9780195165739",
+        "9780954146856",
+        "9781577318248",
+        "9781023257084",
+        "9781605988634",
+        "9781439104651",
+        "9781025364001",
+        "9781405188104",
+        "9781025964508",
+        "9780198950776",
+        "9781331741114",
+        "9781013791420",
+        "9781621905936",
+        "9780924486807",
+        "9781798645178",
+        "9781590071373",
+        "9781666583670",
+        "9780813332918",
+        "9780719568961",
+        "9781471183829",
+        "9781434614636",
+        "9780099583042",
+        "9780807079133",
+        "9780593158425",
+        "9780887767357",
+        "9780060565497",
+        "9780316316385",
+        "9781466200210",
+        "9781782068495",
+        "9781410431684",
+        "9781790168187",
+        "9781979877459",
+        "9780903141161",
+        "9781883011833",
+        "9780006543497",
+        "9780822071556",
+        "9780195407563",
+        "9781595404985",
+        "9781476793689",
+        "9780593329672",
+        "9781103479740",
+        "9780060995270",
+        "9781623561451",
+        "9781135719746",
+        "9781280664267",
+        "9781784707422",
+        "9781423100386",
+        "9780655689911",
+        "9781973527374",
+        "9781404350137",
+        "9780543894847",
+        "9781408824177",
+        "9780593396629",
+        "9780553210941",
+        "9780810111141",
+        "9781609805777",
+        "9780497925321",
+        "9781572335363",
+        "9780754606208",
+        "9780451514752",
+        "9780307267115",
+        "9781794680869",
+        "9781516894413",
+        "9780582823044",
+        "9781588278654",
+        "9781494491949",
+        "9781851520886",
+        "9780374174231"
+      ],
+      "recommendations": [
+        {
+          "isbn13": "9780330483292",
+          "title": "The Sea",
+          "rank": 1,
+          "reason": "This is a literary novel centered on a return to a seaside village, with the sea clearly at its heart. It also begins from loss and says the narrator is haunted by the past, which fits a sad, reflective mood."
+        },
+        {
+          "isbn13": "9781784870058",
+          "title": "The Sea, the Sea",
+          "rank": 2,
+          "reason": "This novel places its main character in a remote house by the sea, making the coastal setting essential. It also focuses on disrupted equilibrium, tumultuous love affairs, and obsession, giving it a strongly troubled and melancholy tone."
+        },
+        {
+          "isbn13": "9781849016254",
+          "title": "The Seas",
+          "rank": 3,
+          "reason": "This is a novel set in a coastal fishing town, and the narrator is an unnamed misfit who lives with isolation and local cruelty. The sea and solitude are both central to the setting and the character’s life."
+        },
+        {
+          "isbn13": "9781907590276",
+          "title": "The Old Man and the Sea",
+          "rank": 4,
+          "reason": "This is a story set far out in the Gulf Stream and centered on an old fisherman’s relentless struggle at sea. Its spare premise and solitary protagonist make it a strong match for a sea-centered, lonely novel."
+        },
+        {
+          "isbn13": "9798217007714",
+          "title": "Ocean Sea",
+          "rank": 5,
+          "reason": "This novel unfolds at a remote seaside inn, where several isolated lives converge around the sea. It is described as haunting and suspenseful, which suits a literary wish with a sad or reflective edge."
+        }
+      ],
+      "checks": {
+        "authenticity": {
+          "status": "pass",
+          "detail": "All recommended ISBNs are unique retrieved candidates"
+        },
+        "language": {
+          "status": "pass",
+          "detail": "Recommendation languages match the request"
+        },
+        "count": {
+          "status": "pass",
+          "detail": "5 recommendations within 5-10"
+        },
+        "links": {
+          "status": "blocked",
+          "detail": "Book-card/store-link adapter is not implemented"
+        },
+        "reason": {
+          "status": "pass",
+          "detail": "Reasons have descriptions and pass the proper-word heuristic"
+        },
+        "latency": {
+          "status": "blocked",
+          "detail": "No HTTP SSE first-book measurement; graph duration is not a substitute"
+        }
+      }
+    },
+    {
+      "id": "en_niche",
+      "query": "Fiction about lighthouse keepers in remote Arctic communities",
+      "language": "en",
+      "category": "niche",
+      "requested_filters": {},
+      "unsupported_filters": [],
+      "error_code": null,
+      "workflow_duration_ms": 6210.48,
+      "first_book_sse_ms": null,
+      "retries": 0,
+      "searches_tried": [
+        "historical fiction lighthouse keepers",
+        "historical fiction Arctic communities",
+        "historical fiction remote lighthouses"
+      ],
+      "candidate_isbns": [
+        "9780008255237",
+        "9780062698629",
+        "9798187764938",
+        "9780606255134",
+        "9780615947679",
+        "9780312273538",
+        "9781907777622",
+        "9781501127977",
+        "9781781996768",
+        "9781736790267",
+        "9781489249197",
+        "9781137283382",
+        "9780316650571",
+        "9798297549333",
+        "9781678105792",
+        "9798906786777",
+        "9783030554668",
+        "9781438496252",
+        "9781474271134",
+        "9780199958665",
+        "9780822986072",
+        "9798224871353",
+        "9780910608589",
+        "9788233991050",
+        "9788233990893",
+        "9788233991388",
+        "9781039177970",
+        "9781472279965",
+        "9780648876908",
+        "9780312241131",
+        "9780312974695",
+        "9781577489764",
+        "9780689852527",
+        "9780613535182",
+        "9780821716953",
+        "9781410481559",
+        "9781488086168",
+        "9781577487500",
+        "9781322058689",
+        "9781630640064",
+        "9780373292936",
+        "9781938883668",
+        "9780972276306",
+        "9780911872835",
+        "9781620293560",
+        "9781904445159",
+        "9781451683677",
+        "9780606205368",
+        "9781432659332"
+      ],
+      "recommendations": [
+        {
+          "isbn13": "9798187764938",
+          "title": "Elias Thorne",
+          "rank": 1,
+          "reason": "This is a novel centered on a lighthouse on the coast of Maine, with the story beginning when a young man arrives to become the keeper’s helper and the family who lives beneath the light. It fits your wish for fiction about lighthouse keepers, and it is clearly set in a remote coastal lighthouse community."
+        },
+        {
+          "isbn13": "9781907777622",
+          "title": "The Lighthouse Keeper",
+          "rank": 2,
+          "reason": "This is fiction set around a remote Scottish island lighthouse, beginning with three lighthouse keepers who vanished without trace and an emergency crew sent to replace them. It directly features lighthouse keepers in an isolated setting, which matches your request well."
+        },
+        {
+          "isbn13": "9781489249197",
+          "title": "The Keepers of the Lighthouse",
+          "rank": 3,
+          "reason": "This novel is about Laura Webster and her father as the keepers of a lighthouse on a desolate island in Bass Strait. It is clearly fiction and is set in a lonely, windswept lighthouse community, which makes it a strong fit for your request."
+        },
+        {
+          "isbn13": "9780606255134",
+          "title": "Keeper of the Light",
+          "rank": 4,
+          "reason": "This story follows Faith, who takes over her father’s job as lighthouse keeper after his death. It is fiction focused on a lighthouse keeper, though it is set on Lake Superior rather than in the Arctic."
+        },
+        {
+          "isbn13": "9780312273538",
+          "title": "The Lighthouse Keeper",
+          "rank": 5,
+          "reason": "This novel follows Peter O'Banyon when he goes to live with his uncle, the keeper of the Port Hope Island Lighthouse in Massachusetts. It is clearly fiction about a lighthouse keeper and life at a lighthouse, though it is not set in an Arctic community."
+        },
+        {
+          "isbn13": "9781736790267",
+          "title": "After the Light",
+          "rank": 6,
+          "reason": "This is historical fiction about a lighthouse keeper and his family in a shipping village on the Wisconsin side of the Lake Michigan shoreline. It fits the lighthouse-keeper part of your request, though the setting is not Arctic."
+        },
+        {
+          "isbn13": "9798297549333",
+          "title": "The Lighthouse Keeper's Secret",
+          "rank": 7,
+          "reason": "This novel centers on a remote Maine lighthouse inherited by Maya Sinclair and reveals family secrets tied to its history. It is fiction with a lighthouse at the center, but the setting is not Arctic."
+        },
+        {
+          "isbn13": "9781472279965",
+          "title": "The Lighthouse Sisters",
+          "rank": 8,
+          "reason": "This is a historical novel set on the island of Jersey during the war, where the lighthouse serves as a source of hope and protection. It includes a lighthouse-centered fictional story, though it is not about keepers or Arctic communities."
+        }
+      ],
+      "checks": {
+        "authenticity": {
+          "status": "pass",
+          "detail": "All recommended ISBNs are unique retrieved candidates"
+        },
+        "language": {
+          "status": "pass",
+          "detail": "Recommendation languages match the request"
+        },
+        "count": {
+          "status": "pass",
+          "detail": "8 recommendations within 5-10"
+        },
+        "links": {
+          "status": "blocked",
+          "detail": "Book-card/store-link adapter is not implemented"
+        },
+        "reason": {
+          "status": "fail",
+          "detail": "9780606255134: unsupported proper words Arctic; 9780312273538: unsupported proper words Arctic; 9781736790267: unsupported proper words Arctic; 9798297549333: unsupported proper words Arctic; 9781472279965: unsupported proper words Arctic"
+        },
+        "latency": {
+          "status": "blocked",
+          "detail": "No HTTP SSE first-book measurement; graph duration is not a substitute"
+        }
+      }
+    },
+    {
+      "id": "en_nonsense",
+      "query": "zxqv blorpt 998877 qqq zzz",
+      "language": "en",
+      "category": "nonsense",
+      "requested_filters": {},
+      "unsupported_filters": [],
+      "error_code": null,
+      "workflow_duration_ms": 8326.0,
+      "first_book_sse_ms": null,
+      "retries": 2,
+      "searches_tried": [
+        "English unknown",
+        "zxqv blorpt",
+        "blorpt 998877",
+        "qqq zzz",
+        "zxqv",
+        "blorpt",
+        "998877"
+      ],
+      "candidate_isbns": [
+        "9780803236066",
+        "9780749304522",
+        "9780007451708",
+        "9780613708432",
+        "9780670025138",
+        "9781283725996",
+        "9780440092162",
+        "9780002254090",
+        "9780709145998",
+        "9780914156062",
+        "9781466864252",
+        "9781590510858",
+        "9781731475558",
+        "9780521484022",
+        "9781435209442",
+        "9780811219280",
+        "9781927854709",
+        "9781407035437",
+        "9780140433081",
+        "9780263922097",
+        "9783642716836",
+        "9780619183417",
+        "9781105259678",
+        "9781394273942",
+        "9789810206376",
+        "9781593948337",
+        "9780072369106"
+      ],
+      "recommendations": [],
+      "checks": {
+        "authenticity": {
+          "status": "pass",
+          "detail": "All recommended ISBNs are unique retrieved candidates"
+        },
+        "language": {
+          "status": "pass",
+          "detail": "Recommendation languages match the request"
+        },
+        "count": {
+          "status": "pass",
+          "detail": "0 recommendations within 0-0"
+        },
+        "links": {
+          "status": "blocked",
+          "detail": "Book-card/store-link adapter is not implemented"
+        },
+        "reason": {
+          "status": "pass",
+          "detail": "Reasons have descriptions and pass the proper-word heuristic"
+        },
+        "latency": {
+          "status": "not_applicable",
+          "detail": "No first book is expected for nonsense input"
+        }
+      }
+    },
+    {
+      "id": "es_fantasy",
+      "query": "Novelas de fantasía con dragones y aventuras",
+      "language": "es",
+      "category": "normal",
+      "requested_filters": {},
+      "unsupported_filters": [],
+      "error_code": null,
+      "workflow_duration_ms": 6013.11,
+      "first_book_sse_ms": null,
+      "retries": 0,
+      "searches_tried": [
+        "novela fantasía dragones",
+        "novela aventuras dragones",
+        "novela fantasía aventuras"
+      ],
+      "candidate_isbns": [
+        "9788243079250",
+        "9798268318586",
+        "9781632912824",
+        "9798341508521",
+        "9798341508576",
+        "9798341508583",
+        "9798599992110",
+        "9781632915337",
+        "9781632913340",
+        "9791387990794",
+        "9788417805654",
+        "9781632917218",
+        "9788496173521",
+        "9798294559878",
+        "9788484419945",
+        "9788401032639",
+        "9798274495509",
+        "9781973515982",
+        "9789403817071",
+        "9798264874529",
+        "9788264874520",
+        "9788497930192",
+        "9788466681100",
+        "9788425345210",
+        "9798199663151",
+        "9798855092691",
+        "9798399301495",
+        "9798322375814",
+        "9788416964826",
+        "9788417541996",
+        "9788728426005",
+        "9788411185646",
+        "9789877391169",
+        "9788434413115",
+        "9789403781488",
+        "9783565029846",
+        "9783565032266",
+        "9783565029822",
+        "9783565032235",
+        "9783565032242",
+        "9783565010813",
+        "9783565038244",
+        "9783565017119",
+        "9783565057412",
+        "9783565017133",
+        "9798642328668",
+        "9788410672796",
+        "9798692561794",
+        "9798502734721",
+        "9789403825175",
+        "9788469728444",
+        "9789588617213",
+        "9788478446391",
+        "9788499303901",
+        "9789505470631",
+        "9786071608147",
+        "9788439280026",
+        "9789592098527",
+        "9789500724814",
+        "9788416306091",
+        "9788408160052",
+        "9788412375343",
+        "9788424635954",
+        "9789802920082",
+        "9788420613062",
+        "9786077356233",
+        "9788417928865",
+        "9789563100877",
+        "9788420790039"
+      ],
+      "recommendations": [
+        {
+          "isbn13": "9798268318586",
+          "title": "El domador de dragones",
+          "rank": 1,
+          "reason": "Es una novela fantástica con aventuras épicas y menciona explícitamente dragones y criaturas mitológicas. También presenta a un joven que debe aprender a domar criaturas temidas mientras enfrenta pruebas, misterios y enemigos."
+        },
+        {
+          "isbn13": "9798599992110",
+          "title": "El Príncipe de los Dragones",
+          "rank": 2,
+          "reason": "Es una narrativa fantástica ambientada en un mundo donde hay dragones y un protagonista joven que cree en ellos. La historia incluye un continente misterioso, fuerzas oscuras y un viaje propio de la fantasía de aventuras."
+        },
+        {
+          "isbn13": "9798294559878",
+          "title": "Wes y el Dragón",
+          "rank": 3,
+          "reason": "Es una historia fantástica en la que un joven guerrero forma un lazo de amistad con un dragón. Además, recorren un reino misterioso y viven un viaje con magia, enigmas y amistad."
+        },
+        {
+          "isbn13": "9798264874529",
+          "title": "Las aventuras del guerrero y el dragón",
+          "rank": 4,
+          "reason": "Presenta a un joven guerrero que conoce a un dragón y se une a él para realizar varias misiones peligrosas. La trama se desarrolla en un mundo de guerra y magia, con viajes por selvas, desiertos y montañas."
+        },
+        {
+          "isbn13": "9788466681100",
+          "title": "El crepúsculo de los dragones",
+          "rank": 5,
+          "reason": "Es una fantasía romántica cargada de pasión y aventura, y sitúa la acción en una academia donde se entrenan guerreros. También menciona dragones, una prueba para unirse a uno de ellos y el curso que toma un rumbo inesperado."
+        },
+        {
+          "isbn13": "9788728426005",
+          "title": "Los dragones de hierro",
+          "rank": 6,
+          "reason": "Es una novela de aventuras que viaja hasta mundos mágicos y estelares. Incluye a una princesa, un secuestro y unos extraterrestres violentos y sanguinarios, con un tono claramente fantástico y aventurero."
+        },
+        {
+          "isbn13": "9788417541996",
+          "title": "El tenedor, la hechicera y el dragón (Ciclo El Legado)",
+          "rank": 7,
+          "reason": "Reúne historias ambientadas en el mundo de Alagaësia e incluye nuevas piezas de arte. La sinopsis menciona un joven viajero maldecido, hechizos, magia y dragones."
+        },
+        {
+          "isbn13": "9781632912824",
+          "title": "El Despertar de los Dragones (Reyes y Hechiceros—Libro 1)",
+          "rank": 8,
+          "reason": "Presenta una fantasía de troles y dragones, con valor, honor, intrepidez, magia y fe en el destino. Además, se describe como una serie para lectores que aman la fantasía bien escrita."
+        }
+      ],
+      "checks": {
+        "authenticity": {
+          "status": "pass",
+          "detail": "All recommended ISBNs are unique retrieved candidates"
+        },
+        "language": {
+          "status": "pass",
+          "detail": "Recommendation languages match the request"
+        },
+        "count": {
+          "status": "pass",
+          "detail": "8 recommendations within 5-10"
+        },
+        "links": {
+          "status": "blocked",
+          "detail": "Book-card/store-link adapter is not implemented"
+        },
+        "reason": {
+          "status": "pass",
+          "detail": "Reasons have descriptions and pass the proper-word heuristic"
+        },
+        "latency": {
+          "status": "blocked",
+          "detail": "No HTTP SSE first-book measurement; graph duration is not a substitute"
+        }
+      }
+    },
+    {
+      "id": "es_thriller",
+      "query": "Una novela de suspense psicológico rápida y con giros inesperados",
+      "language": "es",
+      "category": "normal",
+      "requested_filters": {},
+      "unsupported_filters": [],
+      "error_code": null,
+      "workflow_duration_ms": 7210.93,
+      "first_book_sse_ms": null,
+      "retries": 0,
+      "searches_tried": [
+        "suspense psicológico",
+        "novela suspense",
+        "thriller psicológico"
+      ],
+      "candidate_isbns": [
+        "9798262588350",
+        "9798341557451",
+        "9798303618053",
+        "9798341528949",
+        "9798231939442",
+        "9798190447019",
+        "9798231181926",
+        "9788425353567",
+        "9798341563186",
+        "9798341529571",
+        "9798336440270",
+        "9788476584477",
+        "9798341579354",
+        "9798341563445",
+        "9798341557222",
+        "9798279497157",
+        "9781094369662",
+        "9798341563452",
+        "9781097454839",
+        "9781718017573",
+        "9789979647751",
+        "9781922475015",
+        "9782808003728",
+        "9798195248246",
+        "9798232198763",
+        "9785049112730",
+        "9798232181420",
+        "9788410646995",
+        "9788409827985",
+        "9786073912372",
+        "9786077350606",
+        "9786070758737",
+        "9788498673746",
+        "9788466349871",
+        "9788484507697",
+        "9788466348997",
+        "9788490566404",
+        "9788497595988",
+        "9788401540004",
+        "9788466357609",
+        "9788491392033",
+        "9789974943360"
+      ],
+      "recommendations": [
+        {
+          "isbn13": "9788410646995",
+          "title": "¿Tú me crees?",
+          "rank": 1,
+          "reason": "Es una novela de suspense psicológico con una protagonista marcada por un asesino en serie y una desaparición reciente que reabre secretos del pasado. También plantea una investigación sobre identidad y memoria, con un tono claramente tenso y lleno de revelaciones."
+        },
+        {
+          "isbn13": "9798190447019",
+          "title": "El Otro Yo",
+          "rank": 2,
+          "reason": "Encaja muy bien porque presenta un suspense psicológico rápido: a las 3:14 el protagonista recibe mensajes enviados desde su propio número y aparecen señales inquietantes en su vida cotidiana. La trama avanza con secretos, miedo y una creciente sensación de que algo no encaja."
+        },
+        {
+          "isbn13": "9781094369662",
+          "title": "Sólo yo: Una novela de suspense del FBI de Cami Lark—Libro Uno",
+          "rank": 3,
+          "reason": "Es un suspense del FBI con una investigación contra un asesino en serie, lo que le da un ritmo de thriller claro. Además, la protagonista es una genio de la tecnología que se ve obligada a colaborar para atrapar al criminal antes de que haya más víctimas."
+        },
+        {
+          "isbn13": "9798341557222",
+          "title": "Sólo esta noche (Una novela se suspense del FBI de Cami Lark - Libro 10)",
+          "rank": 4,
+          "reason": "Se trata de una novela de suspense del FBI con asesinatos y una protagonista que intenta conectar una serie de crímenes aparentemente sin relación. La historia introduce una nueva tecnología detrás de los casos, lo que añade intriga y giros en la investigación."
+        },
+        {
+          "isbn13": "9798341529571",
+          "title": "Lejos de él (Una novela de suspense del FBI de Nina Veil - Libro 2)",
+          "rank": 5,
+          "reason": "Es un thriller criminal centrado en una agente del FBI y un asesino despiadado, con un juego del gato y el ratón que promete tensión constante. La búsqueda de las víctimas congeladas en bloques de hielo le da un aire de suspense rápido e inquietante."
+        },
+        {
+          "isbn13": "9788425353567",
+          "title": "La trampa",
+          "rank": 6,
+          "reason": "Es un thriller psicológico intenso y cautivador, exactamente del tipo que buscas. La historia sigue a una escritora obsesionada con el asesinato sin resolver de su hermana y con la aparición del supuesto asesino doce años después."
+        },
+        {
+          "isbn13": "9798279497157",
+          "title": "Mi cuarto oscuro",
+          "rank": 7,
+          "reason": "Funciona como thriller psicológico porque parte de la desaparición de una chica y de una investigación que cuestiona la versión oficial del caso. Además, hay una madre que no acepta la explicación inicial, lo que impulsa una búsqueda de la verdad con tensión continua."
+        },
+        {
+          "isbn13": "9798231181926",
+          "title": "Las Colleras de Platino",
+          "rank": 8,
+          "reason": "Ofrece un suspense psicológico con una jueza que recibe una carta anónima y descubre una red siniestra de muertes sospechosas. La investigación avanza entre archivos cifrados, vigilancia y un juego mortal, así que encaja con un lector que quiere giros y tensión."
+        }
+      ],
+      "checks": {
+        "authenticity": {
+          "status": "pass",
+          "detail": "All recommended ISBNs are unique retrieved candidates"
+        },
+        "language": {
+          "status": "pass",
+          "detail": "Recommendation languages match the request"
+        },
+        "count": {
+          "status": "pass",
+          "detail": "8 recommendations within 5-10"
+        },
+        "links": {
+          "status": "blocked",
+          "detail": "Book-card/store-link adapter is not implemented"
+        },
+        "reason": {
+          "status": "pass",
+          "detail": "Reasons have descriptions and pass the proper-word heuristic"
+        },
+        "latency": {
+          "status": "blocked",
+          "detail": "No HTTP SSE first-book measurement; graph duration is not a substitute"
+        }
+      }
+    },
+    {
+      "id": "es_short_modern",
+      "query": "Libros de relatos cortos de autores españoles publicados después de 2010",
+      "language": "es",
+      "category": "normal",
+      "requested_filters": {
+        "era": "2010s",
+        "length": "short"
+      },
+      "unsupported_filters": [
+        "era",
+        "length"
+      ],
+      "error_code": null,
+      "workflow_duration_ms": 5003.05,
+      "first_book_sse_ms": null,
+      "retries": 0,
+      "searches_tried": [
+        "relatos cortos autores españoles",
+        "antología cuentos españoles",
+        "relatos españoles 2010"
+      ],
+      "candidate_isbns": [
+        "9788484095491",
+        "9788496977013",
+        "9788489142657",
+        "9788483714232",
+        "9788415599159",
+        "9788437090344",
+        "9788489142350",
+        "9788420686936",
+        "9788490740392",
+        "9783928064781",
+        "9781981708260",
+        "9788489142756",
+        "9789505810895",
+        "9781025395357",
+        "9788446027812",
+        "9788420634753",
+        "9788489142244",
+        "9788484721543",
+        "9788415770770",
+        "9789004366763",
+        "9788436277852",
+        "9788499407524",
+        "9788483930519",
+        "9788420634500",
+        "9788492181247",
+        "9788437606347",
+        "9789706669858",
+        "9788415065029",
+        "9788423973262",
+        "9788470396892",
+        "9789507683572",
+        "9789681903541",
+        "9788476847886",
+        "9788420483795",
+        "9788437622415",
+        "9788484086482",
+        "9788484087533"
+      ],
+      "recommendations": [
+        {
+          "isbn13": "9781981708260",
+          "title": "Cuentos Españoles",
+          "rank": 1,
+          "reason": "Es una colección de relatos cortos publicados en España en distintos medios, así que encaja directamente con lo que buscas. Además, reúne cuentos de finales del siglo XIX y principios del XX de autores muy conocidos de la literatura española."
+        },
+        {
+          "isbn13": "9788446027812",
+          "title": "Cuentos españoles de terror y humor",
+          "rank": 2,
+          "reason": "Incluye una selección de cuentos de terror y humor de autores españoles como Alarcón, Galdós, Fernández Bremón, Clarín, Pardo Bazán y Baroja. Al ser una antología de relatos breves de autores españoles, se ajusta bien a tu petición de libros de relatos cortos."
+        },
+        {
+          "isbn13": "9788489142756",
+          "title": "Cuentos españoles de Navidad",
+          "rank": 3,
+          "reason": "Es una antología del cuento de Navidad español a lo largo de cien años y reúne a grandes autores de la segunda mitad del siglo XIX. Si buscas relatos cortos de autores españoles, este volumen encaja claramente por su forma y por los autores que reúne."
+        },
+        {
+          "isbn13": "9788489142244",
+          "title": "Cuentos españoles de Navidad: De Bécquer a Galdós",
+          "rank": 4,
+          "reason": "Este libro presenta la más completa antología del cuento de Navidad español a lo largo de cien años. Reúne relatos breves de autores españoles como Bécquer, Galdós, Clarín y Blasco Ibáñez, así que corresponde bien a tu criterio."
+        },
+        {
+          "isbn13": "9781025395357",
+          "title": "Antologia De Cuentos Espanoles",
+          "rank": 5,
+          "reason": "Presenta una colección de narrativa breve española de finales del siglo XIX y principios del XX. La obra reúne piezas fundamentales de autores consagrados y ofrece un recorrido por las tradiciones y corrientes estéticas de esa época."
+        }
+      ],
+      "checks": {
+        "authenticity": {
+          "status": "pass",
+          "detail": "All recommended ISBNs are unique retrieved candidates"
+        },
+        "language": {
+          "status": "pass",
+          "detail": "Recommendation languages match the request"
+        },
+        "count": {
+          "status": "pass",
+          "detail": "5 recommendations within 5-10"
+        },
+        "links": {
+          "status": "blocked",
+          "detail": "Book-card/store-link adapter is not implemented"
+        },
+        "reason": {
+          "status": "fail",
+          "detail": "9781981708260: unsupported proper words España, XIX, XX"
+        },
+        "latency": {
+          "status": "blocked",
+          "detail": "No HTTP SSE first-book measurement; graph duration is not a substitute"
+        }
+      }
+    },
+    {
+      "id": "es_manga",
+      "query": "Manga de aventuras con personajes que aprenden a trabajar en equipo",
+      "language": "es",
+      "category": "normal",
+      "requested_filters": {
+        "genre": "manga"
+      },
+      "unsupported_filters": [
+        "genre"
+      ],
+      "error_code": null,
+      "workflow_duration_ms": 3380.22,
+      "first_book_sse_ms": null,
+      "retries": 0,
+      "searches_tried": [
+        "manga aventura equipo",
+        "manga amistad cooperación"
+      ],
+      "candidate_isbns": [
+        "9788410512535",
+        "9782490660988",
+        "9788410512528",
+        "9788413429809",
+        "9788401384240",
+        "9788491530831",
+        "9785044109209",
+        "9788408195740",
+        "9788413425399",
+        "9791387920487",
+        "9788411407731",
+        "9789403687773",
+        "9789588613970",
+        "9788898006700",
+        "9789922233338",
+        "9786071110480"
+      ],
+      "recommendations": [
+        {
+          "isbn13": "9791387920487",
+          "title": "Haikyû!! (Novela) no 02",
+          "rank": 1,
+          "reason": "Es una historia de voleibol y sigue a equipos que entrenan para competiciones, así que encaja con aventuras centradas en el esfuerzo colectivo. Además, varios equipos aparecen reunidos en una concentración intensiva, lo que sugiere claramente trabajo en equipo."
+        },
+        {
+          "isbn13": "9788413429809",
+          "title": "Planeta Manga: Good Game!",
+          "rank": 2,
+          "reason": "Este cómic forma parte del Universo Planeta Manga y presenta una protagonista que viaja con su mejor amigo para inscribirse en una academia. Eso encaja bien con un manga de aventuras con personajes que avanzan juntos hacia un objetivo común."
+        },
+        {
+          "isbn13": "9788491530831",
+          "title": "Dr. Slump no 13/15",
+          "rank": 3,
+          "reason": "Es un manga shonen ambientado en Villa Pingüino, con situaciones de acción y mucha locura, así que sí entra en la idea de aventuras. También menciona a unos héroes que comparten protagonismo, lo que puede encajar con un grupo de personajes en conjunto."
+        }
+      ],
+      "checks": {
+        "authenticity": {
+          "status": "pass",
+          "detail": "All recommended ISBNs are unique retrieved candidates"
+        },
+        "language": {
+          "status": "pass",
+          "detail": "Recommendation languages match the request"
+        },
+        "count": {
+          "status": "fail",
+          "detail": "Expected 5-10, received 3"
+        },
+        "links": {
+          "status": "blocked",
+          "detail": "Book-card/store-link adapter is not implemented"
+        },
+        "reason": {
+          "status": "pass",
+          "detail": "Reasons have descriptions and pass the proper-word heuristic"
+        },
+        "latency": {
+          "status": "blocked",
+          "detail": "No HTTP SSE first-book measurement; graph duration is not a substitute"
+        }
+      }
+    },
+    {
+      "id": "es_free_classics",
+      "query": "Novelas clásicas de aventuras que pueda leer gratis como obras de dominio público",
+      "language": "es",
+      "category": "normal",
+      "requested_filters": {
+        "free_only": true
+      },
+      "unsupported_filters": [
+        "free_only"
+      ],
+      "error_code": null,
+      "workflow_duration_ms": 4604.53,
+      "first_book_sse_ms": null,
+      "retries": 0,
+      "searches_tried": [
+        "novela aventuras",
+        "novela clásica aventuras",
+        "novela dominio público"
+      ],
+      "candidate_isbns": [
+        "9783935004725",
+        "9781975779917",
+        "9788488333254",
+        "9788490064887",
+        "9788026802907",
+        "9781517374099",
+        "9798653567735",
+        "9783039118199",
+        "9791387938420",
+        "9788436941951",
+        "9788413400587",
+        "9788499421261",
+        "9788437085623",
+        "9788476584477",
+        "9788447200818",
+        "9781517047498",
+        "9780669102901",
+        "9788410983090",
+        "9788418193880",
+        "9798612346234",
+        "9788432160332",
+        "9788467579550",
+        "9788466118262",
+        "9788426107749",
+        "9788495311023",
+        "9788497648776",
+        "9788496791626",
+        "9789686021035",
+        "9788432021800",
+        "9788466130394",
+        "9788434844513",
+        "9788470393846",
+        "9788482809540",
+        "9788469866184",
+        "9788417928865"
+      ],
+      "recommendations": [
+        {
+          "isbn13": "9788026802907",
+          "title": "Las Aventuras de Robinson Crusoe",
+          "rank": 1,
+          "reason": "Es una novela clásica de aventuras marítimas y está publicada en 1838, así que encaja muy bien con tu búsqueda de aventuras clásicas. Además, la ficha indica que las obras de Daniel Defoe ya están en dominio público y se presenta como una edición en español."
+        },
+        {
+          "isbn13": "9781517047498",
+          "title": "La isla del tesoro / Treasure Island",
+          "rank": 2,
+          "reason": "Es una novela de aventuras publicada en Londres en 1883, justo el tipo de clásico aventurero que buscas. La ficha la presenta además como una obra fuente de inspiración en cine, televisión, literatura, cómics y videojuegos."
+        },
+        {
+          "isbn13": "9781975779917",
+          "title": "Aventuras de A. Gordon Pym (Spanish Edition)",
+          "rank": 3,
+          "reason": "Es una narración de aventuras marinas publicada en 1838 y se compara con la novela setecentista de Defoe y Smollett. Por su fecha y por tratarse de una obra clásica de aventuras, encaja muy bien con tu petición de leer clásicos de dominio público."
+        }
+      ],
+      "checks": {
+        "authenticity": {
+          "status": "pass",
+          "detail": "All recommended ISBNs are unique retrieved candidates"
+        },
+        "language": {
+          "status": "pass",
+          "detail": "Recommendation languages match the request"
+        },
+        "count": {
+          "status": "fail",
+          "detail": "Expected 5-10, received 3"
+        },
+        "links": {
+          "status": "blocked",
+          "detail": "Book-card/store-link adapter is not implemented"
+        },
+        "reason": {
+          "status": "fail",
+          "detail": "9788026802907: unsupported proper words Daniel, Defoe"
+        },
+        "latency": {
+          "status": "blocked",
+          "detail": "No HTTP SSE first-book measurement; graph duration is not a substitute"
+        }
+      }
+    },
+    {
+      "id": "es_science",
+      "query": "Libros de divulgación sobre astronomía para principiantes",
+      "language": "es",
+      "category": "normal",
+      "requested_filters": {},
+      "unsupported_filters": [],
+      "error_code": null,
+      "workflow_duration_ms": 5682.84,
+      "first_book_sse_ms": null,
+      "retries": 0,
+      "searches_tried": [
+        "astronomía divulgación",
+        "astronomía principiantes",
+        "astronomía introductoria"
+      ],
+      "candidate_isbns": [
+        "9789703246601",
+        "9781705560976",
+        "9789871354665",
+        "9789703200634",
+        "9789685270557",
+        "9788437061047",
+        "9788483716472",
+        "9788474749908",
+        "9788417547509",
+        "9788419414083",
+        "9788436848045",
+        "9798644586790",
+        "9788426737410",
+        "9781542881319",
+        "9788426720535",
+        "9781974413782",
+        "9788446024200",
+        "9788469126677",
+        "9788446028994",
+        "9781075028212",
+        "9780244044497",
+        "9789585012530",
+        "9788466211697",
+        "9788471913487",
+        "9789586280044",
+        "9788483327050",
+        "9788401450648",
+        "9788403518438",
+        "9788498016468"
+      ],
+      "recommendations": [
+        {
+          "isbn13": "9798644586790",
+          "title": "Guía de Astronomía para Principiantes",
+          "rank": 1,
+          "reason": "Es una guía rápida con principios básicos y ejercicios para empezar en astronomía sin conocimiento previo. Además, ofrece una visión general paso a paso de este rincón del cosmos, así que encaja muy bien para principiantes."
+        },
+        {
+          "isbn13": "9788426737410",
+          "title": "La astronomía es fácil",
+          "rank": 2,
+          "reason": "Este libro está pensado para acercarse a la astronomía de una forma fácil y divertida. Incluye herramientas digitales para descubrir el cielo y ayuda a distinguir constelaciones y planetas, justo lo que busca quien empieza."
+        },
+        {
+          "isbn13": "9788426720535",
+          "title": "Aprender astronomía con 100 ejercicios prácticos",
+          "rank": 3,
+          "reason": "Está dirigido a quienes quieren observar el cielo pero no saben por dónde empezar. Propone cien ejercicios prácticos y explica cómo distinguir planetas y estrellas, encontrar la estrella Polar y usar telescopios y prismáticos."
+        },
+        {
+          "isbn13": "9781542881319",
+          "title": "AstronomíA. Guía para Principiantes",
+          "rank": 4,
+          "reason": "Se presenta como una guía completa para principiantes y escolares interesados en aprender sobre astronomía. Expone conceptos básicos y subraya la importancia de ese conocimiento para quienes se inician en la materia."
+        },
+        {
+          "isbn13": "9788446024200",
+          "title": "El universo",
+          "rank": 5,
+          "reason": "Ofrece una introducción a la astronomía y a las maravillas del firmamento. Por su enfoque introductorio, resulta adecuada para alguien que busca divulgación sobre astronomía desde un nivel inicial."
+        },
+        {
+          "isbn13": "9788417547509",
+          "title": "Breve historia de la astronomía",
+          "rank": 6,
+          "reason": "Esta obra se define como amena y muy divulgativa, y recoge los principales hitos de la historia de la astronomía. Su planteamiento general la hace adecuada para lectores que quieren una primera aproximación al tema."
+        },
+        {
+          "isbn13": "9788437061047",
+          "title": "Astronomía fundamental",
+          "rank": 7,
+          "reason": "Es una introducción accesible y muy constructiva a grandes temas de la astrofísica y la cosmología. Además, presenta una descripción clara del universo conocido, desde el Sistema Solar hasta estrellas y galaxias."
+        },
+        {
+          "isbn13": "9780244044497",
+          "title": "Introduccion a la Astronomia",
+          "rank": 8,
+          "reason": "Es un manual de introducción a la astronomía. Nace como resumen de contenido teórico de una asignatura y está pensado para complementar explicaciones, por lo que encaja con un lector principiante que busca una base."
+        },
+        {
+          "isbn13": "9781705560976",
+          "title": "5000 Preguntas Sobre la Ciencia. Manual de Divulgación Científica",
+          "rank": 9,
+          "reason": "La obra está dividida en varios bloques, entre ellos Astronomía, y su propósito es ayudar a mejorar la cultura científica general. Aunque no es solo de astronomía, sí incluye esa materia dentro de un manual de divulgación científica."
+        }
+      ],
+      "checks": {
+        "authenticity": {
+          "status": "pass",
+          "detail": "All recommended ISBNs are unique retrieved candidates"
+        },
+        "language": {
+          "status": "pass",
+          "detail": "Recommendation languages match the request"
+        },
+        "count": {
+          "status": "pass",
+          "detail": "9 recommendations within 5-10"
+        },
+        "links": {
+          "status": "blocked",
+          "detail": "Book-card/store-link adapter is not implemented"
+        },
+        "reason": {
+          "status": "pass",
+          "detail": "Reasons have descriptions and pass the proper-word heuristic"
+        },
+        "latency": {
+          "status": "blocked",
+          "detail": "No HTTP SSE first-book measurement; graph duration is not a substitute"
+        }
+      }
+    },
+    {
+      "id": "es_history",
+      "query": "Una historia de amor durante la Guerra Civil española",
+      "language": "es",
+      "category": "normal",
+      "requested_filters": {
+        "genre": "historical fiction"
+      },
+      "unsupported_filters": [
+        "genre"
+      ],
+      "error_code": null,
+      "workflow_duration_ms": 5420.88,
+      "first_book_sse_ms": null,
+      "retries": 0,
+      "searches_tried": [
+        "novela amor Guerra Civil",
+        "romance Guerra Civil",
+        "historia amor Madrid"
+      ],
+      "candidate_isbns": [
+        "9788410359048",
+        "9781071590324",
+        "9788436257878",
+        "9780847703999",
+        "9788474814248",
+        "9781855662704",
+        "9788432290343",
+        "9788450530711",
+        "9788430615704",
+        "9798386355531",
+        "9788424509798",
+        "9788484892632",
+        "9788446015765",
+        "9788437638249",
+        "9788412752205",
+        "9781508450030",
+        "9788423979561",
+        "9788466318082",
+        "9788494119750",
+        "9788441416406",
+        "9788433824455",
+        "9788473290081",
+        "9788497943536",
+        "9788424512187",
+        "9788474400496",
+        "9788466650533",
+        "9788433601568",
+        "9788481099478",
+        "9788431016036",
+        "9788449500275",
+        "9789877390414",
+        "9788466329378",
+        "9788466343039",
+        "9788466348386",
+        "9788485965380",
+        "9788486879068",
+        "9788423931804",
+        "9788473930024",
+        "9788467046687",
+        "9789706438706",
+        "9788470350146",
+        "9789802228843",
+        "9788493032982",
+        "9788484898726",
+        "9788478008568",
+        "9789590305566",
+        "9788430605927",
+        "9788498955330",
+        "9788415595847"
+      ],
+      "recommendations": [
+        {
+          "isbn13": "9788432290343",
+          "title": "La noche de los tiempos",
+          "rank": 1,
+          "reason": "Es una gran novela de amor ambientada en el año previo al estallido de la guerra civil española. Además, recupera una historia de amor clandestino en un contexto de país ya quebrado por la guerra, así que encaja muy bien con lo que buscas."
+        },
+        {
+          "isbn13": "9788410359048",
+          "title": "El secreto de Adela. Una historia de amor prohibido en el Madrid de la Guerra Civil. La nueva voz de la novela histórica española.",
+          "rank": 2,
+          "reason": "Presenta una historia de amor prohibido en el Madrid de la Guerra Civil, exactamente en el marco histórico que pides. También se sitúa en Madrid en 1931 y sigue una relación que cambia a medida que avanza la trama."
+        },
+        {
+          "isbn13": "9781071590324",
+          "title": "Un amor como el cielo previsto",
+          "rank": 3,
+          "reason": "Aunque está ambientada en la Guerra Civil de Estados Unidos, sí es una historia de amor con fondo bélico y sigue el enamoramiento entre Josephine y un soldado confederado. No encaja con la Guerra Civil española, pero es la única novela romántica de la lista con guerra civil como marco central."
+        },
+        {
+          "isbn13": "9781508450030",
+          "title": "Huella de Almas. Una Hermosa Historia de Amor En El Madrid de Principios Del XX",
+          "rank": 4,
+          "reason": "Es una novela situada en el Madrid de principios del siglo XX y se presenta como una hermosa historia de amor. No coincide con la Guerra Civil española, pero sí ofrece una ambientación madrileña y un foco claro en el amor."
+        },
+        {
+          "isbn13": "9798386355531",
+          "title": "Una Historia de Amor en las Calles de Madrid",
+          "rank": 5,
+          "reason": "Es una historia de amor que transcurre en Madrid y sigue a Juan y Ana mientras se conocen, se enamoran y afrontan dificultades juntos. No está ambientada en la Guerra Civil, pero sí responde al deseo de leer una historia romántica en Madrid."
+        }
+      ],
+      "checks": {
+        "authenticity": {
+          "status": "pass",
+          "detail": "All recommended ISBNs are unique retrieved candidates"
+        },
+        "language": {
+          "status": "pass",
+          "detail": "Recommendation languages match the request"
+        },
+        "count": {
+          "status": "pass",
+          "detail": "5 recommendations within 5-10"
+        },
+        "links": {
+          "status": "blocked",
+          "detail": "Book-card/store-link adapter is not implemented"
+        },
+        "reason": {
+          "status": "fail",
+          "detail": "9781071590324: unsupported proper words Estados, Unidos; 9781508450030: unsupported proper words Civil, Guerra; 9798386355531: unsupported proper words Civil, Guerra"
+        },
+        "latency": {
+          "status": "blocked",
+          "detail": "No HTTP SSE first-book measurement; graph duration is not a substitute"
+        }
+      }
+    },
+    {
+      "id": "es_sea",
+      "query": "Quiero una novela triste sobre el mar",
+      "language": "es",
+      "category": "normal",
+      "requested_filters": {},
+      "unsupported_filters": [],
+      "error_code": null,
+      "workflow_duration_ms": 5652.06,
+      "first_book_sse_ms": null,
+      "retries": 0,
+      "searches_tried": [
+        "novela mar",
+        "novela naufragio",
+        "novela pescadores"
+      ],
+      "candidate_isbns": [
+        "9788437646787",
+        "9788419018274",
+        "9789568251031",
+        "9788432065293",
+        "9788420454788",
+        "9788427713338",
+        "9788408270638",
+        "9788417346201",
+        "9788410182387",
+        "9788418984495",
+        "9788483741719",
+        "9786071644213",
+        "9786078450800",
+        "9789875081550",
+        "9788439893509",
+        "9788418451706",
+        "9788416638628",
+        "9789585950511",
+        "9783752498370",
+        "9788409645961",
+        "9788477865131",
+        "9788490198902",
+        "9788420604619",
+        "9788402090829",
+        "9788416310043",
+        "9788416363780",
+        "9788401387418",
+        "9788432053160",
+        "9788413183527",
+        "9788466322393",
+        "9788492750832",
+        "9788401341939",
+        "9788423973194",
+        "9788423000067",
+        "9788490576892",
+        "9788432052866",
+        "9789682709036",
+        "9788498385489",
+        "9789589815113",
+        "9788484332022",
+        "9786070714764",
+        "9788493876111",
+        "9788408047834",
+        "9788494402043",
+        "9788426414397",
+        "9788408190813",
+        "9788499898643",
+        "9788427030527",
+        "9789681326913",
+        "9788490748268",
+        "9788420727851"
+      ],
+      "recommendations": [
+        {
+          "isbn13": "9788417346201",
+          "title": "En el mar",
+          "rank": 1,
+          "reason": "Es una novela ambientada casi por completo en el mar, con un viaje en velero como eje de la historia. También tiene un tono claramente angustioso: el protagonista pasa por una profunda crisis personal y la tormenta y la desaparición de su hija intensifican esa atmósfera triste."
+        },
+        {
+          "isbn13": "9788408270638",
+          "title": "El latido del mar",
+          "rank": 2,
+          "reason": "Es una novela que transcurre en el mar y en torno a una galera, así que encaja muy bien con lo que buscas. Además, plantea una historia dura, marcada por la derrota, la miseria, los abusos y la venganza, lo que le da un tono oscuro y doloroso."
+        },
+        {
+          "isbn13": "9788418451706",
+          "title": "Los pescadores",
+          "rank": 3,
+          "reason": "Es una novela sobre pescadores y está situada en torno al mar del Norte, así que el mar forma parte central del mundo narrativo. La historia enfrenta a dos grupos humanos y presenta un conflicto que causó consternación, lo que la acerca a un ambiente serio y tenso."
+        },
+        {
+          "isbn13": "9788416638628",
+          "title": "Los pescadores",
+          "rank": 4,
+          "reason": "Es una novela y una parte importante de la acción se desarrolla en el río, un espacio de agua que organiza la experiencia de los personajes. La historia muestra a unos hermanos alejándose de la escuela y enfrentándose a una situación familiar difícil, con un tono de pérdida y desorden."
+        },
+        {
+          "isbn13": "9788437646787",
+          "title": "El Jarama",
+          "rank": 5,
+          "reason": "Es una novela y presenta una crónica de un domingo anodino en la vida de unos personajes. Aunque no gira exactamente en torno al mar, sí ofrece una narración literaria compleja que puede atraer si buscas una novela con tono sobrio y melancólico."
+        }
+      ],
+      "checks": {
+        "authenticity": {
+          "status": "pass",
+          "detail": "All recommended ISBNs are unique retrieved candidates"
+        },
+        "language": {
+          "status": "pass",
+          "detail": "Recommendation languages match the request"
+        },
+        "count": {
+          "status": "pass",
+          "detail": "5 recommendations within 5-10"
+        },
+        "links": {
+          "status": "blocked",
+          "detail": "Book-card/store-link adapter is not implemented"
+        },
+        "reason": {
+          "status": "pass",
+          "detail": "Reasons have descriptions and pass the proper-word heuristic"
+        },
+        "latency": {
+          "status": "blocked",
+          "detail": "No HTTP SSE first-book measurement; graph duration is not a substitute"
+        }
+      }
+    },
+    {
+      "id": "es_niche",
+      "query": "Novelas sobre fareros en comunidades remotas del Ártico",
+      "language": "es",
+      "category": "niche",
+      "requested_filters": {},
+      "unsupported_filters": [],
+      "error_code": null,
+      "workflow_duration_ms": 3505.27,
+      "first_book_sse_ms": null,
+      "retries": 0,
+      "searches_tried": [
+        "novela fareros ártico",
+        "novela comunidades remotas",
+        "novela islas árticas"
+      ],
+      "candidate_isbns": [
+        "9788494853432",
+        "9788460452324",
+        "9786078351510",
+        "9788408198154",
+        "9789560002686",
+        "9791388255014",
+        "9791388079832",
+        "9791388079870",
+        "9788490690987",
+        "9788466344586",
+        "9788408275190",
+        "9788415770589",
+        "9788401021053",
+        "9780369410115",
+        "9788437640129",
+        "9788496467187",
+        "9789500731515"
+      ],
+      "recommendations": [
+        {
+          "isbn13": "9788490690987",
+          "title": "La isla de los glaciares azules",
+          "rank": 1,
+          "reason": "Esta novela está ambientada en el Ártico y presenta dos mujeres en un paisaje impresionante. También incorpora un misterio oculto bajo el hielo durante décadas, lo que encaja con una historia de intriga en esa región."
+        },
+        {
+          "isbn13": "9788401021053",
+          "title": "Confines",
+          "rank": 2,
+          "reason": "Aquí encontrarás dos navegaciones por los mares árticos y antárticos, realizadas con pocos meses de diferencia. El libro convierte esos extremos del globo en el centro de un relato de viaje, muy cercano al ambiente remoto que buscas."
+        },
+        {
+          "isbn13": "9788466344586",
+          "title": "En mares salvajes",
+          "rank": 3,
+          "reason": "Este libro ofrece un viaje por territorios árticos y por el paso del Noroeste, con la violencia del océano en latitudes cercadas por el hielo. Aunque es un libro de viaje y no una novela, es de los candidatos que mejor se acerca a tu interés por el Ártico remoto."
+        }
+      ],
+      "checks": {
+        "authenticity": {
+          "status": "pass",
+          "detail": "All recommended ISBNs are unique retrieved candidates"
+        },
+        "language": {
+          "status": "pass",
+          "detail": "Recommendation languages match the request"
+        },
+        "count": {
+          "status": "fail",
+          "detail": "Expected 5-10, received 3"
+        },
+        "links": {
+          "status": "blocked",
+          "detail": "Book-card/store-link adapter is not implemented"
+        },
+        "reason": {
+          "status": "fail",
+          "detail": "9788466344586: unsupported proper words Ártico"
+        },
+        "latency": {
+          "status": "blocked",
+          "detail": "No HTTP SSE first-book measurement; graph duration is not a substitute"
+        }
+      }
+    },
+    {
+      "id": "es_nonsense",
+      "query": "ñxqz blorf 887766 zzz qqq",
+      "language": "es",
+      "category": "nonsense",
+      "requested_filters": {},
+      "unsupported_filters": [],
+      "error_code": null,
+      "workflow_duration_ms": 5695.63,
+      "first_book_sse_ms": null,
+      "retries": 2,
+      "searches_tried": [
+        "ñxqz blorf 887766 zzz qqq",
+        "ñxqz blorf",
+        "blorf zzz",
+        "ñxqz qqq",
+        "blorf 887766",
+        "ñxqz zzz",
+        "blorf qqq"
+      ],
+      "candidate_isbns": [],
+      "recommendations": [],
+      "checks": {
+        "authenticity": {
+          "status": "pass",
+          "detail": "All recommended ISBNs are unique retrieved candidates"
+        },
+        "language": {
+          "status": "pass",
+          "detail": "Recommendation languages match the request"
+        },
+        "count": {
+          "status": "pass",
+          "detail": "0 recommendations within 0-0"
+        },
+        "links": {
+          "status": "blocked",
+          "detail": "Book-card/store-link adapter is not implemented"
+        },
+        "reason": {
+          "status": "pass",
+          "detail": "Reasons have descriptions and pass the proper-word heuristic"
+        },
+        "latency": {
+          "status": "not_applicable",
+          "detail": "No first book is expected for nonsense input"
+        }
+      }
+    }
+  ]
+}
