@@ -31,7 +31,7 @@ ISBN_1, ISBN_2, ISBN_3 = (b.isbn13 for b in CANDIDATES)
 
 
 def test_books_without_a_description_are_left_out() -> None:
-    books = [book(1, None), book(2), book(3, ""), book(4)]
+    books = [book(1, None), book(2), book(3, ""), book(4), book(5, " \n\t ")]
     assert [b.title for b in select_for_ranking(books)] == ["Book 2", "Book 4"]
     assert select_for_ranking([book(1, None)]) == []
 

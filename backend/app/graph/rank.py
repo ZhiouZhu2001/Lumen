@@ -22,7 +22,7 @@ a story, essays, studies and criticism about that topic do not fit. When the
 wish is ambiguous, read it the way a reader in Spain would mean it. If fewer
 than 5 books truly fit, pick only those: 3 good books are better than 5 weak
 ones. Copy each ISBN exactly from the list. Never suggest a book that is not
-in the list.
+in the list. If none of the candidates fit, return an empty picks list.
 
 For each pick, write a reason of 2 to 3 sentences in {language_name} that says
 why this book fits the wish. Use only facts stated in that book's description.
@@ -38,7 +38,9 @@ class ModelPick(BaseModel):
 
 
 class ModelPicks(BaseModel):
-    picks: list[ModelPick] = Field(description="5 to 10 best books, best first")
+    picks: list[ModelPick] = Field(
+        description="Up to 10 matching books, best first; empty if none fit"
+    )
 
 
 class Pick(BaseModel):
@@ -49,7 +51,9 @@ class Pick(BaseModel):
 
 def select_for_ranking(candidates: list[BookCandidate]) -> list[BookCandidate]:
     """Only books with a description (the reason may only use its facts), max 30."""
-    return [book for book in candidates if book.description][:MAX_CANDIDATES]
+    return [
+        book for book in candidates if book.description and book.description.strip()
+    ][:MAX_CANDIDATES]
 
 
 def format_candidates(candidates: list[BookCandidate]) -> str:
@@ -98,6 +102,8 @@ async def rank_and_explain(
         system=SYSTEM_PROMPT.format(language_name=LANGUAGE_NAMES[language]),
         user=f"Reader's wish: {query}\n\nCandidates:\n\n{format_candidates(shortlist)}",
     )
+    if not output.picks:
+        return []  # A valid empty answer means no_results, not a model failure.
     picks = clean_picks(output, shortlist)
     if not picks:
         raise LLMError("rank_and_explain returned no valid picks")

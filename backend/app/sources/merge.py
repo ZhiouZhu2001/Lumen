@@ -25,12 +25,17 @@ def merge_candidates(
     merged: dict[str, BookCandidate] = {}
     for book in primary:
         merged.setdefault(book.isbn13, book)  # duplicates: keep the first.
+    seen_secondary: set[tuple[str, str]] = set()
     for book in secondary:
+        key = (book.isbn13, book.source)
+        if key in seen_secondary:
+            continue
+        seen_secondary.add(key)
         existing = merged.get(book.isbn13)
         if existing is None:
             merged[book.isbn13] = book
-        # don't merge the same source in twice (duplicate inside secondary)
-        elif book.source not in existing.source.split("+"):
+        else:
+            # Later rounds may fill gaps even when the source was already seen.
             merged[book.isbn13] = _fill_gaps(existing, book)
     return list(merged.values())
 
@@ -39,8 +44,13 @@ def _fill_gaps(base: BookCandidate, extra: BookCandidate) -> BookCandidate:
     updates = {
         field: getattr(extra, field)
         for field in FILLABLE_FIELDS
-        if not getattr(base, field) and getattr(extra, field)
+        if not _has_value(getattr(base, field)) and _has_value(getattr(extra, field))
     }
-    updates["source"] = f"{base.source}+{extra.source}"
+    sources = [*base.source.split("+"), *extra.source.split("+")]
+    updates["source"] = "+".join(dict.fromkeys(sources))
     # model_copy returns a NEW object; the input books are never modified
     return base.model_copy(update=updates)
+
+
+def _has_value(value: object) -> bool:
+    return bool(value.strip()) if isinstance(value, str) else bool(value)

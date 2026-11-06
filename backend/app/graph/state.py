@@ -7,7 +7,7 @@ from app.graph.rank import Pick, select_for_ranking
 from app.sources.schemas import BookCandidate, Language
 
 MAX_RETRIES = 2  # spec: broaden at most twice
-MIN_CANDIDATES = 10  # rankable books needed so the model can pick 5 to 10
+MIN_CANDIDATES = 5  # spec: rank once at least five usable candidates are available
 
 
 class SearchState(TypedDict):

@@ -96,3 +96,13 @@ async def test_all_requests_failing_raises_upstream_unavailable() -> None:
     everything = {(host, s) for host in (GOOGLE, OPEN_LIBRARY) for s in CATALOG}
     with pytest.raises(UpstreamUnavailable):
         await run([], failing=everything)
+
+
+async def test_empty_searches_do_not_call_sources_or_report_an_outage() -> None:
+    def reject_request(request: httpx.Request) -> httpx.Response:
+        pytest.fail("An empty search list must not make an HTTP request")
+
+    async with httpx.AsyncClient(
+        transport=httpx.MockTransport(reject_request)
+    ) as client:
+        assert await search_candidates(client, [], "es") == []

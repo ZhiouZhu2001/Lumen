@@ -37,6 +37,9 @@ async def search_candidates(
     """Run every search on both sources at once and merge the books by ISBN.
     Raise UpstreamUnavailable only if every single request failed.
     """
+    if not searches:
+        return []
+
     google_calls = [
         _try_source(
             "Google Books",

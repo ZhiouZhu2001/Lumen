@@ -26,8 +26,8 @@ async def ask_structured[T: BaseModel](
     system: str,
     user: str,
 ) -> T:
-    structured = model.with_structured_output(schema)
     try:
+        structured = model.with_structured_output(schema)
         result = await structured.ainvoke([("system", system), ("user", user)])
     except Exception as e:
         raise LLMError(f"{schema.__name__} call failed: {e}") from e

@@ -105,3 +105,32 @@ def test_inputs_are_not_modified() -> None:
     merge_candidates([original], [open_library(A, published_year=1967)])
     assert original.published_year is None
     assert original.source == "google_books"
+
+
+def test_repeated_rounds_do_not_repeat_source_labels() -> None:
+    first = merge_candidates([google(A)], [open_library(A)])
+    later = merge_candidates([google(A)], [open_library(A)])
+    result = merge_candidates(first, later)
+    result = merge_candidates(result, later)
+    assert len(result) == 1
+    assert result[0].source == "google_books+open_library"
+
+
+def test_later_round_from_the_same_source_can_fill_missing_fields() -> None:
+    original = google(A, title="Original title", description="   ")
+    later = google(A, title="Different title", description="New facts.", page_count=120)
+    result = merge_candidates([original], [later])
+    assert result[0].title == "Original title"
+    assert result[0].description == "New facts."
+    assert result[0].page_count == 120
+    assert result[0].source == "google_books"
+    assert original.description == "   "
+
+
+def test_duplicate_secondary_records_do_not_replace_first_record_fields() -> None:
+    result = merge_candidates(
+        [google(A)],
+        [open_library(A), open_library(A, description="A later duplicate.")],
+    )
+    assert result[0].description is None
+    assert result[0].source == "google_books+open_library"

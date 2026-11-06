@@ -50,3 +50,17 @@ def test_books_without_a_description_do_not_count() -> None:
     no_descriptions = [book(n, None) for n in range(50)]
     assert route_after_search(state(no_descriptions, 0)) == "broaden"
     assert route_after_search(state(no_descriptions, MAX_RETRIES)) == END
+
+
+@pytest.mark.parametrize(
+    ("count", "expected"),
+    [(4, "broaden"), (5, "rank_and_explain"), (9, "rank_and_explain")],
+)
+def test_specification_threshold_is_five_rankable_books(count, expected) -> None:
+    assert route_after_search(state([book(n) for n in range(count)], 0)) == expected
+
+
+def test_whitespace_descriptions_do_not_satisfy_the_threshold() -> None:
+    assert (
+        route_after_search(state([book(n, " \n ") for n in range(10)], 0)) == "broaden"
+    )
