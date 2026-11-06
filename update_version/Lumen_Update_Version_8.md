@@ -6,8 +6,9 @@
 - Branch: `codex/update-8-validated-ranking-retries`.
 - Baseline: `587df5196982f47f4a17953a16f9ebb484453107`, the local Update 7
   checkpoint created before this implementation round.
-- Dependencies: unpublished local Updates 6 and 7, based on the uploaded but
-  unmerged Update 5 branch. Main remains at `7d05697360369d0f88674fa148cd6f430d0f0aef`.
+- Dependencies at implementation start: local Updates 6 and 7, based on the
+  uploaded but then-unmerged Update 5 branch. Main's publication baseline was
+  `7d05697360369d0f88674fa148cd6f430d0f0aef`; verified publication is recorded below.
 - Objective: implement the approved bounded ranking-feedback flow, preserve
   validated picks, reject unsupported output and verify the complete test scope.
 - Actual scope: graph routing, shared grounding, ranking validation, intent
@@ -301,12 +302,20 @@ Before this round, Update 7 was locally committed as
 `ZhiouZhu2001` using the existing configured email. That checkpoint preserves the
 previous round separately; its historical update record remains unchanged.
 
-At publication preparation, Updates 6 and 7 are local ancestors of Update 8 and
-will be included in its authorized branch upload. The user has authorized both
-upload and main merge for the reviewed branch and its documented dependencies.
-The push and merge are pending remote verification. The last checked remote
-heads are `main` at `7d05697` and Update 5 at `24fd6b5`. No pull request, release
-or deployment is requested or planned as part of publication.
+Publication was verified on 2026-11-06: implementation commit
+`89c3eeec6ddf427727fb8c2f11349b897b8a3273` was pushed to
+`origin/codex/update-8-validated-ranking-retries`. Main was then fast-forwarded
+from `7d05697` to that same implementation commit and pushed. Remote head checks
+confirmed both branches at `89c3eee`. The dependent Update 6/7 checkpoints and
+Update 5 are therefore included in the published main history; the feature
+branch is retained.
+
+The upload check reran all 161 tests successfully in 1.95 seconds, along with
+scoped lint/format checks. All pending commit author/committer identities were
+verified as the user's configured identity, with no additional author credits.
+This publication follow-up changes only the update record. No pull request,
+release or deployment was created. The recorded full-product evaluation remains
+unsuccessful because channels, filters and HTTP SSE evidence are still missing.
 
 ### Proposed commit title
 
@@ -333,8 +342,8 @@ evidence remain blocked, so the full merge gate correctly does not pass.
 
 Compatibility: no public API, database, frontend, runtime dependency or deployment
 change. Internal helper callers are updated; older parsed snapshots remain
-readable. This branch depends on unpublished Updates 6/7 and unmerged Update 5.
+readable. The published history includes the Update 6/7 and Update 5 dependencies.
 See `update_version/Lumen_Update_Version_8.md` for approval, actual verification,
 cost/latency limits and remaining product work. The user authorized uploading
 and merging this branch as a staged exception after disclosure of the incomplete
-full-product gate; remote publication will be verified separately.
+full-product gate; the implementation upload and main merge have been verified.
