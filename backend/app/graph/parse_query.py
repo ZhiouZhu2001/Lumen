@@ -21,6 +21,11 @@ mean it (which war, which city, which king), so the catalog cannot return
 books about the wrong one.
 Catalogs do not index moods or pace: leave out words like sad, cozy,
 fast-paced or twists, and use the genre that fits them instead.
+Free availability and reading formats are channel constraints, not story
+subjects. For those requests, search the requested genre and concrete theme
+instead of adding terms such as "free download" or "dominio publico". Keep
+format genres such as manga or graphic novels in every search. Search terms
+do not establish that a free edition actually exists.
 Only use book titles or author names the reader wrote. Never invent them.
 
 genre: the most specific main genre in English and lowercase (for example

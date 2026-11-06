@@ -85,6 +85,34 @@ workflow durations, check explanations and aggregate counts. It contains no
 credentials or raw provider exception messages. A failed graph invocation has
 unknown candidates and retry counts, rather than fabricated empty evidence.
 
+Version 2 reports also include SHA-256 fingerprints of the backend application
+and evaluation Python files, normalized candidate snapshots, the latest parsed
+query, the number of candidates with usable descriptions, the shortlisted ISBNs
+and the formatted catalog input supplied to ranking. Snapshots retain the full
+source description so reason checks can be reproduced; `ranking_input` records
+the existing 600-character description limit and 30-book limit. Cover URLs and
+raw provider payloads are excluded from these snapshots. The fingerprints identify
+the evaluated source even when its working tree has uncommitted changes.
+
+To recheck a complete version 2 capture offline, run from `backend/`:
+
+```console
+uv run python -m evals.replay evals/results/REPORT.json
+```
+
+Replace `REPORT.json` with an actual saved filename. Replay reconstructs candidate
+and recommendation evidence and runs the current checks without model or catalog
+requests. It does not rerank books, test a new prompt, or measure new latency. The
+current capture has no links/SSE observations, so replay retains those blocked
+checks and exits with `1`. It does not modify the original report. Reproduction
+of a check failure is useful diagnostic evidence, not a new live-service test.
+
+Legacy version 1 reports contain only candidate ISBNs and cannot reconstruct
+description/language evidence. Replay rejects those reports, partial reports,
+missing snapshots, duplicate cases and mismatched suite/query metadata. Historical
+reports remain unchanged; their absent snapshots are not filled with later API
+responses, which might differ from the data originally evaluated.
+
 An atomic checkpoint is saved after every query. Interrupted runs retain
 `complete: false` and `gate_passed: false`. Only all 20 distinct expected cases,
 with all six checks satisfied and no unsupported filters or workflow errors,

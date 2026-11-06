@@ -12,6 +12,7 @@ from pathlib import Path
 from time import perf_counter
 
 from app.config import get_settings
+from app.graph.rank import format_candidates, select_for_ranking
 from app.graph.search import UpstreamUnavailable
 from app.graph.state import SearchState
 from app.graph.workflow import build_graph
@@ -27,6 +28,16 @@ from evals.checks import (
 )
 
 DEFAULT_SUITE = Path(__file__).with_name("queries.yaml")
+
+
+def code_fingerprints() -> dict[str, str]:
+    """Identify source files even when the evaluated working tree is uncommitted."""
+    root = DEFAULT_SUITE.parent.parent
+    paths = sorted([*(root / "app").rglob("*.py"), *(root / "evals").glob("*.py")])
+    return {
+        path.relative_to(root).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
+        for path in paths
+    }
 
 
 def revision_info() -> dict:
@@ -84,6 +95,7 @@ async def run_case(graph, case: EvalCase, timeout: float) -> dict:
         if value is not False
     }
     candidates = {b.isbn13: b for b in state["candidates"]}
+    shortlist = select_for_ranking(state["candidates"]) if not error_code else None
     return {
         "id": case.id,
         "query": case.query,
@@ -97,6 +109,39 @@ async def run_case(graph, case: EvalCase, timeout: float) -> dict:
         "retries": None if error_code else state["retries"],
         "searches_tried": None if error_code else state["tried"],
         "candidate_isbns": None if error_code else list(candidates),
+        "parsed_query": (
+            state["parsed"].model_dump() if not error_code and state["parsed"] else None
+        ),
+        "rankable_count": (
+            None
+            if error_code
+            else sum(
+                bool(b.description and b.description.strip())
+                for b in state["candidates"]
+            )
+        ),
+        "shortlist_isbns": None if shortlist is None else [b.isbn13 for b in shortlist],
+        "ranking_input": None if shortlist is None else format_candidates(shortlist),
+        "candidate_evidence": (
+            None
+            if error_code
+            else [
+                b.model_dump(
+                    include={
+                        "isbn13",
+                        "title",
+                        "authors",
+                        "language",
+                        "description",
+                        "genres",
+                        "source",
+                        "page_count",
+                        "published_year",
+                    }
+                )
+                for b in state["candidates"]
+            ]
+        ),
         "recommendations": [
             {
                 "isbn13": p.isbn13,
@@ -132,12 +177,14 @@ async def run_live(suite_path: Path, output: Path, timeout: float) -> int:
     model = create_chat_model()
     results = []
     report = {
+        "report_version": 2,
         "started_at": datetime.now(UTC).isoformat(),
         "completed_at": None,
         "target": "recommendation_graph",
         "suite_sha256": hashlib.sha256(suite_path.read_bytes()).hexdigest(),
         "model": settings.llm_model,
         "revision": revision_info(),
+        "code_sha256": code_fingerprints(),
         "expected_cases": len(suite.cases),
         "completed_cases": 0,
         "complete": False,

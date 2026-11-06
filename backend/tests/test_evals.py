@@ -282,6 +282,52 @@ async def test_core_runner_records_unsupported_filters_and_keeps_latency_separat
     assert result["checks"]["latency"]["status"] == "blocked"
 
 
+async def test_saved_evidence_can_reproduce_the_checks_without_catalog_requests():
+    from app.graph.parse_query import ParsedQuery
+    from app.graph.rank import format_candidates, select_for_ranking
+    from app.sources.schemas import BookCandidate
+
+    captured = state()
+    captured["parsed"] = ParsedQuery(searches=["novela mar"], genre="literary fiction")
+    captured["candidates"][0].description = "A sea story. " * 100
+    captured["candidates"][
+        0
+    ].cover_url = "https://example.test/unrelated-cover-metadata"
+    captured["picks"][0].reason = "A trip to Atlantis. A sad sea story."
+    graph = Mock(ainvoke=AsyncMock(return_value=captured))
+    result = await run_case(graph, case(), timeout=1)
+
+    assert result["parsed_query"]["genre"] == "literary fiction"
+    assert result["rankable_count"] == 5
+    assert result["shortlist_isbns"] == [b.isbn13 for b in captured["candidates"]]
+    assert result["ranking_input"] == format_candidates(
+        select_for_ranking(captured["candidates"])
+    )
+    assert "unrelated-cover-metadata" not in json.dumps(result)
+    restored = captured.copy()
+    restored["candidates"] = [
+        BookCandidate.model_validate(b) for b in result["candidate_evidence"]
+    ]
+    assert {
+        name: check.model_dump()
+        for name, check in evaluate_case(case(), restored).items()
+    } == result["checks"]
+
+
+async def test_failed_workflow_has_no_fabricated_candidate_snapshot():
+    result = await run_case(
+        Mock(ainvoke=AsyncMock(side_effect=LLMError())), case(), timeout=1
+    )
+    for key in (
+        "parsed_query",
+        "rankable_count",
+        "shortlist_isbns",
+        "ranking_input",
+        "candidate_evidence",
+    ):
+        assert result[key] is None
+
+
 def test_checkpoint_reports_preserve_partial_status(tmp_path):
     path = tmp_path / "results" / "check.json"
     report = {"complete": False, "gate_passed": False, "cases": []}
@@ -291,3 +337,45 @@ def test_checkpoint_reports_preserve_partial_status(tmp_path):
     save_report(path, report)
     assert json.loads(path.read_text("utf-8"))["complete"] is False
     assert not path.with_suffix(".json.tmp").exists()
+
+
+@pytest.mark.parametrize(
+    "defect", [None, "legacy", "partial", "duplicate", "missing_evidence", "query"]
+)
+async def test_complete_snapshot_replay_is_offline_and_rejects_incomplete_inputs(
+    defect,
+):
+    from evals.replay import recheck_report
+
+    suite = load_suite(DEFAULT_SUITE)
+    records = []
+    for c in suite.cases:
+        captured = state(0 if c.category == "nonsense" else 5)
+        for book in captured["candidates"]:
+            book.language = c.language
+        records.append(
+            await run_case(Mock(ainvoke=AsyncMock(return_value=captured)), c, timeout=1)
+        )
+    report = {
+        "report_version": 2,
+        "complete": True,
+        "completed_cases": 20,
+        "cases": records,
+    }
+    if defect == "legacy":
+        report.pop("report_version")
+    elif defect == "partial":
+        report["complete"] = False
+    elif defect == "duplicate":
+        records[0] = records[1]
+    elif defect == "missing_evidence":
+        records[0]["candidate_evidence"] = None
+    elif defect == "query":
+        records[0]["query"] = "changed query"
+    if defect:
+        with pytest.raises(ValueError):
+            recheck_report(report, suite)
+    else:
+        replayed = recheck_report(report, suite)
+        assert [r["checks"] for r in replayed] == [r["checks"] for r in records]
+        assert all(r["checks"]["links"]["status"] == "blocked" for r in replayed)
