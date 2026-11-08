@@ -8,7 +8,7 @@
 - The previously completed Update 9 was saved locally before this branch was created. That checkpoint and this round have not been uploaded. No unrelated user changes were present at the round boundary.
 - Objective: retire an unavailable optional free-book source, verify real searches honestly, and start a usable local recommendation preview.
 - Actual scope: five active reading/purchase channels; HTTP recommendation streaming; request filters; bounded catalog-description enrichment; literary/course separation; bilingual result cards; approved limited-result behavior; real HTTP evaluation and retained historical evidence.
-- Status: implementation, real frontend-path evaluation, browser verification and local service startup completed. GitHub upload remains unconfirmed.
+- Status: implementation, real frontend-path evaluation, browser verification and local service startup completed. The user confirmed publication; implementation commit `cff3b7a87b0fad02bfebdd38cb173ae09b9477b4` was uploaded and fast-forwarded into GitHub main on 2026-11-08.
 
 ## 2. Technologies used
 
@@ -189,7 +189,7 @@ Next work: persistent book/search/result writes with the established foreign key
 
 ## 9. GitHub submission
 
-The user explicitly confirmed uploading this reviewed branch, merging it into main, and beginning the next round on 2026-11-08. The authorized scope includes the previously disclosed local Update 9 dependency. Branch push and main merge are being performed after the recorded verification; their observed completion will be recorded below. No pull request, release or public deployment is authorized by this confirmation.
+The user explicitly confirmed uploading this reviewed branch, merging it into main, and beginning the next round on 2026-11-08. The authorized scope includes the previously disclosed local Update 9 dependency. Implementation commit `cff3b7a87b0fad02bfebdd38cb173ae09b9477b4` was pushed to `origin/codex/update-10-search-preview`; main was fast-forwarded and pushed successfully. A subsequent remote-ref check confirmed both GitHub refs at that implementation commit before this documentation-only publication finalization. No pull request, release or public deployment was performed.
 
 Proposed commit title:
 
@@ -205,4 +205,4 @@ Proposed commit description:
 
 > Validation: 262 backend tests and four frontend stream-parser tests passed; scoped lint, frontend production build/type checks, offline dependency-lock verification and browser interaction checks passed. The final 20-case evaluation through the actual frontend passed all six gate requirements, with 18 first-book timings of 3.47–14.43 seconds and latency not applicable to the two nonsense cases. Preserve the earlier failed frontend-buffering probe and the cold-start diagnostic. SSE uses no-transform to prevent gzip buffering, without disabling ordinary page compression.
 
-Include the observed verification summary above when preparing an eventual confirmed upload. This record is not upload authorization.
+The implementation commit uses the title and description above. This record documents confirmation received for Update 10; it does not authorize uploading later implementation rounds. The archive whitespace configuration was also checked with a negative example: intentional CRLF was accepted and actual trailing spaces were still rejected.
