@@ -4,7 +4,10 @@
 links to validated recommendations. Reuse one builder per application process;
 the caller owns the HTTP client. The FastAPI lifespan initializes
 `app.state.book_cards`, and the live evaluator shares one instance across cases.
-The keyword JSON search endpoint has not yet been switched to graph/card output.
+The browser requests graph/card SSE with `Accept: text/event-stream`; the legacy
+keyword JSON path remains available without that header. Each validated card is
+enriched and emitted before looking up the next one, keeping later Apple
+request-spacing waits out of the first card’s critical path.
 
 For a single terminal search from `backend/`:
 
@@ -18,7 +21,7 @@ database rows or fetch retailer prices.
 
 ## Rules and matching
 
-`app/stores.yaml` contains the six specified channels and their language, genre,
+`app/stores.yaml` contains five active channels and their language, genre,
 format and link methods. A new ISBN search channel can be configured with one
 entry; its URL template and expectations still need verification/tests.
 
@@ -37,15 +40,16 @@ and `entity=ebook`. Returned links must be HTTPS Apple Books URLs for the Spanis
 storefront and must contain the returned track ID. Normalized title and author
 identity must match. This is a work-level match, not proof of the exact ISBN
 edition. The API response does not establish the ebook's language; the link
-retains `language_verified: false` so a future UI can ask readers to check the
+retains `language_verified: false` and the UI asks readers to check the
 edition rather than asserting an unverified language.
 
-Gutendex requires a matching title/author, the requested language, text media,
-an explicit `copyright: false`, and a supported download URL on a Gutenberg host
-whose path matches the returned book ID. The link retains
-`copyright_region: US`: this is the API's reported scope, not verification of
-rights in Spain. Missing, unknown or incompatible evidence hides that optional
-link. It never creates a new recommendation or a replacement ISBN.
+Gutendex is retired from runtime after repeated real search timeouts, under the
+user-approved 2026-11-08 scope change. Default rules make no Gutendex calls and
+the builder rejects attempts to re-enable that provider through configuration.
+The legacy client, fixtures and historical reports remain for reproducibility;
+they do not establish an active free-reading capability. `free_only: true` is
+rejected by the HTTP request schema. Restoring free reading requires a separately
+verified source and a new implementation/evaluation round.
 
 Title matching normalizes case, accents and punctuation. A subtitle may be absent
 on one record; two differing subtitles or numbered volumes are not merged.
@@ -59,13 +63,12 @@ The result has `cards` and separate per-ISBN `lookups` diagnostics. Statuses are
 
 - `matched`: a usable supported link was validated against the response.
 - `not_found`: no verified match in the bounded response, not proof of absence
-  from the entire catalog. Apple returns at most 10 records; Gutendex uses one page.
+  from the entire catalog. Apple returns at most 10 records.
 - `unavailable`: HTTP error, timeout, malformed response, or the provider's short
   failure cooldown. This is never cached as a genuine empty catalog.
 - `insufficient_metadata`: no usable title/author evidence for a lookup.
 
-Requests time out after four seconds. Each provider serializes its requests;
-separate providers may run concurrently. Apple request starts are at least 3.1
+Requests time out after four seconds. The active Apple provider serializes its requests. Apple request starts are at least 3.1
 seconds apart, respecting its documented approximate 20/minute limit per builder.
 The 512-entry memory cache retains positive matches for 15 minutes and bounded
 no-match results for one minute. Failures trigger a 30-second provider cooldown.

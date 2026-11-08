@@ -1,4 +1,4 @@
-// JSON shape returned by POST /api/search (see backend app/sources/schemas.py).
+// Full card shape in POST /api/search SSE book events (backend app/channels/schemas.py).
 
 export type Rating = {
     value: string; // Pydantic sends Decimal as a string, e.g. "4.3"
@@ -13,6 +13,12 @@ export type Book = {
     published_year: number | null;
     cover_url: string | null;
     rating: Rating | null;
+    page_count: number | null;
+    description: string | null;
+    rank: number;
+    reason: string;
+    formats: string[];
+    links: {store: string; label: string; url: string; formats: string[]}[];
 };
 
 // The two book languages Lumen supports (must match the backend's Language).

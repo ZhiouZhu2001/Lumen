@@ -26,3 +26,4 @@ class BookCandidate(BaseModel):
     genres: list[str] = []
     rating: Rating | None = None
     source: str
+    work_key: str | None = Field(default=None, pattern=r"^/works/OL\d+W$", exclude=True)

@@ -12,7 +12,6 @@ from app.channels.rules import StoreRule, applies, load_rules, search_links
 from app.channels.schemas import BookLink, CardBatch, LookupStatus
 from app.graph.rank import ModelPick, ModelPicks, Pick, validate_picks
 from app.sources.apple_books import lookup_apple_books
-from app.sources.gutendex import lookup_gutendex
 from app.sources.schemas import BookCandidate
 
 APPLE_INTERVAL = 3.1  # At most 20 request starts in a rolling minute per instance.
@@ -39,7 +38,9 @@ class BookCardBuilder:
         self._rules = load_rules() if rules is None else rules
         self._clock = clock
         self._sleep = sleep
-        self._locks = {"apple_books": asyncio.Lock(), "gutenberg": asyncio.Lock()}
+        if any(r.provider not in (None, "apple_books") for r in self._rules):
+            raise ValueError("Only Apple Books lookups are currently supported")
+        self._locks = {"apple_books": asyncio.Lock()}
         self._next_apple = 0.0
         self._unavailable_until: dict[str, float] = {}
         self._cache: OrderedDict[tuple, tuple[float, BookLink | None]] = OrderedDict()
@@ -74,10 +75,7 @@ class BookCardBuilder:
                     await self._sleep(delay)
                 self._next_apple = self._clock() + APPLE_INTERVAL
             try:
-                lookup = (
-                    lookup_apple_books if provider == "apple_books" else lookup_gutendex
-                )
-                link = await lookup(self._client, book)
+                link = await lookup_apple_books(self._client, book)
                 if link and not safe_url(link.url, rule.host):
                     raise ValueError("Lookup URL does not match the configured store")
             except (httpx.HTTPError, ValueError, TypeError):

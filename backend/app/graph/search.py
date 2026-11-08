@@ -4,6 +4,7 @@ from collections.abc import Awaitable
 
 import httpx
 
+from app.filters import SearchFilters
 from app.sources.google_books import search_google_books
 from app.sources.merge import merge_candidates
 from app.sources.open_library import search_open_library
@@ -33,6 +34,8 @@ async def search_candidates(
     searches: list[str],
     language: Language,
     google_api_key: str | None = None,
+    *,
+    filters: SearchFilters | None = None,
 ) -> list[BookCandidate]:
     """Run every search on both sources at once and merge the books by ISBN.
     Raise UpstreamUnavailable only if every single request failed.
@@ -49,7 +52,12 @@ async def search_candidates(
     ]
 
     open_library_calls = [
-        _try_source("Open Library", search_open_library(client, search, language))
+        _try_source(
+            "Open Library",
+            search_open_library(
+                client, search, language, **({"filters": filters} if filters else {})
+            ),
+        )
         for search in searches
     ]
 

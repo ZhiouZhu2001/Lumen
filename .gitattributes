@@ -1,0 +1,2 @@
+# Historical evaluation suites must retain the exact bytes hashed in their reports.
+backend/evals/history/*.yaml -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

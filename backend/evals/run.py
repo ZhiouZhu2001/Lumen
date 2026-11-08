@@ -10,6 +10,7 @@ from collections import Counter
 from datetime import UTC, datetime
 from pathlib import Path
 from time import perf_counter
+from urllib.parse import urlsplit
 
 from app.book_cards import BookCardBuilder
 from app.config import get_settings
@@ -154,6 +155,9 @@ async def run_case(
         "first_book_sse_ms": None,
         "retries": None if error_code else state["retries"],
         "searches_tried": None if error_code else state["tried"],
+        "description_lookup_keys": state.get("description_lookup_keys", []),
+        "request_genre": state.get("request_genre"),
+        "reader_mismatch_isbns": state.get("reader_mismatch_isbns", []),
         "candidate_isbns": None if error_code else list(candidates),
         "parsed_query": (
             state["parsed"].model_dump() if not error_code and state["parsed"] else None
@@ -301,11 +305,43 @@ def main() -> int:
     parser.add_argument("--suite", type=Path, default=DEFAULT_SUITE)
     parser.add_argument("--output", type=Path)
     parser.add_argument(
+        "--frontend-url", help="Measure through an already running loopback frontend"
+    )
+    parser.add_argument(
+        "--backend-port",
+        type=int,
+        default=0,
+        help="Local evaluation backend port (0 selects a free port)",
+    )
+    parser.add_argument(
+        "--graph-only",
+        action="store_true",
+        help="Capture graph/channel evidence without claiming HTTP latency",
+    )
+    parser.add_argument(
         "--timeout", type=float, default=60.0, help="Maximum seconds per query"
     )
     args = parser.parse_args()
     if not math.isfinite(args.timeout) or args.timeout <= 0:
         parser.error("Timeout must be finite and positive")
+    if not 0 <= args.backend_port <= 65535:
+        parser.error("Backend port must be between 0 and 65535")
+    if args.frontend_url:
+        target = urlsplit(args.frontend_url)
+        if (
+            target.scheme != "http"
+            or target.hostname not in {"127.0.0.1", "localhost", "::1"}
+            or target.username
+            or target.password
+            or target.query
+            or target.fragment
+            or target.path not in {"", "/"}
+            or args.backend_port == 0
+            or args.graph_only
+        ):
+            parser.error(
+                "Frontend evaluation requires a loopback HTTP origin and a fixed backend port matching the frontend configuration"
+            )
     try:
         suite = load_suite(args.suite)
     except (OSError, ValueError) as error:
@@ -320,7 +356,19 @@ def main() -> int:
     output = args.output or DEFAULT_SUITE.parent / "results" / f"eval-{timestamp}.json"
     if output.exists():
         parser.error("The output file already exists; choose a new report path")
-    return asyncio.run(run_live(args.suite, output, args.timeout))
+    if args.graph_only:
+        return asyncio.run(run_live(args.suite, output, args.timeout))
+    from evals.http_run import run_http_live
+
+    return asyncio.run(
+        run_http_live(
+            args.suite,
+            output,
+            args.timeout,
+            frontend_url=args.frontend_url,
+            backend_port=args.backend_port,
+        )
+    )
 
 
 if __name__ == "__main__":

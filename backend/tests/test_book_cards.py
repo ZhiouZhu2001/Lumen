@@ -72,16 +72,12 @@ async def test_cards_use_recorded_matched_channels_and_preserve_bibliographic_da
     assert {link.store for link in card.links} == {
         "amazon_es",
         "apple_books",
-        "gutenberg",
     }
-    assert batch.lookups[b.isbn13] == {"apple_books": "matched", "gutenberg": "matched"}
-    free = next(link for link in card.links if link.store == "gutenberg")
-    assert free.copyright_region == "US"
-    assert free.language_verified is True
+    assert batch.lookups[b.isbn13] == {"apple_books": "matched"}
     apple = next(link for link in card.links if link.store == "apple_books")
     assert apple.language_verified is False
-    assert all(link.match == "title_author" for link in (free, apple))
-    assert card.formats == ["paper", "kindle", "apple_books", "free"]
+    assert apple.match == "title_author"
+    assert card.formats == ["paper", "kindle", "apple_books"]
 
 
 @pytest.mark.parametrize(
@@ -160,8 +156,6 @@ async def test_optional_channel_failure_is_distinct_from_no_match_and_keeps_card
     failure,
 ):
     def handler(request):
-        if request.url.host == "itunes.apple.com":
-            return httpx.Response(200, json=fixture("apple"))
         if failure == "timeout":
             raise httpx.ReadTimeout("Simulated outage", request=request)
         if failure == "status":
@@ -173,8 +167,8 @@ async def test_optional_channel_failure_is_distinct_from_no_match_and_keeps_card
     b = book()
     async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
         batch = await BookCardBuilder(client).build([b], [pick(b)])
-    assert {link.store for link in batch.cards[0].links} == {"amazon_es", "apple_books"}
-    assert batch.lookups[b.isbn13]["gutenberg"] == "unavailable"
+    assert {link.store for link in batch.cards[0].links} == {"amazon_es"}
+    assert batch.lookups[b.isbn13]["apple_books"] == "unavailable"
 
 
 async def test_cache_deduplicates_work_lookups_and_does_not_cache_reader_reasons():
@@ -192,7 +186,8 @@ async def test_cache_deduplicates_work_lookups_and_does_not_cache_reader_reasons
         second = await builder.build(
             [b], [pick(b, reason="A relationship novel. It fits.")]
         )
-    assert calls.count("itunes.apple.com") == calls.count("gutendex.com") == 1
+    assert calls.count("itunes.apple.com") == 1
+    assert "gutendex.com" not in calls
     assert second.cards[0].reason == "A relationship novel. It fits."
     assert all("example.test" not in link.url for link in second.cards[0].links)
 
@@ -222,20 +217,20 @@ async def test_failure_cooldown_expires_and_does_not_become_cached_absence():
         return (
             httpx.Response(503)
             if len(calls) == 1
-            else httpx.Response(200, json=fixture("gutendex"))
+            else httpx.Response(200, json=fixture("apple"))
         )
 
-    rules = [rule for rule in load_rules() if rule.id == "gutenberg"]
+    rules = [rule for rule in load_rules() if rule.id == "apple_books"]
     b = book()
     async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
         builder = BookCardBuilder(client, rules=rules, clock=clock, sleep=clock.sleep)
         for _ in range(2):
             result = await builder.build([b], [pick(b)])
-            assert result.lookups[b.isbn13]["gutenberg"] == "unavailable"
+            assert result.lookups[b.isbn13]["apple_books"] == "unavailable"
         assert len(calls) == 1
         clock.now = 31
         recovered = await builder.build([b], [pick(b)])
-    assert recovered.lookups[b.isbn13]["gutenberg"] == "matched"
+    assert recovered.lookups[b.isbn13]["apple_books"] == "matched"
     assert len(calls) == 2
 
 

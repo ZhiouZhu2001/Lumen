@@ -11,6 +11,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from app.channels.matching import normalize
 from app.graph.state import SearchState
 from app.grounding import unknown_proper_words
+from app.reading_intent import concedes_mismatch
 from app.sources.isbn import to_isbn13
 from app.sources.schemas import Language
 
@@ -63,8 +64,6 @@ class QuerySuite(BaseModel):
                 raise ValueError("Each language must have exactly one nonsense case")
             if not any(c.category == "niche" for c in cases):
                 raise ValueError("Each language must have a niche case")
-            if not any(c.filters.free_only for c in cases):
-                raise ValueError("Each language must have a free-only case")
             if not any(c.filters.era and c.filters.length for c in cases):
                 raise ValueError(
                     "Each language must have an era/length constraint case"
@@ -208,6 +207,10 @@ def evaluate_case(
             or not pick.reason.strip()
         ):
             reason_problems.append(f"{pick.isbn13}: missing reason or description")
+        elif concedes_mismatch(pick.reason, case.query):
+            reason_problems.append(
+                f"{pick.isbn13}: reason concedes a missing reader requirement"
+            )
         elif unknown := unknown_proper_words(
             pick.reason, f"{book.title} {book.description}"
         ):

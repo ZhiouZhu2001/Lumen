@@ -3,6 +3,7 @@ from langchain_core.language_models import BaseChatModel
 from langgraph.graph import START, StateGraph
 from langgraph.graph.state import CompiledStateGraph
 
+from app.filters import SearchFilters, constrained_query, matches_metadata
 from app.graph.broaden import broaden
 from app.graph.parse_query import parse_query
 from app.graph.rank import (
@@ -16,6 +17,8 @@ from app.graph.rank import (
 from app.graph.search import search_candidates
 from app.graph.state import MAX_RETRIES, MIN_PICKS, SearchState, route_after_ranking
 from app.llm import LLMError
+from app.reading_intent import matches_reader_type
+from app.sources.descriptions import enrich_descriptions
 from app.sources.merge import merge_candidates
 
 
@@ -29,7 +32,7 @@ def build_graph(
     async def parse_node(state: SearchState):
         parsed = await parse_query(
             model,
-            state["query"],
+            constrained_query(state["query"], state.get("filters", SearchFilters())),
             state["language"],
         )
         return {
@@ -39,6 +42,7 @@ def build_graph(
             "ranking_rounds": [],
             "picks": [],
             "request_understood": parsed.is_book_request,
+            "request_genre": parsed.genre,
         }
 
     async def search_node(state: SearchState):
@@ -54,12 +58,46 @@ def build_graph(
         if not searches or not state.get("request_understood", True):
             return {"new_isbns": []}
 
+        filters = state.get("filters", SearchFilters())
+        constrained = bool(filters.era or filters.length)
         books = await search_candidates(
             client,
             searches,
             state["language"],
             google_api_key=google_api_key,
+            **({"filters": filters} if constrained else {}),
         )
+
+        merged = merge_candidates(state["candidates"], books)
+        attempted = list(state.get("description_lookup_keys", []))
+        eligible = [
+            b
+            for b in merged
+            if matches_metadata(b, filters)
+            and matches_reader_type(b, state["query"], state.get("request_genre"))
+        ]
+        if constrained:
+            missing = []
+            for book in eligible:
+                if (
+                    book.work_key
+                    and not (book.description or "").strip()
+                    and book.work_key not in attempted
+                ):
+                    if len(attempted) >= 8:
+                        break
+                    attempted.append(book.work_key)
+                    missing.append(book)
+            enriched = await enrich_descriptions(client, missing)
+            descriptions = {
+                b.work_key: b.description for b in enriched if b.description
+            }
+            merged = [
+                b.model_copy(update={"description": descriptions[b.work_key]})
+                if b.work_key in descriptions and not (b.description or "").strip()
+                else b
+                for b in merged
+            ]
 
         return {
             "new_isbns": [
@@ -67,20 +105,30 @@ def build_graph(
                 for book in books
                 if book.isbn13 not in {b.isbn13 for b in state["candidates"]}
             ],
-            "candidates": merge_candidates(
-                state["candidates"],
-                books,
-            ),
+            "candidates": merged,
+            "description_lookup_keys": attempted,
             "tried": [*state["tried"], *searches],
         }
 
     async def broaden_node(state: SearchState):
+        selected = {p.isbn13 for p in state["picks"]}
+        # Reuse real matching-book metadata, never unsupported names from reasons.
+        authors = list(
+            dict.fromkeys(
+                author
+                for b in state["candidates"]
+                if b.isbn13 in selected
+                for author in b.authors
+                if author.strip()
+            )
+        )[:5]
         parsed = await broaden(
             model,
-            state["query"],
+            constrained_query(state["query"], state.get("filters", SearchFilters())),
             state["language"],
             state["tried"],
             feedback=state.get("feedback", []),
+            verified_authors=authors,
         )
         return {
             "parsed": parsed,
@@ -89,12 +137,22 @@ def build_graph(
         }
 
     async def rank_node(state: SearchState):
+        mismatches = set(state.get("reader_mismatch_isbns", []))
+        eligible = [
+            b
+            for b in state["candidates"]
+            if matches_metadata(b, state.get("filters", SearchFilters()))
+            and b.isbn13 not in mismatches
+            and matches_reader_type(b, state["query"], state.get("request_genre"))
+        ]
         if state.get("request_understood", True):
             attempt = await rank_and_explain(
                 model,
-                state["query"],
+                constrained_query(
+                    state["query"], state.get("filters", SearchFilters())
+                ),
                 state["language"],
-                state["candidates"],
+                eligible,
                 feedback=state.get("feedback", []),
                 priority_isbns=[p.isbn13 for p in state["picks"]]
                 + state.get("new_isbns", []),
@@ -109,7 +167,17 @@ def build_graph(
                 for p in [*attempt.picks, *state["picks"]]
             ]
         )
-        picks, _ = validate_picks(combined, state["candidates"], state["language"])
+        mismatches.update(
+            issue.split(":", 1)[0]
+            for issue in attempt.feedback
+            if ": reason concedes a missing reader requirement" in issue
+        )
+        picks, _ = validate_picks(
+            combined,
+            [b for b in eligible if b.isbn13 not in mismatches],
+            state["language"],
+            query=state["query"],
+        )
         if not picks and attempt.proposed and state["retries"] >= MAX_RETRIES:
             raise LLMError(
                 "rank_and_explain returned no valid picks after bounded retries"
@@ -138,6 +206,7 @@ def build_graph(
             "feedback": feedback,
             "model_calls": calls,
             "ranking_rounds": [*state["ranking_rounds"], round_record],
+            "reader_mismatch_isbns": sorted(mismatches),
         }
 
     builder = StateGraph(SearchState)

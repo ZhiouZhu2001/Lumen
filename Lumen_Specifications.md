@@ -2,6 +2,21 @@
 
 Oct 1, 2026 · @ZhiouZhu
 
+Approved scope revision, 2026-11-08: retire the unavailable Gutendex search
+integration and temporarily remove free-only/public-domain reading from the MVP.
+The user explicitly approved both the capability removal and its evaluation scope
+change. Retain the previous suite and failed reports as historical evidence;
+restoring free reading requires a reliable verified source and a new evaluation.
+The current suite still contains 20 queries (10 per language) and all six checks.
+Ordinary adventure classics replace the two former free-only scenarios.
+
+A second user approval on 2026-11-08 classifies the English and Spanish
+Spanish-author/decade/short-length scenarios as niche requests. All their reading
+constraints remain in place. They may return 1–4 matching books only after both
+broadening retries are exhausted, and the web interface must explain the limited
+result. Ordinary queries still require 5–10; nonsense inputs require zero. This
+is an explicit scope decision, not a retrospective pass for the failed runs.
+
 ## 1. Overview
 
 Lumen is an AI book-picking assistant: the user describes the kind of book they want to read, and Lumen returns 5–10 **real** English or Spanish books and tells the user where to buy or read them in Spain.
@@ -13,7 +28,7 @@ Lumen is an AI book-picking assistant: the user describes the kind of book they 
 **Core selling points** (what makes it different from just asking ChatGPT):
 
 - Every book comes from a real bibliographic database; the AI can only choose from the retrieved candidates and cannot make up titles
-- Every book comes with buying and reading options: physical bookstores, Kindle, Apple Books, free public-domain editions
+- Every book comes with buying and reading options: physical bookstores, Kindle, Apple Books
 - Every book shows the publisher's description, a rating from a real source (with the source labeled), and an AI-written reason for recommending it based on the user's request
 
 **Out of scope for the MVP**: user login, personalized recommendations, Chinese books, live price scraping, AI ratings, multi-turn conversation.
@@ -26,7 +41,7 @@ With a single input, the user sees the first recommended book within 15 seconds,
 
 1. Choose the book language at the top of the page: English or Español (the interface language switches with it)
 2. Type a request in the text box, e.g. "fast-paced Spanish thriller with twists"
-3. Optional filters: genre, publication era, length (short / medium / long), free only
+3. Optional filters: genre, publication era, length (short / medium / long)
 4. Click search; the page shows progress: understanding your request → found N candidates → picking
 5. Recommendation cards appear one by one
 
@@ -35,7 +50,7 @@ With a single input, the user sees the first recommended book within 15 seconds,
 | Field | Source |
 | --- | --- |
 | Cover, title, author, publication year, page count | Google Books / Open Library |
-| Format tags: paper / Kindle / Apple Books / free public domain | Data source fields + inference from link rules |
+| Format tags: paper / Kindle / Apple Books | Data source fields + inference from link rules |
 | Publisher description (original text, collapsible) | Google Books |
 | Rating + number of ratings + source name; "No rating yet" if none | Google Books / Open Library |
 | Why we recommend it to you (2–3 sentences) | AI, based only on the book's real data |
@@ -74,7 +89,7 @@ lumen/
 │   ├── app/
 │   │   ├── api/             # FastAPI routes
 │   │   ├── graph/           # LangGraph state, nodes, graph definition
-│   │   ├── sources/         # Google Books, Open Library, Gutendex, iTunes clients
+│   │   ├── sources/         # Google Books, Open Library, iTunes; legacy Gutendex retained
 │   │   ├── stores.yaml      # Bookstore link rules
 │   │   ├── models.py        # SQLAlchemy models
 │   │   └── cache.py         # Redis caching and rate limiting
@@ -135,7 +150,6 @@ Bibliographic data comes only from public APIs. Bookstores only answer "where to
 | --- | --- | --- |
 | Google Books API | Primary search source, supports `langRestrict=en/es` | ISBN, description, cover, page count, `averageRating`, `saleInfo.isEbook` |
 | Open Library API | Supplementary search and ratings | ISBN, work id, ratings (ratings endpoint) |
-| Gutendex (Project Gutenberg's API) | Check whether a free public-domain edition exists | Download links |
 | iTunes Search API (`media=ebook`) | Check whether Apple Books has the book | Product link |
 
 Merge rule: deduplicate using ISBN-13 as the primary key; books without an ISBN are dropped, so every book is traceable.
@@ -146,7 +160,6 @@ Merge rule: deduplicate using ISBN-13 as the primary key; books without an ISBN 
 | --- | --- | --- | --- | --- |
 | Amazon.es | en, es | All | Paper + Kindle | URL template searching by ISBN |
 | Apple Books | en, es | All | Ebook | Link returned by the iTunes Search API; hidden if not found |
-| Project Gutenberg | en, es | All | Free public domain | Link returned by Gutendex; hidden if not found |
 | Casa del Libro | es | All | Paper + ebook | URL template searching by ISBN |
 | Abacus | es | All | Paper | URL template searching by ISBN |
 | Norma Comics | es | Comics, manga, graphic novels | Paper | URL template searching by ISBN or title |
@@ -169,7 +182,7 @@ The MVP needs only 3 tables, all created with Alembic migrations. Book data is c
 | page\_count, published\_year | int | Nullable |
 | genres | text\[\] | Used to match genre rules such as Norma Comics |
 | rating\_value, rating\_count, rating\_source | numeric(2,1), int, text | All three null or all three set (CHECK) |
-| formats | text\[\] | `paper` / `kindle` / `apple_books` / `free` |
+| formats | text\[\] | `paper` / `kindle` / `apple_books`; `free` is retained for historical compatibility but not emitted by active channels |
 | raw | jsonb | Raw API response, for debugging |
 | fetched\_at | timestamptz | Re-fetched after 30 days |
 
@@ -221,6 +234,19 @@ The backend exposes only 3 endpoints; the core one is a search endpoint that ret
 
 `query` is limited to 3–300 characters; `language` can only be `en` or `es`.
 
+The web client requests SSE with `Accept: text/event-stream`. For compatibility,
+requests without that header retain the earlier keyword JSON response. Nonempty
+filters on the JSON path are rejected instead of ignored. `free_only: false`
+is accepted for compatibility, while `true` is rejected with HTTP 422 under the
+approved scope revision. Publication decades mean inclusive ten-year ranges
+(e.g. 2010s = 2010–2019); short = at most 200 pages, medium = 201–400, long =
+over 400. Missing metadata excludes a book from that metadata constraint. Open Library
+work descriptions may be fetched from validated work identifiers, with at most
+eight lookups per search and three concurrent requests, to supply real catalog
+evidence for constrained results; failure never creates a description. Genre
+conditions guide semantic retrieval and ranking; they are not inferred solely
+from inconsistent catalog category labels.
+
 **SSE events** (pushed in order)
 
 | Event | Data | Frontend behavior |
@@ -260,7 +286,7 @@ Run `make eval` after every change to prompts or retrieval logic; all 6 checks m
 - Broad genres ("fantasy with dragons")
 - Requests with constraints ("short stories, after 2010, Spanish author")
 - Comics (to verify the Norma Comics link rule)
-- Free only (to verify Gutenberg links)
+- Adventure classics (replacing retired free-only cases under the approved scope revision)
 - Niche requests (to verify the retry branch)
 - 2 nonsense inputs (should return `no_results`, not invented books)
 
@@ -270,7 +296,7 @@ Run `make eval` after every change to prompts or retrieval logic; all 6 checks m
 | --- | --- |
 | Authenticity | Every recommended book's ISBN is in this search's candidate list |
 | Correct language | Every book's `language` matches the request |
-| Count | Normal queries return 5–10 books; nonsense input returns 0 |
+| Count | Normal queries return 5–10 books; niche queries (including the two approved multi-constraint cases) may return 1–4 only after two retries; nonsense input returns 0 |
 | Link rules | Spanish books have no English-only channels; non-comic books have no Norma Comics link |
 | Recommendation reason | Not empty, and contains no proper nouns beyond those in the `description` and title (simple heuristic check) |
 | Latency | The first book is pushed within 15 seconds |
@@ -323,7 +349,7 @@ A single VPS runs all 5 services with Docker Compose. Local development and prod
 
 ### Week 3: Channels, caching, quality
 
-- [ ] `stores.yaml` link rules, plus Gutendex and iTunes Search lookups
+- [ ] `stores.yaml` link rules, plus iTunes Search lookups (Gutendex retired by the approved scope revision)
 - [ ] Manually verify each bookstore's URL template
 - [ ] Redis caching and IP rate limiting, plus the daily AI call cap
 - [ ] 20 eval queries and the `make eval` script, iterated until all pass

@@ -10,6 +10,7 @@ FILLABLE_FIELDS = (
     "published_year",
     "genres",
     "rating",
+    "work_key",
 )
 
 

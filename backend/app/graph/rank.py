@@ -7,6 +7,7 @@ from pydantic import BaseModel, Field
 from app.graph.parse_query import LANGUAGE_NAMES
 from app.grounding import unknown_proper_words
 from app.llm import ask_structured
+from app.reading_intent import concedes_mismatch
 from app.sources.isbn import to_isbn13
 from app.sources.schemas import BookCandidate, Language
 
@@ -22,10 +23,19 @@ You get the reader's wish and a list of candidate books from a real catalog.
 Pick the 5 to 10 candidates that fit the wish best, best first. A book fits
 only if it is the kind of book the reader asked for: if they want a novel or
 a story, essays, studies and criticism about that topic do not fit. When the
+reader wants literature by authors of a particular origin, language lessons,
+graded language-learning readers and vocabulary exercises are not substitutes
+unless the reader explicitly requested language practice. When the
 wish is ambiguous, read it the way a reader in Spain would mean it. If fewer
 than 5 books truly fit, pick only those: 3 good books are better than 5 weak
 ones. Copy each ISBN exactly from the list. Never suggest a book that is not
 in the list. If none of the candidates fit, return an empty picks list.
+
+The main requested subject, setting and book type are requirements, not optional
+similarities. Do not recommend a partial substitute whose reason needs to admit
+that the requested subject or setting is absent. Choose a smaller valid subset
+instead. Previously rejected ISBNs must not be repaired merely by hiding that
+admission in a rewritten reason; find genuinely matching new candidates.
 
 For each pick, write a reason of 2 to 3 sentences in {language_name} that says
 why this book fits the wish. Use only facts stated in that book's description.
@@ -112,6 +122,8 @@ def validate_picks(
     output: ModelPicks,
     candidates: list[BookCandidate],
     language: Language | None = None,
+    *,
+    query: str | None = None,
 ) -> tuple[list[Pick], list[str]]:
     allowed = {book.isbn13: book for book in candidates}
     picks: list[Pick] = []
@@ -135,6 +147,9 @@ def validate_picks(
             continue
         if not book.description or not book.description.strip():
             feedback.append(f"{isbn13}: no source description for a grounded reason")
+            continue
+        if query and concedes_mismatch(reason, query):
+            feedback.append(f"{isbn13}: reason concedes a missing reader requirement")
             continue
         if unknown := unknown_proper_words(reason, f"{book.title} {book.description}"):
             feedback.append(f"{isbn13}: unsupported proper words {', '.join(unknown)}")
@@ -174,5 +189,5 @@ async def rank_and_explain(
             f"{previous or 'First attempt'}\n\nCandidates:\n\n{format_candidates(shortlist)}"
         ),
     )
-    picks, issues = validate_picks(output, shortlist, language)
+    picks, issues = validate_picks(output, shortlist, language, query=query)
     return RankingAttempt(picks, issues, shortlist, output.picks, True)

@@ -1,10 +1,12 @@
 import logging
+import re
 from decimal import Decimal
 from typing import Any
 
 import httpx
 from pydantic import ValidationError
 
+from app.filters import SearchFilters
 from app.sources.isbn import to_isbn13
 from app.sources.schemas import BookCandidate, Language, Rating
 
@@ -54,6 +56,8 @@ async def search_open_library(
     query: str,
     language: Language,
     limit: int = 20,
+    *,
+    filters: SearchFilters | None = None,
 ) -> list[BookCandidate]:
     """Search Open Library. Raises httpx.HTTPError if the request fails."""
     params: dict[str, str | int] = {
@@ -61,6 +65,12 @@ async def search_open_library(
         "fields": FIELDS,
         "limit": limit,
     }
+    if filters and filters.era:
+        start = int(filters.era[:4])
+        params["q"] += f" first_publish_year:[{start} TO {start + 9}]"
+    if filters and filters.length:
+        bounds = {"short": "1 TO 200", "medium": "201 TO 400", "long": "401 TO *"}
+        params["q"] += f" number_of_pages_median:[{bounds[filters.length]}]"
 
     response = await client.get(OPEN_LIBRARY_URL, params=params)
     response.raise_for_status()
@@ -106,6 +116,9 @@ def _parse_doc(doc: dict[str, Any], language: Language) -> BookCandidate | None:
         genres=doc.get("subject", [])[:MAX_GENRES],
         rating=_rating(doc),
         source=SOURCE,
+        work_key=doc.get("key")
+        if re.fullmatch(r"/works/OL\d+W", str(doc.get("key", "")))
+        else None,
     )
 
 

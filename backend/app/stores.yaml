@@ -13,13 +13,6 @@ stores:
     formats: [apple_books]
     mode: lookup
     provider: apple_books
-  - id: gutenberg
-    label: Project Gutenberg
-    host: gutenberg.org
-    languages: [en, es]
-    formats: [free]
-    mode: lookup
-    provider: gutenberg
   - id: casa_del_libro
     label: Casa del Libro
     host: casadellibro.com

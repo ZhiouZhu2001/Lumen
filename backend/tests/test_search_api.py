@@ -93,6 +93,20 @@ async def test_both_down_returns_upstream_unavailable(make_client) -> None:
     assert response.json()["detail"]["code"] == "upstream_unavailable"
 
 
+async def test_legacy_json_path_rejects_filters_instead_of_ignoring_them(make_client):
+    async with await make_client(fake_apis()) as client:
+        response = await client.post(
+            "/api/search",
+            json={
+                "query": "realismo mágico",
+                "language": "es",
+                "filters": {"length": "short"},
+            },
+        )
+    assert response.status_code == 422
+    assert "text/event-stream" in response.json()["detail"]
+
+
 @pytest.mark.parametrize(
     "body",
     [

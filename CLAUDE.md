@@ -41,7 +41,7 @@ MVP excludes: login, personalization, Chinese books, live price scraping, AI rat
 
 ## Layout
 - `frontend/` — `app/[locale]/`, `components/`, `stores/`, `lib/sse.ts`, `messages/{en,es}.json`
-- `backend/app/` — `api/`, `graph/` (LangGraph), `sources/` (Google Books, Open Library, Gutendex, iTunes clients), `stores.yaml` (bookstore link rules), `models.py`, `cache.py`
+- `backend/app/` — `api/`, `graph/` (LangGraph), `sources/` (Google Books, Open Library, iTunes clients), `stores.yaml` (bookstore link rules), `models.py`, `cache.py`. Gutendex is retired from runtime under the approved 2026-11-08 scope change; its legacy client/fixtures remain for historical evidence.
 - `backend/alembic/`, `backend/evals/`, `backend/tests/`
 - `docker-compose.yml`, `Caddyfile`, `Makefile`
 
@@ -57,7 +57,11 @@ MVP excludes: login, personalization, Chinese books, live price scraping, AI rat
 - Merge books by ISBN-13; drop books without an ISBN.
 - Model names come from environment variables. Secrets live in `.env` (never committed); keep `.env.example` updated.
 - API: `POST /api/search` (SSE: `status`, `candidates`, `book`, `done`, `error`), `GET /api/books/{isbn13}`, `GET /api/health`.
+- Send `Accept: text/event-stream` for recommendations; absent that header, the existing keyword JSON endpoint remains compatible. Genre constraints guide retrieval/ranking; publication-decade and page-count constraints are checked in code. Free-only reading is temporarily out of scope (approved 2026-11-08); reject `free_only: true`, do not silently convert it into paid recommendations. Keep the 20-case bilingual six-check gate with ordinary classics replacing the retired free-only scenarios; retain the original suite and reports.
 - Error codes: `rate_limited` (429), `no_results`, `upstream_unavailable`, `llm_failed`. Log structured with `search_id`.
 - Rate limit: 20 searches per IP per hour, IP stored only in Redis. Daily AI call cap via env var.
 - Unit tests cover real logic only (ISBN merge, store rules, rate limiting, retry condition) and use recorded API fixtures, no live network.
 - Disable response buffering for SSE in Caddy.
+
+- The user also approved on 2026-11-08 classifying the two Spanish-author/decade/short-length evaluation cases as niche: keep all constraints, permit 1–4 books only after both retries, and show an explicit limited-results notice. Other normal-case counts are unchanged. Reject clear language-course substitutions for literary requests; this is a conservative metadata/text heuristic, not complete semantic verification. Preserve original request genre across broadenings. Constrained searches may request at most eight validated Open Library work descriptions per search (three concurrent, two-second individual timeout), without additional model calls.
+- Reject explicit reason concessions that a requested core term is absent, and exclude those ISBNs from later ranking rounds of the same search rather than repairing them by hiding the admission. Apply the same concession check in the reason evaluation. This lexical check supplements the existing grounding heuristic and does not establish complete semantic relevance.

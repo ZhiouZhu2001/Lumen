@@ -1,0 +1,18 @@
+{
+  "requested_encoding": "gzip, deflate",
+  "headers": {
+    "content-encoding": null,
+    "cache-control": "no-cache, no-transform",
+    "content-type": "text/event-stream; charset=utf-8"
+  },
+  "first_event_ms": 59.37,
+  "total_ms": 930.85,
+  "book_expected": false,
+  "cold_start_observation": {
+    "first_event_ms": 1308.91,
+    "total_ms": 2402.63,
+    "diagnostic_500ms_expectation_passed": false,
+    "note": "Cold model-wrapper initialization; this diagnostic expectation is not the 15-second first-book product criterion."
+  },
+  "streaming_verified": true
+}

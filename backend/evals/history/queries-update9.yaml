@@ -1,0 +1,73 @@
+cases:
+  - id: en_fantasy
+    language: en
+    query: "Fantasy novels with dragons and a strong adventure story"
+  - id: en_thriller
+    language: en
+    query: "A fast-paced psychological thriller with surprising twists"
+  - id: en_short_modern
+    language: en
+    query: "Short story collections by Spanish authors published after 2010"
+    filters: {era: "2010s", length: short}
+  - id: en_comics
+    language: en
+    query: "Graphic novels about superheroes and moral dilemmas"
+    filters: {genre: "graphic novels"}
+  - id: en_free_classics
+    language: en
+    query: "Classic adventure novels available as free public-domain books"
+    filters: {free_only: true}
+  - id: en_science
+    language: en
+    query: "Accessible nonfiction about astronomy for a complete beginner"
+  - id: en_history
+    language: en
+    query: "Historical novels set during the Spanish Civil War"
+    filters: {genre: "historical fiction"}
+  - id: en_sea
+    language: en
+    query: "A sad literary novel about the sea and solitude"
+  - id: en_niche
+    language: en
+    query: "Fiction about lighthouse keepers in remote Arctic communities"
+    category: niche
+  - id: en_nonsense
+    language: en
+    query: "zxqv blorpt 998877 qqq zzz"
+    category: nonsense
+  - id: es_fantasy
+    language: es
+    query: "Novelas de fantasía con dragones y aventuras"
+  - id: es_thriller
+    language: es
+    query: "Una novela de suspense psicológico rápida y con giros inesperados"
+  - id: es_short_modern
+    language: es
+    query: "Libros de relatos cortos de autores españoles publicados después de 2010"
+    filters: {era: "2010s", length: short}
+  - id: es_manga
+    language: es
+    query: "Manga de aventuras con personajes que aprenden a trabajar en equipo"
+    filters: {genre: manga}
+  - id: es_free_classics
+    language: es
+    query: "Novelas clásicas de aventuras que pueda leer gratis como obras de dominio público"
+    filters: {free_only: true}
+  - id: es_science
+    language: es
+    query: "Libros de divulgación sobre astronomía para principiantes"
+  - id: es_history
+    language: es
+    query: "Una historia de amor durante la Guerra Civil española"
+    filters: {genre: "historical fiction"}
+  - id: es_sea
+    language: es
+    query: "Quiero una novela triste sobre el mar"
+  - id: es_niche
+    language: es
+    query: "Novelas sobre fareros en comunidades remotas del Ártico"
+    category: niche
+  - id: es_nonsense
+    language: es
+    query: "ñxqz blorf 887766 zzz qqq"
+    category: nonsense

@@ -68,7 +68,7 @@ def test_bilingual_suite_has_the_required_coverage():
 
 @pytest.mark.parametrize(
     "defect",
-    ["count", "language", "ids", "query", "nonsense", "free", "comics", "constraints"],
+    ["count", "language", "ids", "query", "nonsense", "comics", "constraints"],
 )
 def test_incomplete_or_duplicated_suites_are_rejected(defect):
     data = load_suite(DEFAULT_SUITE).model_dump()
@@ -83,8 +83,6 @@ def test_incomplete_or_duplicated_suites_are_rejected(defect):
         for c in data["cases"]:
             if defect == "nonsense":
                 c["category"] = "normal"
-            elif defect == "free":
-                c["filters"]["free_only"] = False
             elif defect == "comics":
                 c["filters"]["genre"] = None
             else:
@@ -114,6 +112,13 @@ def test_missing_product_evidence_is_blocked_even_when_core_results_are_valid():
     assert checks["links"].status == "blocked"
     assert checks["latency"].status == "blocked"
     assert checks["authenticity"].status == "pass"
+
+
+def test_reason_check_rejects_an_explicitly_admitted_topic_mismatch():
+    result = state()
+    result["picks"][0].reason = "Es una novela triste, aunque no se centra en el mar."
+    check = evaluate_case(case(), result)["reason"]
+    assert check.status == "fail" and "missing reader requirement" in check.detail
 
 
 @pytest.mark.parametrize(
@@ -400,9 +405,9 @@ async def test_captured_cards_enable_link_checks_and_replay_keeps_them():
         r["checks"]["latency"]["status"] in {"blocked", "not_applicable"}
         for r in records
     )
-    assert (
-        records[4]["checks"]["links"]["status"] == "fail"
-    )  # Free-only must not pass on a search link.
+    assert records[4]["checks"]["links"]["status"] == "pass"
+    # The approved replacement case asks for classics, not free availability.
+    assert not suite.cases[4].filters.free_only
 
 
 @pytest.mark.parametrize("error", [TimeoutError(), ValueError("invalid pick")])

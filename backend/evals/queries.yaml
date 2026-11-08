@@ -9,14 +9,14 @@ cases:
     language: en
     query: "Short story collections by Spanish authors published after 2010"
     filters: {era: "2010s", length: short}
+    category: niche
   - id: en_comics
     language: en
     query: "Graphic novels about superheroes and moral dilemmas"
     filters: {genre: "graphic novels"}
-  - id: en_free_classics
+  - id: en_classics
     language: en
-    query: "Classic adventure novels available as free public-domain books"
-    filters: {free_only: true}
+    query: "Classic adventure novels about journeys and exploration"
   - id: en_science
     language: en
     query: "Accessible nonfiction about astronomy for a complete beginner"
@@ -45,14 +45,14 @@ cases:
     language: es
     query: "Libros de relatos cortos de autores españoles publicados después de 2010"
     filters: {era: "2010s", length: short}
+    category: niche
   - id: es_manga
     language: es
     query: "Manga de aventuras con personajes que aprenden a trabajar en equipo"
     filters: {genre: manga}
-  - id: es_free_classics
+  - id: es_classics
     language: es
-    query: "Novelas clásicas de aventuras que pueda leer gratis como obras de dominio público"
-    filters: {free_only: true}
+    query: "Novelas clásicas de aventuras sobre viajes y exploración"
   - id: es_science
     language: es
     query: "Libros de divulgación sobre astronomía para principiantes"

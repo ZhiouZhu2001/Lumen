@@ -83,6 +83,128 @@ async def execute(model, handler=reject_network, language: Language = "es"):
         return await graph.ainvoke(initial_state(language))
 
 
+async def test_metadata_constraints_apply_before_ranking_and_preserve_candidate_evidence(
+    monkeypatch,
+):
+    from app.filters import SearchFilters
+
+    matching = [
+        b.model_copy(update={"page_count": 180, "published_year": 2016}) for b in BOOKS
+    ]
+    wrong_year = book(70).model_copy(update={"page_count": 180, "published_year": 2001})
+    wrong_length = book(71).model_copy(
+        update={"page_count": 300, "published_year": 2016}
+    )
+    unknown = book(72)
+    stub_sources(monkeypatch, [wrong_year, wrong_length, unknown, *matching])
+    model = scripted_model(parsed("novela mar"), chosen(matching))
+    initial = initial_state()
+    initial["filters"] = SearchFilters(era="2010s", length="short")
+    async with httpx.AsyncClient(
+        transport=httpx.MockTransport(reject_network)
+    ) as client:
+        result = await workflow.build_graph(model, client).ainvoke(initial)
+    assert len(result["candidates"]) == 8
+    assert [p.isbn13 for p in result["picks"]] == [b.isbn13 for b in matching]
+    assert result["ranking_rounds"][0]["shortlist_isbns"] == [
+        b.isbn13 for b in matching
+    ]
+    assert result["model_calls"] == 2 and result["retries"] == 0
+
+
+async def test_broadening_seeds_only_authors_from_validated_matching_picks(monkeypatch):
+    first = BOOKS[0].model_copy(update={"authors": ["Verified Author"]})
+    unselected = book(80).model_copy(update={"authors": ["Unselected Author"]})
+    stub_sources(monkeypatch, [first, unselected], BOOKS[1:])
+    wider = AsyncMock(return_value=parsed("novela océano"))
+    monkeypatch.setattr(workflow, "broaden", wider)
+    model = scripted_model(
+        parsed("novela mar"), chosen([first]), chosen([first, *BOOKS[1:]])
+    )
+    result = await execute(model)
+    assert wider.await_args.kwargs["verified_authors"] == ["Verified Author"]
+    assert result["retries"] == 1 and len(result["picks"]) == 5
+
+
+async def test_work_description_requests_stay_within_eight_for_the_whole_search(
+    monkeypatch,
+):
+    from app.filters import SearchFilters
+
+    books = [
+        book(n, None).model_copy(
+            update={
+                "work_key": f"/works/OL{n + 1}W",
+                "page_count": 100,
+                "published_year": 2015,
+            }
+        )
+        for n in range(12)
+    ]
+    stub_sources(monkeypatch, books, books, books)
+    model = scripted_model(
+        parsed("novela mar"),
+        ModelPicks(picks=[]),
+        parsed("novela costa"),
+        ModelPicks(picks=[]),
+        parsed("novela oceano"),
+        ModelPicks(picks=[]),
+    )
+    seen = []
+
+    def handler(request):
+        key = request.url.path.removesuffix(".json")
+        seen.append(key)
+        return httpx.Response(
+            200, json={"key": key, "description": "A sad novel about the sea."}
+        )
+
+    initial = initial_state()
+    initial["filters"] = SearchFilters(era="2010s", length="short")
+    async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
+        result = await workflow.build_graph(model, client).ainvoke(initial)
+    assert len(seen) == len(set(seen)) == 8
+    assert len(result["description_lookup_keys"]) == 8
+    assert result["retries"] == 2 and result["model_calls"] == 6
+
+
+async def test_broadening_cannot_change_literature_into_a_language_course(monkeypatch):
+    courses = [
+        book(n).model_copy(update={"genres": ["Foreign Language Study"]})
+        for n in range(5)
+    ]
+    stub_sources(monkeypatch, courses, courses, courses)
+    model = scripted_model(
+        ParsedQuery(searches=["short stories Spain"], genre="short stories"),
+        ParsedQuery(searches=["other stories"], genre="language learning"),
+        ParsedQuery(searches=["wider stories"], genre="language learning"),
+    )
+    result = await execute(model)
+    assert result["picks"] == []
+    assert result["request_genre"] == "short stories"
+    assert result["model_calls"] == 3 and result["retries"] == 2
+
+
+async def test_admitted_mismatches_cannot_reenter_by_rewriting_the_reason(monkeypatch):
+    replacement = book(90)
+    stub_sources(monkeypatch, BOOKS, [replacement])
+    first = chosen(BOOKS)
+    first.picks[0].reason = "Es una novela triste, aunque no se centra en el mar."
+    model = scripted_model(
+        parsed("novela mar"),
+        first,
+        parsed("novela oceano"),
+        chosen([BOOKS[0], *BOOKS[1:], replacement]),
+    )
+    result = await execute(model)
+    assert result["reader_mismatch_isbns"] == [BOOKS[0].isbn13]
+    assert BOOKS[0].isbn13 not in result["ranking_rounds"][1]["shortlist_isbns"]
+    assert [p.isbn13 for p in result["picks"]] == [
+        b.isbn13 for b in [*BOOKS[1:], replacement]
+    ]
+    assert result["retries"] == 1 and result["model_calls"] == 4
+
+
 @pytest.mark.parametrize("language", ["en", "es"])
 async def test_five_usable_books_are_ranked_without_broadening(monkeypatch, language):
     books = [b.model_copy(update={"language": language}) for b in BOOKS]

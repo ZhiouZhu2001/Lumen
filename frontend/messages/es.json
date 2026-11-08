@@ -3,13 +3,38 @@
     "tagline": "Encuentra tu próximo libro.",
     "placeholder": "realismo mágico",
     "search": "Buscar",
-    "searching": "Buscando…",
-    "searchFailed": "La búsqueda ha fallado. Inténtalo de nuevo."
+    "searching": "Buscando en los catálogos…",
+    "searchFailed": "La búsqueda ha fallado. Inténtalo de nuevo.",
+    "requestLabel": "¿Qué te gustaría leer?",
+    "genre": "Género",
+    "era": "Década de publicación",
+    "length": "Extensión",
+    "any": "Cualquiera",
+    "historical": "Novela histórica",
+    "comics": "Novela gráfica",
+    "fantasy": "Fantasía",
+    "short": "Corto (hasta 200 páginas)",
+    "medium": "Medio (201–400 páginas)",
+    "long": "Largo (más de 400 páginas)",
+    "filterNote": "Los libros sin fecha o extensión conocida se excluyen al seleccionar esos filtros. La opción de lectura gratuita no está disponible actualmente.",
+    "parsing": "Entendiendo tu petición…",
+    "ranking": "Seleccionando libros…",
+    "candidates": "{count} candidatos encontrados",
+    "complete": "{count} recomendaciones",
+    "noResults": "No se encontraron libros adecuados. Prueba una búsqueda más amplia o quita un filtro.",
+    "limited": "{count, plural, one {Solo se encontró # libro adecuado} other {Solo se encontraron # libros adecuados}} tras ampliar la búsqueda. Prueba con menos filtros para ver más opciones.",
+    "searchingButton": "Buscando…"
   },
   "BookCard": {
     "coverAlt": "Portada de {title}",
     "noCover": "Sin portada",
     "ratings": "{count, plural, one {# valoración} other {# valoraciones}}",
-    "noRating": "Sin valoraciones todavía"
+    "noRating": "Sin valoraciones todavía",
+    "pages": "{count, plural, one {# página} other {# páginas}}",
+    "aiReason": "Motivo generado por IA a partir de la información del catálogo.",
+    "description": "Descripción del catálogo",
+    "channelNote": "Las búsquedas en tiendas no garantizan existencias ni formato. Apple Books se vincula por título y autor; comprueba la edición y el idioma antes de comprar.",
+    "paper": "Papel",
+    "ebook": "Libro electrónico"
   }
 }

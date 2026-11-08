@@ -1,0 +1,27 @@
+{
+  "checked_at": "2026-11-08T11:40:59.912647+00:00",
+  "target": "local_frontend_rewrite_to_backend_sse",
+  "query": "Quiero una novela triste sobre el mar",
+  "language": "es",
+  "http_status": 200,
+  "content_type": "text/event-stream; charset=utf-8",
+  "first_status_ms": 27569.41,
+  "first_book_ms": 27569.47,
+  "total_duration_ms": 27570.06,
+  "book_isbns": [
+    "9788417346201",
+    "9788410182387",
+    "9788490602485",
+    "9788418451706",
+    "9788477024255",
+    "9788419880147",
+    "9788417346393"
+  ],
+  "errors": [],
+  "done": {
+    "search_id": "3c17ef57-97f1-4e91-ba4a-53471d09e931",
+    "total": 7,
+    "limited": false
+  },
+  "full_suite": false
+}

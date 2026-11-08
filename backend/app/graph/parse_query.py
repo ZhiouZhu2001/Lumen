@@ -25,6 +25,16 @@ Each search is sent on its own, so each one must combine the kind of book
 with a concrete subject, setting or author, like a librarian would type it.
 Every search must keep the main subject of the wish (its topic, place or
 period). A genre with one general word is too broad to be useful.
+An author's nationality is different from the requested book language. For
+example, "by Spanish authors" means authors from Spain, not Spanish lessons.
+For nationality-based requests, include the country name (translated into the
+search language) in the initial searches rather than an ambiguous language
+adjective: "short stories Spain", not just "Spanish stories". Do not replace
+an author-origin constraint with language-learning material.
+For translated short-story collections, include a controlled catalog-subject
+search using the requested literary tradition, for example
+subject:"short stories, French" for stories by French authors. Catalog subject
+headings use English labels even when the other searches are translated.
 If a subject is ambiguous, make it specific the way a reader in Spain would
 mean it (which war, which city, which king), so the catalog cannot return
 books about the wrong one.

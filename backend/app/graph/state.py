@@ -2,6 +2,7 @@ from typing import Literal, NotRequired, TypedDict
 
 from langgraph.graph import END
 
+from app.filters import SearchFilters
 from app.graph.parse_query import ParsedQuery
 from app.graph.rank import Pick
 from app.sources.schemas import BookCandidate, Language
@@ -23,6 +24,10 @@ class SearchState(TypedDict):
     model_calls: NotRequired[int]
     ranking_rounds: NotRequired[list[dict]]
     request_understood: NotRequired[bool]
+    filters: NotRequired[SearchFilters]
+    description_lookup_keys: NotRequired[list[str]]
+    request_genre: NotRequired[str | None]
+    reader_mismatch_isbns: NotRequired[list[str]]
 
 
 def route_after_ranking(
