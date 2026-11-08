@@ -13,7 +13,9 @@ from app.graph.search import UpstreamUnavailable
 from app.graph.state import SearchState
 from app.llm import LLMError
 from app.repository import SearchRepository, StorageUnavailable
+from app.search_cache import CompletedSearch, SearchCache
 from app.sources.schemas import Language
+from app.usage import UsageLimited, UsageUnavailable
 
 logger = logging.getLogger(__name__)
 
@@ -30,12 +32,16 @@ class SearchStream:
         *,
         observer: Callable | None = None,
         repository: SearchRepository | None = None,
+        cache: SearchCache | None = None,
+        cached: CompletedSearch | None = None,
     ):
         self.graph = graph
         self.cards = cards
         # Local evaluator hook, never an HTTP endpoint or response payload.
         self.observer = observer
         self.repository = repository
+        self.cache = cache
+        self.cached = cached
 
     async def events(self, query: str, language: Language, filters: SearchFilters):
         search_id = str(uuid4())
@@ -50,6 +56,9 @@ class SearchStream:
             retries=0,
             picks=[],
         )
+        if self.cached is not None:
+            state = self.cached.state.copy()
+            state["model_calls"] = 0
         emitted = []
         lookups = {}
         error_code = None
@@ -61,7 +70,17 @@ class SearchStream:
         try:
             async with asyncio.timeout(60):
                 yield encode_event("status", {"stage": "parsing"})
-                async for update in self.graph.astream(state, stream_mode="updates"):
+
+                async def updates():
+                    if self.cached is not None:
+                        yield {"search": {"candidates": state["candidates"]}}
+                    else:
+                        async for item in self.graph.astream(
+                            state, stream_mode="updates"
+                        ):
+                            yield item
+
+                async for update in updates():
                     for node, values in update.items():
                         state.update(values)
                         logger.info(
@@ -95,6 +114,11 @@ class SearchStream:
                     # Finish the first card before looking up later books, so a
                     # rate-limited optional retailer cannot hold the first book.
                     for pick in state["picks"]:
+                        if self.cached is not None:
+                            card = self.cached.cards[pick.rank - 1]
+                            emitted.append(card)
+                            yield encode_event("book", card.model_dump(mode="json"))
+                            continue
                         book = next(
                             b for b in state["candidates"] if b.isbn13 == pick.isbn13
                         )
@@ -106,12 +130,33 @@ class SearchStream:
                         lookups.update(batch.lookups)
                         yield encode_event("book", card.model_dump(mode="json"))
                 if self.repository is not None:
+                    options = (
+                        {"refresh_books": False} if self.cached is not None else {}
+                    )
                     await self.repository.save_completed(
                         UUID(search_id),
                         state,
                         emitted,
                         round((perf_counter() - started) * 1000),
+                        **options,
                     )
+                if self.cache is not None and self.cached is None:
+                    await self.cache.put_completed(state, emitted)
+        except (UsageLimited, UsageUnavailable) as error:
+            error_code = (
+                "rate_limited"
+                if isinstance(error, UsageLimited)
+                else "upstream_unavailable"
+            )
+            yield encode_event(
+                "error",
+                {
+                    "code": error_code,
+                    "message": "The daily AI limit has been reached. Please try again tomorrow."
+                    if isinstance(error, UsageLimited)
+                    else "Usage checks are unavailable. Please try again.",
+                },
+            )
         except StorageUnavailable:
             error_code = "upstream_unavailable"
             logger.error("search_storage_failed", extra={"search_id": search_id})

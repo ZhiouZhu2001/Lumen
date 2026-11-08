@@ -7,6 +7,7 @@ import BookCard from "@/components/BookCard";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import type { Book, Language } from "@/lib/types";
 import { readSearchEvents } from "@/lib/sse";
+import { searchFailureKey } from "@/lib/search-error";
 
 const LANGUAGES: { code: Language; label: string }[] = [
   { code: "es", label: "Español" },
@@ -64,7 +65,9 @@ export default function Home() {
         } }),
       });
       if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
+        const key = await searchFailureKey(response);
+        if (active.current === controller) setError(t(key));
+        return;
       }
       await readSearchEvents(response, ({event, data}) => {
         if (active.current !== controller || !data || typeof data !== "object") return;
@@ -75,7 +78,7 @@ export default function Home() {
           setBooks(previous => previous.some(b => b.isbn13 === book.isbn13) ? previous : [...previous, book]);
         }
         if (event === "error" && "code" in data) {
-          setError(data.code === "no_results" ? t("noResults") : t("searchFailed"));
+          setError(t(data.code === "no_results" ? "noResults" : data.code === "rate_limited" ? "dailyLimit" : "searchFailed"));
         }
         if (event === "done") setStage("done");
       });

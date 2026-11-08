@@ -9,8 +9,14 @@ TIMEOUT = httpx.Timeout(10.0, connect=5.0)
 
 def make_http_client(
     transport: httpx.AsyncBaseTransport | None = None,
+    *,
+    cache=None,
 ) -> httpx.AsyncClient:
     # `transport` is only passed in tests, to plug in a fake server.
+    if cache is not None:
+        from app.catalog_cache import CatalogCacheTransport
+
+        transport = CatalogCacheTransport(cache, transport)
     return httpx.AsyncClient(
         timeout=TIMEOUT, headers={"User-Agent": USER_AGENT}, transport=transport
     )

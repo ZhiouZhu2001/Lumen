@@ -31,7 +31,12 @@ async def search_google_books(
     headers = {"X-Goog-Api-Key": api_key} if api_key else {}
     response = await client.get(GOOGLE_BOOKS_URL, params=params, headers=headers)
     response.raise_for_status()
-    return parse_google_books(response.json(), language)
+    return [
+        book.model_copy(
+            update={"catalog_fetched_at": response.extensions.get("catalog_fetched_at")}
+        )
+        for book in parse_google_books(response.json(), language)
+    ]
 
 
 def parse_google_books(

@@ -8,6 +8,7 @@ import pytest
 from app.config import Settings, get_settings
 from app.http_client import make_http_client
 from app.main import app
+from tests.usage_fixtures import allow_searches
 
 FIXTURES = Path(__file__).parent / "fixtures"
 GOOGLE_HOST = "www.googleapis.com"
@@ -36,6 +37,7 @@ def fake_apis(failing: set[str] = frozenset()) -> Callable:
 @pytest.fixture
 async def make_client():
     """Build a test client whose outgoing API calls go to a fake handler."""
+    allow_searches(app)
     app.dependency_overrides[get_settings] = lambda: Settings(
         database_url="postgresql+asyncpg://test", redis_url="redis://test"
     )

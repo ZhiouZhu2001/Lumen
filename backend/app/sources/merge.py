@@ -49,6 +49,8 @@ def _fill_gaps(base: BookCandidate, extra: BookCandidate) -> BookCandidate:
     }
     sources = [*base.source.split("+"), *extra.source.split("+")]
     updates["source"] = "+".join(dict.fromkeys(sources))
+    times = [b.catalog_fetched_at for b in (base, extra) if b.catalog_fetched_at]
+    updates["catalog_fetched_at"] = min(times) if times else None
     # model_copy returns a NEW object; the input books are never modified
     return base.model_copy(update=updates)
 

@@ -1,0 +1,52 @@
+{
+  "checked_at": "2026-11-08T21:53:16.441990+00:00",
+  "query": "Quiero una novela sobre el mar de Toine Heijmans",
+  "language": "es",
+  "filters": {
+    "genre": null,
+    "era": "2010s",
+    "length": "short",
+    "free_only": false
+  },
+  "saved_ui_search_ids": [
+    "a5bfdb19-8d95-4dcc-a069-c565f59a2204",
+    "3ce855cb-fc73-45ba-b6cd-247a05175ef2"
+  ],
+  "books": [
+    {
+      "isbn13": "9788417346201",
+      "title": "En el mar",
+      "authors": [
+        "Toine Heijmans"
+      ],
+      "fetched_at": "2026-11-08T21:50:50.328206+00:00"
+    },
+    {
+      "isbn13": "9788490651261",
+      "title": "Billy Budd, marinero",
+      "authors": [
+        "Herman Melville"
+      ],
+      "fetched_at": "2026-11-08T21:50:54.099767+00:00"
+    },
+    {
+      "isbn13": "9786077352921",
+      "title": "Capitán Nemo",
+      "authors": [
+        "Hugo Hiriart"
+      ],
+      "fetched_at": "2026-11-08T21:50:50.408545+00:00"
+    }
+  ],
+  "ai_requests_before_restart": 6,
+  "manual_author_constraint": {
+    "passed": false,
+    "expected_author": "Toine Heijmans",
+    "actual_authors": [
+      "Herman Melville",
+      "Hugo Hiriart",
+      "Toine Heijmans"
+    ],
+    "finding": "The manual query includes books by other authors. The current lexical evaluation does not establish exact author matching; this remains a separate unresolved quality issue."
+  }
+}

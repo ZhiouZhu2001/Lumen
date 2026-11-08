@@ -1,0 +1,22 @@
+{
+  "checked_at": "2026-11-08T21:46:20.819570+00:00",
+  "redis_database": 15,
+  "initial_keys": 0,
+  "isolation_reason": "Keep the evaluation's 20 requests and cache entries separate from the interactive preview; no usage checks are disabled.",
+  "daily_ai_call_cap": 100,
+  "hourly_limit": 20,
+  "usage_day_timezone": "UTC",
+  "cache_signature": "7507ddf5861f50d9eceab830",
+  "counters_after": {
+    "ai": {
+      "count": 54,
+      "ttl_seconds": 8020
+    },
+    "hourly_searches": {
+      "count": 20,
+      "ttl_seconds": 820
+    }
+  },
+  "report_sha256": "5838e9567b070b7ee4b136a3488e54fcf0b099357fd7b5e915d0085ea2322a04",
+  "exit_code": 0
+}

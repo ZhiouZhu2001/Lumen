@@ -34,7 +34,9 @@ class SearchRepository:
         self.engine = engine
         self.rules = load_rules() if rules is None else rules
 
-    def _validate(self, state: SearchState, cards: list[BookCard], duration_ms: int):
+    def validate_completed(
+        self, state: SearchState, cards: list[BookCard], duration_ms: int
+    ):
         candidates = {b.isbn13: b for b in state["candidates"]}
         proposed = ModelPicks(
             picks=[ModelPick(isbn13=c.isbn13, reason=c.reason) for c in cards]
@@ -80,8 +82,10 @@ class SearchRepository:
         state: SearchState,
         cards: list[BookCard],
         duration_ms: int,
+        *,
+        refresh_books: bool = True,
     ) -> None:
-        self._validate(state, cards, duration_ms)
+        self.validate_completed(state, cards, duration_ms)
         values = []
         for card in sorted(cards, key=lambda c: c.isbn13):
             rating = card.rating
@@ -100,6 +104,10 @@ class SearchRepository:
                     "rating_count": rating.count if rating else None,
                     "rating_source": rating.source if rating else None,
                     "formats": card.formats,
+                    "fetched_at": next(
+                        b for b in state["candidates"] if b.isbn13 == card.isbn13
+                    ).catalog_fetched_at
+                    or func.now(),
                     # Normalized public evidence, not a raw provider response.
                     "raw": {
                         "snapshot_version": 1,
@@ -110,7 +118,22 @@ class SearchRepository:
             )
         try:
             async with self.engine.begin() as connection:
-                if values:
+                if values and not refresh_books:
+                    # Cache hits create a new search/result history without
+                    # overwriting newer books or pretending to fetch them again.
+                    saved = set(
+                        (
+                            await connection.execute(
+                                select(Book.isbn13).where(
+                                    Book.isbn13.in_([card.isbn13 for card in cards]),
+                                    Book.language == state["language"],
+                                )
+                            )
+                        ).scalars()
+                    )
+                    if saved != {card.isbn13 for card in cards}:
+                        raise StorageUnavailable("Cached books are no longer available")
+                if values and refresh_books:
                     statement = pg_insert(Book).values(values)
                     incoming = statement.excluded
                     updates = {
@@ -125,7 +148,7 @@ class SearchRepository:
                         ),
                         "formats": incoming.formats,
                         "raw": incoming.raw,
-                        "fetched_at": func.now(),
+                        "fetched_at": incoming.fetched_at,
                     }
                     for field in (
                         "description",
@@ -144,6 +167,15 @@ class SearchRepository:
                             ),
                             else_=getattr(Book, field),
                         )
+                    # Source-cache responses retain their original fetch time and
+                    # must never overwrite a newer snapshot from another search.
+                    updates = {
+                        field: case(
+                            (incoming.fetched_at >= Book.fetched_at, value),
+                            else_=getattr(Book, field),
+                        )
+                        for field, value in updates.items()
+                    }
                     statement = statement.on_conflict_do_update(
                         index_elements=[Book.isbn13],
                         set_=updates,

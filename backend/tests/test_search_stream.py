@@ -108,7 +108,10 @@ def test_filters_preserve_explicit_constraints_and_reject_retired_free_mode():
 
 
 async def test_http_stream_keeps_rank_order_and_never_calls_retired_source(monkeypatch):
+    from tests.usage_fixtures import allow_searches
+
     app = FastAPI()
+    allow_searches(app)
     app.include_router(api.router)
     app.dependency_overrides[get_settings] = lambda: Settings(
         database_url="postgresql+asyncpg://test", redis_url="redis://test"

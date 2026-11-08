@@ -33,8 +33,19 @@ async def enrich_descriptions(
             if isinstance(description, dict):
                 description = description.get("value")
             if isinstance(description, str) and description.strip():
+                times = [
+                    value
+                    for value in (
+                        book.catalog_fetched_at,
+                        response.extensions.get("catalog_fetched_at"),
+                    )
+                    if value
+                ]
                 return book.model_copy(
-                    update={"description": description.strip()[:12000]}
+                    update={
+                        "description": description.strip()[:12000],
+                        "catalog_fetched_at": min(times) if times else None,
+                    }
                 )
         except (httpx.HTTPError, ValueError, TypeError):
             pass  # Missing provider evidence remains missing; never invent a synopsis.

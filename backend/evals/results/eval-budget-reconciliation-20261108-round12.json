@@ -1,0 +1,14 @@
+{
+  "checked_at": "2026-11-08T21:58:45.547021+00:00",
+  "evaluation_environment_sha256": "8ef564aa09972693d42ea3a2b65d7e7fb556c26802737f76693678d77a2833f6",
+  "reason": "Charge actual isolated evaluation provider requests to the normal shared daily allowance without repeating the calls or resetting any usage key. An expiring receipt prevents duplicate reconciliation.",
+  "evaluation_actual_attempts": 54,
+  "interactive_counter_before": 6,
+  "interactive_counter_after": 60,
+  "daily_cap": 100,
+  "remaining_attempts": 40,
+  "utc_day": "2026-11-08",
+  "applied_once": true,
+  "model_requests_sent_by_this_check": 0,
+  "hourly_counters_unchanged": true
+}

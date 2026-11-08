@@ -21,7 +21,7 @@ The current setup was verified with Python 3.12, Node 24, uv and Docker Desktop.
    cd backend
    uv sync --locked
    uv run alembic upgrade head
-   uv run uvicorn app.main:app --host 127.0.0.1 --port 8001
+   uv run uvicorn app.main:app --host 127.0.0.1 --port 8001 --no-proxy-headers
    ```
 
 4. In a frontend terminal:
@@ -37,6 +37,18 @@ Open [Spanish](http://127.0.0.1:3000/es) or [English](http://127.0.0.1:3000/en).
 The frontend forwards `/api/*` to port 8001 by default. Its server-side `BACKEND_URL` configuration can select another backend. Searches request SSE using `Accept: text/event-stream`; older requests without that header retain keyword JSON. Store searches do not establish stock or edition availability.
 
 Completed recommendation streams save their validated books, anonymous search record and ordered recommendations in one PostgreSQL transaction before `done`. Expected empty results also save a search record. The legacy keyword JSON path remains read-only. `GET /api/books/{isbn13}` returns a saved book's metadata, current channel rules and snapshot timestamp, without the reader's request or recommendation reason; an ISBN that has not been saved returns 404. This endpoint reads stored snapshots without calling the model or external catalogs.
+
+## Caches and usage limits
+
+Redis shares parsed requests for seven days, successful Google Books/Open Library JSON for 24 hours, and completed recommendation snapshots for six hours. Search keys include the exact request, language and normalized filters; parse/result keys also include the configured model and application/rule version. Invalid cache entries become misses. HTTP errors are not cached as successful catalog responses. Apple Books retains its existing process-local optional-lookup cache.
+
+Result hits still stream individual cards and create new anonymous search/result records. They make no model or retailer calls, do not overwrite newer book metadata and do not advance the stored catalog timestamp. Source-cache hits retain the actual source-fetch timestamp as well. The database's automatic 30-day refresh remains future work.
+
+Both search response modes allow 20 admitted searches per client IP per UTC clock hour, including cache hits; excess requests return 429 with `Retry-After`. IP identifiers exist only in expiring Redis usage keys, not PostgreSQL. `DAILY_AI_CALL_CAP=100` limits actual outbound model HTTP attempts per UTC day, including failed provider retries, across API workers using the same Redis database. A full result hit remains available when the AI budget is exhausted, subject to the hourly limit. Uncached AI requests receive a maintenance response; exhaustion during a stream emits an error. Optional cache operations can fail as misses, but unavailable Redis usage checks block new search work.
+
+Run Uvicorn with `--no-proxy-headers`, as the backend Docker entry point does. `TRUSTED_PROXY_IPS` defaults to an empty JSON array, so arbitrary forwarding headers cannot supply an identity. A controlled production reverse proxy must overwrite or safely append the real forwarding chain; configure only its exact IPs/CIDRs in this setting. With no trusted proxy configured, forwarded preview traffic shares the proxy's socket IP limit. Do not trust a public client's supplied header or configure a network containing untrusted clients. Production proxy routing still needs verification.
+
+The daily counter limits request attempts, not tokens or currency. Standalone model diagnostic scripts are outside the HTTP admission boundary. Redis data loss also loses its counters; durable budget accounting across a Redis reset and production retention/backup behavior require follow-up before a public launch. Concurrent identical cold requests can still perform duplicate work within the enforced budget.
 
 ## Verification
 
@@ -54,4 +66,4 @@ The evaluator owns its temporary backend on that port and closes it after the ru
 
 ## Current boundary
 
-The preview is local development work. Shared Redis caches/rate limits, the daily AI-call cap, 30-day catalog refresh, a frontend book-detail/share page and production deployment checks remain to be implemented. PostgreSQL currently stores displayed validated books rather than every unselected candidate; `books.raw` contains a versioned normalized public snapshot rather than original provider payloads. The lexical grounding and relevance checks do not prove every semantic reading constraint. Implementation records and submission descriptions are in [update_version](update_version/).
+The preview is local development work. Automatic 30-day catalog refresh, a frontend book-detail/share page and production deployment/proxy/budget-durability checks remain to be implemented. PostgreSQL currently stores displayed validated books rather than every unselected candidate; `books.raw` contains a versioned normalized public snapshot rather than original provider payloads. The lexical grounding and relevance checks do not prove every semantic reading constraint: a manual request naming an exact author still returned other authors, so that constraint needs a regression case and correction. Implementation records and submission descriptions are in [update_version](update_version/).

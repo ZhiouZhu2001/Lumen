@@ -6,6 +6,7 @@ from uuid import uuid4
 import pytest
 from sqlalchemy.schema import CreateSchema, DropSchema
 
+from app.cache import make_redis
 from app.config import get_settings
 from app.db import make_engine
 from app.models import Base
@@ -32,3 +33,19 @@ async def storage():
         async with engine.begin() as connection:
             await connection.execute(DropSchema(schema, cascade=True))
         await engine.dispose()
+
+
+@pytest.fixture
+async def redis_scope():
+    client = make_redis(get_settings().redis_url)
+    prefix = "lumen:test:" + uuid4().hex
+    try:
+        assert await client.ping()
+        yield client, prefix
+    finally:
+        assert prefix.startswith("lumen:test:") and len(prefix) == 43
+        keys = [key async for key in client.scan_iter(match=prefix + ":*")]
+        if keys:
+            assert all(key.startswith(prefix + ":") for key in keys)
+            await client.delete(*keys)
+        await client.aclose()

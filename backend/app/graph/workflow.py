@@ -26,18 +26,31 @@ def build_graph(
     model: BaseChatModel,
     client: httpx.AsyncClient,
     google_api_key: str | None = None,
+    *,
+    cache=None,
 ) -> CompiledStateGraph:
     """Build the bounded recommendation flow using caller-owned resources."""
 
     async def parse_node(state: SearchState):
-        parsed = await parse_query(
-            model,
-            constrained_query(state["query"], state.get("filters", SearchFilters())),
-            state["language"],
-        )
+        from app.graph.parse_query import ParsedQuery, clean_parsed_query
+
+        query = constrained_query(state["query"], state.get("filters", SearchFilters()))
+        key = cache.key("parse", [query, state["language"]]) if cache else None
+        value = await cache.cache.get(key) if cache else None
+        parsed = None
+        if value is not None:
+            try:
+                parsed = clean_parsed_query(ParsedQuery.model_validate(value), query)
+            except ValueError:
+                pass
+        model_called = parsed is None
+        if parsed is None:
+            parsed = await parse_query(model, query, state["language"])
+            if cache:
+                await cache.cache.put(key, parsed.model_dump(mode="json"), 7 * 86400)
         return {
             "parsed": parsed,
-            "model_calls": 1,
+            "model_calls": int(model_called),
             "feedback": [],
             "ranking_rounds": [],
             "picks": [],

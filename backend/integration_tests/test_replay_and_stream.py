@@ -74,17 +74,23 @@ async def test_all_twenty_recorded_searches_persist_with_real_foreign_keys(stora
 
 
 async def test_http_wiring_commits_before_done_and_details_read(storage, monkeypatch):
+    from tests.usage_fixtures import allow_searches
+
     repository, engine = storage
     state, _ = completed(1)
     app = FastAPI()
+    allow_searches(app)
     app.include_router(api.router)
     app.include_router(books_router)
     app.state.repository = repository
     app.dependency_overrides[get_settings] = lambda: Settings(
         database_url="postgresql+asyncpg://test", redis_url="redis://test"
     )
-    monkeypatch.setattr(api, "create_chat_model", lambda: None)
-    monkeypatch.setattr(api, "build_graph", lambda *args: SnapshotGraph(state))
+    app.state.model_http = None
+    monkeypatch.setattr(api, "create_chat_model", lambda **kwargs: None)
+    monkeypatch.setattr(
+        api, "build_graph", lambda *args, **kwargs: SnapshotGraph(state)
+    )
     async with httpx.AsyncClient(
         transport=httpx.MockTransport(
             lambda _: pytest.fail("Unexpected external API request")

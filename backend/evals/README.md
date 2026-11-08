@@ -34,6 +34,23 @@ runs queries sequentially, with a 60-second timeout per query by default. Change
 the timeout with `--timeout SECONDS` if needed; this does not change the
 15-second first-book requirement.
 
+The HTTP evaluator uses the application's real Redis caches, hourly search limit,
+daily model-request cap and PostgreSQL persistence. Twenty queries consume the
+entire per-IP hourly allowance; repeated runs can legitimately receive 429s.
+For an isolated evaluation, select an empty dedicated local Redis logical
+database through the process environment, keep the same active policy settings,
+and retain that isolation and the resulting counters alongside the report.
+Actual provider attempts from an isolated test database must also be charged to
+the normal shared daily allowance when the same credentials are used. Retain a
+one-time reconciliation receipt and before/after counts; do not send additional
+model requests or reset existing counters to perform that accounting.
+Never clear interactive usage keys or raise the cap to hide a denied run. A cold
+run means no initial evaluation cache entries, while repeated catalog parameters
+within the run may still benefit from the specified caches. Full result hits do
+not establish new model execution. The graph-only diagnostic does not pass
+through HTTP admission or the guarded provider transport and is not a substitute
+for this HTTP gate.
+
 To check query coverage without network calls:
 
 ```console

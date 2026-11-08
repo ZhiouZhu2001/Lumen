@@ -37,7 +37,9 @@ async def run_http_live(
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     sock.bind(("127.0.0.1", backend_port))
     port = sock.getsockname()[1]
-    server = uvicorn.Server(uvicorn.Config(app, log_level="error", access_log=False))
+    server = uvicorn.Server(
+        uvicorn.Config(app, log_level="error", access_log=False, proxy_headers=False)
+    )
     task = asyncio.create_task(server.serve(sockets=[sock]))
     results = []
     report = {
@@ -49,6 +51,8 @@ async def run_http_live(
         "backend_port": port,
         "suite_sha256": hashlib.sha256(suite_path.read_bytes()).hexdigest(),
         "model": get_settings().llm_model,
+        "daily_ai_call_cap": get_settings().daily_ai_call_cap,
+        "usage_day_timezone": "UTC",
         "revision": revision_info(),
         "code_sha256": code_fingerprints(),
         "expected_cases": 20,

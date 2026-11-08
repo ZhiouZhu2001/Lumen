@@ -5,6 +5,8 @@
     "search": "Buscar",
     "searching": "Buscando en los catálogos…",
     "searchFailed": "La búsqueda ha fallado. Inténtalo de nuevo.",
+    "rateLimited": "Has realizado demasiadas búsquedas esta hora. Espera antes de intentarlo de nuevo.",
+    "dailyLimit": "Se ha alcanzado el límite diario de IA. Repite una búsqueda reciente o vuelve más tarde.",
     "requestLabel": "¿Qué te gustaría leer?",
     "genre": "Género",
     "era": "Década de publicación",

@@ -1,7 +1,7 @@
 from decimal import Decimal
 from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import AwareDatetime, BaseModel, Field
 
 Language = Literal["es", "en"]
 
@@ -27,3 +27,4 @@ class BookCandidate(BaseModel):
     rating: Rating | None = None
     source: str
     work_key: str | None = Field(default=None, pattern=r"^/works/OL\d+W$", exclude=True)
+    catalog_fetched_at: AwareDatetime | None = Field(default=None, exclude=True)

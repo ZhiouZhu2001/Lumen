@@ -5,6 +5,8 @@
     "search": "Search",
     "searching": "Searching book catalogs…",
     "searchFailed": "Search failed. Please try again.",
+    "rateLimited": "Too many searches this hour. Please wait before trying again.",
+    "dailyLimit": "The daily AI limit has been reached. Try a recent search or come back later.",
     "requestLabel": "What would you like to read?",
     "genre": "Genre",
     "era": "Publication decade",
