@@ -1,0 +1,61 @@
+{
+  "checked_at_utc": "2026-11-08T10:08:51.539496+00:00",
+  "capture": "eval-20261108T095646341132Z.json",
+  "replay_identical": true,
+  "replay_seconds": 0.0437,
+  "captured_source_files": 37,
+  "post_capture_changes": [
+    "app/book_cards.py"
+  ],
+  "reason": "After the live run, one defensive copy was added to prevent a returned format list from mutating configured rules. Its regression failed before the fix and the full 211-test suite passes after the fix. No second live run is claimed.",
+  "current_code_sha256": {
+    "app/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/api/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/api/health.py": "1ed7f4140e95a17528d6b4f18e023acc4bd31b7a08920127aae2f959b48f7e0b",
+    "app/api/search.py": "cba08211c6adedec23dab2592157c7b7b44bebfb2c21782be37104df3b38aa16",
+    "app/book_cards.py": "f654529cc4bc41ed62ad3706460cb2d45013425629a2cbdbd4096a5e1ccaef87",
+    "app/cache.py": "35f6d6f1386c1e8f77ddc1b596fa35f64a5b8285345c2c63e446ec24201b933e",
+    "app/channels/__init__.py": "e92e07eb692e10b8e6e78208f6fc3d2251d6792f5541a0f8979ea2c8966f989d",
+    "app/channels/matching.py": "e6a63f22ac2d658e92f890a7fc67053d59fe86ef749ad53b09b2708b515dd3cb",
+    "app/channels/rules.py": "6564fcbe1c16f980a7df28ff077cfe245256d9dc0a17a246d2a307a700291e96",
+    "app/channels/schemas.py": "d3cab4ab7f1ee541426ba2ee16053e8dba8f6677a2d54af594c9d37535f6f445",
+    "app/config.py": "a73dc2b4ae5b20e28335a8bb37b872d0a4f077ed38f55bb98d83db50107ad5b0",
+    "app/db.py": "7fc37986e63c38181a86b7783913d5514ce3997093b4b685081efd2ac6d8fd0f",
+    "app/graph/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/graph/broaden.py": "404f2e80ec98bc3c6b22c831a0c805273b52cbbce07438b1fbe5bcb32a65281d",
+    "app/graph/parse_query.py": "288ab139ff6bbb4ff0c51d4dfb7d47522b0c2f8f01cd8de8abc443350ae2ae43",
+    "app/graph/rank.py": "8086080380d0270992226d90a0b7b95b90295afe0e3ae5f097a5ffddb0e1788d",
+    "app/graph/search.py": "295b5a93e92638226c9e03d2ce56abcc2dc3de202f77b790b280a23f6860d491",
+    "app/graph/state.py": "1b42c9c6a4d45bf22678960c1ab103ec19a9bed4652eb09a67ac778f0d9d616e",
+    "app/graph/workflow.py": "357dd9732daff1eb82e2468efa9d7af39abaaf8a12fd03fe776983743c38c53f",
+    "app/grounding.py": "4d8c269f2b845d685bda8ec8eb3b0b9025ad801afde54da30f6881e1b7932195",
+    "app/http_client.py": "a42aa50e20e7c1a506617d939ca5570ac7988e015c7b05f4d93a4a0df2a393d0",
+    "app/llm.py": "7181de1cb148dfd3e2c745a0334a8d9685044fe98801a247a1d4aee68df8e401",
+    "app/main.py": "51c744a0033075720cc42e356081f123841f3413d592f8fa1616b452588c05f1",
+    "app/models.py": "2ba8ce4ea91b1c210b247a97e51836251f9add1f9a325194bf85c912fe7f0c9b",
+    "app/sources/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/sources/apple_books.py": "6cb82fdd6429b4266eda32a69a6f1653c138be2f6b17a6573a20d0c8f0b71ffa",
+    "app/sources/google_books.py": "63985f8cbaf582114f27a3518b102bd3fda305dbd959b4a1297e313b89240a2f",
+    "app/sources/gutendex.py": "8a8ac61db52cc0449775e9a1a867b274cf1b2acc35e2debf8c19f9f4829f9c30",
+    "app/sources/isbn.py": "2a5de5a9b0151db24754ec91443d3035bcefdaebb4fa955c749ef7f3e321d5e6",
+    "app/sources/merge.py": "151143b116a2e1ea1d3b847c3c15e424f295c9c4d5a62a07ffe48a673c951d66",
+    "app/sources/open_library.py": "2c986fd7c7d6bcb21d3850123351afd7115473b4eed13f2b2c038c2fad42b686",
+    "app/sources/schemas.py": "da05c9c89d1b9e909513495753abb3e96766ac6883ccd2d510a43e749dfb550b",
+    "app/stores.yaml": "695ba664fe40ccbbc48c7ad1bfc7cd3417196c1fd2159725e513ca1c10cba383",
+    "evals/__init__.py": "69255d7ea47cc6a91fe8c37332383dfa2e3e0357468aa04cfc5dab9d92e6dcb9",
+    "evals/checks.py": "b24cf6f53a687733f1fcc31f0c97daabe6614942c4d31281f1924612a95dfba0",
+    "evals/replay.py": "8142aa11459e2f2d2fed68d55c9c5e85b5e1bfc0b739f16094aec0f384ee41e5",
+    "evals/run.py": "ccad0cb5d15a34745eecb25f4f8c49a49af9b3fe352cdf189bcd35bec8d5fd43"
+  },
+  "lookup_statuses": {
+    "apple_books": {
+      "matched": 66,
+      "not_found": 58,
+      "insufficient_metadata": 2
+    },
+    "gutenberg": {
+      "unavailable": 124,
+      "insufficient_metadata": 2
+    }
+  }
+}

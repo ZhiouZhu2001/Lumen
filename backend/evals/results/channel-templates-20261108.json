@@ -1,0 +1,54 @@
+{
+  "checked_at_utc": "2026-11-08T09:58:30.204092+00:00",
+  "report_date": "2026-11-08",
+  "report_timezone": "Europe/Madrid",
+  "target": "retailer_search_templates",
+  "price_scraping": false,
+  "http_observations": [
+    {
+      "store": "amazon_es",
+      "isbn13": "9788420412146",
+      "requested_url": "https://www.amazon.es/s?k=9788420412146",
+      "status": 503,
+      "title": "Lo sentimos.",
+      "current_result_verification": "blocked"
+    },
+    {
+      "store": "casa_del_libro",
+      "isbn13": "9788420412146",
+      "requested_url": "https://www.casadellibro.com/?query=9788420412146",
+      "status": 200,
+      "title": "Compra libros, eBooks y audiolibros | Libreria Casa del Libro",
+      "current_result_verification": "browser_checked"
+    },
+    {
+      "store": "abacus",
+      "isbn13": "9788420412146",
+      "requested_url": "https://www.abacus.coop/es/busqueda?q=9788420412146",
+      "status": 200,
+      "title": "Resultados para 9788420412146 - Abacus Online",
+      "current_result_verification": "isbn_in_page_title"
+    },
+    {
+      "store": "norma_comics",
+      "isbn13": "9788467921403",
+      "requested_url": "https://www.normacomics.com/catalogsearch/result/?q=9788467921403",
+      "status": 403,
+      "title": "Just a moment...",
+      "current_result_verification": "blocked"
+    }
+  ],
+  "browser_observation": {
+    "store": "casa_del_libro",
+    "url": "https://www.casadellibro.com/?query=9788420412146",
+    "isbn_prefilled": true,
+    "action": "Clicked Buscar in the prefilled search modal",
+    "result_count": 1,
+    "result_title": "Don Quijote de la Mancha (Edicion conmemorativa de la RAE y la ASALE)"
+  },
+  "notes": [
+    "Search entry points do not establish stock or actual format availability.",
+    "Amazon.es and Norma Comics returned ISBN search result pages in the 2026-11-06 probe, but the 2026-11-08 automated check was blocked. No barrier was bypassed.",
+    "The HTTP observations were obtained successfully; their initial report write failed because the local Python runtime lacks tzdata. This record preserves those observed results without repeating the requests."
+  ]
+}

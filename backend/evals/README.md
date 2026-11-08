@@ -63,9 +63,9 @@ zero-result response.
 ## Current integration boundary
 
 The live runner currently invokes the recommendation graph, not the HTTP search
-endpoint. The existing HTTP endpoint still returns keyword-search JSON. The
-graph has no final book-card/store-link adapter, no HTTP SSE timing measurement
-and no request-filter support. Reports list these gaps explicitly. Requested
+endpoint, then builds cards with real channel lookups. The existing HTTP endpoint
+still returns keyword-search JSON. HTTP SSE timing and request-filter support
+remain missing. Reports list these gaps explicitly. Requested
 filter fields remain visible as unsupported; they are not silently discarded
 or represented as implemented by rewriting the query.
 
@@ -74,11 +74,10 @@ the feature branch until the missing product integrations and any observed
 failures are resolved and a new full live run actually passes. Do not weaken
 criteria or substitute graph duration to obtain a green result.
 
-When those integrations exist, extend the runner to consume their actual output.
-`evaluate_case` already accepts a per-ISBN list of `EvalLink` values and a measured
-`first_book_sse_ms`. These parameters are evidence inputs, not simulated values
-to supply to a live run. Filter support must also be connected and verified
-before removing its unsupported status.
+The live runner now supplies actual card links to `evaluate_case`. Future SSE
+integration must provide an observed `first_book_sse_ms`; graph or channel
+enrichment duration is not a substitute. Filter support must be connected and
+verified before removing its unsupported status.
 
 ## Reports and exit status
 
@@ -115,6 +114,14 @@ decision, not a hardcoded list of evaluation queries. Old parsed-query snapshots
 remain readable because the new field defaults to a meaningful request when
 absent.
 
+Channel-enabled captures retain cards, per-ISBN lookup statuses, channel errors
+and a separate `channel_duration_ms`. Console durations still report graph time;
+channel lookup time is additional and may include Apple's request-spacing waits.
+The existing per-case timeout bounds the graph plus channel attachment. A channel
+timeout or invalid card input preserves graph evidence and blocks the link check.
+Provider outages are `unavailable`, rather than authoritative no-match evidence.
+Source fingerprints now also include `app/stores.yaml`.
+
 To recheck a complete version 2 capture offline, run from `backend/`:
 
 ```console
@@ -124,8 +131,10 @@ uv run python -m evals.replay evals/results/REPORT.json
 Replace `REPORT.json` with an actual saved filename. Replay reconstructs candidate
 and recommendation evidence and runs the current checks without model or catalog
 requests. It does not rerank books, test a new prompt, or measure new latency. The
-current capture has no links/SSE observations, so replay retains those blocked
-checks and exits with `1`. It does not modify the original report. Reproduction
+replay uses links only when cards were actually captured; old captures retain
+their missing-link status. No capture yet supplies HTTP SSE observations, so
+replay retains blocked latency checks and exits with `1`. It does not modify the
+original report. Reproduction
 of a check failure is useful diagnostic evidence, not a new live-service test.
 
 Legacy version 1 reports contain only candidate ISBNs and cannot reconstruct

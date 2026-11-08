@@ -1,0 +1,44 @@
+stores:
+  - id: amazon_es
+    label: Amazon.es
+    host: amazon.es
+    languages: [en, es]
+    formats: [paper, kindle]
+    mode: search
+    url_template: "https://www.amazon.es/s?k={isbn13}"
+  - id: apple_books
+    label: Apple Books
+    host: books.apple.com
+    languages: [en, es]
+    formats: [apple_books]
+    mode: lookup
+    provider: apple_books
+  - id: gutenberg
+    label: Project Gutenberg
+    host: gutenberg.org
+    languages: [en, es]
+    formats: [free]
+    mode: lookup
+    provider: gutenberg
+  - id: casa_del_libro
+    label: Casa del Libro
+    host: casadellibro.com
+    languages: [es]
+    formats: [paper, ebook]
+    mode: search
+    url_template: "https://www.casadellibro.com/?query={isbn13}"
+  - id: abacus
+    label: Abacus
+    host: abacus.coop
+    languages: [es]
+    formats: [paper]
+    mode: search
+    url_template: "https://www.abacus.coop/es/busqueda?q={isbn13}"
+  - id: norma_comics
+    label: Norma Comics
+    host: normacomics.com
+    languages: [es]
+    genres: [comic, comics, manga, graphic novel, graphic novels, novela gráfica, novelas gráficas, historieta, historietas]
+    formats: [paper]
+    mode: search
+    url_template: "https://www.normacomics.com/catalogsearch/result/?q={isbn13}"

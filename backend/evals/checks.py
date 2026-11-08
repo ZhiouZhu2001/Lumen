@@ -8,6 +8,7 @@ from urllib.parse import urlsplit
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from app.channels.matching import normalize
 from app.graph.state import SearchState
 from app.grounding import unknown_proper_words
 from app.sources.isbn import to_isbn13
@@ -148,9 +149,20 @@ def check_links(
                 problems.append(
                     f"{pick.isbn13}: Spanish-only channel on an English book"
                 )
-            genres = " ".join(book.genres).casefold() if book else ""
+            genres = " " + normalize(" ".join(book.genres)) + " " if book else ""
             if link.store == "norma_comics" and not any(
-                name in genres for name in ("comic", "manga", "graphic novel")
+                " " + name + " " in genres
+                for name in (
+                    "comic",
+                    "comics",
+                    "manga",
+                    "graphic novel",
+                    "graphic novels",
+                    "novela grafica",
+                    "novelas graficas",
+                    "historieta",
+                    "historietas",
+                )
             ):
                 problems.append(f"{pick.isbn13}: Norma Comics on a non-comic book")
         if case.filters.free_only and not any(

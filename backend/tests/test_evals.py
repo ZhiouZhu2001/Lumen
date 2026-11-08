@@ -348,6 +348,100 @@ async def test_report_uses_actual_priority_shortlist_instead_of_reconstructing_f
     assert result["ranking_rounds"] == captured["ranking_rounds"]
 
 
+async def test_captured_cards_enable_link_checks_and_replay_keeps_them():
+    from app.channels.schemas import CardBatch
+    from evals.replay import recheck_report
+
+    suite = load_suite(DEFAULT_SUITE)
+    records = []
+    for c in suite.cases:
+        captured = state(0 if c.category == "nonsense" else 5)
+        for b in captured["candidates"]:
+            b.language = c.language
+        cards = CardBatch(
+            cards=[
+                {
+                    **b.model_dump(),
+                    "rank": p.rank,
+                    "reason": p.reason,
+                    "links": [
+                        {
+                            "store": "amazon_es",
+                            "label": "Amazon.es",
+                            "url": f"https://www.amazon.es/s?k={b.isbn13}",
+                            "formats": ["paper"],
+                            "match": "isbn_search",
+                        }
+                    ],
+                    "formats": ["paper"],
+                }
+                for b, p in zip(captured["candidates"], captured["picks"], strict=True)
+            ],
+            lookups={},
+        )
+        builder = Mock(build=AsyncMock(return_value=cards))
+        record = await run_case(
+            Mock(ainvoke=AsyncMock(return_value=captured)),
+            c,
+            timeout=1,
+            card_builder=builder,
+        )
+        records.append(record)
+    report = {
+        "report_version": 2,
+        "complete": True,
+        "completed_cases": 20,
+        "cases": records,
+    }
+    replayed = recheck_report(report, suite)
+    assert [r["checks"] for r in replayed] == [r["checks"] for r in records]
+    assert records[0]["checks"]["links"]["status"] == "pass"
+    assert all(
+        r["checks"]["latency"]["status"] in {"blocked", "not_applicable"}
+        for r in records
+    )
+    assert (
+        records[4]["checks"]["links"]["status"] == "fail"
+    )  # Free-only must not pass on a search link.
+
+
+@pytest.mark.parametrize("error", [TimeoutError(), ValueError("invalid pick")])
+async def test_channel_failure_preserves_graph_evidence_and_cannot_pass_links(error):
+    captured = state()
+    builder = Mock(build=AsyncMock(side_effect=error))
+    result = await run_case(
+        Mock(ainvoke=AsyncMock(return_value=captured)),
+        case(),
+        timeout=1,
+        card_builder=builder,
+    )
+    assert result["error_code"] is None
+    assert result["channel_error"] in {"timeout", "invalid_card_input"}
+    assert result["candidate_evidence"]
+    assert result["checks"]["authenticity"]["status"] == "pass"
+    assert result["checks"]["links"]["status"] == "blocked"
+
+
+@pytest.mark.parametrize(
+    ("genres", "expected"),
+    [(["Novela gráfica"], "pass"), (["Tragicomic fiction"], "fail")],
+)
+def test_norma_rule_recognizes_spanish_genres_without_substring_false_positives(
+    genres, expected
+):
+    captured = state()
+    for b in captured["candidates"]:
+        b.genres = genres
+    assert (
+        evaluate_case(
+            case(),
+            captured,
+            links=links_for(captured, "norma_comics", "https://www.normacomics.com/"),
+        )["links"].status
+        == expected
+    )
+
+
 def test_checkpoint_reports_preserve_partial_status(tmp_path):
     path = tmp_path / "results" / "check.json"
     report = {"complete": False, "gate_passed": False, "cases": []}

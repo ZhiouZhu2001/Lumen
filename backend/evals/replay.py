@@ -5,11 +5,19 @@ import hashlib
 import json
 from pathlib import Path
 
+from app.channels.schemas import BookCard
 from app.graph.parse_query import ParsedQuery
 from app.graph.rank import Pick
 from app.graph.state import SearchState
 from app.sources.schemas import BookCandidate
-from evals.checks import CHECK_NAMES, CheckResult, QuerySuite, evaluate_case, load_suite
+from evals.checks import (
+    CHECK_NAMES,
+    CheckResult,
+    EvalLink,
+    QuerySuite,
+    evaluate_case,
+    load_suite,
+)
 from evals.run import DEFAULT_SUITE, summarize
 
 
@@ -58,9 +66,24 @@ def recheck_report(report: dict, suite: QuerySuite) -> list[dict]:
                 retries=record["retries"],
                 picks=[Pick.model_validate(p) for p in record["recommendations"]],
             )
-            # The current capture adapter has no links or first-book SSE evidence.
-            # Replaying graph duration must never manufacture a latency pass.
-            checks = evaluate_case(case, state)
+            captured_cards = record.get("cards")
+            links = None
+            if captured_cards is not None:
+                cards = [BookCard.model_validate(card) for card in captured_cards]
+                if len(cards) != len(state["picks"]) or {
+                    card.isbn13 for card in cards
+                } != {p.isbn13 for p in state["picks"]}:
+                    raise ValueError(
+                        f"Cards do not match the captured picks: {case.id}"
+                    )
+                links = {
+                    card.isbn13: [
+                        EvalLink(store=link.store, url=link.url) for link in card.links
+                    ]
+                    for card in cards
+                }
+            # Graph/channel duration must never manufacture an SSE latency pass.
+            checks = evaluate_case(case, state, links=links)
         results.append(
             {
                 **record,
@@ -92,7 +115,9 @@ def main() -> int:
         parser.error(str(error))
     print("Offline replay only: no live calls or new latency measurements.")
     print(json.dumps(summarize(results), indent=2))
-    print("Product merge gate remains blocked by missing channel and SSE evidence.")
+    print(
+        "Offline replay cannot supply the missing HTTP SSE evidence; this is not a live merge-gate pass."
+    )
     return 1
 
 

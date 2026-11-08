@@ -1,0 +1,28 @@
+{
+  "source": "apple",
+  "status": 200,
+  "seconds": 1.11,
+  "results": [
+    {
+      "trackViewUrl": "https://books.apple.com/es/book/pride-and-prejudice/id395534643?uo=4",
+      "artistName": "Jane Austen",
+      "trackId": 395534643,
+      "trackName": "Pride and Prejudice",
+      "kind": "ebook"
+    },
+    {
+      "trackViewUrl": "https://books.apple.com/es/book/pride-and-prejudice/id1257419787?uo=4",
+      "artistName": "Jane Austen",
+      "trackId": 1257419787,
+      "trackName": "Pride and Prejudice",
+      "kind": "ebook"
+    },
+    {
+      "trackViewUrl": "https://books.apple.com/es/book/pride-and-prejudice/id6463075057?uo=4",
+      "artistName": "Jane Austen",
+      "trackId": 6463075057,
+      "trackName": "Pride and Prejudice",
+      "kind": "ebook"
+    }
+  ]
+}

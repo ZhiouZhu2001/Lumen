@@ -100,6 +100,7 @@ dependencies = [
     { name = "langchain-openai" },
     { name = "langgraph" },
     { name = "pydantic-settings" },
+    { name = "pyyaml" },
     { name = "redis" },
     { name = "sqlalchemy", extra = ["asyncio"] },
     { name = "uvicorn", extra = ["standard"] },
@@ -110,7 +111,6 @@ dev = [
     { name = "httpx" },
     { name = "pytest" },
     { name = "pytest-asyncio" },
-    { name = "pyyaml" },
     { name = "ruff" },
 ]
 
@@ -124,6 +124,7 @@ requires-dist = [
     { name = "langchain-openai", specifier = ">=1.7.2" },
     { name = "langgraph", specifier = ">=1.2.16" },
     { name = "pydantic-settings", specifier = ">=2.15.0" },
+    { name = "pyyaml", specifier = ">=6.0.3" },
     { name = "redis", specifier = ">=8.1.0" },
     { name = "sqlalchemy", extras = ["asyncio"], specifier = ">=2.1.2" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.54.0" },
@@ -134,7 +135,6 @@ dev = [
     { name = "httpx", specifier = ">=0.28.1" },
     { name = "pytest", specifier = ">=9.1.1" },
     { name = "pytest-asyncio", specifier = ">=1.4.0" },
-    { name = "pyyaml", specifier = ">=6.0.3" },
     { name = "ruff", specifier = ">=0.16.10" },
 ]
 

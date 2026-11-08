@@ -7,6 +7,7 @@ import argparse
 import asyncio
 from time import perf_counter
 
+from app.book_cards import BookCardBuilder
 from app.config import get_settings
 from app.graph.rank import select_for_ranking
 from app.graph.search import UpstreamUnavailable
@@ -17,7 +18,7 @@ from app.llm import LLMError, create_chat_model
 from app.sources.schemas import Language
 
 
-async def main(query: str, language: Language) -> int:
+async def main(query: str, language: Language, *, with_channels: bool = False) -> int:
     settings = get_settings()
     model = create_chat_model()
     initial_state = SearchState(
@@ -36,6 +37,13 @@ async def main(query: str, language: Language) -> int:
                 model, client, google_api_key=settings.google_books_api_key
             )
             result = await graph.ainvoke(initial_state)
+            channels = (
+                await BookCardBuilder(client).build(
+                    result["candidates"], result["picks"]
+                )
+                if with_channels
+                else None
+            )
     except UpstreamUnavailable:
         print(
             "upstream_unavailable: Book sources are not responding. Please try again."
@@ -62,6 +70,11 @@ async def main(query: str, language: Language) -> int:
         book = books_by_isbn[pick.isbn13]
         print(f"\n{pick.rank}. {book.title} ({book.isbn13})")
         print(pick.reason)
+        if channels:
+            card = next(card for card in channels.cards if card.isbn13 == pick.isbn13)
+            for link in card.links:
+                print(f"  {link.label} ({link.match}): {link.url}")
+            print("  Lookup status:", channels.lookups[card.isbn13])
     return 0
 
 
@@ -80,5 +93,12 @@ if __name__ == "__main__":
         default="quiero una novela triste sobre el mar",
     )
     parser.add_argument("--language", choices=("en", "es"), default="es")
+    parser.add_argument(
+        "--with-channels",
+        action="store_true",
+        help="Attach buying and reading links using real channel APIs",
+    )
     args = parser.parse_args()
-    raise SystemExit(asyncio.run(main(args.query, args.language)))
+    raise SystemExit(
+        asyncio.run(main(args.query, args.language, with_channels=args.with_channels))
+    )

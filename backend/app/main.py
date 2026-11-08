@@ -4,6 +4,7 @@ from fastapi import FastAPI
 
 from app.api.health import router as health_router
 from app.api.search import router as search_router
+from app.book_cards import BookCardBuilder
 from app.cache import make_redis
 from app.config import get_settings
 from app.db import make_engine
@@ -17,6 +18,7 @@ async def lifespan(app: FastAPI):
     app.state.engine = make_engine(settings.database_url, echo=settings.sql_echo)
     app.state.redis = make_redis(settings.redis_url)
     app.state.http = make_http_client()
+    app.state.book_cards = BookCardBuilder(app.state.http)
 
     yield  # This is where the application runs
 

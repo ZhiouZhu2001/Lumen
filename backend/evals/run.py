@@ -11,6 +11,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from time import perf_counter
 
+from app.book_cards import BookCardBuilder
 from app.config import get_settings
 from app.graph.rank import format_candidates, select_for_ranking
 from app.graph.search import UpstreamUnavailable
@@ -22,6 +23,7 @@ from evals.checks import (
     CHECK_NAMES,
     CheckResult,
     EvalCase,
+    EvalLink,
     evaluate_case,
     gate_passed,
     load_suite,
@@ -33,7 +35,13 @@ DEFAULT_SUITE = Path(__file__).with_name("queries.yaml")
 def code_fingerprints() -> dict[str, str]:
     """Identify source files even when the evaluated working tree is uncommitted."""
     root = DEFAULT_SUITE.parent.parent
-    paths = sorted([*(root / "app").rglob("*.py"), *(root / "evals").glob("*.py")])
+    paths = sorted(
+        [
+            *(root / "app").rglob("*.py"),
+            *(root / "evals").glob("*.py"),
+            root / "app" / "stores.yaml",
+        ]
+    )
     return {
         path.relative_to(root).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
         for path in paths
@@ -57,7 +65,13 @@ def revision_info() -> dict:
         return {"commit": "unknown", "branch": "unknown", "working_tree_dirty": True}
 
 
-async def run_case(graph, case: EvalCase, timeout: float) -> dict:
+async def run_case(
+    graph,
+    case: EvalCase,
+    timeout: float,
+    *,
+    card_builder: BookCardBuilder | None = None,
+) -> dict:
     state = SearchState(
         query=case.query,
         language=case.language,
@@ -81,14 +95,38 @@ async def run_case(graph, case: EvalCase, timeout: float) -> dict:
         # Provider exception messages may contain sensitive configuration details.
         error_code = "internal_error"
     duration_ms = round((perf_counter() - started) * 1000, 2)
+    cards = None
+    channel_error = None
+    links = None
+    channel_started = perf_counter()
+    if not error_code and card_builder is not None:
+        try:
+            cards = await asyncio.wait_for(
+                card_builder.build(state["candidates"], state["picks"]),
+                timeout=max(0.001, timeout - duration_ms / 1000),
+            )
+            links = {
+                card.isbn13: [
+                    EvalLink(store=link.store, url=link.url) for link in card.links
+                ]
+                for card in cards.cards
+            }
+        except TimeoutError:
+            channel_error = "timeout"
+        except ValueError:
+            channel_error = "invalid_card_input"
+    channel_duration_ms = (
+        round((perf_counter() - channel_started) * 1000, 2)
+        if card_builder is not None and not error_code
+        else None
+    )
     if error_code:
         checks = {
             name: CheckResult(status="blocked", detail=f"Workflow failed: {error_code}")
             for name in CHECK_NAMES
         }
     else:
-        # The current core has neither a card/link adapter nor HTTP SSE evidence.
-        checks = evaluate_case(case, state)
+        checks = evaluate_case(case, state, links=links)
     constraints = {
         key: value
         for key, value in case.filters.model_dump(exclude_none=True).items()
@@ -106,6 +144,12 @@ async def run_case(graph, case: EvalCase, timeout: float) -> dict:
         "requested_filters": constraints,
         "unsupported_filters": sorted(constraints),
         "error_code": error_code,
+        "channel_error": channel_error,
+        "channel_duration_ms": channel_duration_ms,
+        "cards": [card.model_dump(mode="json") for card in cards.cards]
+        if cards
+        else None,
+        "channel_lookups": cards.lookups if cards else None,
         "workflow_duration_ms": duration_ms,
         "first_book_sse_ms": None,
         "retries": None if error_code else state["retries"],
@@ -196,7 +240,7 @@ async def run_live(suite_path: Path, output: Path, timeout: float) -> int:
         "report_version": 2,
         "started_at": datetime.now(UTC).isoformat(),
         "completed_at": None,
-        "target": "recommendation_graph",
+        "target": "recommendation_graph_and_channels",
         "suite_sha256": hashlib.sha256(suite_path.read_bytes()).hexdigest(),
         "model": settings.llm_model,
         "revision": revision_info(),
@@ -206,7 +250,6 @@ async def run_live(suite_path: Path, output: Path, timeout: float) -> int:
         "complete": False,
         "gate_passed": False,
         "capability_gaps": [
-            "Book-card/store-link adapter is not implemented",
             "HTTP SSE first-book latency is not measured",
             "The graph does not yet apply request filter fields",
         ],
@@ -216,8 +259,9 @@ async def run_live(suite_path: Path, output: Path, timeout: float) -> int:
     save_report(output, report)
     async with make_http_client() as client:
         graph = build_graph(model, client, settings.google_books_api_key)
+        card_builder = BookCardBuilder(client)
         for number, case in enumerate(suite.cases, 1):
-            result = await run_case(graph, case, timeout)
+            result = await run_case(graph, case, timeout, card_builder=card_builder)
             results.append(result)
             report["completed_cases"] = len(results)
             report["summary"] = summarize(results)
