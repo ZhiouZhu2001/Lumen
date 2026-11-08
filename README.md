@@ -36,9 +36,13 @@ Open [Spanish](http://127.0.0.1:3000/es) or [English](http://127.0.0.1:3000/en).
 
 The frontend forwards `/api/*` to port 8001 by default. Its server-side `BACKEND_URL` configuration can select another backend. Searches request SSE using `Accept: text/event-stream`; older requests without that header retain keyword JSON. Store searches do not establish stock or edition availability.
 
+Completed recommendation streams save their validated books, anonymous search record and ordered recommendations in one PostgreSQL transaction before `done`. Expected empty results also save a search record. The legacy keyword JSON path remains read-only. `GET /api/books/{isbn13}` returns a saved book's metadata, current channel rules and snapshot timestamp, without the reader's request or recommendation reason; an ISBN that has not been saved returns 404. This endpoint reads stored snapshots without calling the model or external catalogs.
+
 ## Verification
 
-From `backend/`, run `uv run python -m pytest -q` and `uv run ruff check app scripts tests evals`. From `frontend/`, run `npm test`, `npm run lint` and `npm run build`. The native stream-parser tests require Node TypeScript-stripping support.
+From `backend/`, run `uv run python -m pytest -q` and `uv run ruff check app scripts tests evals integration_tests`. From `frontend/`, run `npm test`, `npm run lint` and `npm run build`. The native stream-parser tests require Node TypeScript-stripping support.
+
+Run the explicit PostgreSQL integration checks from `backend/` with `uv run python -m pytest -q integration_tests`. They use the configured local database, or `LUMEN_TEST_DATABASE_URL` when supplied, and require permission to create schemas. Each test creates and removes its own uniquely named schema; the public tables are left intact. These checks include atomic rollback, foreign keys, concurrent saves, cancellation, API wiring and persistence of all 20 previously captured evaluation cases. Replaying captured cases is separate from a fresh live evaluation and does not measure new model quality or latency.
 
 `make eval` runs 20 real English/Spanish searches through a loopback backend and retains candidate evidence and actual first-book HTTP timings. It uses the configured APIs and model. To include the running frontend's forwarding/compression path, keep the frontend running, stop the standalone backend on port 8001, and run from `backend/`:
 
@@ -50,4 +54,4 @@ The evaluator owns its temporary backend on that port and closes it after the ru
 
 ## Current boundary
 
-The preview is local development work. Search/result persistence, the single-book endpoint, shared Redis caches/rate limits, the daily AI-call cap and production deployment checks remain to be implemented. The lexical grounding and relevance checks do not prove every semantic reading constraint. Implementation records and submission descriptions are in [update_version](update_version/).
+The preview is local development work. Shared Redis caches/rate limits, the daily AI-call cap, 30-day catalog refresh, a frontend book-detail/share page and production deployment checks remain to be implemented. PostgreSQL currently stores displayed validated books rather than every unselected candidate; `books.raw` contains a versioned normalized public snapshot rather than original provider payloads. The lexical grounding and relevance checks do not prove every semantic reading constraint. Implementation records and submission descriptions are in [update_version](update_version/).

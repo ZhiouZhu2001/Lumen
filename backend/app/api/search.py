@@ -33,6 +33,7 @@ def get_search_stream(
             create_chat_model(), request.app.state.http, settings.google_books_api_key
         ),
         request.app.state.book_cards,
+        repository=request.app.state.repository,
         observer=getattr(request.app.state, "search_observer", None),
     )
 

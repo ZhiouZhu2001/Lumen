@@ -5,13 +5,14 @@ import json
 import logging
 from collections.abc import Callable
 from time import perf_counter
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 from app.book_cards import BookCardBuilder
 from app.filters import SearchFilters
 from app.graph.search import UpstreamUnavailable
 from app.graph.state import SearchState
 from app.llm import LLMError
+from app.repository import SearchRepository, StorageUnavailable
 from app.sources.schemas import Language
 
 logger = logging.getLogger(__name__)
@@ -23,12 +24,18 @@ def encode_event(event: str, data: dict) -> str:
 
 class SearchStream:
     def __init__(
-        self, graph, cards: BookCardBuilder, *, observer: Callable | None = None
+        self,
+        graph,
+        cards: BookCardBuilder,
+        *,
+        observer: Callable | None = None,
+        repository: SearchRepository | None = None,
     ):
         self.graph = graph
         self.cards = cards
         # Local evaluator hook, never an HTTP endpoint or response payload.
         self.observer = observer
+        self.repository = repository
 
     async def events(self, query: str, language: Language, filters: SearchFilters):
         search_id = str(uuid4())
@@ -98,6 +105,23 @@ class SearchStream:
                         emitted.append(card)
                         lookups.update(batch.lookups)
                         yield encode_event("book", card.model_dump(mode="json"))
+                if self.repository is not None:
+                    await self.repository.save_completed(
+                        UUID(search_id),
+                        state,
+                        emitted,
+                        round((perf_counter() - started) * 1000),
+                    )
+        except StorageUnavailable:
+            error_code = "upstream_unavailable"
+            logger.error("search_storage_failed", extra={"search_id": search_id})
+            yield encode_event(
+                "error",
+                {
+                    "code": error_code,
+                    "message": "Could not save the search. Please try again.",
+                },
+            )
         except (UpstreamUnavailable, LLMError, TimeoutError) as error:
             error_code = (
                 "upstream_unavailable"

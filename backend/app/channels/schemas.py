@@ -1,7 +1,7 @@
 from typing import Literal
 from urllib.parse import urlsplit
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, field_validator
 
 from app.sources.schemas import BookCandidate
 
@@ -44,3 +44,11 @@ class BookCard(BookCandidate):
 class CardBatch(BaseModel):
     cards: list[BookCard]
     lookups: dict[str, dict[str, LookupStatus]]
+
+
+class BookDetails(BookCandidate):
+    """Stored public catalog data; recommendations remain search-specific."""
+
+    links: list[BookLink]
+    formats: list[BookFormat]
+    fetched_at: AwareDatetime

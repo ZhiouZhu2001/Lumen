@@ -1,0 +1,122 @@
+{
+  "checked_at": "2026-11-08T18:55:04.105989+00:00",
+  "target": "running_frontend_sse_and_postgres",
+  "full_suite": false,
+  "revision": {
+    "commit": "bc9abff8aa6b62e4dc3ee70f1d3ed3086eeb1d11",
+    "branch": "codex/update-11-search-persistence",
+    "working_tree_dirty": true
+  },
+  "code_sha256": {
+    "app/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/api/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/api/books.py": "b919835b4773d12a4870b6a5a233e7de3ae438509015ca88007dbf9ef2c17a01",
+    "app/api/health.py": "1ed7f4140e95a17528d6b4f18e023acc4bd31b7a08920127aae2f959b48f7e0b",
+    "app/api/search.py": "8c364fc7134210d19a7fc9b0d6c17f3d9d0d6bba8ce94a333135c2eac4013033",
+    "app/book_cards.py": "1e4279036b3bb1cbe3d5050efb54607d8b3a517dd312af2a216ff8ae45bf76ce",
+    "app/cache.py": "35f6d6f1386c1e8f77ddc1b596fa35f64a5b8285345c2c63e446ec24201b933e",
+    "app/channels/__init__.py": "109ecee08afebdc360e8de69680f3f7ff07fc47803cd1c8ac08cd12fba4816b9",
+    "app/channels/matching.py": "e2abc23d8ce371cd0d1aa2dd4c2dc075b21085f1c321a87ac95c399881ea9c71",
+    "app/channels/rules.py": "60c892d73704876db544a2f7646bfc0ef28cc76818b4155a84a95e95fe7a6057",
+    "app/channels/schemas.py": "7ff5cc38fd29b245d1c41d3d1de2fb7d773a55b39b8813249ef01cd8072954f3",
+    "app/config.py": "a73dc2b4ae5b20e28335a8bb37b872d0a4f077ed38f55bb98d83db50107ad5b0",
+    "app/db.py": "7fc37986e63c38181a86b7783913d5514ce3997093b4b685081efd2ac6d8fd0f",
+    "app/filters.py": "ebc4f73814d1d90b0062c554cfee508c50ba9c29ffc7ad7dce4d00ae23a5b726",
+    "app/graph/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/graph/broaden.py": "92220522489c5f79dfecbd942336dac35d498f637c111f1dad6856d860a7d51e",
+    "app/graph/parse_query.py": "6ddbd0023c7012c602a73e07397359d909a80d69ae097a722eebecafbb4ffa64",
+    "app/graph/rank.py": "a8c1707d06292123f55b316a764734f65608fccb1096b2c9cbe51f89582f5be7",
+    "app/graph/search.py": "76708825385e4a59e078d62cf2b08d2205ab72cb3a99984b5d63ed203e357b76",
+    "app/graph/state.py": "a77604e670811dbfd00288b24c47a67ce78459ab765cc9a0d25529f37deb6b4c",
+    "app/graph/workflow.py": "bcc8bb2c24e84ab24b593c1b6a5313178b6ff80d7c9b9777c335b5c5e4a1e17e",
+    "app/grounding.py": "4d8c269f2b845d685bda8ec8eb3b0b9025ad801afde54da30f6881e1b7932195",
+    "app/http_client.py": "a42aa50e20e7c1a506617d939ca5570ac7988e015c7b05f4d93a4a0df2a393d0",
+    "app/llm.py": "7181de1cb148dfd3e2c745a0334a8d9685044fe98801a247a1d4aee68df8e401",
+    "app/main.py": "dcd720fc91454c5201c389fe05c089ab793a26af4d3c39d76d481bc35b39c1c1",
+    "app/models.py": "2ba8ce4ea91b1c210b247a97e51836251f9add1f9a325194bf85c912fe7f0c9b",
+    "app/reading_intent.py": "797489b77c349ef94a1595944db9b6b5ba5bf5ae96c841e48301084fe80efb4d",
+    "app/repository.py": "63c528aabad3b84cbffea55cf181ef8351dc26d8c200b7011c091fad439fb9f6",
+    "app/search_stream.py": "ee82ae0986bac5d88c33fa113925904b34a97bdce8ce67b11c543232a4b6c07b",
+    "app/sources/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/sources/apple_books.py": "f91521a4cc0f10706806d514674d75c73e6b2732c98f0e31d4dcfd9d8b5f92fd",
+    "app/sources/descriptions.py": "6d164a5b5bbb0c9706d836bbaaf51a005133a383e3b27e726f25f7dfabd83087",
+    "app/sources/google_books.py": "63985f8cbaf582114f27a3518b102bd3fda305dbd959b4a1297e313b89240a2f",
+    "app/sources/gutendex.py": "e72a2ab7ab21b083b3368bdc4d1540d6998a8ea0f00b1b32af00e881c9a4bf97",
+    "app/sources/isbn.py": "2a5de5a9b0151db24754ec91443d3035bcefdaebb4fa955c749ef7f3e321d5e6",
+    "app/sources/merge.py": "fad7fbb559fe6f6e8d5794621df8aa3b79e584dc297340346a55fab9e3b209e1",
+    "app/sources/open_library.py": "b2cf1a0e2f6c35d35c572a94011c8080cf0cf1da8818f121bf0713ccfa135f46",
+    "app/sources/schemas.py": "ce44c791996d58a3a2b93bf6a331f036860eed408f6d6637d5b31742b80fe052",
+    "app/stores.yaml": "b2c1e6bd7ae68dd6df6407eb4931802609ac45e1e3cdbfb56548e65e1289824c",
+    "evals/__init__.py": "69255d7ea47cc6a91fe8c37332383dfa2e3e0357468aa04cfc5dab9d92e6dcb9",
+    "evals/checks.py": "deefce06f2b56b3bb30a8dfc68445d1b1706766f56952188e6b557160fdc1109",
+    "evals/http_run.py": "3888ce1efe06fd282122eb76a6c88be99e8ab4d3844f0d56139fc3c7bdd8d69c",
+    "evals/replay.py": "8142aa11459e2f2d2fed68d55c9c5e85b5e1bfc0b739f16094aec0f384ee41e5",
+    "evals/run.py": "f81048a954a268a77e547bf14120ea70863850dfc527a07e82c7f2e21774ddc7"
+  },
+  "counts_before": {
+    "books": 0,
+    "searches": 0,
+    "search_results": 0
+  },
+  "cases": [
+    {
+      "query": "Quiero una novela sobre el mar de Toine Heijmans",
+      "language": "es",
+      "filters": {
+        "era": "2010s",
+        "length": "short"
+      },
+      "search_id": "2cb8fbe8-53df-4f41-a6fd-27532fc78fce",
+      "book_isbns": [
+        "9788417346201"
+      ],
+      "first_book_ms": 12459.36,
+      "total_ms": 12572.72,
+      "errors": [],
+      "saved_search": true,
+      "details_reads": 1
+    },
+    {
+      "query": "Fantasy novels with dragons and a strong adventure story",
+      "language": "en",
+      "filters": {},
+      "search_id": "6f5086f0-15ab-4282-a390-fd85cc5cc712",
+      "book_isbns": [
+        "9781471193088",
+        "9781429913416",
+        "9781737404927",
+        "9798679587205",
+        "9781948871693",
+        "9781980339526",
+        "9788792980588",
+        "9781980969846",
+        "9781910056905"
+      ],
+      "first_book_ms": 4345.51,
+      "total_ms": 29341.78,
+      "errors": [],
+      "saved_search": true,
+      "details_reads": 9
+    },
+    {
+      "query": "zxqv blorpt 998877 qqq zzz",
+      "language": "en",
+      "filters": {},
+      "search_id": "cb4c6b82-25b2-4a54-bd6d-8ef3cd00f8c1",
+      "book_isbns": [],
+      "first_book_ms": null,
+      "total_ms": 898.73,
+      "errors": [
+        "no_results"
+      ],
+      "saved_search": true,
+      "details_reads": 0
+    }
+  ],
+  "counts_after": {
+    "books": 10,
+    "searches": 3,
+    "search_results": 10
+  },
+  "passed": true
+}

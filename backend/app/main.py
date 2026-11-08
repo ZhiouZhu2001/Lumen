@@ -2,6 +2,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
+from app.api.books import router as books_router
 from app.api.health import router as health_router
 from app.api.search import router as search_router
 from app.book_cards import BookCardBuilder
@@ -9,6 +10,7 @@ from app.cache import make_redis
 from app.config import get_settings
 from app.db import make_engine
 from app.http_client import make_http_client
+from app.repository import SearchRepository
 
 
 @asynccontextmanager
@@ -19,6 +21,7 @@ async def lifespan(app: FastAPI):
     app.state.redis = make_redis(settings.redis_url)
     app.state.http = make_http_client()
     app.state.book_cards = BookCardBuilder(app.state.http)
+    app.state.repository = SearchRepository(app.state.engine)
 
     yield  # This is where the application runs
 
@@ -31,3 +34,4 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="Lumen API", version="0.1.0", lifespan=lifespan)
 app.include_router(health_router)
 app.include_router(search_router)
+app.include_router(books_router)
