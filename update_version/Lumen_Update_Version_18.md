@@ -137,3 +137,23 @@ Validation: 372 offline, 64 native database/cache and 11 frontend tests passed; 
 See `update_version/Lumen_Update_Version_18.md` and `docs/catalog-storage.md`. This branch depends on the separately committed round 17 described in `update_version/Lumen_Update_Version_17.md`; the pending rounds are submitted together only after round 18 is complete, as requested.
 
 **Status at local checkpoint preparation:** implementation, verification and this record are complete. Neither pending branch has yet been pushed or merged at the time of writing. The user's combined-after-completion instruction controls the submission sequence; actual push/hosted-CI/merge outcomes are reported separately after execution. No release, collaborator or deployment action is included.
+
+### Submission receipt after the functional checkpoints
+
+The user-authorized combined submission has now uploaded both branches, keeping
+their separate commits and English descriptions. Author and committer identities
+are `ZhiouZhu2001 <zhiouzhu2001@gmail.com>`; no co-author, collaborator or assistant
+credit was added. Neither branch was merged before round 18 completed.
+
+| Uploaded checkpoint | Actual hosted verification |
+| --- | --- |
+| Round 17, `eaca768ded0d31ee584205b61b00bf3547ddd607` | [Run 42699943340](https://github.com/ZhiouZhu2001/Lumen/actions/runs/42699943340): Backend checks and Frontend checks both completed successfully. |
+| Round 18, `ed3c602e12d1d24c71dbf4c85507c645f8a4abb6` | [Run 42699942903](https://github.com/ZhiouZhu2001/Lumen/actions/runs/42699942903): Backend checks and Frontend checks both completed successfully. |
+
+This receipt is a documentation-only completion of the same round, not another
+implementation round. It changes no runtime behavior or test scope. At this
+receipt's preparation, the combined main merge remains the next authorized step;
+the exact final merge and main-check outcome are reported after execution. The
+earlier local-only status in round 17 and above records its historical capture
+time rather than the current upload status. No release or public deployment was
+performed.
