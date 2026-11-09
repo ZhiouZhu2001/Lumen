@@ -1,0 +1,73 @@
+{
+  "started_at": "2026-11-09T13:08:46.422490+00:00",
+  "complete": true,
+  "source_sha256_lf": {
+    "app/api/books.py": "c76ebaa81280b9f77ffa82e7cb1a06473663cf59c0c96a5de343fa8810d573a8",
+    "app/main.py": "5fb210b7480d86e06e6e4879ea77028e911b014c2e7d1405be586b44740cc2ee",
+    "app/repository.py": "5d21d1f2a0de487bc3d0551b05255064c62f0d0825d0a1ffc645d1a256db2907",
+    "app/book_refresh.py": "1b20d4588589f51388bf85a5745a9becc0000cb5a4c3d4b7b23c0c5efb7cf46d",
+    "app/sources/edition.py": "721e93bd7f000cf304d259a71201c6629e3a18dceaec3504a7478ad9c3c01712",
+    "scripts/check_book_refresh.py": "8a7e8ed547debe6c0509a402ef9a476faae7ac0cb60411bdf92dc6680b62ecc0"
+  },
+  "daily_ai_call_cap": 100,
+  "normal_books_aged": false,
+  "isolated_snapshots_aged_days": 31,
+  "cases": [
+    {
+      "isbn13": "9788417346201",
+      "language": "es",
+      "http_status": 200,
+      "title": "En el mar",
+      "source": "google_books",
+      "before_fetched_at": "2026-10-09T13:08:46.615933+00:00",
+      "after_fetched_at": "2026-11-09T13:08:07.289181Z",
+      "persisted_matches_api": true,
+      "second_read_no_provider_calls": true,
+      "public_snapshot_unchanged": true,
+      "private_fields_absent": true,
+      "catalog_cache_hits": 1,
+      "client_response_events": [
+        {
+          "host": "www.googleapis.com",
+          "path": "/books/v1/volumes",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "isbn13": "9780330483292",
+      "language": "en",
+      "http_status": 200,
+      "title": "The Sea",
+      "source": "google_books",
+      "before_fetched_at": "2026-10-09T13:08:46.674644+00:00",
+      "after_fetched_at": "2026-11-09T13:08:07.632719Z",
+      "persisted_matches_api": true,
+      "second_read_no_provider_calls": true,
+      "public_snapshot_unchanged": true,
+      "private_fields_absent": true,
+      "catalog_cache_hits": 1,
+      "client_response_events": [
+        {
+          "host": "www.googleapis.com",
+          "path": "/books/v1/volumes",
+          "status": 200
+        }
+      ]
+    }
+  ],
+  "shared_daily_before": 61,
+  "fallback_probe": {
+    "google_error_simulated": true,
+    "open_library_live": true,
+    "isbn13": "9780141439518",
+    "language": "en",
+    "source": "open_library",
+    "title": "Pride and Prejudice",
+    "database_writes": false
+  },
+  "search_history_rows_added": 0,
+  "shared_daily_after": 61,
+  "temporary_storage_cleaned": true,
+  "completed_at": "2026-11-09T13:08:47.482854+00:00"
+}

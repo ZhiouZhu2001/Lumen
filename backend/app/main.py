@@ -7,6 +7,7 @@ from app.api.books import router as books_router
 from app.api.health import router as health_router
 from app.api.search import router as search_router
 from app.book_cards import BookCardBuilder
+from app.book_refresh import BookRefresh
 from app.cache import JsonCache, make_redis
 from app.config import get_settings
 from app.db import make_engine
@@ -28,6 +29,12 @@ async def lifespan(app: FastAPI):
     app.state.http = make_http_client(cache=app.state.search_cache.cache)
     app.state.book_cards = BookCardBuilder(app.state.http)
     app.state.repository = SearchRepository(app.state.engine)
+    app.state.book_refresh = BookRefresh(
+        app.state.repository,
+        app.state.http,
+        app.state.redis,
+        settings.google_books_api_key,
+    )
 
     yield  # This is where the application runs
 

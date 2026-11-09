@@ -1,9 +1,10 @@
 """Atomic search persistence and safe public reads over the existing schema."""
 
+from datetime import UTC, datetime
 from uuid import UUID
 
 from pydantic import ValidationError
-from sqlalchemy import case, func, insert, select
+from sqlalchemy import case, func, insert, select, update
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncEngine
@@ -330,4 +331,79 @@ class SearchRepository:
         except (SQLAlchemyError, ValidationError, ValueError) as error:
             raise StorageUnavailable(
                 "Book storage is temporarily unavailable"
+            ) from error
+
+    async def refresh_book(
+        self, original: BookDetails, candidate: BookCandidate
+    ) -> BookDetails | None:
+        # Revalidate mutable model instances before performing the targeted update.
+        book = BookCandidate.model_validate(candidate.model_dump())
+        fetched = candidate.catalog_fetched_at
+        if (
+            book.isbn13 != original.isbn13
+            or book.language != original.language
+            or to_isbn13(book.isbn13) != book.isbn13
+            or not book.title.strip()
+            or book.source not in {"google_books", "open_library"}
+            or fetched is None
+            or fetched.tzinfo is None
+            or not original.fetched_at < fetched <= datetime.now(UTC)
+        ):
+            raise ValueError("Refresh requires newer exact-ISBN language-matched data")
+        merged = book.model_copy(
+            update={
+                field: getattr(book, field) or getattr(original, field)
+                for field in (
+                    "authors",
+                    "description",
+                    "cover_url",
+                    "page_count",
+                    "published_year",
+                    "genres",
+                    "rating",
+                )
+            }
+        )
+        links = search_links(merged, self.rules)
+        # Optional title/author matches remain valid only for unchanged identity.
+        if merged.title == original.title and merged.authors == original.authors:
+            links.extend(
+                link for link in original.links if link.match == "title_author"
+            )
+        values = merged.model_dump(exclude={"rating", "source", "isbn13", "language"})
+        values.update(
+            rating_value=merged.rating.value if merged.rating else None,
+            rating_count=merged.rating.count if merged.rating else None,
+            rating_source=merged.rating.source if merged.rating else None,
+            formats=list(dict.fromkeys(f for link in links for f in link.formats)),
+            raw={
+                "snapshot_version": 1,
+                "source": merged.source,
+                "links": [link.model_dump(mode="json") for link in links],
+            },
+            fetched_at=fetched,
+        )
+        try:
+            async with self.engine.begin() as connection:
+                row = (
+                    (
+                        await connection.execute(
+                            update(Book)
+                            .where(
+                                Book.isbn13 == original.isbn13,
+                                Book.language == original.language,
+                                Book.fetched_at == original.fetched_at,
+                            )
+                            .values(**values)
+                            .returning(*Book.__table__.c)
+                        )
+                    )
+                    .mappings()
+                    .one_or_none()
+                )
+            # A concurrent search/refresh won. Read it instead of overwriting it.
+            return self._details(row) if row else await self.get_book(original.isbn13)
+        except (SQLAlchemyError, ValidationError) as error:
+            raise StorageUnavailable(
+                "Book refresh is temporarily unavailable"
             ) from error

@@ -33,4 +33,7 @@ async def book_details(
                 "message": "This book has not been saved yet.",
             },
         )
+    refresher = getattr(request.app.state, "book_refresh", None)
+    if refresher is not None:
+        book = await refresher.refresh(book)
     return book
