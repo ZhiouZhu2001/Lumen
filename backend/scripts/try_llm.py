@@ -4,7 +4,8 @@ import asyncio
 
 from pydantic import BaseModel, Field
 
-from app.llm import ask_structured, create_chat_model
+from app.diagnostics import diagnostic_model
+from app.llm import ask_structured
 
 
 class BookWish(BaseModel):
@@ -13,14 +14,15 @@ class BookWish(BaseModel):
 
 
 async def main() -> None:
-    model = create_chat_model()
-    wish = await ask_structured(
-        model,
-        BookWish,
-        system="You turn a reader's wish into search terms for a book catalog.",
-        user="quiero una novela triste sobre el mar",
-    )
-    print(wish)
+    async with diagnostic_model() as model:
+        wish = await ask_structured(
+            model,
+            BookWish,
+            system="You turn a reader's wish into search terms for a book catalog.",
+            user="quiero una novela triste sobre el mar",
+        )
+        print(wish)
 
 
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())

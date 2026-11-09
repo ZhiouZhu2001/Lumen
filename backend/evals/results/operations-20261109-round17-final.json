@@ -1,0 +1,104 @@
+{
+  "operational_check": true,
+  "live_model_evaluation": false,
+  "daily_cap": 100,
+  "cutover": {
+    "mode": "import-redis",
+    "utc_day": "2026-11-09",
+    "daily_cap": 100,
+    "ai_workers_stopped_acknowledged": true,
+    "legacy_counter_present": true,
+    "requested_floor": 61,
+    "stored_used": 61,
+    "legacy_keys_cleared": false
+  },
+  "redis_replacement_isolated_probe": {
+    "complete": true,
+    "isolated_cap": 10,
+    "used_before_replacement": 6,
+    "used_after_replacement": 6,
+    "final_used": 10,
+    "mock_provider_requests": 10,
+    "real_model_calls": 0,
+    "redis_marker_lost": true,
+    "extra_request_blocked": true
+  },
+  "private_backup_receipts": [
+    {
+      "archive": "lumen-20261109T200757Z-8e0789ccd934.dump",
+      "archive_sha256": "c6837dae1da4b9a37e59265752fa77c19fd43c7dc4c7240103c2df94badb8d4e",
+      "tables": {
+        "alembic_version": 1,
+        "books": 225,
+        "search_results": 404,
+        "searches": 74
+      },
+      "recovery": {
+        "contents_match_snapshot": true,
+        "recovered_budget_blocked": false,
+        "network_access": "none",
+        "temporary_target_removed": true
+      }
+    },
+    {
+      "archive": "lumen-20261109T202544Z-9990ad74b49f.dump",
+      "archive_sha256": "2a4610cdae201e99dca599a91e57f1fea7bd79c9e846d060d116bc0c843441c4",
+      "tables": {
+        "ai_daily_usage": 1,
+        "alembic_version": 1,
+        "books": 225,
+        "search_results": 404,
+        "searches": 74
+      },
+      "recovery": {
+        "contents_match_snapshot": true,
+        "recovered_budget_blocked": true,
+        "network_access": "none",
+        "temporary_target_removed": true
+      }
+    },
+    {
+      "archive": "lumen-20261109T203957Z-1a402f445726.dump",
+      "archive_sha256": "8350d1bf952185b922dfd2859689acdd73ecc8c14251929b6c2ba08be0ef81af",
+      "tables": {
+        "ai_daily_usage": 1,
+        "alembic_version": 1,
+        "books": 225,
+        "search_results": 404,
+        "searches": 74
+      },
+      "recovery": {
+        "contents_match_snapshot": true,
+        "recovered_budget_blocked": true,
+        "network_access": "none",
+        "temporary_target_removed": true
+      }
+    }
+  ],
+  "schema_drop_regression": {
+    "before": "observed failure with exported snapshot referencing subsequently dropped temporary schema",
+    "after": "observed successful public-schema archive and verified recovery during the same forced schema drop",
+    "initial_public_restore_failure": "default public schema already existed; fixed by refusing populated targets and removing only the new target empty schema"
+  },
+  "book_diagnostic_initial": "failed: report variable shadowing after successful book checks",
+  "book_diagnostic_final": "passed",
+  "normal_book_and_search_data_unchanged_at_cutover": true,
+  "temporary_linux_resources_removed": true,
+  "real_ai_calls_by_checks": 0,
+  "final_durable_budget": {
+    "utc_day": "2026-11-09",
+    "used": 61,
+    "daily_cap": 100,
+    "retry_after": 11509
+  },
+  "scope": "public application schema only in the final backup command",
+  "runtime_sha256_lf": {
+    "app/daily_budget.py": "190192c14a9845fca2c692f9416ddc9892c002853cf7b0d15506d556e3e1a77a",
+    "app/usage.py": "01c55dadacf68da785e287c3dd72849d55d4cdc2441183a55097bd1997f599c2",
+    "app/main.py": "7d2d28494c234c4e4190e44f4b05519d478856243540826fe2678ddca8effc96",
+    "app/llm.py": "a87c4952fc5647f454a3f3bda5f16f29a5c118060eddba7f408117d3f86ceee6",
+    "app/diagnostics.py": "1f02412529d08918a3c14ae523e6a69519422660fe62bbed48f8b6606440e13e",
+    "scripts/backup_database.py": "3abcd0e48d12370113f1a13ecd672e4331e8aac6889ed1d69f2bc285f087f36b",
+    "scripts/budget_admin.py": "258a78e987a4a622cf6da54b300e41cf3f6ef0651806e340f88540f3591548d6"
+  }
+}

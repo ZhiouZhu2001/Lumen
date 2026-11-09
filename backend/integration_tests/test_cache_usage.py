@@ -16,6 +16,7 @@ from app.graph.parse_query import ParsedQuery
 from app.llm import ask_structured
 from app.search_cache import SearchCache, cache_key
 from app.usage import BudgetTransport, UsageGuards, UsageLimited
+from integration_tests.test_daily_budget import initialized_budget
 from integration_tests.test_persistence import counts
 from tests.persistence_fixtures import completed
 from tests.test_search_stream import decode
@@ -39,6 +40,7 @@ async def test_atomic_shared_hourly_limit_under_concurrency(redis_scope):
 
 async def test_isolated_evaluation_still_consumes_the_same_shared_daily_budget(
     redis_scope,
+    storage,
 ):
     from scripts.run_isolated_eval import EvaluationUsage
 
@@ -53,8 +55,9 @@ async def test_isolated_evaluation_still_consumes_the_same_shared_daily_budget(
             return await redis.eval(script, count, *keys, *values[count:])
 
     shared = ScopedRedis("normal")
-    normal = UsageGuards(shared, 2)
-    evaluation = EvaluationUsage(ScopedRedis("evaluation"), shared, 2)
+    budget = await initialized_budget(storage[1], cap=2)
+    normal = UsageGuards(shared, 2, daily=budget)
+    evaluation = EvaluationUsage(ScopedRedis("evaluation"), budget, 2)
     await normal.consume_ai()
     await evaluation.consume_ai()
     with pytest.raises(UsageLimited):
@@ -69,11 +72,14 @@ async def test_isolated_evaluation_still_consumes_the_same_shared_daily_budget(
             await policy.admit_search("192.0.2.1")
 
 
-async def test_atomic_daily_budget_old_buckets_do_not_block_current_day(redis_scope):
+async def test_atomic_daily_budget_old_buckets_do_not_block_current_day(
+    redis_scope, storage
+):
     redis, prefix = redis_scope
     seconds, _ = await redis.time()
     await redis.set(f"{prefix}:ai:{seconds // 86400 - 1}", "100", ex=1)
-    guards = UsageGuards(redis, 5, namespace=prefix)
+    budget = await initialized_budget(storage[1], cap=5)
+    guards = UsageGuards(redis, 5, namespace=prefix, daily=budget)
     results = await asyncio.gather(
         *[guards.consume_ai() for _ in range(15)], return_exceptions=True
     )
@@ -83,8 +89,8 @@ async def test_atomic_daily_budget_old_buckets_do_not_block_current_day(redis_sc
     with pytest.raises(UsageLimited):
         await guards.check_daily()
     key = f"{prefix}:ai:{seconds // 86400}"
-    assert int(await redis.get(key)) == 5
-    assert 0 < await redis.ttl(key) <= 86400
+    assert (await budget.snapshot())["used"] == 5
+    assert await redis.exists(key) == 0
 
 
 async def test_json_cache_ttl_corruption_and_size_limits(redis_scope):
@@ -102,9 +108,16 @@ async def test_json_cache_ttl_corruption_and_size_limits(redis_scope):
 
 
 @pytest.mark.parametrize("cap", [1, 3])
-async def test_actual_sdk_retries_are_each_charged_before_transport(redis_scope, cap):
+async def test_actual_sdk_retries_are_each_charged_before_transport(
+    redis_scope, storage, cap
+):
     redis, prefix = redis_scope
-    guards = UsageGuards(redis, cap, namespace=prefix)
+    guards = UsageGuards(
+        redis,
+        cap,
+        namespace=prefix,
+        daily=await initialized_budget(storage[1], cap=cap),
+    )
     requests = []
 
     def handler(request):
@@ -189,7 +202,9 @@ async def test_result_hit_stays_available_at_daily_cap_and_does_not_refresh_book
     cache = SearchCache(JsonCache(redis), "test")
     cache.key = lambda kind, payload: cache_key(prefix + ":cache:" + kind, payload)
     await cache.put_completed(state, cards)
-    guards = UsageGuards(redis, 1, namespace=prefix)
+    guards = UsageGuards(
+        redis, 1, namespace=prefix, daily=await initialized_budget(engine, cap=1)
+    )
     await guards.consume_ai()
     app = FastAPI()
     app.include_router(router)

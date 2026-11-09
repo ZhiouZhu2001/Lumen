@@ -150,7 +150,7 @@ async def test_manual_runner_reads_validated_attempt_without_starting_network(
     monkeypatch.setattr(
         try_rank, "get_settings", lambda: SimpleNamespace(google_books_api_key=None)
     )
-    monkeypatch.setattr(try_rank, "create_chat_model", object)
+    monkeypatch.setattr(try_rank, "diagnostic_model", client)
     monkeypatch.setattr(try_rank, "make_http_client", client)
     monkeypatch.setattr(
         try_rank,

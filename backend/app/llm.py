@@ -10,14 +10,18 @@ class LLMError(Exception):
     (API error code: llm_failed)"""
 
 
-def create_chat_model(*, http_client=None) -> BaseChatModel:
+def create_chat_model(*, http_client) -> BaseChatModel:
+    if http_client is None:
+        from app.usage import UsageUnavailable
+
+        raise UsageUnavailable("A budgeted model HTTP client is required")
     settings = get_settings()
     return init_chat_model(
         settings.llm_model,
         api_key=settings.openai_api_key,
         timeout=30,
         max_retries=2,
-        **({"http_async_client": http_client} if http_client is not None else {}),
+        http_async_client=http_client,
     )
 
 

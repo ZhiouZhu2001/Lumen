@@ -1,4 +1,4 @@
-"""Atomic shared admission and provider-request budgets; Redis is mandatory."""
+"""Redis-only IP admission and explicit durable provider-request budgets."""
 
 from ipaddress import ip_address, ip_network
 
@@ -36,10 +36,13 @@ return {1, remaining, used}
 
 
 class UsageGuards:
-    def __init__(self, redis, daily_cap: int, *, namespace: str = "lumen:usage:v1"):
+    def __init__(
+        self, redis, daily_cap: int, *, namespace: str = "lumen:usage:v1", daily=None
+    ):
         self.redis = redis
         self.daily_cap = daily_cap
         self.namespace = namespace
+        self.daily = daily
 
     async def _counter(self, scope: str, window: int, limit: int, consume: bool):
         try:
@@ -58,10 +61,14 @@ class UsageGuards:
         await self._counter("ip:" + address, 3600, 20, True)
 
     async def check_daily(self):
-        await self._counter("ai", 86400, self.daily_cap, False)
+        if self.daily is None:
+            raise UsageUnavailable("A durable daily budget is required")
+        await self.daily.check_daily()
 
     async def consume_ai(self):
-        await self._counter("ai", 86400, self.daily_cap, True)
+        if self.daily is None:
+            raise UsageUnavailable("A durable daily budget is required")
+        await self.daily.consume_ai()
 
 
 def client_address(peer: str, forwarded: str | None, trusted: list[str]) -> str:

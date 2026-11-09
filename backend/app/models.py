@@ -1,11 +1,12 @@
 import uuid
-from datetime import datetime
+from datetime import date, datetime
 from decimal import Decimal
 from typing import Any
 
 from sqlalchemy import (
     CHAR,
     CheckConstraint,
+    Date,
     ForeignKey,
     MetaData,
     Numeric,
@@ -28,6 +29,17 @@ NAMING_CONVENTION = {
 
 class Base(DeclarativeBase):
     metadata = MetaData(naming_convention=NAMING_CONVENTION)
+
+
+class AIDailyUsage(Base):
+    __tablename__ = "ai_daily_usage"
+    __table_args__ = (
+        CheckConstraint("id = 1", name="singleton"),
+        CheckConstraint("attempts >= 0", name="attempts_nonnegative"),
+    )
+    id: Mapped[int] = mapped_column(SmallInteger, primary_key=True)
+    utc_day: Mapped[date] = mapped_column(Date)
+    attempts: Mapped[int]
 
 
 class Book(Base):

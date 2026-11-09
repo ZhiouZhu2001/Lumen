@@ -51,8 +51,13 @@ async def test_usage_outage_fails_closed():
     redis = type(
         "Redis", (), {"eval": AsyncMock(side_effect=ConnectionError("private URL"))}
     )()
+    guards = UsageGuards(redis, 100)
     with pytest.raises(UsageUnavailable):
-        await UsageGuards(redis, 100).consume_ai()
+        await guards.consume_ai()
+    redis.eval.assert_not_awaited()
+    with pytest.raises(UsageUnavailable):
+        await guards.admit_search("192.0.2.1")
+    redis.eval.assert_awaited_once()
 
 
 async def test_budget_denial_prevents_any_outbound_attempt():

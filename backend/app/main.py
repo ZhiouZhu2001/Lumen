@@ -10,6 +10,7 @@ from app.book_cards import BookCardBuilder
 from app.book_refresh import BookRefresh
 from app.cache import JsonCache, make_redis
 from app.config import get_settings
+from app.daily_budget import DailyBudget
 from app.db import make_engine
 from app.http_client import make_http_client
 from app.repository import SearchRepository
@@ -23,7 +24,10 @@ async def lifespan(app: FastAPI):
     settings = get_settings()
     app.state.engine = make_engine(settings.database_url, echo=settings.sql_echo)
     app.state.redis = make_redis(settings.redis_url)
-    app.state.usage = UsageGuards(app.state.redis, settings.daily_ai_call_cap)
+    app.state.daily_budget = DailyBudget(app.state.engine, settings.daily_ai_call_cap)
+    app.state.usage = UsageGuards(
+        app.state.redis, settings.daily_ai_call_cap, daily=app.state.daily_budget
+    )
     app.state.search_cache = SearchCache(JsonCache(app.state.redis), settings.llm_model)
     app.state.model_http = httpx.AsyncClient(transport=BudgetTransport(app.state.usage))
     app.state.http = make_http_client(cache=app.state.search_cache.cache)

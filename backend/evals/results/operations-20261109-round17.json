@@ -1,0 +1,86 @@
+{
+  "operational_check": true,
+  "live_model_evaluation": false,
+  "daily_cap": 100,
+  "cutover": {
+    "mode": "import-redis",
+    "utc_day": "2026-11-09",
+    "daily_cap": 100,
+    "ai_workers_stopped_acknowledged": true,
+    "legacy_counter_present": true,
+    "requested_floor": 61,
+    "stored_used": 61,
+    "legacy_keys_cleared": false
+  },
+  "redis_replacement_isolated_probe": {
+    "complete": true,
+    "isolated_cap": 10,
+    "used_before_replacement": 6,
+    "used_after_replacement": 6,
+    "final_used": 10,
+    "mock_provider_requests": 10,
+    "real_model_calls": 0,
+    "redis_marker_lost": true,
+    "extra_request_blocked": true
+  },
+  "private_backup_receipts": [
+    {
+      "archive": "lumen-20261109T200757Z-8e0789ccd934.dump",
+      "archive_sha256": "c6837dae1da4b9a37e59265752fa77c19fd43c7dc4c7240103c2df94badb8d4e",
+      "tables": {
+        "alembic_version": 1,
+        "books": 225,
+        "search_results": 404,
+        "searches": 74
+      },
+      "recovery": {
+        "contents_match_snapshot": true,
+        "recovered_budget_blocked": false,
+        "network_access": "none",
+        "temporary_target_removed": true
+      }
+    },
+    {
+      "archive": "lumen-20261109T202544Z-9990ad74b49f.dump",
+      "archive_sha256": "2a4610cdae201e99dca599a91e57f1fea7bd79c9e846d060d116bc0c843441c4",
+      "tables": {
+        "ai_daily_usage": 1,
+        "alembic_version": 1,
+        "books": 225,
+        "search_results": 404,
+        "searches": 74
+      },
+      "recovery": {
+        "contents_match_snapshot": true,
+        "recovered_budget_blocked": true,
+        "network_access": "none",
+        "temporary_target_removed": true
+      }
+    },
+    {
+      "archive": "lumen-20261109T203957Z-1a402f445726.dump",
+      "archive_sha256": "8350d1bf952185b922dfd2859689acdd73ecc8c14251929b6c2ba08be0ef81af",
+      "tables": {
+        "ai_daily_usage": 1,
+        "alembic_version": 1,
+        "books": 225,
+        "search_results": 404,
+        "searches": 74
+      },
+      "recovery": {
+        "contents_match_snapshot": true,
+        "recovered_budget_blocked": true,
+        "network_access": "none",
+        "temporary_target_removed": true
+      }
+    }
+  ],
+  "schema_drop_regression": {
+    "status": "pending at initial receipt; final observed regression evidence is recorded separately"
+  },
+  "book_diagnostic_initial": "failed: report variable shadowing after successful book checks",
+  "book_diagnostic_final": "passed",
+  "normal_book_and_search_data_unchanged_at_cutover": true,
+  "temporary_linux_resources_removed": true,
+  "real_ai_calls_by_checks": 0
+}

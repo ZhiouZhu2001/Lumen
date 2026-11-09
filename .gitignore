@@ -219,3 +219,7 @@ __marimo__/
 
 # test files
 scratch_*.py
+
+# Private database archives and recovery metadata must never be uploaded.
+/backups/
+*.dump

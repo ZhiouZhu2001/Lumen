@@ -3,11 +3,11 @@
 import asyncio
 
 from app.config import get_settings
+from app.diagnostics import diagnostic_model
 from app.graph.parse_query import parse_query
 from app.graph.rank import rank_and_explain
 from app.graph.search import search_candidates
 from app.http_client import make_http_client
-from app.llm import create_chat_model
 from app.sources.schemas import Language
 
 QUERY = "una historia de amor durante la Guerra Civil"
@@ -16,8 +16,7 @@ LANGUAGE: Language = "es"
 
 async def main() -> None:
     settings = get_settings()
-    model = create_chat_model()
-    async with make_http_client() as client:
+    async with diagnostic_model() as model, make_http_client() as client:
         parsed = await parse_query(model, QUERY, LANGUAGE)
         print(f"searches: {parsed.searches}")
         candidates = await search_candidates(

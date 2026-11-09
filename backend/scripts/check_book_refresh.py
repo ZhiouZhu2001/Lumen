@@ -18,6 +18,7 @@ from app.api.books import router
 from app.book_refresh import BookRefresh
 from app.cache import JsonCache, make_redis
 from app.config import get_settings
+from app.daily_budget import DailyBudget
 from app.db import make_engine
 from app.http_client import make_http_client
 from app.models import Base, Book
@@ -68,9 +69,10 @@ async def verify(report):
         isolated_snapshots_aged_days=31,
         cases=[],
     )
-    day = int((await redis.time())[0]) // 86400
-    usage_key = f"lumen:usage:v1:ai:{day}"
-    report["shared_daily_before"] = int(await redis.get(usage_key) or 0)
+    budget = DailyBudget(engine, settings.daily_ai_call_cap)
+    budget_before = await budget.snapshot()
+    report["shared_daily_storage"] = "PostgreSQL ai_daily_usage singleton"
+    report["shared_daily_before"] = budget_before["used"]
     cache = ObservedCache(redis)
     events = []
 
@@ -190,7 +192,9 @@ async def verify(report):
                     == 0
                 )
         report["search_history_rows_added"] = 0
-        report["shared_daily_after"] = int(await redis.get(usage_key) or 0)
+        budget_after = await budget.snapshot()
+        assert budget_after["utc_day"] == budget_before["utc_day"]
+        report["shared_daily_after"] = budget_after["used"]
         assert report["shared_daily_before"] == report["shared_daily_after"]
     finally:
         if created:

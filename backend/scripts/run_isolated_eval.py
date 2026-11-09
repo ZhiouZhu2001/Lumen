@@ -18,6 +18,8 @@ from urllib.parse import urlsplit, urlunsplit
 import app.main as application
 from app.cache import JsonCache, make_redis
 from app.config import get_settings
+from app.daily_budget import DailyBudget
+from app.db import make_engine
 from app.filters import SearchFilters, constrained_query
 from app.search_cache import SearchCache
 from app.usage import UsageGuards
@@ -26,9 +28,9 @@ from evals.http_run import run_http_live
 
 
 class EvaluationUsage:
-    def __init__(self, hourly_redis, shared_redis, cap):
+    def __init__(self, hourly_redis, shared_daily, cap):
         self.hourly = UsageGuards(hourly_redis, cap)
-        self.daily = UsageGuards(shared_redis, cap)
+        self.daily = shared_daily
 
     async def admit_search(self, address):
         await self.hourly.admit_search(address)
@@ -64,14 +66,15 @@ async def run(args, execution_request):
     assert str(args.redis_db) != source_parts.path.lstrip("/")
     target_url = urlunsplit(source_parts._replace(path="/" + str(args.redis_db)))
     shared, isolated = make_redis(original.redis_url), make_redis(target_url)
+    budget_engine = make_engine(original.database_url)
+    budget = DailyBudget(budget_engine, original.daily_ai_call_cap)
     old_environment = os.environ.get("REDIS_URL")
     old_factory = application.UsageGuards
     metadata = None
     try:
         assert await isolated.dbsize() == 0, "Select an empty dedicated test database"
-        now, _ = await shared.time()
-        day = now // 86400
-        used = int(await shared.get(f"lumen:usage:v1:ai:{day}") or 0)
+        before = await budget.snapshot()
+        day, used = before["utc_day"], before["used"]
         assert used < original.daily_ai_call_cap
         cache = SearchCache(JsonCache(shared), original.llm_model)
         copied = 0
@@ -99,17 +102,19 @@ async def run(args, execution_request):
             )
         os.environ["REDIS_URL"] = target_url
         get_settings.cache_clear()
-        application.UsageGuards = lambda redis, cap: EvaluationUsage(redis, shared, cap)
+        application.UsageGuards = lambda redis, cap, *, daily: EvaluationUsage(
+            redis, daily, cap
+        )
         config = Path(__file__).resolve().parents[2] / "frontend/next.config.ts"
         metadata = {
             "started_at": datetime.now(UTC).isoformat(),
             "complete": False,
             "daily_ai_call_cap": original.daily_ai_call_cap,
             "shared_daily_before": used,
-            "shared_daily_database": source_parts.path,
+            "shared_daily_storage": "PostgreSQL ai_daily_usage singleton",
             "cache_and_hourly_database": args.redis_db,
             "hourly_limit": 20,
-            "policy_implementation": "Unchanged UsageGuards methods; hourly admission uses isolated Redis, actual model attempts use the normal shared Redis counter.",
+            "policy_implementation": "Normal durable DailyBudget; hourly admission uses isolated Redis, actual model attempts use the same PostgreSQL ledger as interactive traffic.",
             "counters_cleared": False,
             "budget_increased": False,
             "real_cache_keys_copied_with_ttl": copied,
@@ -134,9 +139,9 @@ async def run(args, execution_request):
             frontend_url=args.frontend,
             backend_port=args.backend_port,
         )
-        after, _ = await shared.time()
-        assert after // 86400 == day
-        count = int(await shared.get(f"lumen:usage:v1:ai:{day}") or 0)
+        after = await budget.snapshot()
+        assert after["utc_day"] == day
+        count = after["used"]
         metadata.update(
             complete=True,
             completed_at=datetime.now(UTC).isoformat(),
@@ -162,6 +167,7 @@ async def run(args, execution_request):
         get_settings.cache_clear()
         await isolated.aclose()
         await shared.aclose()
+        await budget_engine.dispose()
 
 
 def main():

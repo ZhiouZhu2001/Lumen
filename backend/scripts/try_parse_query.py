@@ -2,8 +2,8 @@
 
 import asyncio
 
+from app.diagnostics import diagnostic_model
 from app.graph.parse_query import parse_query
-from app.llm import create_chat_model
 from app.sources.schemas import Language
 
 EXAMPLES: list[tuple[str, Language]] = [
@@ -14,10 +14,11 @@ EXAMPLES: list[tuple[str, Language]] = [
 
 
 async def main() -> None:
-    model = create_chat_model()
-    for query, language in EXAMPLES:
-        parsed = await parse_query(model, query, language)
-        print(f"{language} | {query}\n  -> {parsed}\n")
+    async with diagnostic_model() as model:
+        for query, language in EXAMPLES:
+            parsed = await parse_query(model, query, language)
+            print(f"{language} | {query}\n  -> {parsed}\n")
 
 
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())

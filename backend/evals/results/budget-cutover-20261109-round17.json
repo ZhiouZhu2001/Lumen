@@ -1,0 +1,10 @@
+{
+  "mode": "import-redis",
+  "utc_day": "2026-11-09",
+  "daily_cap": 100,
+  "ai_workers_stopped_acknowledged": true,
+  "legacy_counter_present": true,
+  "requested_floor": 61,
+  "stored_used": 61,
+  "legacy_keys_cleared": false
+}

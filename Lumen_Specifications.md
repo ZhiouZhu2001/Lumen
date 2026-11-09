@@ -17,6 +17,13 @@ broadening retries are exhausted, and the web interface must explain the limited
 result. Ordinary queries still require 5–10; nonsense inputs require zero. This
 is an explicit scope decision, not a retrospective pass for the failed runs.
 
+Approved operational revision, 2026-11-09: the daily 100-attempt AI allowance
+is stored in a PostgreSQL singleton containing only the current UTC date and
+cumulative attempts. Client IP admission stays in expiring Redis keys. New
+installations require explicit verified initialization; existing installations
+import usage while AI workers are paused. Restore/rollback must preserve usage;
+unknown recovered usage blocks new AI until reconciliation or UTC reset.
+
 ## 1. Overview
 
 Lumen is an AI book-picking assistant: the user describes the kind of book they want to read, and Lumen returns 5–10 **real** English or Spanish books and tells the user where to buy or read them in Spain.
@@ -168,7 +175,7 @@ Each URL template is manually verified once in week 3 and written into the test 
 
 ## 6. Database Design
 
-The MVP needs only 3 tables, all created with Alembic migrations. Book data is cached by ISBN, and search records are stored anonymously for use by personalized recommendations in phase two.
+The MVP has three core bibliographic/search tables, all created with Alembic migrations. The operational revision approved on 2026-11-09 adds the `ai_daily_usage` singleton for durable model-attempt protection. Book data is cached by ISBN, and search records are stored anonymously for use by personalized recommendations in phase two.
 
 **books**: one row per book ever seen
 
@@ -211,6 +218,8 @@ No personally identifying information such as IP addresses is stored.
 | reason | text | AI-written recommendation reason |
 
 The primary key is (search\_id, isbn13). The foreign key constraint guarantees at the database level that "every recommended book is in the books table" — the last line of defense against fabrication.
+
+**ai_daily_usage** (approved operational addition): one row with `id = 1`, `utc_day` and nonnegative `attempts`. It contains no client identity, query or per-request history. A committed atomic reservation precedes every outbound model attempt, including SDK retries. The same current-day total cannot be lowered by initialization. Missing/future-dated state or unavailable storage fails closed. At the natural UTC rollover the single row advances; previous daily rows are not retained in the live table.
 
 ## 7. API Endpoints
 
@@ -261,7 +270,7 @@ Error codes are defined centrally: `rate_limited` (429), `no_results`, `upstream
 
 ## 8. Caching and Rate Limiting
 
-Redis has two jobs: avoid paying twice for identical requests, and stop anyone from burning through your AI quota.
+Redis caches repeated requests and admits at most 20 searches per client IP per hour. The durable global AI attempt budget is enforced separately in PostgreSQL.
 
 | Key | Content | TTL |
 | --- | --- | --- |
@@ -273,7 +282,7 @@ Redis has two jobs: avoid paying twice for identical requests, and stop anyone f
 
 **Rate limit rule**: at most 20 searches per IP per hour; beyond that, return 429. IPs exist only in Redis, expire automatically after 1 hour, and are never written to PostgreSQL.
 
-**Global safeguard**: set a daily AI call cap in an environment variable; once exceeded, the search endpoint returns a maintenance notice. This way, even if the rate limit is bypassed, monthly spend is capped.
+**Global safeguard**: `DAILY_AI_CALL_CAP=100` limits committed outbound model-attempt reservations per UTC day, including provider retries, using the shared PostgreSQL singleton. The API, live evaluations and provided live teaching tools share this ledger. Exhaustion returns a maintenance notice for uncached work; missing initialization or storage outages stop new model requests. A reservation is not refunded after failure/cancellation. This is an attempt limit, not a token or currency accounting system. Restoring old data requires reconciliation or blocking the current day before AI workers resume.
 
 On a `result:` cache hit, results are still pushed one book at a time over SSE, so the frontend doesn't need to distinguish the two cases.
 
@@ -313,7 +322,7 @@ A single VPS runs all 5 services with Docker Compose. Local development and prod
 | frontend | Custom (Next.js standalone build) | Port 3000 |
 | backend | Custom (FastAPI + uvicorn) | Port 8000; runs `alembic upgrade head` before starting |
 | postgres | postgres:16 | Persistent data volume, daily backup with `pg_dump` |
-| redis | redis:7 | No persistence needed; losing it only invalidates the cache |
+| redis | redis:7 | Volatile cache/IP admission; losing it cannot reset the PostgreSQL AI budget |
 
 **Key points**
 

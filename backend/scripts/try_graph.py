@@ -9,18 +9,19 @@ from time import perf_counter
 
 from app.book_cards import BookCardBuilder
 from app.config import get_settings
+from app.diagnostics import diagnostic_model
 from app.graph.rank import select_for_ranking
 from app.graph.search import UpstreamUnavailable
 from app.graph.state import SearchState
 from app.graph.workflow import build_graph
 from app.http_client import make_http_client
-from app.llm import LLMError, create_chat_model
+from app.llm import LLMError
 from app.sources.schemas import Language
+from app.usage import UsageLimited, UsageUnavailable
 
 
 async def main(query: str, language: Language, *, with_channels: bool = False) -> int:
     settings = get_settings()
-    model = create_chat_model()
     initial_state = SearchState(
         query=query,
         language=language,
@@ -32,7 +33,7 @@ async def main(query: str, language: Language, *, with_channels: bool = False) -
     )
     started = perf_counter()
     try:
-        async with make_http_client() as client:
+        async with diagnostic_model() as model, make_http_client() as client:
             graph = build_graph(
                 model, client, google_api_key=settings.google_books_api_key
             )
@@ -44,6 +45,9 @@ async def main(query: str, language: Language, *, with_channels: bool = False) -
                 if with_channels
                 else None
             )
+    except (UsageLimited, UsageUnavailable):
+        print("rate_limited: The shared model budget is unavailable or exhausted.")
+        return 1
     except UpstreamUnavailable:
         print(
             "upstream_unavailable: Book sources are not responding. Please try again."
