@@ -4,7 +4,8 @@ from datetime import UTC, datetime
 from uuid import UUID
 
 from pydantic import ValidationError
-from sqlalchemy import case, func, insert, select, update
+from sqlalchemy import case, func, insert, literal, select, update
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncEngine
@@ -25,11 +26,36 @@ class StorageUnavailable(Exception):
     """Storage did not complete; callers must not report a successful save."""
 
 
+def _records(book: BookCandidate) -> dict:
+    return {
+        kind: [record.model_dump(mode="json") for record in records]
+        for kind, records in book.provider_records.items()
+        if records
+    }
+
+
+def _merge_raw(incoming):
+    # Additive extension of snapshot v1. Old rows/captures have no originals;
+    # never fabricate them or erase records from an absent provider.
+    existing = case(
+        (
+            func.jsonb_typeof(Book.raw["provider_records"]) == "object",
+            Book.raw["provider_records"],
+        ),
+        else_=literal({}, type_=JSONB),
+    )
+    return incoming.op("||")(
+        func.jsonb_build_object(
+            "provider_records", existing.op("||")(incoming.op("->")("provider_records"))
+        )
+    )
+
+
 class SearchRepository:
     """The caller owns the engine. Each save is one short transaction.
 
-    Only displayed, validated books are cached. Search-specific reasons and
-    reader text belong to searches/results, never the public book snapshot.
+    All validated candidates of completed searches are cached. Search-specific
+    reasons and reader text belong to searches/results, never the public snapshot.
     """
 
     def __init__(self, engine: AsyncEngine, *, rules: list[StoreRule] | None = None):
@@ -40,6 +66,16 @@ class SearchRepository:
         self, state: SearchState, cards: list[BookCard], duration_ms: int
     ):
         candidates = {b.isbn13: b for b in state["candidates"]}
+        for book in state["candidates"]:
+            BookCandidate.model_validate(book.model_dump())
+            if (
+                to_isbn13(book.isbn13) != book.isbn13
+                or book.language != state["language"]
+                or not book.title.strip()
+            ):
+                raise ValueError(
+                    "Persistence requires canonical language-matched candidates"
+                )
         proposed = ModelPicks(
             picks=[ModelPick(isbn13=c.isbn13, reason=c.reason) for c in cards]
         )
@@ -99,32 +135,34 @@ class SearchRepository:
     ) -> None:
         self.validate_completed(state, cards, duration_ms)
         values = []
-        for card in sorted(cards, key=lambda c: c.isbn13):
-            rating = card.rating
+        displayed = {card.isbn13: card for card in cards}
+        for book in sorted(state["candidates"], key=lambda b: b.isbn13):
+            card = displayed.get(book.isbn13)
+            links = card.links if card else search_links(book, self.rules)
+            rating = book.rating
             values.append(
                 {
-                    "isbn13": card.isbn13,
-                    "title": card.title,
-                    "authors": card.authors,
-                    "language": card.language,
-                    "description": card.description,
-                    "cover_url": card.cover_url,
-                    "page_count": card.page_count,
-                    "published_year": card.published_year,
-                    "genres": card.genres,
+                    "isbn13": book.isbn13,
+                    "title": book.title,
+                    "authors": book.authors,
+                    "language": book.language,
+                    "description": book.description,
+                    "cover_url": book.cover_url,
+                    "page_count": book.page_count,
+                    "published_year": book.published_year,
+                    "genres": book.genres,
                     "rating_value": rating.value if rating else None,
                     "rating_count": rating.count if rating else None,
                     "rating_source": rating.source if rating else None,
-                    "formats": card.formats,
-                    "fetched_at": next(
-                        b for b in state["candidates"] if b.isbn13 == card.isbn13
-                    ).catalog_fetched_at
-                    or func.now(),
-                    # Normalized public evidence, not a raw provider response.
+                    "formats": list(
+                        dict.fromkeys(f for link in links for f in link.formats)
+                    ),
+                    "fetched_at": book.catalog_fetched_at or func.now(),
                     "raw": {
                         "snapshot_version": 1,
-                        "source": card.source,
-                        "links": [link.model_dump(mode="json") for link in card.links],
+                        "source": book.source,
+                        "links": [link.model_dump(mode="json") for link in links],
+                        "provider_records": _records(book),
                     },
                 }
             )
@@ -148,6 +186,25 @@ class SearchRepository:
                 if values and refresh_books:
                     statement = pg_insert(Book).values(values)
                     incoming = statement.excluded
+                    raw = _merge_raw(incoming.raw)
+                    # Undisplayed candidates do not run channel lookups. Retain
+                    # a prior optional match only while title/authors are unchanged.
+                    keep_links = (
+                        incoming.isbn13.not_in(list(displayed))
+                        & (incoming.title == Book.title)
+                        & (incoming.authors == Book.authors)
+                        & (Book.raw["snapshot_version"] == literal(1, type_=JSONB))
+                        & (func.jsonb_typeof(Book.raw["links"]) == "array")
+                    )
+                    raw = case(
+                        (
+                            keep_links,
+                            raw.op("||")(
+                                func.jsonb_build_object("links", Book.raw["links"])
+                            ),
+                        ),
+                        else_=raw,
+                    )
                     updates = {
                         "title": incoming.title,
                         "authors": case(
@@ -158,8 +215,10 @@ class SearchRepository:
                             (func.cardinality(incoming.genres) > 0, incoming.genres),
                             else_=Book.genres,
                         ),
-                        "formats": incoming.formats,
-                        "raw": incoming.raw,
+                        "formats": case(
+                            (keep_links, Book.formats), else_=incoming.formats
+                        ),
+                        "raw": raw,
                         "fetched_at": incoming.fetched_at,
                     }
                     for field in (
@@ -194,7 +253,7 @@ class SearchRepository:
                         where=Book.language == incoming.language,
                     ).returning(Book.isbn13)
                     saved = set((await connection.execute(statement)).scalars())
-                    if saved != {card.isbn13 for card in cards}:
+                    if saved != {book.isbn13 for book in state["candidates"]}:
                         raise StorageUnavailable(
                             "Conflicting catalog language for an existing ISBN"
                         )
@@ -376,11 +435,17 @@ class SearchRepository:
             rating_count=merged.rating.count if merged.rating else None,
             rating_source=merged.rating.source if merged.rating else None,
             formats=list(dict.fromkeys(f for link in links for f in link.formats)),
-            raw={
-                "snapshot_version": 1,
-                "source": merged.source,
-                "links": [link.model_dump(mode="json") for link in links],
-            },
+            raw=_merge_raw(
+                literal(
+                    {
+                        "snapshot_version": 1,
+                        "source": merged.source,
+                        "links": [link.model_dump(mode="json") for link in links],
+                        "provider_records": _records(candidate),
+                    },
+                    type_=JSONB,
+                )
+            ),
             fetched_at=fetched,
         )
         try:

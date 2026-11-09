@@ -7,6 +7,7 @@ import httpx
 from pydantic import ValidationError
 
 from app.filters import SearchFilters
+from app.sources.evidence import mark_fetched, record
 from app.sources.isbn import to_isbn13
 from app.sources.schemas import BookCandidate, Language, Rating
 
@@ -75,9 +76,7 @@ async def search_open_library(
     response = await client.get(OPEN_LIBRARY_URL, params=params)
     response.raise_for_status()
     return [
-        book.model_copy(
-            update={"catalog_fetched_at": response.extensions.get("catalog_fetched_at")}
-        )
+        mark_fetched(book, response.extensions.get("catalog_fetched_at"))
         for book in parse_open_library(response.json(), language)
     ]
 
@@ -121,6 +120,7 @@ def _parse_doc(doc: dict[str, Any], language: Language) -> BookCandidate | None:
         genres=doc.get("subject", [])[:MAX_GENRES],
         rating=_rating(doc),
         source=SOURCE,
+        provider_records={"open_library_search": [record(doc)]},
         work_key=doc.get("key")
         if re.fullmatch(r"/works/OL\d+W", str(doc.get("key", "")))
         else None,

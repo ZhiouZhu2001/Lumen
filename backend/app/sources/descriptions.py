@@ -5,6 +5,7 @@ import re
 
 import httpx
 
+from app.sources.evidence import record
 from app.sources.schemas import BookCandidate
 
 
@@ -45,6 +46,15 @@ async def enrich_descriptions(
                     update={
                         "description": description.strip()[:12000],
                         "catalog_fetched_at": min(times) if times else None,
+                        "provider_records": {
+                            **book.provider_records,
+                            "open_library_work": [
+                                record(
+                                    payload,
+                                    response.extensions.get("catalog_fetched_at"),
+                                )
+                            ],
+                        },
                     }
                 )
         except (httpx.HTTPError, ValueError, TypeError):

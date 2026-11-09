@@ -7,6 +7,7 @@ from datetime import UTC, datetime
 import httpx
 from pydantic import ValidationError
 
+from app.sources.evidence import mark_fetched, record
 from app.sources.google_books import GOOGLE_BOOKS_URL, parse_google_books
 from app.sources.isbn import to_isbn13
 from app.sources.open_library import LANGUAGE_CODES
@@ -30,13 +31,7 @@ async def _google(client, isbn13, language, api_key):
     books = parse_google_books(response.json(), language)
     return next(
         (
-            book.model_copy(
-                update={
-                    "catalog_fetched_at": response.extensions.get(
-                        "catalog_fetched_at", started
-                    )
-                }
-            )
+            mark_fetched(book, response.extensions.get("catalog_fetched_at", started))
             for book in books
             if book.isbn13 == isbn13
         ),
@@ -95,6 +90,7 @@ def parse_open_library_edition(payload, isbn13: str, language: Language):
             published_year=int(year[0]) if year else None,
             genres=[v for v in payload.get("subjects", []) if isinstance(v, str)][:5],
             source="open_library",
+            provider_records={"open_library_edition": [record(payload)]},
         )
     except ValidationError:
         return None
@@ -120,7 +116,7 @@ async def _open_library(client, isbn13, language):
         response = await client.get(target, timeout=2)
     response.raise_for_status()
     book = parse_open_library_edition(response.json(), isbn13, language)
-    return book.model_copy(update={"catalog_fetched_at": started}) if book else None
+    return mark_fetched(book, started) if book else None
 
 
 async def lookup_edition(

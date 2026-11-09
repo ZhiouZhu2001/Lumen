@@ -41,7 +41,7 @@ async def test_concurrent_searches_share_books_without_losing_results(storage):
         ),
         timeout=10,
     )
-    assert await counts(engine) == [2, 2, 4]
+    assert await counts(engine) == [len(first["candidates"]), 2, 4]
 
 
 async def test_cancelling_an_inflight_transaction_rolls_back_its_book_rows(storage):
@@ -78,7 +78,7 @@ async def test_completed_search_is_atomic_traceable_and_private(storage):
     state, cards = completed()
     search_id = uuid4()
     await repository.save_completed(search_id, state, cards, 250)
-    assert await counts(engine) == [2, 1, 2]
+    assert await counts(engine) == [len(state["candidates"]), 1, 2]
     async with engine.connect() as c:
         stored = (await c.execute(select(Search.__table__))).mappings().one()
         assert stored["query_text"] == state["query"] and stored[
@@ -102,7 +102,8 @@ async def test_completed_search_is_atomic_traceable_and_private(storage):
         ]
         raw = (await c.execute(select(Book.raw))).scalars().all()
         assert all(
-            set(value) == {"snapshot_version", "source", "links"} for value in raw
+            set(value) == {"snapshot_version", "source", "links", "provider_records"}
+            for value in raw
         )
         assert not any(key in stored for key in ("ip", "user_agent", "client"))
     detail = await repository.get_book(cards[0].isbn13)
@@ -113,17 +114,20 @@ async def test_completed_search_is_atomic_traceable_and_private(storage):
     )
 
 
-async def test_zero_results_stores_the_search_without_fabricating_books(storage):
+async def test_zero_picks_stores_retrieved_candidates_without_fabricating_recommendations(
+    storage,
+):
     repository, engine = storage
     state, cards = completed(0)
     await repository.save_completed(uuid4(), state, cards, 100)
-    assert await counts(engine) == [0, 1, 0]
+    assert await counts(engine) == [len(state["candidates"]), 1, 0]
 
 
 async def test_duplicate_search_failure_rolls_back_book_updates_and_new_rows(storage):
     repository, engine = storage
     state, cards = completed(1)
     search_id = uuid4()
+    state["candidates"] = state["candidates"][:1]
     await repository.save_completed(search_id, state, cards, 100)
     newer, new_cards = completed(2)
     newer["candidates"][0].title = "Changed title"
@@ -160,7 +164,7 @@ async def test_book_refresh_preserves_missing_metadata_and_keeps_search_reasons_
         "Otra lectura del catálogo. Puedes conocer sus detalles."
     )
     await repository.save_completed(uuid4(), later, revised, 200)
-    assert await counts(engine) == [1, 2, 2]
+    assert await counts(engine) == [len(state["candidates"]), 2, 2]
     details = await repository.get_book(cards[0].isbn13)
     assert details.rating == rating and details.page_count == 123
     assert "reason" not in details.model_dump()
@@ -178,7 +182,7 @@ async def test_an_isbn_cannot_silently_change_language(storage):
     revised[0].language = "en"
     with pytest.raises(StorageUnavailable, match="Conflicting catalog language"):
         await repository.save_completed(uuid4(), other, revised, 100)
-    assert await counts(engine) == [1, 1, 1]
+    assert await counts(engine) == [len(state["candidates"]), 1, 1]
     assert (await repository.get_book(cards[0].isbn13)).language == "es"
 
 
@@ -240,7 +244,7 @@ async def test_database_foreign_key_rejects_an_unknown_book(storage):
                     reason="Not retrieved",
                 )
             )
-    assert await counts(engine) == [0, 1, 0]
+    assert await counts(engine) == [len(state["candidates"]), 1, 0]
 
 
 async def test_details_regenerate_safe_current_channels_and_ignore_legacy_or_unsafe_links(
@@ -319,5 +323,5 @@ async def test_http_details_return_saved_metadata_without_search_private_fields(
         missing = await client.get("/api/books/9780141439518")
         malformed = await client.get("/api/books/9780141439519")
     assert response.status_code == 200 and response.json()["isbn13"] == cards[0].isbn13
-    assert "reason" not in response.json() and "search_id" not in response.json()
+    assert not {"reason", "search_id", "provider_records"}.intersection(response.json())
     assert missing.status_code == 404 and malformed.status_code == 422

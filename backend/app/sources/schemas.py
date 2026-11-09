@@ -1,9 +1,19 @@
 from decimal import Decimal
 from typing import Literal
 
-from pydantic import AwareDatetime, BaseModel, Field
+from pydantic import AwareDatetime, BaseModel, Field, JsonValue
 
 Language = Literal["es", "en"]
+RecordKind = Literal[
+    "google_books", "open_library_search", "open_library_work", "open_library_edition"
+]
+
+
+class CatalogRecord(BaseModel):
+    """One original book/work object, without request headers or reader input."""
+
+    payload: dict[str, JsonValue]
+    fetched_at: AwareDatetime | None = None
 
 
 class Rating(BaseModel):
@@ -28,3 +38,6 @@ class BookCandidate(BaseModel):
     source: str
     work_key: str | None = Field(default=None, pattern=r"^/works/OL\d+W$", exclude=True)
     catalog_fetched_at: AwareDatetime | None = Field(default=None, exclude=True)
+    provider_records: dict[RecordKind, list[CatalogRecord]] = Field(
+        default_factory=dict, exclude=True, repr=False
+    )

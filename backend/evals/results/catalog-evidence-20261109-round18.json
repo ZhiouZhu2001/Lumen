@@ -1,0 +1,50 @@
+{
+  "started_at": "2026-11-09T21:01:15.138609+00:00",
+  "complete": false,
+  "source_sha256_lf": {
+    "app/sources/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/sources/apple_books.py": "6cb82fdd6429b4266eda32a69a6f1653c138be2f6b17a6573a20d0c8f0b71ffa",
+    "app/sources/descriptions.py": "794cb4a1d0c2252193e32eeadc9b5d212dd1dda460a709786c8ddf78f2656d94",
+    "app/sources/edition.py": "22ff547f99cad1e6a8b3c59024c8173ff7b7a3a965776f8b0d9746d2d0212d6f",
+    "app/sources/evidence.py": "9ffcfd6f3037d139831386b489a05406a54cd5adf6af1b96edecc58cd2fa3613",
+    "app/sources/google_books.py": "bc67a4a1ae4d7f89038b948da675fc9c5887ae3d07c0b64305770b14049b5f77",
+    "app/sources/gutendex.py": "8a8ac61db52cc0449775e9a1a867b274cf1b2acc35e2debf8c19f9f4829f9c30",
+    "app/sources/isbn.py": "95a5c49ab24add9dbfd4529d0b54e728b0763db062911b31bc5c72961f8cabb6",
+    "app/sources/merge.py": "9c6bcfe0ddf489b122ffb77fadf80a723ad592a0fe214b521d083997e3db9f57",
+    "app/sources/open_library.py": "392940c83ed61947aa2d4f6cee9bd6c334ccde56632dc3e371441553e63ad48a",
+    "app/sources/schemas.py": "2e7e37345657dd1bdbfc2a7fa46cd5e9143143f45f8188608247eb3495ef20db",
+    "app/repository.py": "81971a9325102e90104c566ab1a341d84d154b8b8e52030d09b2f0de7602ba6b",
+    "scripts/check_catalog_evidence.py": "cfa98610c54a8979ea76c99cca0f5fd4ceb3fc8478a9f697c1c1a5b339d7e5b4"
+  },
+  "cases": [
+    {
+      "language": "en",
+      "sources": [
+        {
+          "provider": "google_books",
+          "candidates": 5,
+          "status": 200
+        },
+        {
+          "provider": "open_library",
+          "candidates": 5,
+          "status": 200
+        }
+      ],
+      "stored_candidates": 0
+    }
+  ],
+  "model_calls": 0,
+  "source_cache_enabled": false,
+  "synthetic_storage_input": true,
+  "daily_ai_call_cap": 100,
+  "daily_before": {
+    "utc_day": "2026-11-09",
+    "used": 61,
+    "daily_cap": 100,
+    "retry_after": 10725
+  },
+  "temporary_storage_cleaned": true,
+  "error_type": "ValidationError",
+  "completed_at": "2026-11-09T21:01:17.175052+00:00"
+}

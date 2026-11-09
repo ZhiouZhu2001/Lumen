@@ -36,6 +36,7 @@ async def test_all_twenty_recorded_searches_persist_with_real_foreign_keys(stora
         capture["complete"] and capture["gate_passed"] and len(capture["cases"]) == 20
     )
     recommended = set()
+    retrieved = set()
     total = 0
     for record in capture["cases"]:
         cards = [BookCard.model_validate(c) for c in record["cards"]]
@@ -68,7 +69,8 @@ async def test_all_twenty_recorded_searches_persist_with_real_foreign_keys(stora
         )
         total += len(cards)
         recommended.update(wire)
-    assert await counts(engine) == [len(recommended), 20, total]
+        retrieved.update(book.isbn13 for book in candidates)
+    assert await counts(engine) == [len(retrieved), 20, total]
     for isbn in recommended:
         assert (await repository.get_book(isbn)).isbn13 == isbn
 

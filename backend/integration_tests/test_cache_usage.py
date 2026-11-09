@@ -187,7 +187,7 @@ async def test_source_cache_cannot_overwrite_newer_book_snapshot(storage):
     await repository.save_completed(uuid4(), stale, old_cards, 20)
     book = await repository.get_book(cards[0].isbn13)
     assert book.title == cards[0].title and book.fetched_at == recent
-    assert await counts(engine) == [1, 2, 2]
+    assert await counts(engine) == [len(state["candidates"]), 2, 2]
 
 
 async def test_result_hit_stays_available_at_daily_cap_and_does_not_refresh_book(
@@ -233,4 +233,4 @@ async def test_result_hit_stays_available_at_daily_cap_and_does_not_refresh_book
     assert not any(event == "error" for event, _ in events)
     assert miss.status_code == 503 and int(miss.headers["retry-after"]) > 0
     assert (await repository.get_book(cards[0].isbn13)).fetched_at == before.fetched_at
-    assert await counts(engine) == [1, 2, 2]
+    assert await counts(engine) == [len(state["candidates"]), 2, 2]

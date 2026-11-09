@@ -19,6 +19,7 @@ from tests.persistence_fixtures import completed
 async def seed(storage):
     repository, engine = storage
     state, cards = completed(1)
+    state["candidates"] = state["candidates"][:1]
     await repository.save_completed(uuid4(), state, cards, 100)
     async with engine.begin() as connection:
         await connection.execute(
@@ -87,7 +88,7 @@ async def test_refresh_only_updates_existing_book_and_preserves_history_and_opti
     async with engine.connect() as connection:
         assert await connection.scalar(select(SearchResult.reason)) == old_reason
         raw = await connection.scalar(select(Book.raw))
-    assert set(raw) == {"snapshot_version", "source", "links"}
+    assert set(raw) == {"snapshot_version", "source", "links", "provider_records"}
     assert not {"query", "reason", "rank", "search_id"}.intersection(
         result.model_dump()
     )

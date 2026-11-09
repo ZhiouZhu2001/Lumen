@@ -177,7 +177,7 @@ Each URL template is manually verified once in week 3 and written into the test 
 
 The MVP has three core bibliographic/search tables, all created with Alembic migrations. The operational revision approved on 2026-11-09 adds the `ai_daily_usage` singleton for durable model-attempt protection. Book data is cached by ISBN, and search records are stored anonymously for use by personalized recommendations in phase two.
 
-**books**: one row per book ever seen
+**books**: one row per canonical, language-matched candidate seen in a completed recommendation search. All such candidates are cached, including those not recommended; only selected books enter `search_results`. Failed/cancelled searches do not write partial records, and the compatible keyword JSON endpoint remains read-only.
 
 | Column | Type | Notes |
 | --- | --- | --- |
@@ -190,7 +190,7 @@ The MVP has three core bibliographic/search tables, all created with Alembic mig
 | genres | text\[\] | Used to match genre rules such as Norma Comics |
 | rating\_value, rating\_count, rating\_source | numeric(2,1), int, text | All three null or all three set (CHECK) |
 | formats | text\[\] | `paper` / `kindle` / `apple_books`; `free` is retained for historical compatibility but not emitted by active channels |
-| raw | jsonb | Raw API response, for debugging |
+| raw | jsonb | Compatible snapshot envelope plus private original book/work API objects, for debugging; no reader input or request credentials |
 | fetched\_at | timestamptz | Re-fetched after 30 days |
 
 **searches**: one row per search

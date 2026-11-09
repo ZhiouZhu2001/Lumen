@@ -16,7 +16,9 @@ async def test_wrong_author_snapshot_leaves_no_database_rows(storage):
     assert await counts(engine) == [0, 0, 0]
 
 
-async def test_only_exact_author_result_is_saved_with_existing_filters(storage):
+async def test_only_exact_author_is_recommended_while_all_candidates_are_cached(
+    storage,
+):
     repository, engine = storage
     snapshot = captured()
     cards = [c for c in snapshot.cards if c.isbn13 == "9788417346201"]
@@ -25,7 +27,7 @@ async def test_only_exact_author_result_is_saved_with_existing_filters(storage):
     ]
     snapshot.state["request_authors"] = ["Toine Heijmans"]
     await repository.save_completed(uuid4(), snapshot.state, cards, 10)
-    assert await counts(engine) == [1, 1, 1]
+    assert await counts(engine) == [len(snapshot.state["candidates"]), 1, 1]
     book = await repository.get_book(cards[0].isbn13)
     assert book.authors == ["Toine Heijmans"]
     assert book.published_year == 2018 and book.page_count == 128

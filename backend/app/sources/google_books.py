@@ -5,6 +5,7 @@ from typing import Any
 import httpx
 from pydantic import ValidationError
 
+from app.sources.evidence import mark_fetched, record
 from app.sources.isbn import to_isbn13
 from app.sources.schemas import BookCandidate, Language, Rating
 
@@ -32,9 +33,7 @@ async def search_google_books(
     response = await client.get(GOOGLE_BOOKS_URL, params=params, headers=headers)
     response.raise_for_status()
     return [
-        book.model_copy(
-            update={"catalog_fetched_at": response.extensions.get("catalog_fetched_at")}
-        )
+        mark_fetched(book, response.extensions.get("catalog_fetched_at"))
         for book in parse_google_books(response.json(), language)
     ]
 
@@ -79,6 +78,7 @@ def _parse_volume(item: dict[str, Any], language: Language) -> BookCandidate | N
         genres=info.get("categories", []),
         rating=_rating(info),
         source=SOURCE,
+        provider_records={"google_books": [record(item)]},
     )
 
 

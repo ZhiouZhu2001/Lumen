@@ -1,0 +1,61 @@
+{
+  "baseline": "eaca768",
+  "checked_at": "2026-11-09T21:03:42.646767+00:00",
+  "complete": true,
+  "comparisons": [
+    {
+      "fixture": "google_books_edge_cases.json",
+      "language": "en",
+      "candidates": 1,
+      "public_metadata_equal": true,
+      "ranking_text_equal": true,
+      "merged_public_metadata_equal": true
+    },
+    {
+      "fixture": "google_books_real_es.json",
+      "language": "en",
+      "candidates": 0,
+      "public_metadata_equal": true,
+      "ranking_text_equal": true,
+      "merged_public_metadata_equal": true
+    },
+    {
+      "fixture": "open_library_edge_cases.json",
+      "language": "en",
+      "candidates": 2,
+      "public_metadata_equal": true,
+      "ranking_text_equal": true,
+      "merged_public_metadata_equal": true
+    },
+    {
+      "fixture": "google_books_edge_cases.json",
+      "language": "es",
+      "candidates": 3,
+      "public_metadata_equal": true,
+      "ranking_text_equal": true,
+      "merged_public_metadata_equal": true
+    },
+    {
+      "fixture": "google_books_real_es.json",
+      "language": "es",
+      "candidates": 8,
+      "public_metadata_equal": true,
+      "ranking_text_equal": true,
+      "merged_public_metadata_equal": true
+    },
+    {
+      "fixture": "open_library_edge_cases.json",
+      "language": "es",
+      "candidates": 2,
+      "public_metadata_equal": true,
+      "ranking_text_equal": true,
+      "merged_public_metadata_equal": true
+    }
+  ],
+  "unchanged_core_sha256_lf": {
+    "app/graph/parse_query.py": "b1c40d35e210cbd7b944b7377a032b3061364dc1b5cd0ad13c9fd5d06f1a55af",
+    "app/graph/rank.py": "0694f905b6b16688dfc51031fffba972b971354d37d3950dca74daa28664ba48",
+    "app/graph/search.py": "c296b0ca8c42ae923052e2ce8d2eeb9e446dd9b31d5bcbfe0216d844ebc7bd09",
+    "app/graph/broaden.py": "ade81e4a90e013380c69902743b360438eb9ce4cc8bc0ff37cb504fdbeed293a"
+  }
+}

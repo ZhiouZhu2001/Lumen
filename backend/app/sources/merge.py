@@ -51,6 +51,13 @@ def _fill_gaps(base: BookCandidate, extra: BookCandidate) -> BookCandidate:
     updates["source"] = "+".join(dict.fromkeys(sources))
     times = [b.catalog_fetched_at for b in (base, extra) if b.catalog_fetched_at]
     updates["catalog_fetched_at"] = min(times) if times else None
+    # Later rounds can fill missing fields from a different record at the same
+    # provider. Retain distinct contributing objects within this bounded search.
+    records = {kind: list(values) for kind, values in base.provider_records.items()}
+    for kind, values in extra.provider_records.items():
+        target = records.setdefault(kind, [])
+        target.extend(value for value in values if value not in target)
+    updates["provider_records"] = records
     # model_copy returns a NEW object; the input books are never modified
     return base.model_copy(update=updates)
 
