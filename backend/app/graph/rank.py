@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from langchain_core.language_models import BaseChatModel
 from pydantic import BaseModel, Field
 
+from app.authors import known_requested_authors, matches_authors
 from app.graph.parse_query import LANGUAGE_NAMES
 from app.grounding import unknown_proper_words
 from app.llm import ask_structured
@@ -124,10 +125,14 @@ def validate_picks(
     language: Language | None = None,
     *,
     query: str | None = None,
+    requested_authors: list[str] | None = None,
 ) -> tuple[list[Pick], list[str]]:
     allowed = {book.isbn13: book for book in candidates}
     picks: list[Pick] = []
     feedback = []
+    authors = requested_authors or (
+        known_requested_authors(query, candidates) if query else []
+    )
     for model_pick in output.picks:
         isbn13 = to_isbn13(model_pick.isbn13)
         reason = model_pick.reason.strip()
@@ -142,6 +147,9 @@ def validate_picks(
             feedback.append(f"{isbn13}: empty reason or duplicate selection")
             continue
         book = allowed[isbn13]
+        if not matches_authors(book, authors):
+            feedback.append(f"{isbn13}: wrong requested author")
+            continue
         if language is not None and book.language != language:
             feedback.append(f"{isbn13}: wrong book language")
             continue

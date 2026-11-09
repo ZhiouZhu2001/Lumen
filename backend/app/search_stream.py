@@ -9,6 +9,7 @@ from uuid import UUID, uuid4
 
 from app.book_cards import BookCardBuilder
 from app.filters import SearchFilters
+from app.graph.rank import ModelPick, ModelPicks, validate_picks
 from app.graph.search import UpstreamUnavailable
 from app.graph.state import SearchState
 from app.llm import LLMError
@@ -105,6 +106,23 @@ class SearchStream:
                             and state["retries"] < 2
                         ):
                             yield encode_event("status", {"stage": "searching"})
+                valid, _ = validate_picks(
+                    ModelPicks(
+                        picks=[
+                            ModelPick(isbn13=p.isbn13, reason=p.reason)
+                            for p in state["picks"]
+                        ]
+                    ),
+                    state["candidates"],
+                    language,
+                    query=query,
+                    requested_authors=state.get(
+                        "request_authors",
+                        state["parsed"].requested_authors if state["parsed"] else [],
+                    ),
+                )
+                if [p.isbn13 for p in valid] != [p.isbn13 for p in state["picks"]]:
+                    raise LLMError("Completed graph returned invalid recommendations")
                 if not state["picks"]:
                     error_code = "no_results"
                     yield encode_event(

@@ -8,6 +8,7 @@ from urllib.parse import urlsplit
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from app.authors import matches_authors
 from app.channels.matching import normalize
 from app.graph.state import SearchState
 from app.grounding import unknown_proper_words
@@ -42,6 +43,7 @@ class EvalCase(BaseModel):
     language: Language
     category: Literal["normal", "niche", "nonsense"] = "normal"
     filters: QueryFilters = Field(default_factory=QueryFilters)
+    expected_authors: list[str] = Field(default_factory=list)
 
 
 class QuerySuite(BaseModel):
@@ -188,6 +190,11 @@ def evaluate_case(
     picks = state["picks"]
     isbns = [p.isbn13 for p in picks]
     authentic = all(isbn in candidates and to_isbn13(isbn) == isbn for isbn in isbns)
+    required_authors = case.expected_authors or state.get("request_authors", [])
+    authentic = authentic and all(
+        isbn in candidates and matches_authors(candidates[isbn], required_authors)
+        for isbn in isbns
+    )
     correct_language = all(
         p.isbn13 in candidates and candidates[p.isbn13].language == case.language
         for p in picks

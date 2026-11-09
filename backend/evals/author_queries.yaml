@@ -1,0 +1,16 @@
+# Supplementary author regressions; these do not replace the required 20 cases.
+cases:
+  - id: es_exact_author
+    query: Quiero una novela sobre el mar de Toine Heijmans
+    language: es
+    category: niche
+    filters:
+      era: 2010s
+      length: short
+    expected_authors:
+      - Toine Heijmans
+  - id: en_exact_author
+    query: Mystery novels by Agatha Christie
+    language: en
+    expected_authors:
+      - Agatha Christie

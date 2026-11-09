@@ -51,6 +51,35 @@ not establish new model execution. The graph-only diagnostic does not pass
 through HTTP admission or the guarded provider transport and is not a substitute
 for this HTTP gate.
 
+To isolate cache/hourly test data while directly consuming the normal shared AI
+counter, stop the regular backend and use an empty dedicated Redis database:
+
+```console
+uv run python -m scripts.run_isolated_eval --redis-db 14 --output evals/results/<new-report>.json --environment evals/results/<new-environment>.json
+```
+
+The helper copies only real cache entries for the current application version
+and catalog caches, preserving TTLs. It never copies or clears IP counters, and
+uses the unchanged production `UsageGuards` methods for both policies. The normal
+Redis database remains the sole daily model-attempt counter, including retries.
+The test database retains its own active 20-per-IP hourly policy. Both initial
+cache hits and counter values are recorded; a cache-aware retry is not a cold
+model-quality or latency claim. On Windows, a process-scoped execution request
+temporarily inhibits idle system sleep during this bounded run and is restored
+afterwards; no persistent power setting is changed.
+
+The frontend uses a 70-second forwarding timeout to cover the backend's
+60-second deadline. The first-book target remains 15 seconds. With the normal
+backend stopped and the frontend running, verify delayed SSE without AI calls:
+
+```console
+uv run python -m scripts.check_proxy_stream --output evals/results/<new-proxy-probe>.json
+```
+
+This temporary diagnostic endpoint compares direct and frontend delivery across
+a 35-second silent interval. Its report sets `full_suite: false`; it is not a
+recommendation search, and its delay is not a first-book latency measurement.
+
 To check query coverage without network calls:
 
 ```console
@@ -61,6 +90,26 @@ Validation-only success means the query file is valid. It is not an evaluation
 pass. The offline pytest tests use test doubles and do not replace a live run.
 
 ## Checks and evidence
+
+For a named-author request, the authenticity check also requires catalog author
+metadata to match an independently declared `expected_authors` list, or the
+original author constraint retained by the search. It remains one of the same
+six checks; the required suite is still 20 cases with unchanged coverage/count
+and latency requirements.
+
+`author_queries.yaml` contains two supplementary named-author regressions.
+Against the running local preview, execute:
+
+```console
+uv run python -m evals.author_run --output evals/results/<new-author-report>.json
+```
+
+These checks independently declare the expected author and inspect actual wire
+cards, metadata filters, counts, ISBN checksums, stream completion and first-book
+latency. Their reports explicitly set `full_suite: false`: they do not capture
+private candidate membership and cannot replace the 20-case observer gate.
+The original wrong-author cards must fail these author checks even though their
+ISBNs are real and their date/length filters match.
 
 | Check | Evidence and criterion |
 | --- | --- |

@@ -1,0 +1,331 @@
+{
+  "state": {
+    "query": "Quiero una novela sobre el mar de Toine Heijmans",
+    "language": "es",
+    "parsed": {
+      "searches": [
+        "novela marítima",
+        "novela holandesa",
+        "Toine Heijmans novela"
+      ],
+      "genre": "novel",
+      "is_book_request": true
+    },
+    "tried": [
+      "novela mar",
+      "novela Toine Heijmans",
+      "novela de mar",
+      "relato marino",
+      "novela marítima",
+      "novela holandesa",
+      "Toine Heijmans novela"
+    ],
+    "candidates": [
+      {
+        "isbn13": "9788417346201",
+        "title": "En el mar",
+        "authors": [
+          "Toine Heijmans"
+        ],
+        "language": "es",
+        "description": "Inmerso en una profunda crisis personal, Donald decide navegar en su velero durante tres meses, con el silencio y la soledad como única compañía. Sólo en la última etapa de la travesía recogerá a su hija de siete años, Maria, para que lo acompañe del norte de Dinamarca a los Países Bajos. Alejados del mundo, el viaje se anuncia idílico, y entre padre e hija surge una complicidad que nunca antes habían conocido. Pero de pronto las nubes negras acechan en el horizonte y Donald está cada vez más angustiado; la noche en que estalla la temida y aterradora tormenta, Maria desaparece del barco... \"En el mar\" es una evocadora alegoría sobre la travesía de la vida y la posibilidad de gobernar el propio destino, y un magnífico homenaje a los navegantes legendarios, desde Ulises hasta el capitán Ahab. \"Una travesía por mar que es también una conmovedora reflexión sobre la paternidad y la identidad masculina\". Le Monde \"Heijmans ha escrito una novela que mantiene la intriga del lector y sorprende en la resolución final\". S. Fdez.-Prieto, La Razón \"Una novela en estado puro donde la fantasía y la realidad convergen para contar cómo un ser humano intenta escapar de la realidad\". Germán Gullón, El Mundo \"Estas páginas continuamente expanden el corazón y lo encogen, Heijmans diseña una carta náutica plagada de rutas y capas de lectura, de islotes en los que detenerse a reflexionar y faros que proyectan señales lumínicas a interpretar\". Antonio Lozano, La Vanguardia \"Heijmans obra el milagro narrativo de la creación de tensión merced a una paradójica placidez. En el mar es un texto reconfortante\". Javier Aparicio Maydeu, El País \"Una novela sofisticada y enigmática sobre la paternidad, el amor y la implacable belleza del mar del Norte\". Qué Leer \"Quien esté familiarizado con los relatos marítimos de Melville o Conrad, encontrará en esta espléndida novela algunas de sus resonancias. Heijmans conduce con mano maestra el hilo del relato, y nos introduce en un espejismo, un sueño, una fantasía, un maremágnum de visiones que no sabremos descifrar hasta el final de la novela\". Ernesto Ayala-DIP, El Correo Español \"Toine Heijman construye una historia compleja narrada con aparente sencillez que logra conmover, una fábula moral que consigue poner de manifiesto una verdad que no se revela a simple vista\". M.Ángeles Robles, Diario de Jerez \"Fluida, tensa, intensa, envolvente, angustiosa, reflexiva...\" Miren Artetxe, Gara-Zazpika \"Una novela, una alegoría, un relato en el mar, una nouvelle, todo ello puede ser En el mar. Heijmans traza en esta novela breve una historia de paternidad, supervivencia y espejismos. El autor conduce con mano maestra el hilo del relato\". Ernesto Ayala-Dip, El Correo Español \"Una lograda novela que traza a su aguda reflexión sobre la naturaleza y sobre la paternidad, o incluso sobre el lugar de la masculinidad\". Matías Népolo, El Mundo \"Nada mejor que una buena novela con una relación directa con el mar\". Alberto Díaz \"Me resulta fascinante la parte reflexiva. Decir todo lo que dice Toine Heijmans en las pocas páginas de En el mar no es algo al alcance de cualquier escritor. Es imposible no leerlo del tirón, cierra uno el libro y siente que ha vivido algo. Y además de sentirse impresionado y conmovido, siente que también ha aprendido algo y no necesariamente sobre el mar, la navegación o la literatura. Es una novela que uno integra en su vida\". Andrés Barrero \"Un muy estimulante debut literario\". Víctor Fernández, La Razón \"Una novela casi breve sobre el poder evocador del mar. Este libro tiene una lectura metafórica, sí, per es que el mar, la contemplación del mar, es pura metáfora\". Ricardo Martínez, Sal y Roca",
+        "cover_url": "https://books.google.com/books/content?id=zJKHDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "page_count": 128,
+        "published_year": 2018,
+        "genres": [
+          "Fiction"
+        ],
+        "rating": null,
+        "source": "google_books"
+      },
+      {
+        "isbn13": "9786077352921",
+        "title": "Capitán Nemo",
+        "authors": [
+          "Hugo Hiriart"
+        ],
+        "language": "es",
+        "description": "This adventure novel pays homage to the masters of the genre but also takes a critical look at contemporary reality. After a giant monster causes a group to become shipwrecked, mysterious sailor Ishmael, Professor Aronnax, and young Jules Verne discover that they have been rescued by the legendary submarine Nautilus, commanded by the equally legendary Captain Nemo. Suddenly they are amongst murderers and a conspiracy with unexpected outcomes.",
+        "cover_url": "https://covers.openlibrary.org/b/id/12451789-M.jpg",
+        "page_count": 110,
+        "published_year": 2014,
+        "genres": [
+          "Detective and mystery stories",
+          "Nemo, Capit̀n (Personaje literario)",
+          "Novela",
+          "Submarinos",
+          "Fiction, mystery & detective, general"
+        ],
+        "rating": null,
+        "source": "open_library"
+      },
+      {
+        "isbn13": "9788490651261",
+        "title": "Billy Budd, marinero",
+        "authors": [
+          "Herman Melville"
+        ],
+        "language": "es",
+        "description": "1797. La amenaza revolucionaria y las tropas del Directorio francés tienen consternada a Europa. En el Mediterráneo, el buque mercante Derechos del Hombre -nombre simbólico donde los haya- es abordado por el navío de guerra Bellipotent de la Armada Británica, con la intención de reclutar hombres a la fuerza. El único elegido es un joven expósito, el gaviero Billy Budd, de quien emana, dice el capitán del mercante, «una virtud que dulcificaba a los más amargados». En el nuevo barco, de hecho, no tarda en ganarse la benevolencia de marineros y oficiales, pero también atrae la atención del hosco maestro de armas Claggart, que no deja desde el principio de observarlo con una «antipatía profunda y espontánea». Billy, en su inocencia, y a pesar de las advertencias de sus compañeros, no puede creer que Claggart le guarde animadversión... hasta que una acusación falsa precipita la violencia y el caos. El manuscrito de Billy Budd, marinero, compuesto alrededor de 1885, no fue descubierto hasta 1919 y publicado hasta 1924. Contribuyó a la revalorización de Herman Melville, hasta entonces bastante olvidado. De esta nouvelle magistral que gira en torno al «misterio de la iniquidad», la guerra, la ley y la justicia se han hecho adaptaciones teatrales, una ópera de Benjamin Britten con libreto de E. M. Forster y Eric Crozier y una memorable película dirigida por Peter Ustinov.",
+        "cover_url": "https://books.google.com/books/content?id=IznbCQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "page_count": 149,
+        "published_year": 2015,
+        "genres": [
+          "Fiction"
+        ],
+        "rating": null,
+        "source": "google_books"
+      }
+    ],
+    "retries": 2,
+    "picks": [
+      {
+        "isbn13": "9788417346201",
+        "rank": 1,
+        "reason": "Es una novela de Toine Heijmans y gira en torno a una travesía en velero en el mar, con el silencio, la soledad y la tormenta como elementos centrales. La historia sigue a Donald durante tres meses de navegación, así que encaja muy bien con lo que buscas."
+      },
+      {
+        "isbn13": "9788490651261",
+        "rank": 2,
+        "reason": "Es una novela ambientada en el Mediterráneo y protagonizada por un joven marinero, Billy Budd. La acción transcurre a bordo de barcos de guerra y mercantes, así que el mar ocupa el centro de la historia."
+      },
+      {
+        "isbn13": "9786077352921",
+        "rank": 3,
+        "reason": "Es una novela de aventuras en la que un grupo queda naufragado y termina a bordo del Nautilus, bajo el mando del Capitán Nemo. El mar y la vida en el submarino son el marco principal de la narración."
+      }
+    ],
+    "feedback": [
+      "Only 3 validated matching recommendations; target 5-10. Find additional matching books without inventing facts."
+    ],
+    "new_isbns": [
+      "9781020542985",
+      "9788497617956",
+      "9781332697434",
+      "9788491816607"
+    ],
+    "model_calls": 6,
+    "request_understood": true,
+    "filters": {
+      "genre": null,
+      "era": "2010s",
+      "length": "short",
+      "free_only": false
+    },
+    "request_genre": "literary fiction",
+    "reader_mismatch_isbns": []
+  },
+  "cards": [
+    {
+      "isbn13": "9788417346201",
+      "title": "En el mar",
+      "authors": [
+        "Toine Heijmans"
+      ],
+      "language": "es",
+      "description": "Inmerso en una profunda crisis personal, Donald decide navegar en su velero durante tres meses, con el silencio y la soledad como única compañía. Sólo en la última etapa de la travesía recogerá a su hija de siete años, Maria, para que lo acompañe del norte de Dinamarca a los Países Bajos. Alejados del mundo, el viaje se anuncia idílico, y entre padre e hija surge una complicidad que nunca antes habían conocido. Pero de pronto las nubes negras acechan en el horizonte y Donald está cada vez más angustiado; la noche en que estalla la temida y aterradora tormenta, Maria desaparece del barco... \"En el mar\" es una evocadora alegoría sobre la travesía de la vida y la posibilidad de gobernar el propio destino, y un magnífico homenaje a los navegantes legendarios, desde Ulises hasta el capitán Ahab. \"Una travesía por mar que es también una conmovedora reflexión sobre la paternidad y la identidad masculina\". Le Monde \"Heijmans ha escrito una novela que mantiene la intriga del lector y sorprende en la resolución final\". S. Fdez.-Prieto, La Razón \"Una novela en estado puro donde la fantasía y la realidad convergen para contar cómo un ser humano intenta escapar de la realidad\". Germán Gullón, El Mundo \"Estas páginas continuamente expanden el corazón y lo encogen, Heijmans diseña una carta náutica plagada de rutas y capas de lectura, de islotes en los que detenerse a reflexionar y faros que proyectan señales lumínicas a interpretar\". Antonio Lozano, La Vanguardia \"Heijmans obra el milagro narrativo de la creación de tensión merced a una paradójica placidez. En el mar es un texto reconfortante\". Javier Aparicio Maydeu, El País \"Una novela sofisticada y enigmática sobre la paternidad, el amor y la implacable belleza del mar del Norte\". Qué Leer \"Quien esté familiarizado con los relatos marítimos de Melville o Conrad, encontrará en esta espléndida novela algunas de sus resonancias. Heijmans conduce con mano maestra el hilo del relato, y nos introduce en un espejismo, un sueño, una fantasía, un maremágnum de visiones que no sabremos descifrar hasta el final de la novela\". Ernesto Ayala-DIP, El Correo Español \"Toine Heijman construye una historia compleja narrada con aparente sencillez que logra conmover, una fábula moral que consigue poner de manifiesto una verdad que no se revela a simple vista\". M.Ángeles Robles, Diario de Jerez \"Fluida, tensa, intensa, envolvente, angustiosa, reflexiva...\" Miren Artetxe, Gara-Zazpika \"Una novela, una alegoría, un relato en el mar, una nouvelle, todo ello puede ser En el mar. Heijmans traza en esta novela breve una historia de paternidad, supervivencia y espejismos. El autor conduce con mano maestra el hilo del relato\". Ernesto Ayala-Dip, El Correo Español \"Una lograda novela que traza a su aguda reflexión sobre la naturaleza y sobre la paternidad, o incluso sobre el lugar de la masculinidad\". Matías Népolo, El Mundo \"Nada mejor que una buena novela con una relación directa con el mar\". Alberto Díaz \"Me resulta fascinante la parte reflexiva. Decir todo lo que dice Toine Heijmans en las pocas páginas de En el mar no es algo al alcance de cualquier escritor. Es imposible no leerlo del tirón, cierra uno el libro y siente que ha vivido algo. Y además de sentirse impresionado y conmovido, siente que también ha aprendido algo y no necesariamente sobre el mar, la navegación o la literatura. Es una novela que uno integra en su vida\". Andrés Barrero \"Un muy estimulante debut literario\". Víctor Fernández, La Razón \"Una novela casi breve sobre el poder evocador del mar. Este libro tiene una lectura metafórica, sí, per es que el mar, la contemplación del mar, es pura metáfora\". Ricardo Martínez, Sal y Roca",
+      "cover_url": "https://books.google.com/books/content?id=zJKHDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+      "page_count": 128,
+      "published_year": 2018,
+      "genres": [
+        "Fiction"
+      ],
+      "rating": null,
+      "source": "google_books",
+      "rank": 1,
+      "reason": "Es una novela de Toine Heijmans y gira en torno a una travesía en velero en el mar, con el silencio, la soledad y la tormenta como elementos centrales. La historia sigue a Donald durante tres meses de navegación, así que encaja muy bien con lo que buscas.",
+      "links": [
+        {
+          "store": "amazon_es",
+          "label": "Amazon.es",
+          "url": "https://www.amazon.es/s?k=9788417346201",
+          "formats": [
+            "paper",
+            "kindle"
+          ],
+          "match": "isbn_search",
+          "language_verified": false,
+          "copyright_region": null
+        },
+        {
+          "store": "casa_del_libro",
+          "label": "Casa del Libro",
+          "url": "https://www.casadellibro.com/?query=9788417346201",
+          "formats": [
+            "paper",
+            "ebook"
+          ],
+          "match": "isbn_search",
+          "language_verified": false,
+          "copyright_region": null
+        },
+        {
+          "store": "abacus",
+          "label": "Abacus",
+          "url": "https://www.abacus.coop/es/busqueda?q=9788417346201",
+          "formats": [
+            "paper"
+          ],
+          "match": "isbn_search",
+          "language_verified": false,
+          "copyright_region": null
+        },
+        {
+          "store": "apple_books",
+          "label": "Apple Books",
+          "url": "https://books.apple.com/es/book/en-el-mar/id1416947895?uo=4",
+          "formats": [
+            "apple_books"
+          ],
+          "match": "title_author",
+          "language_verified": false,
+          "copyright_region": null
+        }
+      ],
+      "formats": [
+        "paper",
+        "kindle",
+        "ebook",
+        "apple_books"
+      ]
+    },
+    {
+      "isbn13": "9788490651261",
+      "title": "Billy Budd, marinero",
+      "authors": [
+        "Herman Melville"
+      ],
+      "language": "es",
+      "description": "1797. La amenaza revolucionaria y las tropas del Directorio francés tienen consternada a Europa. En el Mediterráneo, el buque mercante Derechos del Hombre -nombre simbólico donde los haya- es abordado por el navío de guerra Bellipotent de la Armada Británica, con la intención de reclutar hombres a la fuerza. El único elegido es un joven expósito, el gaviero Billy Budd, de quien emana, dice el capitán del mercante, «una virtud que dulcificaba a los más amargados». En el nuevo barco, de hecho, no tarda en ganarse la benevolencia de marineros y oficiales, pero también atrae la atención del hosco maestro de armas Claggart, que no deja desde el principio de observarlo con una «antipatía profunda y espontánea». Billy, en su inocencia, y a pesar de las advertencias de sus compañeros, no puede creer que Claggart le guarde animadversión... hasta que una acusación falsa precipita la violencia y el caos. El manuscrito de Billy Budd, marinero, compuesto alrededor de 1885, no fue descubierto hasta 1919 y publicado hasta 1924. Contribuyó a la revalorización de Herman Melville, hasta entonces bastante olvidado. De esta nouvelle magistral que gira en torno al «misterio de la iniquidad», la guerra, la ley y la justicia se han hecho adaptaciones teatrales, una ópera de Benjamin Britten con libreto de E. M. Forster y Eric Crozier y una memorable película dirigida por Peter Ustinov.",
+      "cover_url": "https://books.google.com/books/content?id=IznbCQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+      "page_count": 149,
+      "published_year": 2015,
+      "genres": [
+        "Fiction"
+      ],
+      "rating": null,
+      "source": "google_books",
+      "rank": 2,
+      "reason": "Es una novela ambientada en el Mediterráneo y protagonizada por un joven marinero, Billy Budd. La acción transcurre a bordo de barcos de guerra y mercantes, así que el mar ocupa el centro de la historia.",
+      "links": [
+        {
+          "store": "amazon_es",
+          "label": "Amazon.es",
+          "url": "https://www.amazon.es/s?k=9788490651261",
+          "formats": [
+            "paper",
+            "kindle"
+          ],
+          "match": "isbn_search",
+          "language_verified": false,
+          "copyright_region": null
+        },
+        {
+          "store": "casa_del_libro",
+          "label": "Casa del Libro",
+          "url": "https://www.casadellibro.com/?query=9788490651261",
+          "formats": [
+            "paper",
+            "ebook"
+          ],
+          "match": "isbn_search",
+          "language_verified": false,
+          "copyright_region": null
+        },
+        {
+          "store": "abacus",
+          "label": "Abacus",
+          "url": "https://www.abacus.coop/es/busqueda?q=9788490651261",
+          "formats": [
+            "paper"
+          ],
+          "match": "isbn_search",
+          "language_verified": false,
+          "copyright_region": null
+        },
+        {
+          "store": "apple_books",
+          "label": "Apple Books",
+          "url": "https://books.apple.com/es/book/billy-budd-marinero/id1005210596?uo=4",
+          "formats": [
+            "apple_books"
+          ],
+          "match": "title_author",
+          "language_verified": false,
+          "copyright_region": null
+        }
+      ],
+      "formats": [
+        "paper",
+        "kindle",
+        "ebook",
+        "apple_books"
+      ]
+    },
+    {
+      "isbn13": "9786077352921",
+      "title": "Capitán Nemo",
+      "authors": [
+        "Hugo Hiriart"
+      ],
+      "language": "es",
+      "description": "This adventure novel pays homage to the masters of the genre but also takes a critical look at contemporary reality. After a giant monster causes a group to become shipwrecked, mysterious sailor Ishmael, Professor Aronnax, and young Jules Verne discover that they have been rescued by the legendary submarine Nautilus, commanded by the equally legendary Captain Nemo. Suddenly they are amongst murderers and a conspiracy with unexpected outcomes.",
+      "cover_url": "https://covers.openlibrary.org/b/id/12451789-M.jpg",
+      "page_count": 110,
+      "published_year": 2014,
+      "genres": [
+        "Detective and mystery stories",
+        "Nemo, Capit̀n (Personaje literario)",
+        "Novela",
+        "Submarinos",
+        "Fiction, mystery & detective, general"
+      ],
+      "rating": null,
+      "source": "open_library",
+      "rank": 3,
+      "reason": "Es una novela de aventuras en la que un grupo queda naufragado y termina a bordo del Nautilus, bajo el mando del Capitán Nemo. El mar y la vida en el submarino son el marco principal de la narración.",
+      "links": [
+        {
+          "store": "amazon_es",
+          "label": "Amazon.es",
+          "url": "https://www.amazon.es/s?k=9786077352921",
+          "formats": [
+            "paper",
+            "kindle"
+          ],
+          "match": "isbn_search",
+          "language_verified": false,
+          "copyright_region": null
+        },
+        {
+          "store": "casa_del_libro",
+          "label": "Casa del Libro",
+          "url": "https://www.casadellibro.com/?query=9786077352921",
+          "formats": [
+            "paper",
+            "ebook"
+          ],
+          "match": "isbn_search",
+          "language_verified": false,
+          "copyright_region": null
+        },
+        {
+          "store": "abacus",
+          "label": "Abacus",
+          "url": "https://www.abacus.coop/es/busqueda?q=9786077352921",
+          "formats": [
+            "paper"
+          ],
+          "match": "isbn_search",
+          "language_verified": false,
+          "copyright_region": null
+        }
+      ],
+      "formats": [
+        "paper",
+        "kindle",
+        "ebook"
+      ]
+    }
+  ]
+}

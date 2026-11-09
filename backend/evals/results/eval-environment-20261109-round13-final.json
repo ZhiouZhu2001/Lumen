@@ -1,0 +1,27 @@
+{
+  "started_at": "2026-11-09T11:18:25.302260+00:00",
+  "complete": true,
+  "daily_ai_call_cap": 100,
+  "shared_daily_before": 50,
+  "shared_daily_database": "/0",
+  "cache_and_hourly_database": 14,
+  "hourly_limit": 20,
+  "policy_implementation": "Unchanged UsageGuards methods; hourly admission uses isolated Redis, actual model attempts use the normal shared Redis counter.",
+  "counters_cleared": false,
+  "budget_increased": false,
+  "real_cache_keys_copied_with_ttl": 234,
+  "initial_cache_hits": {
+    "result": 13,
+    "parse": 20
+  },
+  "cache_signature": "9481eea6b71d0723a451eb5b",
+  "driver_sha256": "8dfeb4556495539efc3a99b6665edabf952b796b8b7a99d2e87b4f90b097bdc1",
+  "frontend_config_sha256": "42a3c1b79ab4582ebbfaa9706446ab766689fb374c665442c02f922ee55d9285",
+  "temporary_idle_sleep_inhibition": true,
+  "cache_note": "These are valid cached API/graph results under unchanged backend source; this retry is not described as a fully cold run.",
+  "completed_at": "2026-11-09T11:21:05.203133+00:00",
+  "shared_daily_after": 61,
+  "remaining_attempts": 39,
+  "exit_code": 0,
+  "report_sha256": "6d4d4d425d938eec12d2002390f614eb17f5d03089a06eedb8a15ea6f74133bd"
+}

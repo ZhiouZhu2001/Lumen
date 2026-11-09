@@ -37,6 +37,38 @@ async def test_atomic_shared_hourly_limit_under_concurrency(redis_scope):
     assert sorted([int(await redis.get(key)) for key in keys]) == [1, 20]
 
 
+async def test_isolated_evaluation_still_consumes_the_same_shared_daily_budget(
+    redis_scope,
+):
+    from scripts.run_isolated_eval import EvaluationUsage
+
+    redis, prefix = redis_scope
+
+    class ScopedRedis:
+        def __init__(self, scope):
+            self.scope = scope
+
+        async def eval(self, script, count, *values):
+            keys = [prefix + ":" + self.scope + ":" + key for key in values[:count]]
+            return await redis.eval(script, count, *keys, *values[count:])
+
+    shared = ScopedRedis("normal")
+    normal = UsageGuards(shared, 2)
+    evaluation = EvaluationUsage(ScopedRedis("evaluation"), shared, 2)
+    await normal.consume_ai()
+    await evaluation.consume_ai()
+    with pytest.raises(UsageLimited):
+        await normal.consume_ai()
+    with pytest.raises(UsageLimited):
+        await evaluation.check_daily()
+    for _ in range(20):
+        await normal.admit_search("192.0.2.1")
+        await evaluation.admit_search("192.0.2.1")
+    for policy in (normal, evaluation):
+        with pytest.raises(UsageLimited):
+            await policy.admit_search("192.0.2.1")
+
+
 async def test_atomic_daily_budget_old_buckets_do_not_block_current_day(redis_scope):
     redis, prefix = redis_scope
     seconds, _ = await redis.time()

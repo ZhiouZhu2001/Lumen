@@ -3,6 +3,12 @@ from langchain_core.language_models import BaseChatModel
 from langgraph.graph import START, StateGraph
 from langgraph.graph.state import CompiledStateGraph
 
+from app.authors import (
+    anchor_searches,
+    clean_requested_authors,
+    known_requested_authors,
+    matches_authors,
+)
 from app.filters import SearchFilters, constrained_query, matches_metadata
 from app.graph.broaden import broaden
 from app.graph.parse_query import parse_query
@@ -56,6 +62,9 @@ def build_graph(
             "picks": [],
             "request_understood": parsed.is_book_request,
             "request_genre": parsed.genre,
+            "request_authors": clean_requested_authors(
+                state["query"], parsed.requested_authors
+            ),
         }
 
     async def search_node(state: SearchState):
@@ -65,8 +74,11 @@ def build_graph(
             raise ValueError("Search requires a parsed query")
 
         tried = {search.casefold() for search in state["tried"]}
+        authors = state.get("request_authors", [])
         searches = [
-            search for search in parsed.searches if search.casefold() not in tried
+            search
+            for search in anchor_searches(parsed.searches, authors)
+            if search.casefold() not in tried
         ]
         if not searches or not state.get("request_understood", True):
             return {"new_isbns": []}
@@ -82,11 +94,13 @@ def build_graph(
         )
 
         merged = merge_candidates(state["candidates"], books)
+        authors = authors or known_requested_authors(state["query"], merged)
         attempted = list(state.get("description_lookup_keys", []))
         eligible = [
             b
             for b in merged
             if matches_metadata(b, filters)
+            and matches_authors(b, authors)
             and matches_reader_type(b, state["query"], state.get("request_genre"))
         ]
         if constrained:
@@ -121,6 +135,7 @@ def build_graph(
             "candidates": merged,
             "description_lookup_keys": attempted,
             "tried": [*state["tried"], *searches],
+            "request_authors": authors,
         }
 
     async def broaden_node(state: SearchState):
@@ -155,6 +170,7 @@ def build_graph(
             b
             for b in state["candidates"]
             if matches_metadata(b, state.get("filters", SearchFilters()))
+            and matches_authors(b, state.get("request_authors", []))
             and b.isbn13 not in mismatches
             and matches_reader_type(b, state["query"], state.get("request_genre"))
         ]
@@ -190,6 +206,7 @@ def build_graph(
             [b for b in eligible if b.isbn13 not in mismatches],
             state["language"],
             query=state["query"],
+            requested_authors=state.get("request_authors", []),
         )
         if not picks and attempt.proposed and state["retries"] >= MAX_RETRIES:
             raise LLMError(

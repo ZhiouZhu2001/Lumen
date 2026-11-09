@@ -1,0 +1,32 @@
+{
+  "target": "synthetic_delayed_sse_proxy_comparison",
+  "full_suite": false,
+  "checked_at": "2026-11-09T11:16:19.611290+00:00",
+  "silent_interval_seconds": 35,
+  "model_requests": 0,
+  "catalog_requests": 0,
+  "database_writes": 0,
+  "frontend_config_sha256": "42a3c1b79ab4582ebbfaa9706446ab766689fb374c665442c02f922ee55d9285",
+  "direct": {
+    "events": [
+      "status",
+      "done"
+    ],
+    "first_frame_ms": 121.86,
+    "duration_ms": 35144.99,
+    "error_kind": null,
+    "done_seen": true
+  },
+  "frontend": {
+    "events": [
+      "status",
+      "done"
+    ],
+    "first_frame_ms": 59.39,
+    "duration_ms": 35069.89,
+    "error_kind": null,
+    "done_seen": true
+  },
+  "passed": true,
+  "limitation": "This deterministic protocol probe is not a real recommendation or the 20-case merge gate."
+}

@@ -28,6 +28,7 @@ class SearchState(TypedDict):
     description_lookup_keys: NotRequired[list[str]]
     request_genre: NotRequired[str | None]
     reader_mismatch_isbns: NotRequired[list[str]]
+    request_authors: NotRequired[list[str]]
 
 
 def route_after_ranking(

@@ -10,6 +10,10 @@ const nextConfig: NextConfig = {
   /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
+  experimental: {
+    // Allow the backend's 60-second search deadline and terminal SSE frames.
+    proxyTimeout: 70_000,
+  },
   turbopack: {
     rules: {
       "*.css": {

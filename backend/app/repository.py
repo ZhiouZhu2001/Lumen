@@ -8,6 +8,7 @@ from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncEngine
 
+from app.authors import clean_requested_authors
 from app.channels.matching import safe_url
 from app.channels.rules import StoreRule, applies, load_rules, search_links
 from app.channels.schemas import BookCard, BookDetails, BookLink
@@ -42,7 +43,17 @@ class SearchRepository:
             picks=[ModelPick(isbn13=c.isbn13, reason=c.reason) for c in cards]
         )
         valid, _ = validate_picks(
-            proposed, state["candidates"], state["language"], query=state["query"]
+            proposed,
+            state["candidates"],
+            state["language"],
+            query=state["query"],
+            requested_authors=clean_requested_authors(
+                state["query"],
+                state.get(
+                    "request_authors",
+                    state["parsed"].requested_authors if state["parsed"] else [],
+                ),
+            ),
         )
         if (
             not 3 <= len(state["query"]) <= 300
@@ -191,7 +202,12 @@ class SearchRepository:
                         id=search_id,
                         query_text=state["query"],
                         language=state["language"],
-                        parsed_query=state["parsed"].model_dump(mode="json"),
+                        parsed_query={
+                            **state["parsed"].model_dump(mode="json"),
+                            "requested_authors": state.get(
+                                "request_authors", state["parsed"].requested_authors
+                            ),
+                        },
                         filters=state.get("filters", SearchFilters()).model_dump(
                             mode="json"
                         ),

@@ -1,6 +1,7 @@
 from langchain_core.language_models import BaseChatModel
 from pydantic import BaseModel, Field
 
+from app.authors import clean_requested_authors
 from app.llm import ask_structured
 from app.sources.schemas import Language
 
@@ -47,6 +48,14 @@ format genres such as manga or graphic novels in every search. Search terms
 do not establish that a free edition actually exists.
 Only use book titles or author names the reader wrote. Never invent them.
 
+requested_authors: names copied from the reader's own words ONLY when they want
+books written by those named people. Use [] for nationalities, books ABOUT a
+person, comparisons such as "like X", exclusions such as "not by X", or an
+unconstrained author. Do not infer a full name, pseudonym or alias the reader did
+not write. An explicit "by X" / "de X" author requirement must not be replaced
+by books from other authors that merely share a subject. Keep the author's name
+in catalog searches for this request.
+
 genre: the most specific main genre in English and lowercase (for example
 "psychological thriller", "cozy mystery", "historical fiction"). Never just
 "fiction". Use null if the wish doesn't imply one.
@@ -59,6 +68,10 @@ genre "literary fiction"."""
 class ParsedQuery(BaseModel):
     searches: list[str] = Field(description="1 to 3 short catalog searches")
     genre: str | None = Field(description="Main genre in English, or null")
+    requested_authors: list[str] = Field(
+        default_factory=list,
+        description="Literal named authors whose own books are required; not nationality, topic, similarity or exclusions",
+    )
     is_book_request: bool = Field(
         default=True,
         description="False for unintelligible input without meaningful reading intent; never invent an intent",
@@ -91,4 +104,8 @@ def clean_parsed_query(parsed: ParsedQuery, query: str) -> ParsedQuery:
         if search and search.casefold() not in {s.casefold() for s in searches}:
             searches.append(search)
     genre = (parsed.genre or "").strip().lower() or None
-    return ParsedQuery(searches=searches[:MAX_SEARCHES] or [query], genre=genre)
+    return ParsedQuery(
+        searches=searches[:MAX_SEARCHES] or [query],
+        genre=genre,
+        requested_authors=clean_requested_authors(query, parsed.requested_authors),
+    )

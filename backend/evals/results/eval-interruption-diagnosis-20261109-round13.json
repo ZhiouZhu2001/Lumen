@@ -1,0 +1,13 @@
+{
+  "initial_report_sha256": "f21e9a0eab2b03fe9141c9f4d3bcd5cae6e27c4ac6d6fb534b6223c06839d3a4",
+  "failed_case": "en_history",
+  "previous_saved_search_created_at": "2026-11-09T00:54:28.855833+00:00",
+  "next_saved_search_created_at": "2026-11-09T10:55:30.925389+00:00",
+  "approximate_interruption_seconds": 36039.72,
+  "estimate_method": "Time between preceding saved search and following saved search minus the following HTTP duration; normal request/database overhead remains.",
+  "interpretation": "An approximately ten-hour wall-clock gap affected the original failed request. Its exact interruption cause is not proven. It is not a valid continuous runtime measurement.",
+  "independent_proxy_probe_sha256": "3e16376e20a693dcb9904203804df5caca4e35ec50d9442a6d3e7279f02c8462",
+  "independent_finding": "The controlled 35-second idle SSE completes directly but the configured frontend closes it near 30 seconds. This is a separate reproducible proxy-boundary defect.",
+  "model_requests_by_this_diagnosis": 0,
+  "full_suite": false
+}
