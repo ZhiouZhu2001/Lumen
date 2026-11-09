@@ -174,7 +174,7 @@ export default function Home() {
 
       <div aria-busy={loading} className="mt-6 space-y-4">
         {books.map((book) => (
-          <BookCard key={book.isbn13} book={book} />
+          <BookCard key={book.isbn13} book={book} detailsAvailable={stage === "done" && !error} />
         ))}
       </div>
     </main>

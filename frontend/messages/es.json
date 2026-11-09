@@ -37,6 +37,29 @@
     "description": "Descripción del catálogo",
     "channelNote": "Las búsquedas en tiendas no garantizan existencias ni formato. Apple Books se vincula por título y autor; comprueba la edición y el idioma antes de comprar.",
     "paper": "Papel",
-    "ebook": "Libro electrónico"
+    "ebook": "Libro electrónico",
+    "viewDetails": "Detalles del libro y enlace para compartir"
+  },
+  "BookDetails": {
+    "loading": "Cargando los detalles del libro…",
+    "navigation": "Navegación del libro",
+    "back": "Buscar otro libro",
+    "language": "Idioma del libro",
+    "english": "Inglés",
+    "spanish": "Español",
+    "source": "Fuente del catálogo",
+    "fetchedAt": "Datos del catálogo (UTC)",
+    "snapshotNote": "La información guardada del catálogo puede estar desactualizada. Comprueba la edición, el idioma y la disponibilidad en la tienda.",
+    "share": "Copiar enlace del libro",
+    "shareNote": "El enlace solo comparte este libro. No incluye tu búsqueda ni el motivo de la recomendación.",
+    "linkLabel": "Enlace del libro",
+    "copied": "Enlace copiado.",
+    "copyManually": "No se puede copiar automáticamente. Selecciona y copia el enlace del libro.",
+    "errorTitle": "Detalles del libro no disponibles",
+    "invalid": "Este enlace no contiene un ISBN-13 válido. Busca un libro para empezar.",
+    "notFound": "Este libro aún no está guardado en Lumen. Completa una búsqueda y abre sus detalles.",
+    "unavailable": "No se ha podido cargar la información del libro. Inténtalo de nuevo.",
+    "retry": "Reintentar",
+    "storedCatalog": "Catálogo guardado"
   }
 }

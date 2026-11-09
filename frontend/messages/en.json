@@ -37,6 +37,29 @@
     "description": "Catalog description",
     "channelNote": "Store searches do not guarantee stock or format. Apple Books matches the title and author; check the edition and language before buying.",
     "paper": "Paper",
-    "ebook": "Ebook"
+    "ebook": "Ebook",
+    "viewDetails": "Book details and share link"
+  },
+  "BookDetails": {
+    "loading": "Loading book details…",
+    "navigation": "Book navigation",
+    "back": "Find another book",
+    "language": "Book language",
+    "english": "English",
+    "spanish": "Spanish",
+    "source": "Catalog source",
+    "fetchedAt": "Catalog snapshot (UTC)",
+    "snapshotNote": "Saved catalog information may be out of date. Check the edition, language and availability at the store.",
+    "share": "Copy book link",
+    "shareNote": "The link shares only this book. Your search and recommendation reason are not included.",
+    "linkLabel": "Book link",
+    "copied": "Link copied.",
+    "copyManually": "Copying is unavailable. Select and copy the book link.",
+    "errorTitle": "Book details unavailable",
+    "invalid": "This link does not contain a valid ISBN-13. Start a search to find a book.",
+    "notFound": "This book has not been saved in Lumen. Complete a search first, then open its details.",
+    "unavailable": "Book information could not be loaded. Please try again.",
+    "retry": "Try again",
+    "storedCatalog": "Saved catalog"
   }
 }

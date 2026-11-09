@@ -6,7 +6,7 @@ export type Rating = {
     source: string;
 };
 
-export type Book = {
+export type BookMetadata = {
     isbn13: string;
     title: string;
     authors: string[];
@@ -15,10 +15,18 @@ export type Book = {
     rating: Rating | null;
     page_count: number | null;
     description: string | null;
-    rank: number;
-    reason: string;
     formats: string[];
     links: {store: string; label: string; url: string; formats: string[]}[];
+};
+
+export type Book = BookMetadata & {rank: number; reason: string};
+
+// Public stored snapshot. Search text and recommendation reasons are not shared.
+export type BookDetails = BookMetadata & {
+    language: Language;
+    genres: string[];
+    source: string;
+    fetched_at: string;
 };
 
 // The two book languages Lumen supports (must match the backend's Language).
