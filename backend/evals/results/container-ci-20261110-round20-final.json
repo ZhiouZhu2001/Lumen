@@ -1,0 +1,50 @@
+{
+  "target": "isolated_container_ci",
+  "project": "lumen-container-check-4ba5fac7ee5e",
+  "model_requests": 0,
+  "catalog_requests": 0,
+  "full_live_recommendation_gate": false,
+  "checks": {
+    "isolated_config_and_credentials": true,
+    "production_images_built": true,
+    "five_services_healthy": true,
+    "caddy_validation_nonroot_and_runtime_exclusions": true,
+    "localized_pages_assets_and_api_routing": true,
+    "missing_budget_and_forged_headers_cannot_bypass_hourly_limit": true,
+    "redis_loss_and_restarts_preserve_durable_budget": {
+      "synthetic_floor": 100,
+      "actual_model_attempts": 0
+    },
+    "synthetic_forwarding_identity": true,
+    "synthetic_65_second_sse": {
+      "events": [
+        "status",
+        "done"
+      ],
+      "frame_ms": [
+        13.93,
+        65010.39
+      ],
+      "real_first_book_measurement": false
+    },
+    "owned_resources_removed": true
+  },
+  "image_ids": {
+    "backend": "sha256:eb85212bc8f3228a2e090834f8e4d3e611f97570f42ebc7bd49fe1a1ed784c5a",
+    "caddy": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+    "frontend": "sha256:2a1cc8bdadf5c9add2074db44c579132a026a1079d90356b9606460d5f0898a6",
+    "postgres": "sha256:cf134a767f474095eeba57e0117be8e568e011a63f33fbf252f14c9b760f8e6f",
+    "redis": "sha256:c6eabf748fc7a61dbb5a705c78bcf3d6377b1127a97d0ce965c11c44ba46896f"
+  },
+  "passed": true,
+  "limitations": [
+    "Synthetic transport only; not the live recommendation gate.",
+    "Local HTTP checks do not establish production DNS/TLS or capacity."
+  ],
+  "source_sha256_lf": {
+    "backend/scripts/check_container_stack.py": "3946e25dbc91817e039c3e28d3ec824d06e50cba15916dd7d8c782c1af16ba58",
+    "backend/scripts/container_probe.py": "82fe42e72f8813295028f4e469d83d1f2c604a5736a2351c93fa28564e1b9801",
+    "docker-compose.yml": "7b2fa939beab62ac5d29764165823fd1efdb0494bcfe445e24f8aa9f0892f32e",
+    "Caddyfile": "d1db13c13c5b1b2437c50fe021590539875343cf541d118a99d53536f4a66e8f"
+  }
+}

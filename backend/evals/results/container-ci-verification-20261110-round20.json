@@ -1,0 +1,46 @@
+{
+  "target": "round20_verification_summary",
+  "date_europe_madrid": "2026-11-10",
+  "baseline": "3e28cac0514e4aefe53342b9a43885ca09ce1c38",
+  "branch": "codex/update-20-container-ci",
+  "passed": true,
+  "backend_offline": {
+    "tests": 382,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "new_guard_regressions": 10,
+  "backend_pytest_console_seconds": 12.22,
+  "backend_junit_sha256": "fd80f1223fc64cab45342ffba41b0bc132ecd1eb2dec445ef26161f760f5eb4b",
+  "ruff_lint_passed": true,
+  "ruff_formatted_python_files": 109,
+  "actionlint": {
+    "version": "1.7.12",
+    "exit_code": 0
+  },
+  "existing_application_jobs_permissions_and_concurrency_unchanged": true,
+  "preexisting_lumen_container_states_unchanged": 3,
+  "failed_and_final_owned_resources_removed": true,
+  "final_container_receipt": "container-ci-20261110-round20-final.json",
+  "source_sha256_lf": {
+    ".github/workflows/ci.yml": "35d5358b0e2809ceb2347053f0ef38703e87a84bd70346a7c3ae4ddb1e5a290d",
+    "README.md": "12d5fcaf214a52f409bb3a6e611a5ba8818e6c79ac4ea14f407d29754bb2d1cb",
+    "docs/containers.md": "0ffa0c38f82f7171ce92e467c899f923351bafc13980ce50d76835cc7cf538bb",
+    "backend/scripts/check_container_stack.py": "3946e25dbc91817e039c3e28d3ec824d06e50cba15916dd7d8c782c1af16ba58",
+    "backend/scripts/container_probe.py": "82fe42e72f8813295028f4e469d83d1f2c604a5736a2351c93fa28564e1b9801",
+    "backend/tests/test_container_checks.py": "146fa91bcb5e288e3b2d2971ef78c598d617b2735c1dc1c9a68f616146691730"
+  },
+  "round19_publication": {
+    "commit": "3e28cac0514e4aefe53342b9a43885ca09ce1c38",
+    "branch_ci": "https://github.com/ZhiouZhu2001/Lumen/actions/runs/42817510966",
+    "main_ci": "https://github.com/ZhiouZhu2001/Lumen/actions/runs/42817902205",
+    "both_completed_successfully": true
+  },
+  "limitations": [
+    "Round 20 has not been uploaded; its new hosted Container checks job has not run.",
+    "Container orchestration was executed on Windows against actual Linux Docker images; the Ubuntu-hosted run remains pending.",
+    "No fresh live recommendation gate, new full 64-case integration run or browser visual sweep is claimed for round 20.",
+    "Existing Docker images/build cache were retained; temporary containers, networks and data volumes were removed."
+  ]
+}

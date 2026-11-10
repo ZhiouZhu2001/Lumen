@@ -63,14 +63,15 @@ The daily counter limits request attempts, not tokens or currency. The provided 
 
 ## Continuous integration
 
-The [CI workflow](.github/workflows/ci.yml) runs on pushes and pull requests. Manual dispatch is available after the workflow reaches the default branch. It publishes two independent checks:
+The [CI workflow](.github/workflows/ci.yml) runs on pushes and pull requests. Manual dispatch is available after the workflow reaches the default branch. It defines three independent checks:
 
 - **Backend checks:** install Python from `backend/.python-version` and locked development dependencies with uv 0.12.15; check Ruff lint/formatting; apply Alembic migrations to a fresh PostgreSQL 17 service; verify migration/model agreement; run offline unit tests and the native PostgreSQL/Redis integration suite.
 - **Frontend checks:** install Node 24 and dependencies with `npm ci`; run ESLint and native tests; build the production Next.js application, including its TypeScript checks.
+- **Container checks:** build both production images and start an isolated five-service stack. Verify readiness, localized pages/assets, private routing, fail-closed budget/admission, Redis-loss recovery, controlled forwarding and a separate synthetic 65-second SSE stream. Clean only owned disposable containers, networks and volumes.
 
-Both jobs use Ubuntu 24.04 runners and a 15-minute timeout. PostgreSQL/Redis services and the public `ci_only` password are temporary test resources. The jobs do not require project secrets: model/catalog keys are empty, and live recommendation evaluation and catalog diagnostics remain separate explicit commands. The daily setting remains 100; CI does not spend the normal model allowance.
+All jobs use Ubuntu 24.04 runners. The application jobs have 15-minute timeouts; the container job has 20 minutes and uses the runner's Python standard library and Docker Compose without installing project dependencies on the host. PostgreSQL/Redis services and the public test passwords are temporary resources. The jobs do not require project secrets: model/catalog keys are empty, and live recommendation evaluation and catalog diagnostics remain separate explicit commands. The daily setting remains 100; CI does not spend the normal model allowance.
 
-Action versions are pinned to verified full commits, checkout credentials are not persisted, and the workflow token has read-only repository contents access. Dependency caches are keyed from the lockfiles. A newer run for the same branch or pull request cancels the older in-progress run. These checks report failures; making `Backend checks` and `Frontend checks` mandatory for merging requires a separate branch-protection setting. The workflow does not configure deployment or automatic merging.
+Action versions are pinned to verified full commits, checkout credentials are not persisted, and the workflow token has read-only repository contents access. Dependency caches are keyed from the lockfiles. A newer run for the same branch or pull request cancels the older in-progress run. These checks report failures; making `Backend checks`, `Frontend checks` and `Container checks` mandatory for merging requires a separate branch-protection setting. The workflow does not configure deployment or automatic merging.
 
 Local reproduction uses the commands below. A successful local run is separate evidence from a GitHub-hosted run; confirm the first hosted run after uploading a new workflow.
 

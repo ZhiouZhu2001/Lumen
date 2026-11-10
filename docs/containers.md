@@ -58,11 +58,23 @@ Caddy's [documented SSE handling](https://caddyserver.com/docs/caddyfile/directi
 
 Health checks use the existing API health endpoint, an English frontend page and the Caddy loopback admin API. Caddy's admin listener remains inside its container on loopback and is not published. There is no Caddy access log. Application error diagnostics can still contain request details/stack traces; this is not a complete log-retention policy. Caddy TLS/config state has separate named volumes; keep certificate storage private.
 
-The existing hosted CI still checks application lint, tests, migrations and frontend compilation. It does not build these Docker images or run the local Compose transport probe. The round's container receipt records separate local verification; no hosted container result is claimed.
+The CI workflow also defines an independent `Container checks` job. It runs `backend/scripts/check_container_stack.py` using the Ubuntu runner's Python standard library and Docker Compose, builds both actual images and starts the real five-service configuration. The job has a 20-minute timeout, needs no project secrets, publishes no image and performs no deployment. A new workflow's local results remain separate from its first hosted run after upload.
+
+The check uses a random project name, an unused diagnostic subnet, Docker-assigned loopback ports and an explicit temporary environment with synthetic database credentials and empty API keys. It verifies actual health, localized pages/assets, missing/invalid book API responses, budget initialization boundaries and the hourly limit under forged forwarding headers. It blocks only its disposable daily ledger, removes only its disposable Redis volume and checks the budget after restart. A test-only ASGI target then verifies exact proxy identity and a 65-second silent SSE interval; its routes and source are not included in either production image. This is transport verification, not a live recommendation-quality or first-book measurement.
+
+The JSON report and bounded failure diagnostics are printed into the job log. The runner also retains its report file under `RUNNER_TEMP` for the job lifetime; no artifact-upload action is configured. Ordinary failures attempt owned-resource cleanup and still fail the job. An ownership mismatch or foreign network attachment refuses destructive cleanup and is reported. Hard termination can prevent cleanup; hosted runner disposal is the final boundary. Locally, inspect the reported project before any manual cleanup. Built images and build cache are retained for local reuse; disposable containers, networks and data volumes are removed.
 
 ## Verification, restart and rollback
 
 For disposable tests use a different Compose project name, synthetic credentials, no real API keys, unused loopback ports and a non-overlapping proxy subnet. This creates separate database/Caddy volumes. Confirm ownership through `com.docker.compose.project` labels before removing any test resources; use `down -v` only for that disposable project. Do not run a new zero-initialization command against the normal database to test startup.
+
+Run the same automated check locally with Python 3.12 and a local Docker daemon from the repository root:
+
+```console
+python backend/scripts/check_container_stack.py --output backend/evals/results/<new-container-report>.json
+```
+
+Choose a new output path each time; existing evidence is never overwritten. The host script uses no project library or private `.env`. Dynamic ports are re-read after restarts. The script checks ownership before removing test resources and never starts or resets the normal Compose project. A test floor of 100 is synthetic guard input, not 100 real model attempts. No public recommendation API calls are requested during the check.
 
 `docker compose restart backend frontend caddy` retains the database. A health check reports readiness; the restart policy handles process exits, not an unhealthy container that is still running. The verified local receipt in `backend/evals/results/container-stack-20261109-round19.json` distinguishes actual application checks from the temporary synthetic transport target. No model call is required for the packaging checks.
 

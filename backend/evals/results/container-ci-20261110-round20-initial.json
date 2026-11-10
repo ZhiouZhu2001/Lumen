@@ -1,0 +1,12 @@
+{
+  "target": "isolated_container_ci",
+  "passed": false,
+  "phase": "network_inventory_initialization",
+  "error_kind": "TypeError",
+  "error": "'NoneType' object is not iterable",
+  "model_requests": 0,
+  "catalog_requests": 0,
+  "checks": {},
+  "resources_created": false,
+  "evidence_note": "Transcribed from the actual first invocation traceback. Initialization failed before the original writer produced JSON; no application checks ran. Network Config:null handling and early-failure reporting were corrected afterward."
+}
