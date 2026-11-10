@@ -166,3 +166,7 @@ The user subsequently requested merging into `main` and starting the next round.
 ### Automatic upload-review result
 
 The functional scope was committed as `9cda2844c50cb5a973331c1258fc62c28b867b66`. Automatic approval review rejected the branch-push request: it interpreted the main-merge instruction as insufficient separate confirmation of this round's branch upload under the repository rules. The preceding authorization paragraph records the attempted interpretation; the rejection controls the pending external action. No push occurred. Explicit confirmation of the round-22 upload and remote-main synchronization was requested; local main integration and the next local round can proceed independently.
+
+### Explicit upload confirmation
+
+The user answered the upload question by explicitly confirming the round-22 branch upload and subsequent remote-main synchronization. This resolves the automatic review's missing-confirmation condition for this reviewed scope. Local `main` has already been fast-forwarded to the functional commit and its approval-status receipt; the next-round branch was created without implementation changes. The branch's hosted checks will be inspected before updating remote `main`. Round 23 remains a separate local scope requiring its own later upload confirmation.
