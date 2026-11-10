@@ -137,3 +137,16 @@ See `update_version/Lumen_Update_Version_21.md`, `docs/operations.md` and the tw
 ### Combined submission authorization, 2026-11-10, Europe/Madrid
 
 The user subsequently requested merging into `main` and an estimate of remaining work. The current round depends on local round 20, so the necessary combined submission includes their separately reviewed scopes and separate functional commits. The configured author and committer were reverified as `ZhiouZhu2001 <zhiouzhu2001@gmail.com>`. Remote `main` was fetched and still matched the known round-19 checkpoint. Both branches will be uploaded and their three hosted checks inspected before the main merge. No pull request, release, public deployment or new paid service is authorized by this operation. The preceding local-only status records its historical checkpoint; actual upload/check outcomes follow when known.
+
+### Verified branch-upload receipt
+
+The authorized combined submission has uploaded both functional checkpoints without merging either one early:
+
+| Uploaded checkpoint | Actual hosted result |
+| --- | --- |
+| Round 20, `1da9329c9abcaa64bddb6f2e96dd490ad4c7b52d` | [Run 42849403912](https://github.com/ZhiouZhu2001/Lumen/actions/runs/42849403912): Backend checks, Frontend checks and Container checks all completed successfully. |
+| Round 21, `54a2bf8223df2a0da1b3be42245a26d88b61a010` | [Run 42849404647](https://github.com/ZhiouZhu2001/Lumen/actions/runs/42849404647): Backend checks, Frontend checks and Container checks all completed successfully. |
+
+The new container job has therefore now passed on actual Ubuntu-hosted runners for both branches. Earlier statements that hosted verification was pending describe the local checkpoints before this submission. Author and committer identities remain the project owner's verified configuration; no co-author or tool attribution was added.
+
+This receipt is a documentation-only completion of round 21 and introduces no runtime, dependency, schema, spending or evaluation change. At its preparation, the authorized fast-forward main merge is the next operation; the final main revision and main-check outcome are reported after execution. No pull request, production release or deployment is included.
