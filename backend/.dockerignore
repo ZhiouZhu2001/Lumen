@@ -1,16 +1,15 @@
-# Virtual Environment
-.venv/
-
-# Python cache
-__pycache__/
-*.pyc
-
-# Tool caches
-.pytest_cache/
-.ruff_cache/
-
-# Secrets
-.env
-
-# Scratch files
-scratch_*.py
+# Only runtime code, migrations and budget administration belong in the image.
+*
+!Dockerfile
+!pyproject.toml
+!uv.lock
+!alembic.ini
+!alembic/
+!alembic/**
+!app/
+!app/**
+!scripts/
+!scripts/budget_admin.py
+**/__pycache__/
+**/*.pyc
+**/.env*

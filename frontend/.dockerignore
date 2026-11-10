@@ -1,0 +1,24 @@
+# Allow only build inputs; local secrets and generated output never enter context.
+*
+!Dockerfile
+!package.json
+!package-lock.json
+!next.config.ts
+!tsconfig.json
+!global.d.ts
+!proxy.ts
+!eslint.config.mjs
+!app/
+!app/**
+!components/
+!components/**
+!lib/
+!lib/**
+!i18n/
+!i18n/**
+!messages/
+!messages/**
+!public/
+!public/**
+**/.env*
+**/__pycache__/

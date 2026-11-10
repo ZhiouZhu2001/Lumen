@@ -1,0 +1,21 @@
+{$LUMEN_SITE_ADDRESS::80} {
+	# Keep /api intact and send it directly to FastAPI, bypassing Next.js rewrites.
+	@api path /api /api/*
+	handle @api {
+		reverse_proxy backend:8000 {
+			# Replace all client-supplied identity hints at the controlled edge.
+			header_up X-Forwarded-For {http.request.remote.host}
+			header_up -Forwarded
+			header_up -X-Real-IP
+			# Caddy flushes text/event-stream immediately. No response_buffers or
+			# encoding middleware is enabled; preserve backend no-transform headers.
+			transport http {
+				compression off
+			}
+		}
+	}
+
+	handle {
+		reverse_proxy frontend:3000
+	}
+}

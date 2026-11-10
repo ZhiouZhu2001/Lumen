@@ -1,0 +1,149 @@
+{
+  "target": "isolated_five_container_packaging",
+  "checked_at": "2026-11-09T21:34:41.140531+00:00",
+  "full_live_recommendation_gate": false,
+  "model_requests": 0,
+  "catalog_requests": 0,
+  "checks": {
+    "five_healthy_services": {
+      "backend": "healthy",
+      "caddy": "healthy",
+      "frontend": "healthy",
+      "postgres": "healthy",
+      "redis": "healthy"
+    },
+    "only_caddy_publishes_base_ports_and_host_override_is_loopback": true,
+    "validated_caddy_nonroot_images_and_runtime_exclusions": true,
+    "bilingual_pages_static_assets_health_and_detail_errors": true,
+    "missing_budget_fails_closed_without_model_send": true,
+    "container_budget_admin_sets_disposable_floor": {
+      "synthetic_usage_floor": 100,
+      "real_model_attempts": 0
+    },
+    "actual_cached_book_stream_at_exhausted_budget": {
+      "events": [
+        "status",
+        "candidates",
+        "status",
+        "book",
+        "book",
+        "done"
+      ],
+      "encoding": null,
+      "source": "recorded Spanish fixture; synthetic completed input"
+    },
+    "saved_details_server_render_over_private_backend": true,
+    "actual_hourly_limit_ignores_forged_headers": {
+      "admitted_including_initial_missing_budget": 20,
+      "next_status": 429
+    },
+    "single_expiring_redis_identity_and_unchanged_disposable_ledger": {
+      "used": 100,
+      "ip_keys": 1,
+      "all_expiring": true
+    },
+    "redis_data_loss_and_application_restart_preserve_books_and_budget": {
+      "disposable_floor": 100,
+      "redis_ip_keys_after_loss": 0,
+      "uncached_status": 503
+    },
+    "application_phase_complete": true,
+    "transport_identity_echo_replaces_all_forged_hints": {
+      "cases": 3,
+      "trusted_peer_matches": true
+    },
+    "synthetic_delayed_sse": {
+      "events": [
+        "status",
+        "done"
+      ],
+      "frame_ms": [
+        14.27,
+        65010.2
+      ],
+      "silent_interval_seconds": 65,
+      "encoding": null,
+      "real_recommendation_latency": false
+    },
+    "real_application_restored_and_no_diagnostic_routes": true,
+    "documented_container_receipt_copy_and_floor_cannot_lower_usage": true,
+    "original_services_tables_and_shared_budget_unchanged": {
+      "original_daily_used": 61,
+      "cap": 100,
+      "model_requests_during_checks": 0,
+      "catalog_requests_during_checks": 0,
+      "table_counts": {
+        "books": 225,
+        "searches": 74,
+        "results": 404
+      }
+    },
+    "owned_disposable_containers_networks_and_volumes_removed": true
+  },
+  "limitations": [
+    "Recorded catalog fixtures and synthetic cache/storage input verify wiring, not current recommendation quality.",
+    "Temporary delayed SSE target verifies transport only; no route is added to the application.",
+    "Loopback Docker Desktop checks do not establish public TLS, DNS, production client visibility or deployment readiness."
+  ],
+  "initial_probe_corrections": [
+    "An initial startup failed when dynamic allocation took the static Caddy address; final Compose reserves a separate dynamic pool.",
+    "Redis force-recreation retained its anonymous data volume; the verified data-loss test explicitly removes only the owned disposable Redis container/anonymous volume.",
+    "The temporary transport target needed /app on PYTHONPATH when Uvicorn used /probe as its app directory; production startup was unaffected."
+  ],
+  "runtime_images": {
+    "backend": {
+      "image_id": "sha256:6f38d65bb80479384af6729410b33582abe81d269ed85108ce0dbe5fa0a5fd67",
+      "health": "healthy"
+    },
+    "caddy": {
+      "image_id": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+      "health": "healthy"
+    },
+    "frontend": {
+      "image_id": "sha256:d87f43fc5f299119ee532fdc842ed407a93cfe8d7860dda4fc9da448308500e4",
+      "health": "healthy"
+    },
+    "postgres": {
+      "image_id": "sha256:cf134a767f474095eeba57e0117be8e568e011a63f33fbf252f14c9b760f8e6f",
+      "health": "healthy"
+    },
+    "redis": {
+      "image_id": "sha256:c6eabf748fc7a61dbb5a705c78bcf3d6377b1127a97d0ce965c11c44ba46896f",
+      "health": "healthy"
+    }
+  },
+  "builds": {
+    "backend": {
+      "exit_code": 0,
+      "runtime_user": "10001"
+    },
+    "frontend": {
+      "exit_code": 0,
+      "runtime_user": "1000",
+      "production_compile_and_typescript": true
+    },
+    "private_build_log_sha256": "bcd54e446b7bc8b020640b3f1bbb871bc6d08793d0e2dac1c1ad0932cb05b5ff"
+  },
+  "frontend_regressions": {
+    "native_tests_passed": 11,
+    "eslint_exit_code": 0,
+    "known_nonfatal_warning": "MODULE_TYPELESS_PACKAGE_JSON"
+  },
+  "source_sha256_lf": {
+    "docker-compose.yml": "7b2fa939beab62ac5d29764165823fd1efdb0494bcfe445e24f8aa9f0892f32e",
+    "compose.host.yml": "ecf9f614b2380264761467129ee315c16e62d0c84c2ef28156403b2221119a39",
+    "Caddyfile": "d1db13c13c5b1b2437c50fe021590539875343cf541d118a99d53536f4a66e8f",
+    "backend/Dockerfile": "da380ccaa50fb78b900a10443d1d1b148a65f851caef1bfbda36b9888f1bc7dd",
+    "backend/.dockerignore": "48759233a18fe330a5e12911cfb80274143e958e775af0c546eca48b405362b5",
+    "frontend/Dockerfile": "8195348dd98f96b89953abe5d62b63e9dbf50dbe4ccad343dfbe338bbec5ab7d",
+    "frontend/.dockerignore": "5e52728bf3c16bf0c613931c7723dda893e2ef9f307a83acfafaedea05c1685f",
+    "frontend/next.config.ts": "00523696c576e65554e42cbd276aecb071f1c2ca16602f8d1cb52753ce25a729",
+    ".env.example": "168d5dd2fc46e423bf266d913294b536df68630e88f6719f715e96f7d94b6214",
+    "Makefile": "0cbe58c21634ce34cb63ab398fd2bb33b9c84f1d19e9171e83e18fcc6d876074",
+    "README.md": "573752b1ffc153537f4f69a5b7598a9bcf862bfabea2abdfc80d5c4d45428d60",
+    "docs/containers.md": "dcf5822b1e52ebda45b898b952e218ecfd9e947aac204368c5916bd7a6e194e9"
+  },
+  "complete": true,
+  "completed_at": "2026-11-09T21:39:04.182888+00:00",
+  "final_text_cleanup": "Removed preexisting trailing spaces from two Makefile target labels; recipe commands and verified runtime configuration are unchanged."
+}

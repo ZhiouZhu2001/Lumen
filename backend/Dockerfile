@@ -2,7 +2,7 @@
 FROM python:3.12-slim
 
 # get the uv tool
-COPY --from=ghcr.io/astral-sh/uv:0.12 /uv /uvx /bin/
+COPY --from=ghcr.io/astral-sh/uv:0.12.15 /uv /uvx /bin/
 
 # All following commands will be run inside the /app directory
 WORKDIR /app
@@ -20,9 +20,13 @@ RUN uv sync --frozen --no-dev --no-install-project
 COPY app ./app
 COPY alembic.ini ./
 COPY alembic ./alembic
+COPY scripts/budget_admin.py ./scripts/budget_admin.py
+
+RUN useradd --uid 10001 --create-home lumen
+USER lumen
 
 # Document the port, and start the server reachable from outside the container
 EXPOSE 8000
 
 # Apply database migrations, then start the server
-CMD ["sh", "-c", "alembic upgrade head && exec uvicorn app.main:app --host 0.0.0.0 --port 8000 --no-proxy-headers"]
+CMD ["sh", "-c", "alembic upgrade head && exec uvicorn app.main:app --host 0.0.0.0 --port 8000 --no-proxy-headers --no-access-log"]

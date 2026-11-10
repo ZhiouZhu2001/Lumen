@@ -2,42 +2,107 @@ services:
   postgres:
     image: pgvector/pgvector:pg17
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
-    ports:
-      - "5434:5432"
+      POSTGRES_USER: ${POSTGRES_USER:?Set POSTGRES_USER in .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:?Set POSTGRES_DB in .env}
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      test: ["CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\""]
       interval: 5s
       timeout: 3s
       retries: 10
-  
+    restart: unless-stopped
+
   redis:
     image: redis:7
-    ports:
-      - "6381:6379"
     healthcheck:
-      test: ["CMD-SHELL","redis-cli ping"]
+      test: ["CMD", "redis-cli", "ping"]
       interval: 5s
       timeout: 3s
       retries: 10
+    restart: unless-stopped
 
   backend:
     build: ./backend
-    ports: 
-      - "8001:8000"
-    env_file: .env
     environment:
       DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       REDIS_URL: redis://redis:6379/0
-    depends_on:                        # wait until both are HEALTHY, not just started
+      SQL_ECHO: "false"
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      GOOGLE_BOOKS_API_KEY: ${GOOGLE_BOOKS_API_KEY:-}
+      LLM_MODEL: ${LLM_MODEL:-openai:gpt-5.4-mini}
+      DAILY_AI_CALL_CAP: ${DAILY_AI_CALL_CAP:-100}
+      TRUSTED_PROXY_IPS: '["${LUMEN_PROXY_IP:-172.30.19.2}"]'
+    networks:
+      default:
+      edge:
+    depends_on:
       postgres:
         condition: service_healthy
       redis:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=5).close()"]
+      interval: 10s
+      timeout: 6s
+      retries: 10
+      start_period: 15s
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    environment:
+      BACKEND_URL: http://backend:8000
+    networks:
+      default:
+      edge:
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/en').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2-alpine
+    environment:
+      LUMEN_SITE_ADDRESS: ${LUMEN_SITE_ADDRESS:-:80}
+    ports:
+      - "${LUMEN_BIND_ADDRESS:-127.0.0.1}:${LUMEN_HTTP_PORT:-8080}:80"
+      - "${LUMEN_BIND_ADDRESS:-127.0.0.1}:${LUMEN_HTTPS_PORT:-8443}:443"
+      - "${LUMEN_BIND_ADDRESS:-127.0.0.1}:${LUMEN_HTTPS_PORT:-8443}:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      edge:
+        ipv4_address: ${LUMEN_PROXY_IP:-172.30.19.2}
+    depends_on:
+      backend:
+        condition: service_healthy
+      frontend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:2019/config/"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+networks:
+  edge:
+    ipam:
+      config:
+        - subnet: ${LUMEN_PROXY_SUBNET:-172.30.19.0/28}
+          ip_range: ${LUMEN_PROXY_DYNAMIC_RANGE:-172.30.19.8/29}
 
 volumes:
   pgdata:
+  caddy_data:
+  caddy_config:

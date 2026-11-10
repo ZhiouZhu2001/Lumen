@@ -7,7 +7,8 @@ const withNextIntl = createNextIntlPlugin();
 const BACKEND_URL = process.env.BACKEND_URL ?? "http://localhost:8001";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Container builds trace a minimal server; native builds keep their workflow.
+  output: process.env.NEXT_OUTPUT_STANDALONE === "1" ? "standalone" : undefined,
   cacheComponents: true,
   partialPrefetching: true,
   experimental: {

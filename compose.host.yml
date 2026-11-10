@@ -1,0 +1,8 @@
+# Optional loopback data ports for the existing native Python/Next.js workflow.
+services:
+  postgres:
+    ports:
+      - "127.0.0.1:5434:5432"
+  redis:
+    ports:
+      - "127.0.0.1:6381:6379"

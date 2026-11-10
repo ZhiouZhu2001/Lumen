@@ -1,13 +1,16 @@
-.PHONY: dev down logs test eval
+.PHONY: dev data down logs test eval
 
 dev:
-	docker compose up -d --build
+	docker compose up -d --build --wait
 
-down: 
+data:
+	docker compose -f docker-compose.yml -f compose.host.yml up -d --wait postgres redis
+
+down:
 	docker compose down
 
-logs: 
-	docker compose logs -f backend
+logs:
+	docker compose logs -f backend frontend caddy
 
 test:
 	cd backend && uv run python -m pytest -q
