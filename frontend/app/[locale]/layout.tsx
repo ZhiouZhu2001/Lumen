@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
 
 import { routing } from "@/i18n/routing";
+import PreferencesProvider from "@/components/PreferencesProvider";
 
 import "../globals.css";
 
@@ -39,7 +40,9 @@ export default async function LocaleLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <PreferencesProvider language={locale}>{children}</PreferencesProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

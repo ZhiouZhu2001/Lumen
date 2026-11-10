@@ -1,42 +1,21 @@
 import type { BookDetails, Language } from "./types.ts";
+import { isBookMetadata, isIsbn13, isRecord, strings } from "./book-schema.ts";
+
+export { isIsbn13 } from "./book-schema.ts";
 
 export type BookDetailsResult =
   | {status: "found"; book: BookDetails}
   | {status: "invalid" | "notFound" | "unavailable"};
 
-export function isIsbn13(value: string): boolean {
-  if (!/^97[89][0-9]{10}$/.test(value)) return false;
-  return [...value].reduce((sum, digit, index) => sum + Number(digit) * (index % 2 ? 3 : 1), 0) % 10 === 0;
-}
-
 export function bookPath(locale: Language, isbn13: string): string {
   return `/${locale}/books/${isbn13}`;
 }
 
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return value !== null && typeof value === "object" && !Array.isArray(value);
-}
-
-function strings(value: unknown): value is string[] {
-  return Array.isArray(value) && value.every(item => typeof item === "string");
-}
-
 function isBookDetails(value: unknown, isbn13: string): value is BookDetails {
-  if (!isRecord(value)) return false;
-  return value.isbn13 === isbn13 && typeof value.title === "string" && value.title.trim().length > 0
-    && strings(value.authors) && strings(value.genres) && strings(value.formats)
+  if (!isRecord(value) || !isBookMetadata(value)) return false;
+  return value.isbn13 === isbn13 && strings(value.genres)
     && (value.language === "en" || value.language === "es") && typeof value.source === "string"
-    && typeof value.fetched_at === "string" && Number.isFinite(Date.parse(value.fetched_at))
-    && (value.description === null || typeof value.description === "string")
-    && (value.cover_url === null || typeof value.cover_url === "string")
-    && (value.page_count === null || (Number.isInteger(value.page_count) && Number(value.page_count) > 0))
-    && (value.published_year === null || Number.isInteger(value.published_year))
-    && (value.rating === null || (isRecord(value.rating) && typeof value.rating.value === "string"
-      && Number.isFinite(Number(value.rating.value)) && Number(value.rating.value) >= 0 && Number(value.rating.value) <= 5
-      && Number.isInteger(value.rating.count) && Number(value.rating.count) >= 0 && typeof value.rating.source === "string"))
-    && Array.isArray(value.links) && value.links.every(link => isRecord(link)
-      && typeof link.store === "string" && typeof link.label === "string"
-      && typeof link.url === "string" && /^https:\/\//.test(link.url) && strings(link.formats));
+    && typeof value.fetched_at === "string" && Number.isFinite(Date.parse(value.fetched_at));
 }
 
 // Used by the server page; the public browser never needs the backend address.

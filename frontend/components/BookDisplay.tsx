@@ -15,11 +15,11 @@ export default function BookDisplay({book, heading = "h2", children}: {
   };
 
   return (
-    <article className="flex gap-4 rounded-lg border border-zinc-200 p-4">
+    <article className="flex gap-3 rounded-lg border border-zinc-200 p-4 sm:gap-4">
       {book.cover_url ? (
-        <Image src={book.cover_url} alt={t("coverAlt", {title: book.title})} width={80} height={120} className="h-[120px] w-[80px] shrink-0 rounded object-cover" />
+        <Image src={book.cover_url} alt={t("coverAlt", {title: book.title})} width={80} height={120} className="h-[96px] w-[64px] shrink-0 rounded object-cover sm:h-[120px] sm:w-[80px]" />
       ) : (
-        <div className="flex h-[120px] w-[80px] shrink-0 items-center justify-center rounded bg-zinc-100 text-xs text-zinc-600">{t("noCover")}</div>
+        <div className="flex h-[96px] w-[64px] shrink-0 items-center justify-center rounded bg-zinc-100 text-xs text-zinc-600 sm:h-[120px] sm:w-[80px]">{t("noCover")}</div>
       )}
       <div className="min-w-0 flex-1 break-words">
         <Heading className={heading === "h1" ? "text-2xl font-semibold" : "font-semibold"}>{book.title}</Heading>
@@ -41,7 +41,7 @@ export default function BookDisplay({book, heading = "h2", children}: {
           <p className="mt-2 whitespace-pre-line break-words text-zinc-600">{book.description}</p>
         </details> : null}
         <div className="mt-3 flex flex-wrap gap-2">
-          {book.links.map(link => <a key={link.store} href={link.url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center rounded border border-zinc-300 px-3 py-2 text-sm hover:bg-zinc-100">{link.label}</a>)}
+          {book.links.map(link => <a key={link.store} href={link.url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 max-w-full items-center rounded border border-zinc-300 px-3 py-2 text-sm hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2">{link.label}</a>)}
         </div>
         <p className="mt-2 text-xs text-zinc-500">{t("channelNote")}</p>
       </div>
