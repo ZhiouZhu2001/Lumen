@@ -162,3 +162,7 @@ See `update_version/Lumen_Update_Version_22.md` for the implementation, compatib
 ### Submission and main-merge authorization, 2026-11-10, Europe/Madrid
 
 The user subsequently requested merging into `main` and starting the next round. This authorizes uploading the reviewed round-22 scope and its main merge. All 19 implementation/test/configuration fingerprints still match the reviewed verification manifest. The author and committer were reverified as `ZhiouZhu2001 <zhiouzhu2001@gmail.com>`, and fetched remote `main` still matches the baseline above. The preceding local-only status describes the earlier checkpoint. Hosted results and the actual merge checkpoint will be recorded after verification; no pull request, release, deployment or paid service is included in this authorization.
+
+### Automatic upload-review result
+
+The functional scope was committed as `9cda2844c50cb5a973331c1258fc62c28b867b66`. Automatic approval review rejected the branch-push request: it interpreted the main-merge instruction as insufficient separate confirmation of this round's branch upload under the repository rules. The preceding authorization paragraph records the attempted interpretation; the rejection controls the pending external action. No push occurred. Explicit confirmation of the round-22 upload and remote-main synchronization was requested; local main integration and the next local round can proceed independently.
