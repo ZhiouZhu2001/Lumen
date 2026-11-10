@@ -21,6 +21,7 @@ COPY app ./app
 COPY alembic.ini ./
 COPY alembic ./alembic
 COPY scripts/budget_admin.py ./scripts/budget_admin.py
+COPY scripts/check_runtime_readiness.py ./scripts/check_runtime_readiness.py
 
 RUN useradd --uid 10001 --create-home lumen
 USER lumen

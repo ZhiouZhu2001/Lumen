@@ -10,6 +10,7 @@
 !app/**
 !scripts/
 !scripts/budget_admin.py
+!scripts/check_runtime_readiness.py
 **/__pycache__/
 **/*.pyc
 **/.env*

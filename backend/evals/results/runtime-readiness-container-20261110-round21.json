@@ -1,0 +1,122 @@
+{
+  "target": "isolated_container_ci",
+  "project": "lumen-container-check-4ca7a98ae3e4",
+  "model_requests": 0,
+  "catalog_requests": 0,
+  "full_live_recommendation_gate": false,
+  "checks": {
+    "isolated_config_and_credentials": true,
+    "production_images_built": true,
+    "five_services_healthy": true,
+    "caddy_validation_nonroot_and_runtime_exclusions": true,
+    "localized_pages_assets_and_api_routing": true,
+    "missing_budget_and_forged_headers_cannot_bypass_hourly_limit": true,
+    "redis_loss_and_restarts_preserve_durable_budget": {
+      "synthetic_floor": 100,
+      "actual_model_attempts": 0
+    },
+    "synthetic_forwarding_identity": true,
+    "synthetic_65_second_sse": {
+      "events": [
+        "status",
+        "done"
+      ],
+      "frame_ms": [
+        34.29,
+        65029.28
+      ],
+      "real_first_book_measurement": false
+    },
+    "owned_resources_removed": true
+  },
+  "image_ids": {
+    "backend": "sha256:e0611c3c286e617c9019fb1b838c24138e99362aed995e6cafa42fadc8e87099",
+    "caddy": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+    "frontend": "sha256:6697af5fbfb1b0c741bb1e68d2ecf9ba0d3938c173e1fd5a824822e7cf009458",
+    "postgres": "sha256:cf134a767f474095eeba57e0117be8e568e011a63f33fbf252f14c9b760f8e6f",
+    "redis": "sha256:c6eabf748fc7a61dbb5a705c78bcf3d6377b1127a97d0ce965c11c44ba46896f"
+  },
+  "passed": true,
+  "runtime_readiness_cases": [
+    {
+      "name": "missing_ledger",
+      "exit_code": 1,
+      "state": "not_ready",
+      "issues": [
+        "budget_requires_operator_review"
+      ],
+      "budget_status": "unknown",
+      "read_only_fingerprint_equal": null
+    },
+    {
+      "name": "known_remaining_budget",
+      "exit_code": 0,
+      "state": "ready",
+      "issues": [],
+      "budget_status": "available",
+      "read_only_fingerprint_equal": true
+    },
+    {
+      "name": "missing_model_key",
+      "exit_code": 1,
+      "state": "not_ready",
+      "issues": [
+        "model_configuration_missing"
+      ],
+      "budget_status": "available",
+      "read_only_fingerprint_equal": true
+    },
+    {
+      "name": "changed_daily_cap",
+      "exit_code": 1,
+      "state": "not_ready",
+      "issues": [
+        "daily_cap_must_be_100"
+      ],
+      "budget_status": "available",
+      "read_only_fingerprint_equal": true
+    },
+    {
+      "name": "known_exhausted_budget",
+      "exit_code": 2,
+      "state": "cached_only",
+      "issues": [],
+      "budget_status": "exhausted",
+      "read_only_fingerprint_equal": true
+    },
+    {
+      "name": "redis_unavailable",
+      "exit_code": 1,
+      "state": "not_ready",
+      "issues": [
+        "redis_unavailable"
+      ],
+      "budget_status": "exhausted",
+      "read_only_fingerprint_equal": true
+    },
+    {
+      "name": "actual_application_budget_after_redis_loss",
+      "exit_code": 2,
+      "state": "cached_only",
+      "issues": [],
+      "budget_status": "exhausted",
+      "read_only_fingerprint_equal": null
+    }
+  ],
+  "test_setup": "A separate disposable fixture database is migrated and raised to synthetic floors 7 and 100 by the existing admin tool. These setup writes are separate from each read-only readiness invocation; no ledger is lowered.",
+  "source_sha256_lf": {
+    "backend/scripts/check_runtime_readiness.py": "2f20f0eae9778b5764c20e43cbb16879143ff77fc2c5ea098e88c63fdeaac2b1",
+    "backend/Dockerfile": "9d59bcc05dd979b4f230a87c549fbbe92e3b81bcb2b48e0ce87ba07754338643",
+    "backend/.dockerignore": "87e926a12e0912df4447020beebb5db30d1c4a5e00353de72e2190e77297e6e9",
+    "backend/scripts/check_container_stack.py": "3946e25dbc91817e039c3e28d3ec824d06e50cba15916dd7d8c782c1af16ba58",
+    "backend/scripts/container_probe.py": "82fe42e72f8813295028f4e469d83d1f2c604a5736a2351c93fa28564e1b9801",
+    "docker-compose.yml": "7b2fa939beab62ac5d29764165823fd1efdb0494bcfe445e24f8aa9f0892f32e",
+    "Caddyfile": "d1db13c13c5b1b2437c50fe021590539875343cf541d118a99d53536f4a66e8f"
+  },
+  "limitations": [
+    "Readiness checks local prerequisites and does not validate the placeholder key remotely.",
+    "Synthetic SSE is not a fresh recommendation quality/latency gate.",
+    "No existing database or real AI key was used."
+  ],
+  "fingerprint_comparison_note": "True denotes an actual before/after comparison for the separate fixture database. Null denotes no separate fingerprint in that CLI case, not a detected change. All eleven readiness integration cases independently compared usage rows and Redis keys before/after."
+}

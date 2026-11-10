@@ -30,6 +30,36 @@ Use a new receipt filename for every administration action. Never use this zero 
 
 Each outbound attempt reserves against an atomic conditional PostgreSQL update and commits before sending. Concurrent workers cannot exceed the cap. SDK retries reserve again; failures are not refunded. A crash between reservation and send may conservatively overcount. The database clock controls UTC rollover. Missing/future-dated state or a database failure blocks new model work.
 
+## Read-only runtime readiness
+
+The existing `/api/health` endpoint checks PostgreSQL and Redis connectivity. It can correctly report healthy while an installation still lacks a verified daily ledger or model key. Before admitting uncached AI work, use this separate operator check from `backend/`:
+
+```console
+uv run python -m scripts.check_runtime_readiness
+```
+
+For a running container stack, the same script is included explicitly in the backend image:
+
+```console
+docker compose exec -T backend python -m scripts.check_runtime_readiness
+```
+
+The command prints a JSON report and returns one of these statuses:
+
+| State | Exit code | Meaning |
+| --- | --- | --- |
+| `ready` | 0 | The database migration marker matches the packaged heads, Redis responds, the cap is 100, model name/key are nonblank and the known allowance has room. |
+| `cached_only` | 2 | Those other local prerequisites pass, but the known current-day allowance is exhausted. Eligible complete cache hits may still work under normal admission/storage rules; no matching cache entry is guaranteed. |
+| `not_ready` | 1 | A required local prerequisite is missing, unavailable, inconsistent or unknown; inspect the issue codes and follow the appropriate runbook. |
+
+Each database, Redis and budget component is bounded by a two-second timeout. Database migration/Redis checks run concurrently; the budget is read only after migration markers match. A missing or future-dated budget is unknown, never a zero allowance. An older-day row can produce a logical current-day zero through the existing budget reader without advancing or changing the stored row. A cap other than 100 is reported as a configuration issue; the command does not change it.
+
+The command performs database reads and Redis PING only. It does not migrate, initialize, import, block, reserve, refund, clear keys or create search/IP history. Explicit administration actions above remain separate and still require stopped workers and verified usage evidence. The command suppresses SQL echo and reports safe statuses/error kinds rather than raw validation/driver errors, connection URLs or key values. Its model section reports presence only and always marks remote credentials as unverified. Google Books credentials are optional and do not become a new readiness requirement.
+
+`ready` covers local prerequisites for the configured uncached AI path. It does not establish provider authentication/quota, catalog availability, complete database integrity, recommendation quality, DNS/TLS, production client visibility or backup recovery. The migration check compares the revision marker; use the existing migration/model check and recovery verification for their separate purposes. A missing model key can yield `not_ready` even though a particular cached or legacy keyword request remains usable.
+
+Do not replace the existing container health checks with this command: routine daily exhaustion is an expected operating state, not a reason to classify a live process as unhealthy. Use it as an operator diagnostic after setup/recovery and when investigating maintenance responses. A successful diagnostic does not authorize release or public traffic.
+
 ## Private backups and restore verification
 
 From `backend/`, with Docker and the configured local Compose PostgreSQL service available:

@@ -44,11 +44,13 @@ This retains the existing `.env` database/Redis URLs on ports 5434/6381. `make d
 
    Open [Spanish](http://127.0.0.1:8080/es), [English](http://127.0.0.1:8080/en) and [API health](http://127.0.0.1:8080/api/health). `make dev` starts the same stack. Health proves dependency connectivity, not allowance initialization or real model/catalog availability; missing budget state still rejects uncached AI work.
 
+6. Run `docker compose exec -T backend python -m scripts.check_runtime_readiness` to inspect local migration, Redis, model-configuration and allowance readiness. It reads only and returns 0 (`ready`), 2 (`cached_only`) or 1 (`not_ready`). The [runtime readiness guide](operations.md#read-only-runtime-readiness) explains each state and its limits. It does not replace initialization, validate remote keys or certify the public deployment.
+
 ## Images and routing
 
 The frontend builds locked dependencies with Node 24 in Linux. `NEXT_OUTPUT_STANDALONE=1` enables Next.js output tracing only for the container build; native `npm run build` keeps its existing behavior. The runtime contains the traced server, static assets and public files, and runs as the existing non-root `node` user. This follows the [Next.js standalone output guidance](https://nextjs.org/docs/app/api-reference/config/next-config-js/output). The frontend receives only `BACKEND_URL=http://backend:8000`; model/database credentials belong exclusively to the backend. This backend origin is also baked into Next.js rewrites at build time, so changing the service origin requires rebuilding the image, not just changing runtime environment.
 
-The backend uses the locked Python dependencies and uv 0.12.15. It runs as UID 10001, applies migrations before Uvicorn and disables Uvicorn proxy rewriting/access logs. The admin command is copied explicitly; tests, reports, caches and local environments are excluded from the image. Both Docker contexts allow only relevant inputs. Changing an allowlist is necessary when adding a new top-level build/runtime directory.
+The backend uses the locked Python dependencies and uv 0.12.15. It runs as UID 10001, applies migrations before Uvicorn and disables Uvicorn proxy rewriting/access logs. The budget admin and read-only runtime readiness commands are copied explicitly; tests, reports, transport probes, caches and local environments are excluded from the image. Both Docker contexts allow only relevant inputs. Changing an allowlist is necessary when adding a new top-level build/runtime directory.
 
 The browser sends all traffic to Caddy. `/api` and `/api/*` reach FastAPI directly with their path intact; other paths reach Next.js. Saved-book pages use the private backend URL for server rendering. The native Next.js proxy remains available for native development and retains its 70-second timeout.
 
