@@ -4,8 +4,10 @@ import asyncio
 import hashlib
 import json
 import socket
+from contextlib import asynccontextmanager
 from datetime import UTC, datetime
 from time import perf_counter
+from uuid import uuid4
 
 import httpx
 import uvicorn
@@ -16,21 +18,71 @@ from app.api.search import router
 from app.config import get_settings
 from app.filters import SearchFilters, matches_metadata
 from app.main import lifespan
+from app.observability import current_search_metrics
+from app.usage import UsageUnavailable
 from evals.checks import CHECK_NAMES, EvalLink, evaluate_case, gate_passed, load_suite
 from evals.run import code_fingerprints, revision_info, run_case, save_report, summarize
 
 
+@asynccontextmanager
+async def evaluation_lifespan(app, *, hourly_namespace=None):
+    async with lifespan(app):
+        if hourly_namespace is not None:
+            # Only Redis hourly admission is isolated. Preserve the original
+            # DailyBudget object used by the API and outbound model transport.
+            app.state.usage.namespace = hourly_namespace
+        yield
+
+
+async def budget_snapshot(budget):
+    try:
+        async with asyncio.timeout(2):
+            return {"status": "known", **await budget.snapshot()}
+    except (UsageUnavailable, OSError, TimeoutError):
+        return {"status": "unknown"}
+
+
+def budget_delta(before, after):
+    if before.get("status") != "known" or after.get("status") != "known":
+        return {"status": "unknown", "attempts": None}
+    if before["utc_day"] != after["utc_day"]:
+        return {"status": "utc_rollover", "attempts": None}
+    difference = after["used"] - before["used"]
+    if difference < 0:
+        return {"status": "inconsistent", "attempts": None}
+    return {"status": "same_utc_day", "attempts": difference}
+
+
 async def run_http_live(
-    suite_path, output, timeout, *, frontend_url=None, backend_port=0
+    suite_path,
+    output,
+    timeout,
+    *,
+    frontend_url=None,
+    backend_port=0,
+    isolate_hourly=False,
 ):
     suite = load_suite(suite_path)
     evidence = {}
-    app = FastAPI(lifespan=lifespan)
+    hourly_namespace = "lumen:eval:hourly:" + uuid4().hex if isolate_hourly else None
+
+    @asynccontextmanager
+    async def live_lifespan(app):
+        async with evaluation_lifespan(app, hourly_namespace=hourly_namespace):
+            yield
+
+    app = FastAPI(lifespan=live_lifespan)
     app.include_router(router)
     app.include_router(health_router)
 
     def capture(search_id, state, cards, lookups, error_code):
-        evidence[search_id] = (state, cards, lookups, error_code)
+        evidence[search_id] = (
+            state,
+            cards,
+            lookups,
+            error_code,
+            current_search_metrics(),
+        )
 
     app.state.search_observer = capture
     sock = socket.socket()
@@ -44,6 +96,7 @@ async def run_http_live(
     results = []
     report = {
         "report_version": 2,
+        "runtime_evidence_version": 1,
         "started_at": datetime.now(UTC).isoformat(),
         "completed_at": None,
         "target": "frontend_http_sse_loopback" if frontend_url else "http_sse_loopback",
@@ -53,6 +106,14 @@ async def run_http_live(
         "model": get_settings().llm_model,
         "daily_ai_call_cap": get_settings().daily_ai_call_cap,
         "usage_day_timezone": "UTC",
+        "isolation": {
+            "hourly_counter_isolated": isolate_hourly,
+            "hourly_namespace": hourly_namespace,
+            "daily_budget_shared": True,
+            "cache_policy": "Existing shared caches retained; complete-result reuse measured per case; individual catalog-cache reuse is not fully tracked",
+        },
+        "budget_before": {"status": "not_checked"},
+        "budget_after": {"status": "not_checked"},
         "revision": revision_info(),
         "code_sha256": code_fingerprints(),
         "expected_cases": 20,
@@ -71,6 +132,8 @@ async def run_http_live(
                     await task
                     raise RuntimeError("Evaluation HTTP server did not start")
                 await asyncio.sleep(0.05)
+        report["budget_before"] = await budget_snapshot(app.state.daily_budget)
+        save_report(output, report)
         async with httpx.AsyncClient(
             base_url=frontend_url or f"http://127.0.0.1:{port}", timeout=timeout
         ) as client:
@@ -81,6 +144,7 @@ async def run_http_live(
                 first_event_ms = None
                 content_encoding = None
                 protocol_error = None
+                http_status = None
                 try:
                     async with asyncio.timeout(timeout):
                         async with client.stream(
@@ -95,6 +159,7 @@ async def run_http_live(
                                 ),
                             },
                         ) as response:
+                            http_status = response.status_code
                             response.raise_for_status()
                             content_encoding = response.headers.get("content-encoding")
                             if not response.headers.get("content-type", "").startswith(
@@ -145,7 +210,7 @@ async def run_http_live(
                         },
                     }
                 else:
-                    state, cards, lookups, error_code = captured
+                    state, cards, lookups, error_code, metrics = captured
 
                     class CapturedGraph:
                         async def ainvoke(self, _, captured_state=state):
@@ -190,15 +255,26 @@ async def run_http_live(
                             "first_book_sse_ms": first_ms,
                             "cards": wire_cards,
                             "channel_lookups": lookups,
+                            "runtime_usage": metrics,
+                            "result_cache_hit": metrics["cache_hit"]
+                            if metrics
+                            else None,
                             "events": events,
                             "checks": {
                                 name: c.model_dump() for name, c in checks.items()
                             },
                         }
                     )
+                result["http_status"] = http_status
+                result.setdefault("runtime_usage", None)
+                result.setdefault("result_cache_hit", None)
                 results.append(result)
                 report["completed_cases"] = len(results)
                 report["summary"] = summarize(results)
+                report["budget_after"] = await budget_snapshot(app.state.daily_budget)
+                report["budget_delta"] = budget_delta(
+                    report["budget_before"], report["budget_after"]
+                )
                 save_report(output, report)
                 statuses = ", ".join(
                     f"{name}={c['status']}" for name, c in result["checks"].items()

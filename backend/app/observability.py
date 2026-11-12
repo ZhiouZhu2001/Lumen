@@ -141,6 +141,18 @@ def bind_search(trace):
         _search.reset(token)
 
 
+def current_search_metrics():
+    """Return a detached diagnostic projection for the local evaluation observer."""
+    trace = _search.get()
+    if trace is None:
+        return None
+    return {
+        "cache_hit": trace.cache_hit,
+        "model_calls": trace.model_calls,
+        "model_attempts": trace.model_attempts,
+    }
+
+
 def search_started(trace):
     with bind_search(trace):
         logger.info("search_started", extra={"cache_hit": trace.cache_hit})

@@ -35,21 +35,23 @@ the timeout with `--timeout SECONDS` if needed; this does not change the
 15-second first-book requirement.
 
 The HTTP evaluator uses the application's real Redis caches, hourly search limit,
-daily model-request cap and PostgreSQL persistence. Twenty queries consume the
-entire per-IP hourly allowance; repeated runs can legitimately receive 429s.
-For an isolated evaluation, select an empty dedicated local Redis logical
-database through the process environment, keep the same active policy settings,
-and retain that isolation and the resulting counters alongside the report.
-Actual provider attempts from an isolated test database must also be charged to
-the normal shared daily allowance when the same credentials are used. Retain a
-one-time reconciliation receipt and before/after counts; do not send additional
-model requests or reset existing counters to perform that accounting.
-Never clear interactive usage keys or raise the cap to hide a denied run. A cold
-run means no initial evaluation cache entries, while repeated catalog parameters
-within the run may still benefit from the specified caches. Full result hits do
-not establish new model execution. The graph-only diagnostic does not pass
-through HTTP admission or the guarded provider transport and is not a substitute
-for this HTTP gate.
+shared PostgreSQL daily model-attempt allowance and PostgreSQL persistence.
+Twenty queries consume the entire per-IP hourly allowance; repeated runs can
+legitimately receive 429s. To keep evaluation admission separate from interactive
+IP counters, append `--isolate-hourly` to the HTTP command. This creates a unique
+expiring Redis hourly namespace with the same 20-search limit. It retains the
+original `DailyBudget` object, database and 100-attempt cap. Every outbound model
+attempt, including a retry, is still reserved and committed in the same singleton
+before sending. No later reconciliation or independent spending allowance is
+created. Existing interactive keys and caches are not cleared or copied.
+
+Never select a new PostgreSQL database, reset a ledger, refund failed attempts or
+raise the cap to obtain more evaluation allowance. Keep the normal daily budget
+even when separating Redis test data. Full result hits do not establish new model
+execution, and retained parse/catalog caches mean that a result-cache miss alone
+does not establish a fully cold run. The graph-only diagnostic cannot substitute
+for the guarded HTTP gate. See `../../docs/live-acceptance.md` for preparation and
+the limits of these measurements.
 
 To isolate cache/hourly test data while directly consuming the normal shared AI
 counter, stop the regular backend and use an empty dedicated Redis database:
@@ -61,7 +63,7 @@ uv run python -m scripts.run_isolated_eval --redis-db 14 --output evals/results/
 The helper copies only real cache entries for the current application version
 and catalog caches, preserving TTLs. It never copies or clears IP counters, and
 uses the unchanged production `UsageGuards` methods for both policies. The normal
-Redis database remains the sole daily model-attempt counter, including retries.
+PostgreSQL singleton remains the sole daily model-attempt counter, including retries.
 The test database retains its own active 20-per-IP hourly policy. Both initial
 cache hits and counter values are recorded; a cache-aware retry is not a cold
 model-quality or latency claim. On Windows, a process-scoped execution request
@@ -200,6 +202,19 @@ ranking input, proposed picks, accepted picks and validation feedback. The
 top-level shortlist/input comes from the final actual round, not a reconstruction
 of the first 30 accumulated candidates. `model_calls` counts logical structured
 model invocations, not catalog requests or transport retries within a provider SDK.
+
+HTTP reports with `runtime_evidence_version: 1` retain report format version 2
+and add read-only budget snapshots before the run and after each completed case.
+The final `budget_after` is the last such snapshot. `budget_delta` reports a
+difference only for known, nondecreasing counts within one UTC day; unknown
+storage, UTC rollover or a decreasing count cannot produce a claimed attempt
+total. Concurrent workers may contribute to the shared difference.
+Per-case `runtime_usage` contains observed logical model calls, actual reserved
+transport attempts and complete-result cache reuse. `result_cache_hit` is null
+when no observer evidence exists, rather than inventing a cache miss or zero
+attempts. Reports also retain HTTP status and the actual hourly namespace and
+cache policy. These diagnostics do not modify the six checks or authorize a
+provider call; the durable ledger remains authoritative.
 
 Initial parsing now declares whether the input has meaningful reading intent.
 Unintelligible input returns zero picks without catalog calls or broadening;

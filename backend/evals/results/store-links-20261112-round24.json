@@ -1,0 +1,124 @@
+{
+  "report_version": 1,
+  "full_suite": false,
+  "source_report": "eval-live-20261112-round24-initial.json",
+  "source_sha256": "f98ce91cf7bb2ae2258ef67311b1b7e0a62cbd15b9c6115dfde07151379d30aa",
+  "checked_at": "2026-11-12T21:39:25.320805+00:00",
+  "scope": "One emitted link per store and language; read-only bounded headers; no stock or product-page claim",
+  "max_concurrency": 3,
+  "timeout_seconds_per_sample": 12,
+  "summary": {
+    "http_reachable": 7
+  },
+  "results": [
+    {
+      "store": "amazon_es",
+      "language": "en",
+      "case_id": "en_fantasy",
+      "isbn13": "9781913695354",
+      "url": "https://www.amazon.es/s?k=9781913695354",
+      "checked_at": "2026-11-12T21:39:17.679112+00:00",
+      "method": "GET headers after HEAD 405",
+      "redirects": [],
+      "status": "http_reachable",
+      "inventory_verified": false,
+      "http_status": 200,
+      "final_url": "https://www.amazon.es/s?k=9781913695354",
+      "detail": "Headers reachable; product relevance, stock and challenge-page content were not verified"
+    },
+    {
+      "store": "apple_books",
+      "language": "en",
+      "case_id": "en_fantasy",
+      "isbn13": "9781429913416",
+      "url": "https://books.apple.com/es/book/the-ring-of-five-dragons/id441897212?uo=4",
+      "checked_at": "2026-11-12T21:39:17.843394+00:00",
+      "method": "HEAD",
+      "redirects": [],
+      "status": "http_reachable",
+      "inventory_verified": false,
+      "http_status": 200,
+      "final_url": "https://books.apple.com/es/book/the-ring-of-five-dragons/id441897212?uo=4",
+      "detail": "Headers reachable; product relevance, stock and challenge-page content were not verified"
+    },
+    {
+      "store": "amazon_es",
+      "language": "es",
+      "case_id": "es_fantasy",
+      "isbn13": "9798760942470",
+      "url": "https://www.amazon.es/s?k=9798760942470",
+      "checked_at": "2026-11-12T21:39:17.843988+00:00",
+      "method": "GET headers after HEAD 405",
+      "redirects": [],
+      "status": "http_reachable",
+      "inventory_verified": false,
+      "http_status": 200,
+      "final_url": "https://www.amazon.es/s?k=9798760942470",
+      "detail": "Headers reachable; product relevance, stock and challenge-page content were not verified"
+    },
+    {
+      "store": "casa_del_libro",
+      "language": "es",
+      "case_id": "es_fantasy",
+      "isbn13": "9798760942470",
+      "url": "https://www.casadellibro.com/?query=9798760942470",
+      "checked_at": "2026-11-12T21:39:17.844539+00:00",
+      "method": "HEAD",
+      "redirects": [],
+      "status": "http_reachable",
+      "inventory_verified": false,
+      "http_status": 200,
+      "final_url": "https://www.casadellibro.com/?query=9798760942470",
+      "detail": "Headers reachable; product relevance, stock and challenge-page content were not verified"
+    },
+    {
+      "store": "abacus",
+      "language": "es",
+      "case_id": "es_fantasy",
+      "isbn13": "9798760942470",
+      "url": "https://www.abacus.coop/es/busqueda?q=9798760942470",
+      "checked_at": "2026-11-12T21:39:17.844539+00:00",
+      "method": "HEAD",
+      "redirects": [
+        "https://www.abacus.coop/es/busqueda?q=9798760942470&noresults=true"
+      ],
+      "status": "http_reachable",
+      "inventory_verified": false,
+      "http_status": 200,
+      "final_url": "https://www.abacus.coop/es/busqueda?q=9798760942470&noresults=true",
+      "detail": "Headers reachable; product relevance, stock and challenge-page content were not verified"
+    },
+    {
+      "store": "apple_books",
+      "language": "es",
+      "case_id": "es_fantasy",
+      "isbn13": "9781632915337",
+      "url": "https://books.apple.com/es/book/un-reino-de-sombras-reyes-y-hechiceros-libro-5/id1072529361?uo=4",
+      "checked_at": "2026-11-12T21:39:17.844539+00:00",
+      "method": "HEAD",
+      "redirects": [],
+      "status": "http_reachable",
+      "inventory_verified": false,
+      "http_status": 200,
+      "final_url": "https://books.apple.com/es/book/un-reino-de-sombras-reyes-y-hechiceros-libro-5/id1072529361?uo=4",
+      "detail": "Headers reachable; product relevance, stock and challenge-page content were not verified"
+    },
+    {
+      "store": "norma_comics",
+      "language": "es",
+      "case_id": "es_manga",
+      "isbn13": "9788484494072",
+      "url": "https://www.normacomics.com/catalogsearch/result/?q=9788484494072",
+      "checked_at": "2026-11-12T21:39:17.844539+00:00",
+      "method": "HEAD",
+      "redirects": [
+        "https://www.normacomics.com/search/9788484494072"
+      ],
+      "status": "http_reachable",
+      "inventory_verified": false,
+      "http_status": 200,
+      "final_url": "https://www.normacomics.com/search/9788484494072",
+      "detail": "Headers reachable; product relevance, stock and challenge-page content were not verified"
+    }
+  ]
+}

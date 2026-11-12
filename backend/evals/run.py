@@ -305,6 +305,11 @@ def main() -> int:
     parser.add_argument("--suite", type=Path, default=DEFAULT_SUITE)
     parser.add_argument("--output", type=Path)
     parser.add_argument(
+        "--isolate-hourly",
+        action="store_true",
+        help="Isolate evaluation IP admission only; keep the shared PostgreSQL AI budget and existing caches",
+    )
+    parser.add_argument(
         "--frontend-url", help="Measure through an already running loopback frontend"
     )
     parser.add_argument(
@@ -357,6 +362,8 @@ def main() -> int:
     if output.exists():
         parser.error("The output file already exists; choose a new report path")
     if args.graph_only:
+        if args.isolate_hourly:
+            parser.error("Hourly isolation is available only for HTTP evaluation")
         return asyncio.run(run_live(args.suite, output, args.timeout))
     from evals.http_run import run_http_live
 
@@ -367,6 +374,7 @@ def main() -> int:
             args.timeout,
             frontend_url=args.frontend_url,
             backend_port=args.backend_port,
+            isolate_hourly=args.isolate_hourly,
         )
     )
 
