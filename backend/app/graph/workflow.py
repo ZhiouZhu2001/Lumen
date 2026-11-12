@@ -23,6 +23,7 @@ from app.graph.rank import (
 from app.graph.search import search_candidates
 from app.graph.state import MAX_RETRIES, MIN_PICKS, SearchState, route_after_ranking
 from app.llm import LLMError
+from app.observability import instrument_node
 from app.reading_intent import matches_reader_type
 from app.sources.descriptions import enrich_descriptions
 from app.sources.merge import merge_candidates
@@ -241,10 +242,10 @@ def build_graph(
 
     builder = StateGraph(SearchState)
 
-    builder.add_node("parse_query", parse_node)
-    builder.add_node("search", search_node)
-    builder.add_node("broaden", broaden_node)
-    builder.add_node("rank_and_explain", rank_node)
+    builder.add_node("parse_query", instrument_node("parse_query", parse_node))
+    builder.add_node("search", instrument_node("search", search_node))
+    builder.add_node("broaden", instrument_node("broaden", broaden_node))
+    builder.add_node("rank_and_explain", instrument_node("rank_and_explain", rank_node))
 
     builder.add_edge(START, "parse_query")
     builder.add_edge("parse_query", "search")

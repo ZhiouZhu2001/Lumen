@@ -90,10 +90,8 @@ def parse_open_library(
     for doc in payload.get("docs", []):
         try:
             book = _parse_doc(doc, language)
-        except ValidationError as e:
-            logger.warning(
-                "Skipping invalid Open Library doc %s: %s", doc.get("key"), e
-            )
+        except ValidationError:
+            logger.warning("catalog_item_invalid", extra={"source": "open_library"})
             continue
         if book is not None:
             books.append(book)

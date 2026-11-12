@@ -14,6 +14,7 @@ from app.cache import JsonCache
 from app.config import Settings, get_settings
 from app.graph.parse_query import ParsedQuery
 from app.llm import ask_structured
+from app.observability import SearchTrace, bind_search
 from app.search_cache import SearchCache, cache_key
 from app.usage import BudgetTransport, UsageGuards, UsageLimited
 from integration_tests.test_daily_budget import initialized_budget
@@ -164,12 +165,15 @@ async def test_actual_sdk_retries_are_each_charged_before_transport(
             http_async_client=client,
             max_retries=2,
         )
-        if cap == 1:
-            with pytest.raises(UsageLimited):
-                await ask_structured(model, ParsedQuery, "system", "request")
-        else:
-            result = await ask_structured(model, ParsedQuery, "system", "request")
-            assert result.searches == ["novela mar"]
+        trace = SearchTrace(str(uuid4()))
+        with bind_search(trace):
+            if cap == 1:
+                with pytest.raises(UsageLimited):
+                    await ask_structured(model, ParsedQuery, "system", "request")
+            else:
+                result = await ask_structured(model, ParsedQuery, "system", "request")
+                assert result.searches == ["novela mar"]
+        assert trace.model_calls == 1 and trace.model_attempts == cap
     assert len(requests) == cap
 
 

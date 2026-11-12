@@ -58,7 +58,5 @@ class BookRefresh:
                         if updated is not None:
                             return updated
             except (RedisError, OSError, TimeoutError, StorageUnavailable, ValueError):
-                logger.warning(
-                    "book_refresh_unavailable", extra={"isbn13": book.isbn13}
-                )
+                logger.warning("book_refresh_unavailable")
         return book

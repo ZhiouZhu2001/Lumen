@@ -138,7 +138,7 @@ def validate_picks(
         reason = model_pick.reason.strip()
         if isbn13 not in allowed:
             # The core rule: the AI may never recommend a book we didn't retrieve
-            logger.warning("Dropping pick with unknown ISBN %r", model_pick.isbn13)
+            logger.warning("unknown_candidate_rejected")
             feedback.append(
                 "Copy a valid 13-digit ISBN exactly from the supplied candidates; do not add a prefix."
             )

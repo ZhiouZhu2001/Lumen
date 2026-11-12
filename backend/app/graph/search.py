@@ -25,7 +25,18 @@ async def _try_source(
         return await search
     except (httpx.HTTPError, ValueError) as e:
         # httpx errors, or a response that isn't valid JSON (ValueError)
-        logger.warning("%s search failed: %s: %s", name, type(e).__name__, e)
+        logger.warning(
+            "catalog_search_failed",
+            extra={
+                "source": {
+                    "Google Books": "google_books",
+                    "Open Library": "open_library",
+                }.get(name),
+                "status_code": getattr(
+                    getattr(e, "response", None), "status_code", None
+                ),
+            },
+        )
         return None
 
 

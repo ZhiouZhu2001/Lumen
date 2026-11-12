@@ -1,0 +1,11 @@
+[Unit]
+Description=Proposed daily Lumen backup verification
+
+[Timer]
+OnCalendar=*-*-* 03:15:00 UTC
+RandomizedDelaySec=10m
+Persistent=true
+Unit=lumen-backup.service
+
+[Install]
+WantedBy=timers.target

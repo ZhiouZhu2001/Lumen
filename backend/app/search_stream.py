@@ -13,6 +13,7 @@ from app.graph.rank import ModelPick, ModelPicks, validate_picks
 from app.graph.search import UpstreamUnavailable
 from app.graph.state import SearchState
 from app.llm import LLMError
+from app.observability import SearchTrace, bind_search, search_finished, search_started
 from app.repository import SearchRepository, StorageUnavailable
 from app.search_cache import CompletedSearch, SearchCache
 from app.sources.schemas import Language
@@ -45,7 +46,31 @@ class SearchStream:
         self.cached = cached
 
     async def events(self, query: str, language: Language, filters: SearchFilters):
-        search_id = str(uuid4())
+        trace = SearchTrace(str(uuid4()), cache_hit=self.cached is not None)
+        stream = self._events(query, language, filters, trace)
+        search_started(trace)
+        try:
+            while True:
+                # Bind only while executing the iterator, never across a yield.
+                # Closing or interleaving generators in another task stays safe.
+                with bind_search(trace):
+                    try:
+                        frame = await anext(stream)
+                    except StopAsyncIteration:
+                        break
+                yield frame
+        except Exception:
+            trace.outcome = "failed"
+            raise
+        finally:
+            with bind_search(trace):
+                try:
+                    await stream.aclose()
+                finally:
+                    search_finished(trace)
+
+    async def _events(self, query, language, filters, trace):
+        search_id = trace.search_id
         started = perf_counter()
         state = SearchState(
             query=query,
@@ -135,6 +160,7 @@ class SearchStream:
                         if self.cached is not None:
                             card = self.cached.cards[pick.rank - 1]
                             emitted.append(card)
+                            trace.book_count = len(emitted)
                             yield encode_event("book", card.model_dump(mode="json"))
                             continue
                         book = next(
@@ -145,6 +171,7 @@ class SearchStream:
                         )
                         card = batch.cards[0].model_copy(update={"rank": pick.rank})
                         emitted.append(card)
+                        trace.book_count = len(emitted)
                         lookups.update(batch.lookups)
                         yield encode_event("book", card.model_dump(mode="json"))
                 if self.repository is not None:
@@ -203,6 +230,11 @@ class SearchStream:
             )
         if self.observer is not None:
             self.observer(search_id, state, emitted, lookups, error_code)
+        trace.book_count = len(emitted)
+        trace.error_code = error_code
+        trace.outcome = (
+            "failed" if error_code not in (None, "no_results") else "completed"
+        )
         yield encode_event(
             "done",
             {

@@ -13,6 +13,7 @@ from app.config import get_settings
 from app.daily_budget import DailyBudget
 from app.db import make_engine
 from app.http_client import make_http_client
+from app.observability import configure_logging
 from app.repository import SearchRepository
 from app.search_cache import SearchCache
 from app.usage import BudgetTransport, UsageGuards
@@ -20,6 +21,7 @@ from app.usage import BudgetTransport, UsageGuards
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    configure_logging()
     # Initialize resources here
     settings = get_settings()
     app.state.engine = make_engine(settings.database_url, echo=settings.sql_echo)

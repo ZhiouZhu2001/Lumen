@@ -5,6 +5,8 @@ from ipaddress import ip_address, ip_network
 import httpx
 from redis.exceptions import RedisError
 
+from app.observability import model_attempt_reserved
+
 
 class UsageUnavailable(Exception):
     """A required safeguard could not be checked."""
@@ -105,6 +107,7 @@ class BudgetTransport(httpx.AsyncBaseTransport):
 
     async def handle_async_request(self, request):
         await self.guards.consume_ai()
+        model_attempt_reserved()
         return await self.transport.handle_async_request(request)
 
     async def aclose(self):

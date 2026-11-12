@@ -46,6 +46,6 @@ class JsonCache:
 async def check_redis(client: Redis) -> bool:
     try:
         return await client.ping()
-    except Exception as e:  # noqa: BLE001 - any failure means "down"
-        logger.warning("Redis health check failed: %s", e)
+    except Exception:  # noqa: BLE001 - any failure means "down"
+        logger.warning("redis_health_unavailable")
         return False

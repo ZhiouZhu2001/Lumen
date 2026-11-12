@@ -3,6 +3,7 @@ from langchain_core.language_models import BaseChatModel
 from pydantic import BaseModel
 
 from app.config import get_settings
+from app.observability import model_call
 
 
 class LLMError(Exception):
@@ -26,6 +27,16 @@ def create_chat_model(*, http_client) -> BaseChatModel:
 
 
 async def ask_structured[T: BaseModel](
+    model: BaseChatModel,
+    schema: type[T],
+    system: str,
+    user: str,
+) -> T:
+    with model_call():
+        return await _ask_structured(model, schema, system, user)
+
+
+async def _ask_structured[T: BaseModel](
     model: BaseChatModel,
     schema: type[T],
     system: str,

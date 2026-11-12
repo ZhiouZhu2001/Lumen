@@ -46,10 +46,8 @@ def parse_google_books(
     for item in payload.get("items", []):
         try:
             book = _parse_volume(item, language)
-        except ValidationError as e:
-            logger.warning(
-                "Skipping invalid Google Books item %s: %s", item.get("id"), e
-            )
+        except ValidationError:
+            logger.warning("catalog_item_invalid", extra={"source": "google_books"})
             continue
         if book is not None:
             books.append(book)

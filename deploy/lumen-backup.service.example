@@ -1,0 +1,23 @@
+[Unit]
+Description=Verify a private Lumen database backup
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+User=lumen
+Group=lumen
+WorkingDirectory=/srv/lumen/backend
+EnvironmentFile=/etc/lumen/backup.env
+Environment=COMPOSE_PROJECT_NAME=lumen
+Environment=COMPOSE_FILE=/srv/lumen/docker-compose.yml:/srv/lumen/compose.backup.yml
+Environment=COMPOSE_ENV_FILES=/srv/lumen/.env
+Environment=UV_NO_SYNC=1
+UMask=0077
+RuntimeDirectory=lumen-backup
+RuntimeDirectoryMode=0700
+StateDirectory=lumen-backup
+StateDirectoryMode=0700
+NoNewPrivileges=true
+TimeoutStartSec=1800
+ExecStart=/usr/bin/flock --nonblock /run/lumen-backup/backup.lock /usr/local/bin/uv run --no-sync python -m scripts.backup_database --directory /var/lib/lumen-backup

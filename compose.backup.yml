@@ -1,0 +1,5 @@
+# Optional host-backup access only. Review before enabling on a production host.
+services:
+  postgres:
+    ports:
+      - "127.0.0.1:${LUMEN_BACKUP_PG_PORT:-5434}:5432"
