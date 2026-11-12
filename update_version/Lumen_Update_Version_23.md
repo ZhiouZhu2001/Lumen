@@ -178,3 +178,7 @@ See `update_version/Lumen_Update_Version_23.md`, `docs/observability.md` and `do
 ### Submission preparation, 2026-11-12, Europe/Madrid
 
 The user requested merging this round into `main` and starting the next task. All 23 implementation/configuration/documentation fingerprints were rechecked and matched the reviewed manifest; the 24-file scope is unchanged apart from this submission-status addition. Author and committer identities were verified as the project owner's configured identity. Remote `main` still matches the known baseline. The reviewed local commit can be prepared immediately; separate confirmation of this round's GitHub branch upload and remote-main synchronization was requested in accordance with the repository's upload rule and the preceding round's automatic-review requirement. No production deployment or scheduler activation is included.
+
+### Explicit upload confirmation
+
+The functional scope was committed locally as `4b7866574ae50e12b1997b869fb685ec12447d3e`. The user then explicitly confirmed uploading the reviewed round-23 branch and synchronizing remote `main` after successful hosted checks. This confirmation covers this scope and its submission receipts, not the next round's substantive changes, public deployment or timer activation. Hosted results and the final main checkpoint will be recorded in the next round's handoff record after completion.
