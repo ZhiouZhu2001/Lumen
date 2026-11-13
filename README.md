@@ -81,7 +81,7 @@ Local reproduction uses the commands below. A successful local run is separate e
 
 From `backend/`, run `uv run python -m pytest -q` and `uv run ruff check app scripts tests evals integration_tests`. From `frontend/`, run `npm test`, `npm run lint` and `npm run build`. The native stream-parser tests require Node TypeScript-stripping support.
 
-Run the explicit PostgreSQL integration checks from `backend/` with `uv run python -m pytest -q integration_tests`. They use the configured local database, or `LUMEN_TEST_DATABASE_URL` when supplied, and require permission to create schemas. Each test creates and removes its own uniquely named schema; the public tables are left intact. These checks include atomic rollback, foreign keys, concurrent saves, cancellation, API wiring and persistence of all 20 previously captured evaluation cases. Replaying captured cases is separate from a fresh live evaluation and does not measure new model quality or latency.
+Run the explicit PostgreSQL integration checks from `backend/` with `uv run python -m pytest -q integration_tests`. They use the configured local database, or `LUMEN_TEST_DATABASE_URL` when supplied, and require permission to create schemas. Each test creates and removes its own uniquely named schema; the public tables are left intact. These checks include atomic rollback, foreign keys, concurrent saves, cancellation and API wiring. All 20 historical evaluation cases remain covered: 17 valid searches persist with real foreign keys, while three explicitly identified evidence-incompatible searches are rejected atomically. Replaying captured cases is separate from a fresh live evaluation and does not measure new model quality or latency.
 
 `make eval` runs 20 real English/Spanish searches through a loopback backend and retains candidate evidence and actual first-book HTTP timings. It uses the configured APIs and model. To include the running frontend's forwarding/compression path, keep the frontend running, stop the standalone backend on port 8001, and run from `backend/`:
 
@@ -90,6 +90,14 @@ uv run python -m evals.run --live --frontend-url http://127.0.0.1:3000 --backend
 ```
 
 The evaluator owns its temporary backend on that port and closes it after the run; restart the normal backend afterwards. See [evaluation documentation](backend/evals/README.md) for report replay, approved niche-case criteria and historical suites.
+
+To audit an existing complete HTTP capture without model, catalog or database
+calls, run `uv run python -m scripts.check_acceptance_evidence --report <capture.json>`
+from `backend/`. The [evidence audit](docs/acceptance-evidence.md) checks current
+source/suite identity, actual delivery, replayed checks and retained timing/usage
+consistency. It handles only uniform Git LF/CRLF conversion; other source changes
+still require new acceptance. A verified audit is not a new live run or release
+approval.
 
 The frontend proxy timeout is 70 seconds so it can carry the backend's 60-second search deadline and terminal SSE frames. This does not relax the 15-second first-book requirement. A delayed protocol comparison is available in `scripts/check_proxy_stream.py`; it starts a temporary diagnostic backend and makes no model/catalog calls. A cache-aware isolated evaluation helper in `scripts/run_isolated_eval.py` keeps hourly test counters separate while charging every actual model attempt to the normal shared daily budget.
 

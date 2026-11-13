@@ -5,6 +5,12 @@ all six checks. Offline tests, a successful build, a health check, a synthetic
 stream probe or a historical passing report cannot establish current live
 recommendation quality and first-book latency.
 
+Before relying on a retained complete capture, run the file-only
+[acceptance evidence audit](acceptance-evidence.md). It verifies source/suite
+identity, delivery, replayed non-latency checks and stored timing/accounting
+consistency without new calls. Its result does not replace a new live run after
+behavior changes or establish public-release approval.
+
 ## Prepare the existing runtime
 
 1. Obtain authorization for real model/catalog calls and their possible model

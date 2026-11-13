@@ -62,6 +62,12 @@ After a successful real-host manual run, and only with schedule approval, enable
 
 ## Public release gate
 
+Audit the selected complete capture with
+`uv run python -m scripts.check_acceptance_evidence --report <capture.json>`
+from `backend/` before relying on it. The [evidence audit](acceptance-evidence.md)
+rejects stale, partial and inconsistent records; it is file-only and grants no
+release approval, current provider guarantee or new latency measurement.
+
 After explicit release approval, configure the owned domain/DNS and expose Caddy on the approved HTTP/HTTPS ports. Verify the certificate, both locales, book links, real client-IP admission and an uncached bilingual search. Run the full 20-case six-check gate using the shared durable allowance and confirm the real first-book requirement. Synthetic SSE checks do not replace this gate. Read-only readiness verifies local prerequisites, not provider authentication or quota.
 
 Review safe JSON events from `docs/observability.md`, bounded log storage, backup receipts, available disk and the agreed failure-notification process. A concrete local-log proposal is Docker's `json-file` driver with `max-size=10m` and `max-file=3` for each service, subject to retention approval; it is not applied by these templates. No hosted alerting service or automatic notification destination is configured by this proposal.
