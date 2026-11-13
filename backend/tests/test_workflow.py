@@ -168,6 +168,55 @@ async def test_work_description_requests_stay_within_eight_for_the_whole_search(
     assert result["retries"] == 2 and result["model_calls"] == 6
 
 
+async def test_sparse_graphic_retries_enrich_three_works_per_round_with_evidence(
+    monkeypatch,
+):
+    books = [
+        book(n, None).model_copy(
+            update={
+                "work_key": f"/works/OL{n + 1}W",
+                "genres": ["Graphic novels"] if n else ["Fiction"],
+            }
+        )
+        for n in range(12)
+    ]
+    source = stub_sources(monkeypatch, books, books, books)
+    model = scripted_model(
+        ParsedQuery(searches=["comics sea"], genre="graphic novels"),
+        ParsedQuery(searches=["graphic sea"], genre="graphic novels"),
+        ModelPicks(picks=[]),
+        ParsedQuery(searches=["graphic ocean"], genre="graphic novels"),
+        ModelPicks(picks=[]),
+    )
+    seen = []
+
+    def handler(request):
+        # Initial ranking has no synopsis; enrichment starts only on a retry.
+        assert source.await_count > 1
+        key = request.url.path.removesuffix(".json")
+        seen.append(key)
+        return httpx.Response(
+            200, json={"key": key, "description": "A graphic novel about the sea."}
+        )
+
+    initial = initial_state()
+    initial["query"] = "Graphic novels about the sea"
+    async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
+        result = await workflow.build_graph(model, client).ainvoke(initial)
+    assert len(seen) == len(set(seen)) == 6
+    assert "/works/OL1W" not in seen  # Prefer catalog-proven format over unknown form.
+    assert result["description_lookup_keys"] == seen
+    assert result["retries"] == 2 and result["model_calls"] == 5
+    assert len(result["ranking_rounds"][1]["shortlist_isbns"]) == 3
+    assert len(result["ranking_rounds"][2]["shortlist_isbns"]) == 6
+    enriched = [b for b in result["candidates"] if b.description]
+    assert len(enriched) == 6
+    for candidate in enriched:
+        evidence = candidate.provider_records["open_library_work"][0].payload
+        assert evidence["key"] == candidate.work_key
+        assert evidence["description"] == candidate.description
+
+
 async def test_broadening_cannot_change_literature_into_a_language_course(monkeypatch):
     courses = [
         book(n).model_copy(update={"genres": ["Foreign Language Study"]})
@@ -262,20 +311,26 @@ async def test_broadening_stops_as_soon_as_enough_books_are_found(monkeypatch):
     assert len(result["picks"]) == 5
 
 
-async def test_remaining_books_are_ranked_after_two_broadening_attempts(monkeypatch):
+async def test_retained_books_survive_broadenings_without_repeat_explanations(
+    monkeypatch,
+):
     source = stub_sources(monkeypatch, BOOKS[:3], BOOKS[:3], BOOKS[:3])
     model = scripted_model(
         parsed("novela mar"),
         chosen(BOOKS[:3]),
         parsed("novela naufragio"),
-        chosen(BOOKS[:3]),
         parsed("novela pescadores"),
-        chosen(BOOKS[:3]),
     )
     result = await execute(model)
     assert result["retries"] == 2
     assert source.await_count == 3
     assert len(result["picks"]) == 3
+    assert result["model_calls"] == 4
+    assert [round["model_called"] for round in result["ranking_rounds"]] == [
+        True,
+        False,
+        False,
+    ]
 
 
 @pytest.mark.parametrize("description", [None, "", " \n\t "])
@@ -300,15 +355,14 @@ async def test_repeated_broadened_searches_make_no_extra_source_calls(monkeypatc
         parsed("novela mar"),
         chosen(BOOKS[:2]),
         parsed("NOVELA MAR"),
-        chosen(BOOKS[:2]),
         parsed("Novela Mar"),
-        chosen(BOOKS[:2]),
     )
     result = await execute(model)
     assert result["retries"] == 2
     assert result["tried"] == ["novela mar"]
     assert source.await_count == 1
     assert len(result["picks"]) == 2
+    assert result["model_calls"] == 4
 
 
 async def test_valid_empty_picks_are_a_no_results_outcome(monkeypatch):
@@ -383,9 +437,11 @@ async def test_one_source_failing_uses_recorded_results_from_the_other(failing_h
     )
     eligible = select_for_ranking(parse_google_books(google, "es"))
     outputs = []
-    for search in ("novela mar", "novela naufragio", "novela pescadores"):
+    for index, search in enumerate(
+        ("novela mar", "novela naufragio", "novela pescadores")
+    ):
         outputs.append(parsed(search))
-        if failing_host == "openlibrary.org":
+        if failing_host == "openlibrary.org" and index == 0:
             outputs.append(chosen(eligible))
     seen = []
 

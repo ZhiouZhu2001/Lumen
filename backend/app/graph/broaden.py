@@ -26,6 +26,10 @@ general catalog results. Keep all reading constraints and the core subject.
 Use validation feedback to address missing matching books, not to turn an
 unsupported name from a rejected reason into a new search subject. Preserve
 the reader's core subject and requested format genre.
+Every widened narrative-fiction search must still include its novel/story
+or comics/manga form term. Do not replace a novel search with generic travel,
+expedition, memoir or guide queries. Keep an explicitly requested war/place
+in subject searches, rather than replacing it with romance or a country alone.
 Preserve author-origin constraints using the country name rather than an
 ambiguous language adjective; a verified-author search can use the author's
 name instead. Language-learning material is not a substitute for an origin

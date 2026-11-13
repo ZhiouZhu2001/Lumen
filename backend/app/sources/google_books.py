@@ -5,6 +5,7 @@ from typing import Any
 import httpx
 from pydantic import ValidationError
 
+from app.filters import SearchFilters, catalog_query
 from app.sources.evidence import mark_fetched, record
 from app.sources.isbn import to_isbn13
 from app.sources.schemas import BookCandidate, Language, Rating
@@ -21,10 +22,12 @@ async def search_google_books(
     language: Language,
     api_key: str | None = None,
     max_results: int = 20,
+    *,
+    filters: SearchFilters | None = None,
 ) -> list[BookCandidate]:
     """Search Google Books. Raises httpx.HTTPError if the request fails."""
     params: dict[str, str | int] = {
-        "q": query,
+        "q": catalog_query(query, filters.genre if filters else None),
         "langRestrict": language,
         "printType": "books",
         "maxResults": max_results,

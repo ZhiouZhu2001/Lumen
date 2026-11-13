@@ -1,10 +1,11 @@
-"""Bounded Open Library work-description enrichment for constrained searches."""
+"""Bounded Open Library work-description enrichment using verified work identity."""
 
 import asyncio
 import re
 
 import httpx
 
+from app.grounding import description_evidence
 from app.sources.evidence import record
 from app.sources.schemas import BookCandidate
 
@@ -18,7 +19,7 @@ async def enrich_descriptions(
         if (
             not book.work_key
             or not re.fullmatch(r"/works/OL\d+W", book.work_key)
-            or (book.description and book.description.strip())
+            or description_evidence(book.description)
         ):
             return book
         try:

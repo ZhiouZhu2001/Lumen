@@ -1,0 +1,101 @@
+{
+  "source_report": "eval-live-20261112-round25-reading-form.json",
+  "source_sha256": "23e94fded904c8cf9a61f85b9eb18919be3e849aa9dc2db3c5965aaa182ca6d4",
+  "records": [
+    {
+      "case_id": "en_comics",
+      "query": "Graphic novels about superheroes and moral dilemmas",
+      "genre": "graphic novels",
+      "candidate": {
+        "isbn13": "9781910780114",
+        "title": "A Philosopher Reads...Marvel Comics' Civil War",
+        "authors": [
+          "Mark D. White"
+        ],
+        "language": "en",
+        "description": "We love to see superheroes fight, whether to protect innocent people from supervillains or to save the world. But superheroes also fight each other, and if we can look past the energy blasts and earth-shattering punches, we can find serious disagreements over principles and ethics. This was certainly the case when Captain America and Iron Man went head-to-head over liberty and security in Marvel Comics' epic Civil War storyline, a fictional allegory to post-9/11 America (as well as the basis for the third Captain America film). In his latest book, Mark D. White, author of The Virtues of Captain America and editor of Iron Man and Philosophy, carefully leads you through the ethical thinking of the three characters on the front lines of the Civil War: Iron Man, Captain America, and Spider-Man. In his characteristically light and humorous tone, White lays out the basic ethical foundations of each hero's thinking and highlights the moral judgment each must use to put his ethics into action. But also how conflicting principles such as liberty and security must be balanced in the real world, lest both be lost. Written in a style that will be easily accessible to everyone, A Philosopher Reads... Marvel Comics' Civil War will be a fascinating read for diehard comic fans and philosophy buffs, as well as those looking for a simple introduction to philosophical ethics.",
+        "genres": [
+          "Philosophy"
+        ],
+        "source": "google_books"
+      },
+      "reason": "This book focuses on Captain America and Iron Man going head-to-head over liberty and security in Marvel Comics' Civil War storyline. It is explicitly about superheroes fighting over principles and ethics, which matches the moral-dilemma angle."
+    },
+    {
+      "case_id": "en_comics",
+      "query": "Graphic novels about superheroes and moral dilemmas",
+      "genre": "graphic novels",
+      "candidate": {
+        "isbn13": "9781609386559",
+        "title": "Superhero Thought Experiments",
+        "authors": [
+          "Chris Gavaler",
+          "Nathaniel Goldberg"
+        ],
+        "language": "en",
+        "description": "Examining the deep philosophical topics addressed in superhero comics, authors Gavaler and Goldberg read plot lines for the complex thought experiments they contain and analyze their implications as if the comic authors were philosophers. Reading superhero comic books through a philosophical lens reveals how they experiment with complex issues of morality, metaphysics, meaning, and medium. Given comics’ ubiquity and influence directly on (especially young) readers—and indirectly on consumers of superhero movies and video games—understanding these deeper meanings is in many ways essential to understanding contemporary popular culture. The result is an entertaining and enlightening look at superhero dilemmas.",
+        "genres": [
+          "Social Science"
+        ],
+        "source": "google_books"
+      },
+      "reason": "This book examines superhero comics through philosophical lenses and says they contain complex issues of morality, metaphysics, meaning, and medium. It is about superhero comic story lines and the deeper ethical questions they raise."
+    },
+    {
+      "case_id": "en_comics",
+      "query": "Graphic novels about superheroes and moral dilemmas",
+      "genre": "graphic novels",
+      "candidate": {
+        "isbn13": "9783346370419",
+        "title": "A View of Ethics in Alan Moore’s Comic Books \"Watchmen\"",
+        "authors": [
+          "Elena Agathokleous"
+        ],
+        "language": "en",
+        "description": "Essay from the year 2021 in the subject Ethics, grade: B, , language: English, abstract: This essay discusses the characters in Alan Moore’s comic book maxiseries \"Watchmen\" in relation to Ethics. In postmodernism there is a simultaneous existence of a variety of discourses that promote different values in the same space. Postmodern narratives rely more on references, pastiches and the questioning of grand narratives with an emphasis on plurality and heterogeneity. One such narrative is Moore’s \"Watchmen\" a graphic novel that artistically and skillfully deconstructs the super hero genre and is full of multiplicities about morality and justice.",
+        "genres": [
+          "Philosophy"
+        ],
+        "source": "google_books"
+      },
+      "reason": "This book is about Alan Moore’s comic book maxiseries \"Watchmen,\" so it matches the graphic-novel side of your wish. It also discusses the characters in relation to Ethics and says the work deconstructs the super hero genre, which suits your interest in moral dilemmas."
+    },
+    {
+      "case_id": "en_classics",
+      "query": "Classic adventure novels about journeys and exploration",
+      "genre": "adventure",
+      "candidate": {
+        "isbn13": "9781340139742",
+        "title": "Camps and Trails in China",
+        "authors": [
+          "Roy Chapman Andrews",
+          "Yvette Borup Andrews"
+        ],
+        "language": "en",
+        "description": "This work has been selected by scholars as being culturally important, and is part of the knowledge base of civilization as we know it. This work was reproduced from the original artifact, and remains as true to the original work as possible. Therefore, you will see the original copyright references, library stamps (as most of these works have been housed in our most important libraries around the world), and other notations in the work.This work is in the public domain in the United States of America, and possibly other nations. Within the United States, you may freely copy and distribute this work, as no entity (individual or corporate) has a copyright on the body of the work.As a reproduction of a historical artifact, this work may contain missing or blurred pages, poor pictures, errant marks, etc. Scholars believe, and we concur, that this work is important enough to be preserved, reproduced, and made generally available to the public. We appreciate your support of the preservation process, and thank you for being an important part of keeping this knowledge alive and relevant.",
+        "genres": [],
+        "source": "google_books"
+      },
+      "reason": "This work is about camps and trails in China, which fits the theme of journey and exploration. It is presented as a historical work reproduced from the original artifact."
+    },
+    {
+      "case_id": "en_classics",
+      "query": "Classic adventure novels about journeys and exploration",
+      "genre": "adventure",
+      "candidate": {
+        "isbn13": "9789359956817",
+        "title": "A Narrative Of The Expedition To Dongola And Sennaar",
+        "authors": [
+          "Bethune English George"
+        ],
+        "language": "en",
+        "description": "\"A Narrative of the Expedition to Dongola and Sennaar\" via George Bethune English is an enlightening ancient account that immerses readers within the British day trip to Sudan for the duration of the early 19th century. George Bethune English, a British officer, diplomat, and traveler, gives a vibrant and comprehensive narrative of the military marketing campaign geared toward shooting the territories of Dongola and Sennaar. This e book is a priceless historic file that goes beyond the military aspects of the campaign. English's writing delves into the rich cultural, social, and geographical components of the place. The narrative offers deep insights into the customs, landscapes, and people encountered at some point of the path of the excursion. English's particular perspective as a multilingual diplomat enriches the storytelling, supplying readers a nuanced information of the areas explored. He skillfully blends journey, exploration, and cultural immersion into a story that continues to function a precious useful resource for historians and enthusiasts interested by the complex tapestry of Sudan's records. \"A Narrative of the Expedition to Dongola and Sennaar\" showcases George Bethune English's skills as each a creator and an adventurer. His work is a testament to the enduring value of number one assets in the understanding of early nineteenth-century colonial endeavors and the various cultures of the Sudan area.",
+        "genres": [
+          "History"
+        ],
+        "source": "google_books"
+      },
+      "reason": "This book is presented as a narrative account of an expedition to Dongola and Sennaar in Sudan. It fits the wish because it is an exploration-based journey story rather than a study or criticism."
+    }
+  ]
+}

@@ -25,7 +25,9 @@ from tests.test_persistence_stream import SnapshotGraph
 from tests.test_search_stream import decode
 
 
-async def test_all_twenty_recorded_searches_persist_with_real_foreign_keys(storage):
+async def test_twenty_recorded_searches_preserve_valid_rows_and_reject_mismatches(
+    storage,
+):
     repository, engine = storage
     path = (
         Path(__file__).parents[1]
@@ -38,6 +40,8 @@ async def test_all_twenty_recorded_searches_persist_with_real_foreign_keys(stora
     recommended = set()
     retrieved = set()
     total = 0
+    saved = 0
+    rejected = []
     for record in capture["cases"]:
         cards = [BookCard.model_validate(c) for c in record["cards"]]
         wire = {c.isbn13: c for c in cards}
@@ -64,13 +68,40 @@ async def test_all_twenty_recorded_searches_persist_with_real_foreign_keys(stora
             retries=record["retries"],
             picks=[Pick.model_validate(p) for p in record["recommendations"]],
         )
+        invalid_historical = {
+            # These two are real comics; this capture lacks evidence for the
+            # explicit superhero subject or graphic form respectively.
+            "en_comics": {"9781401220341", "9781401288228"},
+            "en_history": {
+                "9781350152588",
+                "9781322737782",
+                "9780297813736",
+                "9781474471763",
+                "9780143037651",
+            },
+            "es_niche": {"9788411003636", "9788401021053"},
+        }
+        if record["id"] in invalid_historical:
+            # This capture predates the stricter form/subject evidence checks.
+            # Keep it unchanged and prove the known invalid replay cannot write.
+            assert invalid_historical[record["id"]] <= wire.keys()
+            before = await counts(engine)
+            with pytest.raises(ValueError, match="complete validated search"):
+                await repository.save_completed(
+                    uuid4(), state, cards, round(record["http_duration_ms"])
+                )
+            assert await counts(engine) == before
+            rejected.append(record["id"])
+            continue
         await repository.save_completed(
             uuid4(), state, cards, round(record["http_duration_ms"])
         )
+        saved += 1
         total += len(cards)
         recommended.update(wire)
         retrieved.update(book.isbn13 for book in candidates)
-    assert await counts(engine) == [len(retrieved), 20, total]
+    assert saved == 17 and rejected == ["en_comics", "en_history", "es_niche"]
+    assert await counts(engine) == [len(retrieved), saved, total]
     for isbn in recommended:
         assert (await repository.get_book(isbn)).isbn13 == isbn
 

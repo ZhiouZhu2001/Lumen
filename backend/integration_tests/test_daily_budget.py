@@ -27,6 +27,30 @@ async def test_missing_ledger_fails_closed_until_explicitly_initialized(storage)
     assert (await budget.snapshot())["used"] == 61
 
 
+@pytest.mark.parametrize("temporary_cap", [200, 300])
+async def test_temporary_cap_shares_usage_and_restoring_100_never_refunds(
+    storage, temporary_cap
+):
+    _, engine = storage
+    temporary = await initialized_budget(engine, cap=temporary_cap, used=100)
+    await temporary.consume_ai()
+    standard = DailyBudget(engine, 100)
+    assert (await standard.snapshot())["used"] == 101
+    with pytest.raises(UsageLimited):
+        await standard.consume_ai()
+    assert (await temporary.snapshot())["used"] == 101
+    async with engine.connect() as connection:
+        day, _ = await temporary._clock(connection)
+    await temporary.raise_floor(temporary_cap - 1, expected_day=day)
+    outcomes = await asyncio.gather(
+        *(DailyBudget(engine, temporary_cap).consume_ai() for _ in range(4)),
+        return_exceptions=True,
+    )
+    assert sum(outcome is None for outcome in outcomes) == 1
+    assert sum(isinstance(outcome, UsageLimited) for outcome in outcomes) == 3
+    assert (await standard.snapshot())["used"] == temporary_cap
+
+
 async def test_multiple_workers_share_an_atomic_persistent_limit(storage, redis_scope):
     _, engine = storage
     redis, prefix = redis_scope

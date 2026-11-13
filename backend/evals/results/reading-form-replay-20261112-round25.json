@@ -1,0 +1,109 @@
+{
+  "report_version": 1,
+  "kind": "offline_reading_form_review",
+  "full_suite": false,
+  "live_model_requests": 0,
+  "live_catalog_requests": 0,
+  "new_latency_measurements": false,
+  "source_report": "eval-live-20261112-round24-initial.json",
+  "source_sha256": "f98ce91cf7bb2ae2258ef67311b1b7e0a62cbd15b9c6115dfde07151379d30aa",
+  "current_code_sha256": {
+    "app/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/api/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/api/books.py": "457b2f15c6b0ce9ae7e5f8121200d5201ee3104f270a8f0fa72b03a51ef46e79",
+    "app/api/health.py": "1ed7f4140e95a17528d6b4f18e023acc4bd31b7a08920127aae2f959b48f7e0b",
+    "app/api/search.py": "ed5918983fea2bcd3caef797c5c3ab96b9da26cd21224fbcd1dc1399720345e7",
+    "app/authors.py": "1b6bfba66375ed6240af0102e1ac460b8d70d719f01e35839cf0d3aa2a779283",
+    "app/book_cards.py": "c07244deef8061e978c47aa37fad0463916a8713074381bbf3ac3cd485851698",
+    "app/book_refresh.py": "d37f881316b475d4d44f395496833566f126699f120a9b1bd05b00d59503d856",
+    "app/cache.py": "94c3d705c6b9aea0fc64860b1e637ae2b550690d844f39df85d460a40847961b",
+    "app/catalog_cache.py": "338533c262d66c7b1d6f73ddbeaccbd605ddace9f6ecdeb308309555b9d6d2ed",
+    "app/channels/__init__.py": "109ecee08afebdc360e8de69680f3f7ff07fc47803cd1c8ac08cd12fba4816b9",
+    "app/channels/matching.py": "e2abc23d8ce371cd0d1aa2dd4c2dc075b21085f1c321a87ac95c399881ea9c71",
+    "app/channels/rules.py": "60c892d73704876db544a2f7646bfc0ef28cc76818b4155a84a95e95fe7a6057",
+    "app/channels/schemas.py": "7ff5cc38fd29b245d1c41d3d1de2fb7d773a55b39b8813249ef01cd8072954f3",
+    "app/config.py": "b02384c4b6a1c17975c54d2ea2eec6c3fd9c6a9904cdf2b230aa4a20a218147d",
+    "app/daily_budget.py": "b4e6530d9f2500735666f4059116275cdae8b7d63b7fabf371c3bee7ed593add",
+    "app/db.py": "1040966f399caf6d8e6cc311ecc6914ec9f43b62f5144b9693ed691459232c10",
+    "app/diagnostics.py": "9567a1dd9bb518e439d8d6622e29fb9f2b1d130f39568810c1743f34cc9628ac",
+    "app/filters.py": "ebc4f73814d1d90b0062c554cfee508c50ba9c29ffc7ad7dce4d00ae23a5b726",
+    "app/graph/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/graph/broaden.py": "92220522489c5f79dfecbd942336dac35d498f637c111f1dad6856d860a7d51e",
+    "app/graph/parse_query.py": "1e0aa092db8907cfd97811410b653910d504a87ffdf449cce529404f290fbfc5",
+    "app/graph/rank.py": "936a6e859139c903f27c44e9e1a26fa38ca2b09a6b5c9cf1b0238d2e108d0838",
+    "app/graph/search.py": "c70bdcd85b4ebe9d88cee973a25edde635306e082f119d8edb823677b68a34fe",
+    "app/graph/state.py": "0a9a513ba0a4c9b4b1cbbe8ae28eac3b4a10c1afb19f38b4c97770a5e41ff565",
+    "app/graph/workflow.py": "54ed3434daccde127ac42f51e47429e4df63745516b6882f3455fe77b5ba3d37",
+    "app/grounding.py": "4d8c269f2b845d685bda8ec8eb3b0b9025ad801afde54da30f6881e1b7932195",
+    "app/http_client.py": "da0cf3b7a2a9adb4a475268f76d2545991f48f63cb360673fef2cb5957ad3767",
+    "app/llm.py": "eecf308198ae5183f39aedfa76401b5550161281a34cf492804dddc975c5b78c",
+    "app/main.py": "e24cae05b7e124b85dafb791887914697c4d734149e797752b50591f22e45c6b",
+    "app/models.py": "736562ff6474a4656c3e998cf07dfce7f68ef1c15e8764356d913ff24241efc0",
+    "app/observability.py": "97893c094af01d1c21bfd95bd8b4c71abc72d55ce48234012163c118d40e00d7",
+    "app/reading_intent.py": "9e978b17b4e5acda551fe98f04af71f2936b4a3e2e24aba0a45e969decf8f8dc",
+    "app/repository.py": "f2c80363fab71a840975d7095c1c83103391dbce0adc6a0cf1789427f6cf13f5",
+    "app/search_cache.py": "df697d362cc8376fc7e38cf4451b4bb96a478297a92cea51f4063793cb8a3b07",
+    "app/search_stream.py": "e8349f6b499e9512893e833d3621777f5acf2e8a76d0cedd3d25a42561da1935",
+    "app/sources/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/sources/apple_books.py": "f91521a4cc0f10706806d514674d75c73e6b2732c98f0e31d4dcfd9d8b5f92fd",
+    "app/sources/descriptions.py": "368a4ba55f9820221abc27c3f3ed8e91e2e2aed141651ca6103f74ad73e2cea3",
+    "app/sources/edition.py": "2811e61ba6956e83ef85f068d48219a4c6a48e6c1f7ed36e5a5763548504a85e",
+    "app/sources/evidence.py": "0bcc8a522a7919e651ce2c62b4dd1efa4846ab7e8c2df153cba1d6485adda531",
+    "app/sources/google_books.py": "f687fa4fb5d211650c3471ae74b19008616b9dbf46298e6a87252f6cbe074e0e",
+    "app/sources/gutendex.py": "e72a2ab7ab21b083b3368bdc4d1540d6998a8ea0f00b1b32af00e881c9a4bf97",
+    "app/sources/isbn.py": "2a5de5a9b0151db24754ec91443d3035bcefdaebb4fa955c749ef7f3e321d5e6",
+    "app/sources/merge.py": "f433d53e212aaeae16a9faee3d035ad92fbb6e2d840bbfdca7987c22f4a91181",
+    "app/sources/open_library.py": "1a670361a7b1f9d42528a8f0b514d52c4efceabeb86f515ff9d076e9482bf36c",
+    "app/sources/schemas.py": "9b16981f8500eb2cffb9aefe8d858aad0b19a64eb9fb62b90a25a3ad49b81bf2",
+    "app/stores.yaml": "b2c1e6bd7ae68dd6df6407eb4931802609ac45e1e3cdbfb56548e65e1289824c",
+    "app/usage.py": "4d32586cbc66f658dabdd0db41982bee5c68ada2a155e85feb5718af8d181a08",
+    "evals/__init__.py": "69255d7ea47cc6a91fe8c37332383dfa2e3e0357468aa04cfc5dab9d92e6dcb9",
+    "evals/author_run.py": "64e10a36609989334334855c1c9c57206ec3c3db5023cb4ca5e4452f6c97c74b",
+    "evals/checks.py": "ce5776fce52baa451b1871c25b3975545cc6b9492c8d6cb139a5dc7529e2faf2",
+    "evals/http_run.py": "c242703602b4c3852fa00a182f56f6369775afb5d2cafcae5d34d09697dfc613",
+    "evals/replay.py": "8142aa11459e2f2d2fed68d55c9c5e85b5e1bfc0b739f16094aec0f384ee41e5",
+    "evals/run.py": "bd722471ceef852cc23c2a07f542e1203767e6258d413f51e89052ac337b874b"
+  },
+  "cases_rechecked": 20,
+  "summary": {
+    "authenticity": {
+      "pass": 20
+    },
+    "language": {
+      "pass": 20
+    },
+    "count": {
+      "pass": 20
+    },
+    "links": {
+      "pass": 20
+    },
+    "reason": {
+      "fail": 4,
+      "pass": 16
+    },
+    "latency": {
+      "blocked": 18,
+      "not_applicable": 2
+    }
+  },
+  "failed_reason_cases": [
+    {
+      "id": "en_fantasy",
+      "detail": "9798704552857: wrong requested reading form"
+    },
+    {
+      "id": "en_classics",
+      "detail": "9780265740309: wrong requested reading form; 9781332025312: wrong requested reading form; 9781332769896: wrong requested reading form"
+    },
+    {
+      "id": "en_history",
+      "detail": "9781848856585: reason concedes a missing reader requirement"
+    },
+    {
+      "id": "en_sea",
+      "detail": "9780691140650: wrong requested reading form; 9783030853419: wrong requested reading form; 9780817321253: wrong requested reading form"
+    }
+  ],
+  "limitation": "Rechecks retained old selections; does not establish corrected live retrieval, new latency or a passing merge gate."
+}

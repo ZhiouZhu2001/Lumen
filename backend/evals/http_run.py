@@ -17,6 +17,7 @@ from app.api.health import router as health_router
 from app.api.search import router
 from app.config import get_settings
 from app.filters import SearchFilters, matches_metadata
+from app.graph.rank import Pick
 from app.main import lifespan
 from app.observability import current_search_metrics
 from app.usage import UsageUnavailable
@@ -51,6 +52,27 @@ def budget_delta(before, after):
     if difference < 0:
         return {"status": "inconsistent", "attempts": None}
     return {"status": "same_utc_day", "attempts": difference}
+
+
+async def safe_http_error(response):
+    """Retain only documented codes from a bounded body, never private messages."""
+    body = bytearray()
+    async for chunk in response.aiter_bytes():
+        if len(body) + len(chunk) > 8192:
+            return "http_stream_failed"
+        body.extend(chunk)
+    try:
+        payload = json.loads(body)
+        detail = payload.get("detail") if isinstance(payload, dict) else None
+        code = detail.get("code") if isinstance(detail, dict) else None
+        return (
+            code
+            if code
+            in {"rate_limited", "upstream_unavailable", "llm_failed", "no_results"}
+            else "http_stream_failed"
+        )
+    except (ValueError, TypeError):
+        return "http_stream_failed"
 
 
 async def run_http_live(
@@ -160,6 +182,8 @@ async def run_http_live(
                             },
                         ) as response:
                             http_status = response.status_code
+                            if response.is_error:
+                                protocol_error = await safe_http_error(response)
                             response.raise_for_status()
                             content_encoding = response.headers.get("content-encoding")
                             if not response.headers.get("content-type", "").startswith(
@@ -185,7 +209,7 @@ async def run_http_live(
                                         )
                                     event, data = "message", []
                 except (httpx.HTTPError, TimeoutError, ValueError):
-                    protocol_error = "http_stream_failed"
+                    protocol_error = protocol_error or "http_stream_failed"
                 elapsed = round((perf_counter() - started) * 1000, 2)
                 done = [e["data"] for e in events if e["event"] == "done"]
                 captured = (
@@ -223,9 +247,6 @@ async def run_http_live(
                         ]
                         for card in cards
                     }
-                    checks = evaluate_case(
-                        case, state, links=links, first_book_sse_ms=first_ms
-                    )
                     # Candidate count and the card payload must match actual wire events.
                     wire_cards = [e["data"] for e in events if e["event"] == "book"]
                     wire_valid = wire_cards == [
@@ -233,20 +254,36 @@ async def run_http_live(
                     ] and done[-1]["total"] == len(cards)
                     filters = SearchFilters.model_validate(case.filters.model_dump())
                     metadata_ok = all(matches_metadata(c, filters) for c in cards)
+                    failure = (
+                        protocol_error
+                        or (
+                            error_code
+                            if error_code != "no_results" or case.category != "nonsense"
+                            else None
+                        )
+                        or (
+                            None
+                            if wire_valid and metadata_ok
+                            else "wire_or_filter_mismatch"
+                        )
+                    )
+                    graph_recommendations = result["recommendations"]
+                    delivered = [
+                        Pick(isbn13=card.isbn13, rank=card.rank, reason=card.reason)
+                        for card in cards
+                    ]
+                    checks = evaluate_case(
+                        case,
+                        {**state, "picks": delivered},
+                        links=links,
+                        first_book_sse_ms=first_ms,
+                    )
                     result.update(
                         {
-                            "error_code": protocol_error
-                            or (
-                                error_code
-                                if error_code != "no_results"
-                                or case.category != "nonsense"
-                                else None
-                            )
-                            or (
-                                None
-                                if wire_valid and metadata_ok
-                                else "wire_or_filter_mismatch"
-                            ),
+                            "error_code": failure,
+                            "recommendations": [pick.model_dump() for pick in delivered]
+                            if wire_valid
+                            else [],
                             "unsupported_filters": [],
                             "workflow_duration_ms": None,
                             "http_duration_ms": elapsed,
@@ -262,9 +299,19 @@ async def run_http_live(
                             "events": events,
                             "checks": {
                                 name: c.model_dump() for name, c in checks.items()
+                            }
+                            if not failure or failure == "no_results"
+                            else {
+                                name: {
+                                    "status": "blocked",
+                                    "detail": f"Search did not complete: {failure}",
+                                }
+                                for name in CHECK_NAMES
                             },
                         }
                     )
+                    if failure:
+                        result["graph_recommendations"] = graph_recommendations
                 result["http_status"] = http_status
                 result.setdefault("runtime_usage", None)
                 result.setdefault("result_cache_hit", None)

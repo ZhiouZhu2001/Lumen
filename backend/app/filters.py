@@ -1,10 +1,45 @@
 """Validated request constraints; missing catalog metadata never proves a match."""
 
+import re
 from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from app.channels.matching import normalize
+from app.reading_intent import explicit_superhero_request
 from app.sources.schemas import BookCandidate
+
+
+def catalog_subject(genre: str | None) -> str | None:
+    """Carry broad narrative form to catalogs without narrowing nonfiction/anthologies."""
+    value = normalize(genre or "")
+    if re.search(
+        r"\b(?:nonfiction|non fiction|no ficcion|short stories|short story|short fiction|cuentos|relatos|manga)\b",
+        value,
+    ):
+        return None
+    if re.search(r"\b(?:comics?|manga|graphic novels?|novelas? graficas?)\b", value):
+        return "comics"
+    if re.search(
+        r"\b(?:fiction|ficcion|novels?|novelas?|adventure|fantasy|thriller|mystery|romance|horror)\b",
+        value,
+    ):
+        return "fiction"
+    return None
+
+
+def catalog_query(query: str, genre: str | None) -> str:
+    subject = catalog_subject(genre)
+    if subject == "comics" and explicit_superhero_request(query):
+        subject = "superheroes"
+    if subject:
+        return f"{query} subject:{subject}"
+    if (
+        "manga" in normalize(genre or "").split()
+        and "manga" not in normalize(query).split()
+    ):
+        return f"{query} manga"
+    return query
 
 
 class SearchFilters(BaseModel):

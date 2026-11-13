@@ -1,0 +1,132 @@
+{
+  "source_report": {
+    "commit": "80325eec51779aebf84a2f070ae44d6357bc2e69",
+    "branch": "codex/update-24-live-acceptance",
+    "working_tree_dirty": true
+  },
+  "records": [
+    {
+      "case_id": "en_fantasy",
+      "query": "Fantasy novels with dragons and a strong adventure story",
+      "genre": "fantasy",
+      "candidate": {
+        "isbn13": "9798704552857",
+        "title": "Baby Dragons Adult Coloring Book",
+        "authors": [
+          "Rakhiul Islam"
+        ],
+        "language": "en",
+        "description": "Our Dragons coloring book takes you on a journey into a realm of fire breathing dragons and friendly. Our Baby Dragons coloring book takes you on a magical adventure of the cutest dragons and their sweet friends. Baby Dragons coloring book takes you on a magical adventure of the cutest dragons and their sweet friends. Each page sets a stunning scene, from an underwater dragon discovering the sea bed to a baby dragon building a sandcastle on the beach.",
+        "page_count": 102,
+        "published_year": 2021,
+        "genres": [],
+        "source": "google_books"
+      },
+      "reason": "This book is described as taking you on a magical adventure with cute dragons and their sweet friends. The pages set scenes in different places, including an underwater dragon discovering the sea bed and a baby dragon building a sandcastle on the beach."
+    },
+    {
+      "case_id": "en_classics",
+      "query": "Classic adventure novels about journeys and exploration",
+      "genre": "adventure fiction",
+      "candidate": {
+        "isbn13": "9780265740309",
+        "title": "The British Expedition to the Crimea (Classic Reprint)",
+        "authors": [
+          "William Howard Russell"
+        ],
+        "language": "en",
+        "description": "Excerpt from The British Expedition to the Crimea For several years the History of the British Expedition to the Crimea, founded on the Letters from the Crimea of the Times Correspondent, has been out of print, and the publishers have been unable to execute orders continually arriving for copies of the work. At the present moment the interest of the public in what is called the Eastern Question has been revived very forcibly, and the policy of this country in entering upon the war of 1854, has been much discussed in the Press and in Parliament. Bulgaria. About the Publisher Forgotten Books publishes hundreds of thousands of rare and classic books. Find more at www.forgottenbooks.com This book is a reproduction of an important historical work. Forgotten Books uses state-of-the-art technology to digitally reconstruct the work, preserving the original format whilst repairing imperfections present in the aged copy. In rare cases, an imperfection in the original, such as a blemish or missing page, may be replicated in our edition. We do, however, repair the vast majority of imperfections successfully; any imperfections that remain are intentionally left to preserve the state of such historical works.",
+        "page_count": 582,
+        "published_year": 2017,
+        "genres": [
+          "History"
+        ],
+        "source": "google_books"
+      },
+      "reason": "This is a classic reprint about an expedition to the Crimea, so it directly matches an older adventure narrative centered on travel and exploration. It is a historical account of a British expedition, which fits the requested classic adventure focus better than modern travel guides or studies."
+    },
+    {
+      "case_id": "en_classics",
+      "query": "Classic adventure novels about journeys and exploration",
+      "genre": "adventure fiction",
+      "candidate": {
+        "isbn13": "9781332025312",
+        "title": "The Official Report of the Recent Arctic Expedition (Classic Reprint)",
+        "authors": [
+          "CAPTAIN. NARES"
+        ],
+        "language": "en",
+        "description": "Excerpt from The Official Report of the Recent Arctic Expedition The \"Alert\" and \"Discovery,\" one ship in tow of the other, left Upernivick, from which port I last had the honour of addressing you, on the 22nd July, 1875. A dense fog prevailing at sea I steamed to the northward between the islands and the main land; experiencing clear and calm weather until arriving near Kangitok Island, when the fog, stealing in from the sea, gradually obtained the mastery, and completely enveloped us. The numerous picturesque rocky islands and reefs in this sheltered labyrinthine passage are so incorrectly represented in the published charts that a pilot is at present a necessity. The one who accompanied us, an Esquimaux, informed me that many of the likely-looking channels are bridged across with sunken reefs; and from the many rocks we saw lying just awash directly in our passage I have reason to believe his statement. About the Publisher Forgotten Books publishes hundreds of thousands of rare and classic books. Find more at www.forgottenbooks.com This book is a reproduction of an important historical work. Forgotten Books uses state-of-the-art technology to digitally reconstruct the work, preserving the original format whilst repairing imperfections present in the aged copy. In rare cases, an imperfection in the original, such as a blemish or missing page, may be replicated in our edition. We do, however, repair the vast majority of imperfections successfully; any imperfections that remain are intentionally left to preserve the state of such historical works.",
+        "page_count": 106,
+        "published_year": 2015,
+        "genres": [
+          "Science"
+        ],
+        "source": "google_books"
+      },
+      "reason": "This book is the official report of a recent Arctic expedition, so it is about exploration in a remote region. The narrative follows the journey of the \"Alert\" and \"Discovery\" through fog, islands, reefs, and northerly waters, which gives it a clear expedition setting."
+    },
+    {
+      "case_id": "en_history",
+      "query": "Historical novels set during the Spanish Civil War",
+      "genre": "historical fiction",
+      "candidate": {
+        "isbn13": "9781848856585",
+        "title": "A Short History of the Spanish Civil War",
+        "authors": [
+          "Julián Casanova"
+        ],
+        "language": "en",
+        "description": "The years of the Spanish Civil War filled twentieth-century Spain with hope, frustration and drama. Not only did it pit countryman against countryman, and neighbour against neighbour, but from 1936-39 this bitterly contended struggle sucked in competing and seemingly atavistic forces that were soon to rage across the face of Europe, and then the rest of the world: nationalism and republicanism; communism and fascism; anarchism and monarchism; anti-clerical reformism and aristocratic Catholic conservatism. The 'Guerra Civil' is of enduring interest precisely because it represents much more than just a regional contest for power and governmental legitimacy. It has come to be seen as a seedbed for the titanic political struggles and larger social upheavals that scarred the entire twentieth century. In elegant and accessible prose, Julian Casanova tells the gripping story of these years of anguish and trauma, which hit the country with a force hitherto unknown at any time in Spain's history. Charting the most significant events and battles alongside the main players in the tragedy, he provides answers to some of the pressing questions (such as the roots and extent of anticlerical violence) that have been asked in the seventy years that have passed since the painful defeat of the Second Republic.",
+        "page_count": 240,
+        "published_year": 2014,
+        "genres": [
+          "History"
+        ],
+        "source": "google_books"
+      },
+      "reason": "This book is a history, not a novel, so it does not fully match your fiction filter. Still, it is explicitly about the years of the Spanish Civil War and gives a broad account of that conflict."
+    },
+    {
+      "case_id": "en_sea",
+      "query": "A sad literary novel about the sea and solitude",
+      "genre": "literary fiction",
+      "candidate": {
+        "isbn13": "9780691140650",
+        "title": "The Novel and the Sea",
+        "authors": [
+          "Margaret Cohen"
+        ],
+        "language": "en",
+        "description": "For a century, the history of the novel has been written in terms of nations and territories: the English novel, the French novel, the American novel. But what if novels were viewed in terms of the seas that unite these different lands? Examining works across two centuries, The Novel and the Sea recounts the novel's rise, told from the perspective of the ship's deck and the allure of the oceans in the modern cultural imagination. Margaret Cohen moors the novel to overseas exploration and work at sea, framing its emergence as a transatlantic history, steeped in the adventures and risks of the maritime frontier. Cohen explores how Robinson Crusoe competed with the best-selling nautical literature of the time by dramatizing remarkable conditions, from the wonders of unknown lands to storms, shipwrecks, and pirates. She considers James Fenimore Cooper's refashioning of the adventure novel in postcolonial America, and a change in literary poetics toward new frontiers and to the maritime labor and technology of the nineteenth century. Cohen shows how Jules Verne reworked adventures at sea into science fiction; how Melville, Hugo, and Conrad navigated the foggy waters of language and thought; and how detective and spy fiction built on sea fiction's problem-solving devices. She also discusses the transformation of the ocean from a theater of skilled work to an environment of pristine nature and the sublime. A significant literary history, The Novel and the Sea challenges readers to rethink their land-locked assumptions about the novel.",
+        "page_count": 323,
+        "published_year": 2010,
+        "genres": [
+          "History"
+        ],
+        "source": "google_books"
+      },
+      "reason": "This book is about novels and the sea, which matches the literary and maritime part of your request. It also frames the history of the novel through the allure of the oceans in the modern cultural imagination, making it a strong fit for a reader seeking sea-centered literary writing."
+    },
+    {
+      "case_id": "en_sea",
+      "query": "A sad literary novel about the sea and solitude",
+      "genre": "literary fiction",
+      "candidate": {
+        "isbn13": "9783030853419",
+        "title": "Shipboard Literary Cultures",
+        "authors": [
+          "Susann Liebich",
+          "Laurence Publicover"
+        ],
+        "language": "en",
+        "description": "The essays collected within this volume ask how literary practices are shaped by the experience of being at sea-and also how they forge that experience. Individual chapters explore the literary worlds of naval ships, whalers, commercial vessels, emigrant ships, and troop transports from the seventeenth to the twentieth-first century, revealing a rich history of shipboard reading, writing, and performing. Contributors are interested both in how literary activities adapt to the maritime world, and in how individual and collective shipboard experiences are structured through-and framed by-such activities. In this respect, the volume builds on scholarship that has explored reading as a spatially situated and embodied practice. As our contributors demonstrate, the shipboard environment and the ocean beyond it place the mind and body under peculiar forms of pressure, and these determine acts of reading-and of writing and performing-in specific ways.",
+        "page_count": null,
+        "published_year": 2021,
+        "genres": [],
+        "source": "google_books"
+      },
+      "reason": "This book is about literary practices shaped by being at sea, so it directly connects literature with maritime experience. Its chapters cover naval ships, whalers, commercial vessels, emigrant ships, and troop transports, giving it a broad sea-focused literary scope."
+    }
+  ]
+}

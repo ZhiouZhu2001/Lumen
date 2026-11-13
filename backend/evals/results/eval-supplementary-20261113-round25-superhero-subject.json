@@ -1,0 +1,2266 @@
+{
+  "report_version": 2,
+  "full_suite": false,
+  "kind": "single_frontend_regression",
+  "expected_cases": 1,
+  "completed_cases": 1,
+  "complete": true,
+  "gate_passed": false,
+  "all_single_case_checks_passed": true,
+  "completed_at": "2026-11-13T21:55:12.649045+00:00",
+  "model": "openai:gpt-5.4-mini",
+  "revision": {
+    "commit": "d5642f303ff2d3fe8bd1a1d45cfd3522b3f08db6",
+    "branch": "codex/update-25-reading-intent-and-latency",
+    "working_tree_dirty": true
+  },
+  "code_sha256": {
+    "app/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/api/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/api/books.py": "457b2f15c6b0ce9ae7e5f8121200d5201ee3104f270a8f0fa72b03a51ef46e79",
+    "app/api/health.py": "1ed7f4140e95a17528d6b4f18e023acc4bd31b7a08920127aae2f959b48f7e0b",
+    "app/api/search.py": "ed5918983fea2bcd3caef797c5c3ab96b9da26cd21224fbcd1dc1399720345e7",
+    "app/authors.py": "1b6bfba66375ed6240af0102e1ac460b8d70d719f01e35839cf0d3aa2a779283",
+    "app/book_cards.py": "c07244deef8061e978c47aa37fad0463916a8713074381bbf3ac3cd485851698",
+    "app/book_refresh.py": "d37f881316b475d4d44f395496833566f126699f120a9b1bd05b00d59503d856",
+    "app/cache.py": "94c3d705c6b9aea0fc64860b1e637ae2b550690d844f39df85d460a40847961b",
+    "app/catalog_cache.py": "338533c262d66c7b1d6f73ddbeaccbd605ddace9f6ecdeb308309555b9d6d2ed",
+    "app/channels/__init__.py": "109ecee08afebdc360e8de69680f3f7ff07fc47803cd1c8ac08cd12fba4816b9",
+    "app/channels/matching.py": "e2abc23d8ce371cd0d1aa2dd4c2dc075b21085f1c321a87ac95c399881ea9c71",
+    "app/channels/rules.py": "60c892d73704876db544a2f7646bfc0ef28cc76818b4155a84a95e95fe7a6057",
+    "app/channels/schemas.py": "7ff5cc38fd29b245d1c41d3d1de2fb7d773a55b39b8813249ef01cd8072954f3",
+    "app/config.py": "b02384c4b6a1c17975c54d2ea2eec6c3fd9c6a9904cdf2b230aa4a20a218147d",
+    "app/daily_budget.py": "b4e6530d9f2500735666f4059116275cdae8b7d63b7fabf371c3bee7ed593add",
+    "app/db.py": "1040966f399caf6d8e6cc311ecc6914ec9f43b62f5144b9693ed691459232c10",
+    "app/diagnostics.py": "9567a1dd9bb518e439d8d6622e29fb9f2b1d130f39568810c1743f34cc9628ac",
+    "app/filters.py": "50e329074bcec75a9088187d3665127138c49d09aa352b0a78dd796dfb25d62e",
+    "app/graph/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/graph/broaden.py": "51b0daad72342bed75e7cfe0b5b427786938d524c1457f5567c2b29327ca9505",
+    "app/graph/parse_query.py": "cc9c10c5612514393d7a0e4f25b67356d26f0fab91b33b164666e68c4e6b7ba1",
+    "app/graph/rank.py": "05ebac0711099fe8e95da8f65994c5124b4cd84c9e0114d23d8635e104559cc3",
+    "app/graph/search.py": "0024ec860203966b3a4a8b5435f97fe7a139ec86ab0735f3df587929cb8ff521",
+    "app/graph/state.py": "0a9a513ba0a4c9b4b1cbbe8ae28eac3b4a10c1afb19f38b4c97770a5e41ff565",
+    "app/graph/workflow.py": "efb408317d2e59c47dd798d1b435acf9a67c080034617baacaa678fc6de4c65b",
+    "app/grounding.py": "339b4a8a1a127ccea57518710b38fc351e27dd8d1bc025a6a376d606550301f3",
+    "app/http_client.py": "da0cf3b7a2a9adb4a475268f76d2545991f48f63cb360673fef2cb5957ad3767",
+    "app/llm.py": "eecf308198ae5183f39aedfa76401b5550161281a34cf492804dddc975c5b78c",
+    "app/main.py": "e24cae05b7e124b85dafb791887914697c4d734149e797752b50591f22e45c6b",
+    "app/models.py": "736562ff6474a4656c3e998cf07dfce7f68ef1c15e8764356d913ff24241efc0",
+    "app/observability.py": "97893c094af01d1c21bfd95bd8b4c71abc72d55ce48234012163c118d40e00d7",
+    "app/reading_intent.py": "74354ba3df709456021c1e0288f9edd5a0fbdaed0029859818f87d42d71af550",
+    "app/repository.py": "f2c80363fab71a840975d7095c1c83103391dbce0adc6a0cf1789427f6cf13f5",
+    "app/search_cache.py": "df697d362cc8376fc7e38cf4451b4bb96a478297a92cea51f4063793cb8a3b07",
+    "app/search_stream.py": "e8349f6b499e9512893e833d3621777f5acf2e8a76d0cedd3d25a42561da1935",
+    "app/sources/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/sources/apple_books.py": "f91521a4cc0f10706806d514674d75c73e6b2732c98f0e31d4dcfd9d8b5f92fd",
+    "app/sources/descriptions.py": "fb4f4bf0f861784aa02358bf7f81ded33568c626d08960902cdb26e5ed7b012e",
+    "app/sources/edition.py": "2811e61ba6956e83ef85f068d48219a4c6a48e6c1f7ed36e5a5763548504a85e",
+    "app/sources/evidence.py": "0bcc8a522a7919e651ce2c62b4dd1efa4846ab7e8c2df153cba1d6485adda531",
+    "app/sources/google_books.py": "ec3a921860f7280b48778a50e5b17803a33bdefb7c66f197996ae8a1db72ad4a",
+    "app/sources/gutendex.py": "e72a2ab7ab21b083b3368bdc4d1540d6998a8ea0f00b1b32af00e881c9a4bf97",
+    "app/sources/isbn.py": "2a5de5a9b0151db24754ec91443d3035bcefdaebb4fa955c749ef7f3e321d5e6",
+    "app/sources/merge.py": "f433d53e212aaeae16a9faee3d035ad92fbb6e2d840bbfdca7987c22f4a91181",
+    "app/sources/open_library.py": "378bd33094244d494fdcd22bdad0c9bf318c7533a797d46822a2a235541f6368",
+    "app/sources/schemas.py": "9b16981f8500eb2cffb9aefe8d858aad0b19a64eb9fb62b90a25a3ad49b81bf2",
+    "app/stores.yaml": "b2c1e6bd7ae68dd6df6407eb4931802609ac45e1e3cdbfb56548e65e1289824c",
+    "app/usage.py": "4d32586cbc66f658dabdd0db41982bee5c68ada2a155e85feb5718af8d181a08",
+    "evals/__init__.py": "69255d7ea47cc6a91fe8c37332383dfa2e3e0357468aa04cfc5dab9d92e6dcb9",
+    "evals/author_run.py": "64e10a36609989334334855c1c9c57206ec3c3db5023cb4ca5e4452f6c97c74b",
+    "evals/checks.py": "dec95c53aaab71f2d642a186c4ef9f640b7c7888da2179e9ea32ee76cfb68b64",
+    "evals/http_run.py": "b38378c33af0880dd8961049b3f20cdb1afc0574a7d67715876b8f872d8a8a8d",
+    "evals/replay.py": "8142aa11459e2f2d2fed68d55c9c5e85b5e1bfc0b739f16094aec0f384ee41e5",
+    "evals/run.py": "bd722471ceef852cc23c2a07f542e1203767e6258d413f51e89052ac337b874b"
+  },
+  "budget_before": {
+    "status": "known",
+    "utc_day": "2026-11-13",
+    "used": 186,
+    "daily_cap": 200,
+    "retry_after": 7517
+  },
+  "budget_after": {
+    "status": "known",
+    "utc_day": "2026-11-13",
+    "used": 188,
+    "daily_cap": 200,
+    "retry_after": 7488
+  },
+  "budget_delta": {
+    "status": "same_utc_day",
+    "attempts": 2
+  },
+  "cases": [
+    {
+      "id": "en_comics",
+      "query": "Graphic novels about superheroes and moral dilemmas",
+      "language": "en",
+      "category": "normal",
+      "requested_filters": {
+        "genre": "graphic novels"
+      },
+      "unsupported_filters": [
+        "genre"
+      ],
+      "error_code": null,
+      "channel_error": null,
+      "channel_duration_ms": null,
+      "cards": [
+        {
+          "isbn13": "9781401235673",
+          "title": "Watchmen",
+          "authors": [
+            "Alan Moore"
+          ],
+          "language": "en",
+          "description": "A graphic novel in which Rorschach, an aging superhero, digs up the past in his search for answers about the death of one of his former colleagues.",
+          "cover_url": "https://books.google.com/books/content?id=x6M_ygEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+          "page_count": null,
+          "published_year": 2005,
+          "genres": [
+            "Comic books, strips, etc"
+          ],
+          "rating": null,
+          "source": "google_books",
+          "rank": 1,
+          "reason": "This graphic novel centers on Rorschach, an aging superhero, as he searches for answers about a former colleague's death. It clearly fits superhero fiction with a serious, questioning tone.",
+          "links": [
+            {
+              "store": "amazon_es",
+              "label": "Amazon.es",
+              "url": "https://www.amazon.es/s?k=9781401235673",
+              "formats": [
+                "paper",
+                "kindle"
+              ],
+              "match": "isbn_search",
+              "language_verified": false,
+              "copyright_region": null
+            },
+            {
+              "store": "apple_books",
+              "label": "Apple Books",
+              "url": "https://books.apple.com/es/book/watchmen-international-edition/id556750885?uo=4",
+              "formats": [
+                "apple_books"
+              ],
+              "match": "title_author",
+              "language_verified": false,
+              "copyright_region": null
+            }
+          ],
+          "formats": [
+            "paper",
+            "kindle",
+            "apple_books"
+          ]
+        },
+        {
+          "isbn13": "9781401242848",
+          "title": "Animal Man Vol. 5: the Meaning of Flesh",
+          "authors": [
+            "Tom Veitch"
+          ],
+          "language": "en",
+          "description": "\" ... collects the bizarre adventures of Animal Man, a second-rate super hero struggling with real-life issues and moral dilemmas. Buddy Baker is a caring husband, devoted father, animal activist and super-powered being. But as he attempts to live up to all of his roles, he soon finds that there are no black and white situations in life. With a strong focus on storytelling, these thought-provoking and innovative tales make the reader question the actions of Animal Man as well as their own behavior in similar situations.\"--Amazon",
+          "cover_url": "https://books.google.com/books/content?id=xCOinAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+          "page_count": null,
+          "published_year": 2014,
+          "genres": [
+            "COMICS & GRAPHIC NOVELS"
+          ],
+          "rating": null,
+          "source": "google_books",
+          "rank": 2,
+          "reason": "This graphic novel follows Animal Man, a second-rate super hero facing real-life issues and moral dilemmas. The story says there are no black and white situations in life.",
+          "links": [
+            {
+              "store": "amazon_es",
+              "label": "Amazon.es",
+              "url": "https://www.amazon.es/s?k=9781401242848",
+              "formats": [
+                "paper",
+                "kindle"
+              ],
+              "match": "isbn_search",
+              "language_verified": false,
+              "copyright_region": null
+            },
+            {
+              "store": "apple_books",
+              "label": "Apple Books",
+              "url": "https://books.apple.com/es/book/animal-man-vol-5-the-meaning-of-flesh/id781712142?uo=4",
+              "formats": [
+                "apple_books"
+              ],
+              "match": "title_author",
+              "language_verified": false,
+              "copyright_region": null
+            }
+          ],
+          "formats": [
+            "paper",
+            "kindle",
+            "apple_books"
+          ]
+        },
+        {
+          "isbn13": "9781401246792",
+          "title": "Animal Man Vol. 6: Flesh and Blood",
+          "authors": [
+            "Jamie Delano"
+          ],
+          "language": "en",
+          "description": "\" ... collects the bizarre adventures of Animal Man, a second-rate super hero struggling with real-life issues and moral dilemmas. Buddy Baker is a caring husband, devoted father, animal activist and super-powered being. But as he attempts to live up to all of his roles, he soon finds that there are no black and white situations in life. With a strong focus on storytelling, these thought-provoking and innovative tales make the reader question the actions of Animal Man as well as their own behavior in similar situations.\"--Amazon",
+          "cover_url": "https://books.google.com/books/content?id=jAE6nwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+          "page_count": null,
+          "published_year": 2014,
+          "genres": [
+            "COMICS & GRAPHIC NOVELS"
+          ],
+          "rating": null,
+          "source": "google_books",
+          "rank": 3,
+          "reason": "This graphic novel also collects Animal Man stories about a second-rate super hero struggling with real-life issues and moral dilemmas. It explicitly says the tales make readers question his actions.",
+          "links": [
+            {
+              "store": "amazon_es",
+              "label": "Amazon.es",
+              "url": "https://www.amazon.es/s?k=9781401246792",
+              "formats": [
+                "paper",
+                "kindle"
+              ],
+              "match": "isbn_search",
+              "language_verified": false,
+              "copyright_region": null
+            },
+            {
+              "store": "apple_books",
+              "label": "Apple Books",
+              "url": "https://books.apple.com/es/book/animal-man-vol-6-flesh-and-blood/id895901352?uo=4",
+              "formats": [
+                "apple_books"
+              ],
+              "match": "title_author",
+              "language_verified": false,
+              "copyright_region": null
+            }
+          ],
+          "formats": [
+            "paper",
+            "kindle",
+            "apple_books"
+          ]
+        },
+        {
+          "isbn13": "9781934506905",
+          "title": "Irredeemable:",
+          "authors": [
+            "Mark Waid"
+          ],
+          "language": "en",
+          "description": "Follows the adventures of Plutonian, the world's greatest superhero who turns into the world's greatest villain.",
+          "cover_url": "https://books.google.com/books/content?id=qbLhnQEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+          "page_count": 128,
+          "published_year": 2009,
+          "genres": [
+            "Comics & Graphic Novels"
+          ],
+          "rating": null,
+          "source": "google_books",
+          "rank": 4,
+          "reason": "This comic book follows Plutonian, the world's greatest superhero, as he turns into the world's greatest villain. That setup strongly suggests a superhero story built around ethical conflict.",
+          "links": [
+            {
+              "store": "amazon_es",
+              "label": "Amazon.es",
+              "url": "https://www.amazon.es/s?k=9781934506905",
+              "formats": [
+                "paper",
+                "kindle"
+              ],
+              "match": "isbn_search",
+              "language_verified": false,
+              "copyright_region": null
+            }
+          ],
+          "formats": [
+            "paper",
+            "kindle"
+          ]
+        },
+        {
+          "isbn13": "9781419761676",
+          "title": "Fantastic Four: Full Circle",
+          "authors": [
+            "Alex Ross"
+          ],
+          "language": "en",
+          "description": "\"Alex Ross is one of the most celebrated creators in comics, with a distinctive, realistic style of painting super heroes that has transformed the medium. This stunning, all-new graphic novel marks the first longform work he has written and illustrated-as well as the first time Marvel has licensed the rights to an original graphic novel in fifty years. Fantastic Four: Full Circle is the explosive story of the most celebrated super hero team in comics, as they journey into the Negative Zone to investigate a threat that has invaded their home headquarters and threatens to destroy the known universe. Told in bold, vivid colors and evocative of the work of Jack Kirby and Marvel's iconic black light posters, this action-packed stand-alone graphic novel is accessible to all ages, and will appeal to new readers and longtime Marvel fans alike\"--",
+          "cover_url": "https://books.google.com/books/content?id=PGO1zgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+          "page_count": null,
+          "published_year": 2022,
+          "genres": [
+            "COMICS & GRAPHIC NOVELS"
+          ],
+          "rating": null,
+          "source": "google_books",
+          "rank": 5,
+          "reason": "This original graphic novel is about the Fantastic Four, a celebrated super hero team. It sends them into the Negative Zone to investigate a threat to their home headquarters and the known universe.",
+          "links": [
+            {
+              "store": "amazon_es",
+              "label": "Amazon.es",
+              "url": "https://www.amazon.es/s?k=9781419761676",
+              "formats": [
+                "paper",
+                "kindle"
+              ],
+              "match": "isbn_search",
+              "language_verified": false,
+              "copyright_region": null
+            },
+            {
+              "store": "apple_books",
+              "label": "Apple Books",
+              "url": "https://books.apple.com/es/book/fantastic-four-full-circle/id6443370328?uo=4",
+              "formats": [
+                "apple_books"
+              ],
+              "match": "title_author",
+              "language_verified": false,
+              "copyright_region": null
+            }
+          ],
+          "formats": [
+            "paper",
+            "kindle",
+            "apple_books"
+          ]
+        },
+        {
+          "isbn13": "9780857688828",
+          "title": "Life in the Big City",
+          "authors": [
+            "Kurt Busiek",
+            "Brent Eric Anderson"
+          ],
+          "language": "en",
+          "description": "Welcome to Astro City, a shining city on a hill where super-heroes patrol the skies. Each chapter in this collection is a standalone story, highlighting different aspects or characters in the Astro City world.",
+          "cover_url": "https://books.google.com/books/content?id=MG0pYAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+          "page_count": 192,
+          "published_year": 2011,
+          "genres": [
+            "Graphic novels"
+          ],
+          "rating": null,
+          "source": "google_books",
+          "rank": 6,
+          "reason": "This graphic novel is set in Astro City, where super-heroes patrol the skies. Each chapter is a standalone story, so it suits readers wanting superhero comics in graphic novel form.",
+          "links": [
+            {
+              "store": "amazon_es",
+              "label": "Amazon.es",
+              "url": "https://www.amazon.es/s?k=9780857688828",
+              "formats": [
+                "paper",
+                "kindle"
+              ],
+              "match": "isbn_search",
+              "language_verified": false,
+              "copyright_region": null
+            }
+          ],
+          "formats": [
+            "paper",
+            "kindle"
+          ]
+        },
+        {
+          "isbn13": "9781515874362",
+          "title": "DC Super Hero Girls",
+          "authors": [
+            "Shea Fontana"
+          ],
+          "language": "en",
+          "description": "Harley Quinn is center stage in this volume of the DC Super Hero Girls graphic novel series. For an assignment in Ms. June Moone's art class, the girls are working on their very own comic books. The character-created comic pages give us a glimpse into each girl's personality. But Harley isn't satisfied with her comics creation and thinks a little of Ms. Moone's special paint will really help her drawings come to life! The problem? Harley's drawings literally come to life!",
+          "cover_url": null,
+          "page_count": 128,
+          "published_year": 2020,
+          "genres": [
+            "DC super hero girls"
+          ],
+          "rating": null,
+          "source": "google_books",
+          "rank": 7,
+          "reason": "This graphic novel series features Harley Quinn and other DC Super Hero Girls characters. Its story involves an art-class assignment and drawings that literally come to life.",
+          "links": [
+            {
+              "store": "amazon_es",
+              "label": "Amazon.es",
+              "url": "https://www.amazon.es/s?k=9781515874362",
+              "formats": [
+                "paper",
+                "kindle"
+              ],
+              "match": "isbn_search",
+              "language_verified": false,
+              "copyright_region": null
+            },
+            {
+              "store": "apple_books",
+              "label": "Apple Books",
+              "url": "https://books.apple.com/es/book/dc-super-hero-girls-summer-olympus/id1243030079?uo=4",
+              "formats": [
+                "apple_books"
+              ],
+              "match": "title_author",
+              "language_verified": false,
+              "copyright_region": null
+            }
+          ],
+          "formats": [
+            "paper",
+            "kindle",
+            "apple_books"
+          ]
+        },
+        {
+          "isbn13": "9780998666709",
+          "title": "My Hero",
+          "authors": [
+            "Stephen Graham Jones"
+          ],
+          "language": "en",
+          "description": "What do you do when your dreams come true? When you were twelve, camping out in the back yard, you told your best friend that if he could draw a superhero good enough, you'd give him the perfect words to say. And then it didn't just happen, there's even action figures now. Your comic book is on every shelf. And you live beside your best friend again. Your kids even play together, with those action figures. Watch them on the lawn, there. Take a snapshot, and then look over their heads, over the tops of the houses, past the city, past the world itself. Look at all the stars, at all the adventures waiting out there. What do you do when all your dreams come true? You close your eyes, so the dream can last. You close your eyes and you roll your hands into fists, and you try to hold on.",
+          "cover_url": "https://books.google.com/books/content?id=cIvpswEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+          "page_count": 46,
+          "published_year": 2017,
+          "genres": [
+            "Comics & Graphic Novels"
+          ],
+          "rating": null,
+          "source": "google_books",
+          "rank": 8,
+          "reason": "This comic book centers on a superhero created on the page and now found on every shelf. It directly focuses on superhero fiction and the world around that creation.",
+          "links": [
+            {
+              "store": "amazon_es",
+              "label": "Amazon.es",
+              "url": "https://www.amazon.es/s?k=9780998666709",
+              "formats": [
+                "paper",
+                "kindle"
+              ],
+              "match": "isbn_search",
+              "language_verified": false,
+              "copyright_region": null
+            }
+          ],
+          "formats": [
+            "paper",
+            "kindle"
+          ]
+        }
+      ],
+      "channel_lookups": null,
+      "workflow_duration_ms": 0.03,
+      "first_book_sse_ms": 7505.93,
+      "retries": 0,
+      "searches_tried": [
+        "graphic novel superheroes",
+        "graphic novel moral dilemmas superhero",
+        "graphic novel superhero ethics"
+      ],
+      "description_lookup_keys": [],
+      "request_genre": "graphic novels",
+      "reader_mismatch_isbns": [],
+      "candidate_isbns": [
+        "9781563893308",
+        "9780929729022",
+        "9781419761676",
+        "9781401235673",
+        "9781544428345",
+        "9780857688828",
+        "9781401245979",
+        "9781401230760",
+        "9781401287450",
+        "9781799507680",
+        "9781496590879",
+        "9781401295776",
+        "9781406215021",
+        "9780062970763",
+        "9781951774028",
+        "9781515874362",
+        "9781401265458",
+        "9780815333449",
+        "9781401243302",
+        "9781630089443",
+        "9781416595304",
+        "9780199765812",
+        "9781401242848",
+        "9780199795277",
+        "9781932595789",
+        "9781401246792",
+        "9781588392800",
+        "9781607061625",
+        "9781401215538",
+        "9780998666709",
+        "9781934506905",
+        "9781401280680",
+        "9781421409535",
+        "9781399526081",
+        "9781685711085",
+        "9781978828216",
+        "9781401220341",
+        "9780982453940",
+        "9781910780107",
+        "9780203754047",
+        "9780439298117",
+        "9780399549731",
+        "9781401209858",
+        "9781474710329",
+        "9781401218072",
+        "9781401216825",
+        "9780451474773",
+        "9780316265980",
+        "9781439588567",
+        "9781663629425",
+        "9781401209377",
+        "9781852860400",
+        "9781401216511",
+        "9781401216917",
+        "9781406285697",
+        "9781563899614",
+        "9781614791768",
+        "9781401212049",
+        "9780316476997",
+        "9781401209049",
+        "9781000261257",
+        "9781476669984",
+        "9780316256711"
+      ],
+      "parsed_query": {
+        "searches": [
+          "graphic novel superheroes",
+          "graphic novel moral dilemmas",
+          "graphic novel superhero ethics"
+        ],
+        "genre": "graphic novel",
+        "requested_authors": [],
+        "is_book_request": true
+      },
+      "rankable_count": 37,
+      "shortlist_isbns": [
+        "9781419761676",
+        "9781401235673",
+        "9780857688828",
+        "9781401295776",
+        "9781406215021",
+        "9781951774028",
+        "9781515874362",
+        "9781416595304",
+        "9780199765812",
+        "9781401242848",
+        "9780199795277",
+        "9781932595789",
+        "9781401246792",
+        "9781607061625",
+        "9780998666709",
+        "9781934506905",
+        "9781421409535",
+        "9781685711085",
+        "9780203754047"
+      ],
+      "ranking_input": "ISBN: 9781419761676\nTitle: Fantastic Four: Full Circle\nAuthors: Alex Ross\nCatalog categories: COMICS & GRAPHIC NOVELS\nDescription: \"Alex Ross is one of the most celebrated creators in comics, with a distinctive, realistic style of painting super heroes that has transformed the medium. This stunning, all-new graphic novel marks the first longform work he has written and illustrated-as well as the first time Marvel has licensed the rights to an original graphic novel in fifty years. Fantastic Four: Full Circle is the explosive story of the most celebrated super hero team in comics, as they journey into the Negative Zone to investigate a threat that has invaded their home headquarters and threatens to destroy the known unive\n\nISBN: 9781401235673\nTitle: Watchmen\nAuthors: Alan Moore\nCatalog categories: Comic books, strips, etc\nDescription: A graphic novel in which Rorschach, an aging superhero, digs up the past in his search for answers about the death of one of his former colleagues.\n\nISBN: 9780857688828\nTitle: Life in the Big City\nAuthors: Kurt Busiek, Brent Eric Anderson\nCatalog categories: Graphic novels\nDescription: Welcome to Astro City, a shining city on a hill where super-heroes patrol the skies. Each chapter in this collection is a standalone story, highlighting different aspects or characters in the Astro City world.\n\nISBN: 9781401295776\nTitle: Legion of Super-Heroes Vol. 1: Millennium\nAuthors: Brian Michael Bendis\nCatalog categories: Comic books, strips, etc\nDescription: \"Welcome to the 31st century! Inspired by the acts of and lessons learned from the greatest heroes of all time, the Legion of Super-Heroes have gathered together to stop a galaxy from repeating its past mistakes.... Why have the Legion of Super-Heroes broken the cardinal rule of the United Planets and inducted Jon Kent, a.k.a. Superboy, into the Legion? What are they hiding? And what does it have to do with Aquaman's long-lost trident?\"--\n\nISBN: 9781406215021\nTitle: The Stolen Superpowers\nAuthors: Martin Powell\nCatalog categories: Juvenile Fiction\nDescription: Graphic Novel. Superman, The Man of Steel, defeats aliens and super-villians, and rescues Lois Lane and Jimmy Olsen. Kid's favourite super hero comics turned into easy-to-read chapter books. New stories with original art by DC illustrators.\n\nISBN: 9781951774028\nTitle: I Am Jesus: The One, True Superhero\nAuthors: Lee Fredrickson\nCatalog categories: Bibles\nDescription: I Am Jesus, the only Superhero you will ever need. This, biblically accurate, historical graphic novel presents Me as God. All of the heroes in the Bible had one thing in common, they needed a superhero. I am that Superhero, for I had no beginning and no end. I was active in the creation of the universe and have had a part in everything that has ever happened on this earth. In fact, I hold the universe together with the power of My hand. Yet, at an appointed time, I came to this earth as a baby, to grow up alongside the mortals I created. During My brief thirty-three years on this earth, I hea\n\nISBN: 9781515874362\nTitle: DC Super Hero Girls\nAuthors: Shea Fontana\nCatalog categories: DC super hero girls\nDescription: Harley Quinn is center stage in this volume of the DC Super Hero Girls graphic novel series. For an assignment in Ms. June Moone's art class, the girls are working on their very own comic books. The character-created comic pages give us a glimpse into each girl's personality. But Harley isn't satisfied with her comics creation and thinks a little of Ms. Moone's special paint will really help her drawings come to life! The problem? Harley's drawings literally come to life!\n\nISBN: 9781416595304\nTitle: Superman Is Jewish?\nAuthors: Harry Brod\nCatalog categories: Comics & Graphic Novels\nDescription: An expose of the secret identities of famous superheroes explains how theme dilemmas faced by iconic characters reflect the evolution of Judaism in American culture and the Jewish identities of famous comic book writers.\n\nISBN: 9780199765812\nTitle: Our Superheroes, Ourselves\nAuthors: Robin S. Rosenberg\nCatalog categories: Comics & Graphic Novels\nDescription: Why are so many people fascinated by superheroes? In this thoughtful, engaging, and intelligent collection, editor Robin Rosenberg compiles essays by some of the world's leading scholars to address our relationships with superheroes (and supervillains) as well as the humanity of superheroes. How do characters and stories reflect human nature? What is the role of justice in superhero worlds? Finally, are superhero stories good for us? These questions and many more are addressed in this illuminating new book.\n\nISBN: 9781401242848\nTitle: Animal Man Vol. 5: the Meaning of Flesh\nAuthors: Tom Veitch\nCatalog categories: COMICS & GRAPHIC NOVELS\nDescription: \" ... collects the bizarre adventures of Animal Man, a second-rate super hero struggling with real-life issues and moral dilemmas. Buddy Baker is a caring husband, devoted father, animal activist and super-powered being. But as he attempts to live up to all of his roles, he soon finds that there are no black and white situations in life. With a strong focus on storytelling, these thought-provoking and innovative tales make the reader question the actions of Animal Man as well as their own behavior in similar situations.\"--Amazon\n\nISBN: 9780199795277\nTitle: What is a Superhero?\nAuthors: Robin S. Rosenberg, PhD, Peter MacFarland Coogan\nCatalog categories: Comics & Graphic Novels\nDescription: What is a superhero? Everyone knows, right? And yet everyone seems to have a different answer. In this innovative collection of essays, renowned psychologist Robin Rosenberg and comics scholar Peter Coogan explore this question from a variety of viewpoints. With essays from scholars and commentaries by the writers and creators themselves, What is a Superhero? is the first volume to provide a true synthesis and reflection of the state of superheroes in our society today.\n\nISBN: 9781932595789\nTitle: Siegel and Shuster's Funnyman\nAuthors: Tom Andrae, Mel Gordon, Jerry Siegel, Joe Shuster\nCatalog categories: Biography & Autobiography\nDescription: Documenting the amazing back story of the world's first Jewish superhero, Siegel and Shuster's Funnyman is an important document of comics and Jewish history. Funnyman, aka Larry Davis, is a red-haired television comedian whose agent talks him into performing a superhero-like stunt in order to obtain publicity. This stunt goes wrong when Larry finds himself in a real crime scene. Larry stops this criminal, not knowing what he is doing is real until after the fact. Discovering that he enjoys fighting crime, Larry begins a career as the costumed crime fighter Funnyman.\n\nISBN: 9781401246792\nTitle: Animal Man Vol. 6: Flesh and Blood\nAuthors: Jamie Delano\nCatalog categories: COMICS & GRAPHIC NOVELS\nDescription: \" ... collects the bizarre adventures of Animal Man, a second-rate super hero struggling with real-life issues and moral dilemmas. Buddy Baker is a caring husband, devoted father, animal activist and super-powered being. But as he attempts to live up to all of his roles, he soon finds that there are no black and white situations in life. With a strong focus on storytelling, these thought-provoking and innovative tales make the reader question the actions of Animal Man as well as their own behavior in similar situations.\"--Amazon\n\nISBN: 9781607061625\nTitle: Noble Causes Volume 9\nAuthors: Jay Faerber\nCatalog categories: Comic books, strips, etc\nDescription: A collection of comics featuring the adventures of Liz Donnelly, the widow of super-hero Race Noble, and her family.\n\nISBN: 9780998666709\nTitle: My Hero\nAuthors: Stephen Graham Jones\nCatalog categories: Comics & Graphic Novels\nDescription: What do you do when your dreams come true? When you were twelve, camping out in the back yard, you told your best friend that if he could draw a superhero good enough, you'd give him the perfect words to say. And then it didn't just happen, there's even action figures now. Your comic book is on every shelf. And you live beside your best friend again. Your kids even play together, with those action figures. Watch them on the lawn, there. Take a snapshot, and then look over their heads, over the tops of the houses, past the city, past the world itself. Look at all the stars, at all the adventure\n\nISBN: 9781934506905\nTitle: Irredeemable:\nAuthors: Mark Waid\nCatalog categories: Comics & Graphic Novels\nDescription: Follows the adventures of Plutonian, the world's greatest superhero who turns into the world's greatest villain.\n\nISBN: 9781421409535\nTitle: The Myth of the Superhero\nAuthors: Marco Arnaudo\nCatalog categories: Comics & Graphic Novels\nDescription: Myth and religion -- Ethics and society -- Epic and neobaroque\n\nISBN: 9781685711085\nTitle: Recovering the Radical Promise of Superheroes\nAuthors: Ellen Kirkpatrick\nCatalog categories: Comics & Graphic Novels\nDescription: Superhero meaning making is a site of struggle. Superheroes (are thought to) trouble borders and normative ways of seeing and being in the world. Superhero narratives (are thought to) represent, and thereby inspire, alternative visions of the real world. The superhero genre is (thought to be) a repository for radical or progressive ideas. In the superhero world and beyond, much is made of the genre's utopian and dystopian landscapes, queer identity-play, and transforming bodies, but might it not be the case that the genre's overblown normative framing, or representation, serves to muzzle, rath\n\nISBN: 9780203754047\nTitle: American Theology, Superhero Comics, and Cinema\nAuthors: Anthony R. Mills\nCatalog categories: Art\nDescription: \"Stan Lee, who was the head writer of Marvel Comics in the early 1960s, co-created such popular heroes as Spider-Man, Hulk, the X-Men, the Fantastic Four, Iron Man, Thor, and Daredevil. This book traces the ways in which American theologians and comic books of the era were not only both saying things about what it means to be human, but, starting with Lee, they were largely saying the same things. Author Anthony R. Mills argues that the shift away from individualistic ideas of human personhood and toward relational conceptions occurring within both American theology and American superhero comi",
+      "model_calls": 2,
+      "ranking_rounds": [
+        {
+          "retry": 0,
+          "model_called": true,
+          "shortlist_isbns": [
+            "9781419761676",
+            "9781401235673",
+            "9780857688828",
+            "9781401295776",
+            "9781406215021",
+            "9781951774028",
+            "9781515874362",
+            "9781416595304",
+            "9780199765812",
+            "9781401242848",
+            "9780199795277",
+            "9781932595789",
+            "9781401246792",
+            "9781607061625",
+            "9780998666709",
+            "9781934506905",
+            "9781421409535",
+            "9781685711085",
+            "9780203754047"
+          ],
+          "ranking_input": "ISBN: 9781419761676\nTitle: Fantastic Four: Full Circle\nAuthors: Alex Ross\nCatalog categories: COMICS & GRAPHIC NOVELS\nDescription: \"Alex Ross is one of the most celebrated creators in comics, with a distinctive, realistic style of painting super heroes that has transformed the medium. This stunning, all-new graphic novel marks the first longform work he has written and illustrated-as well as the first time Marvel has licensed the rights to an original graphic novel in fifty years. Fantastic Four: Full Circle is the explosive story of the most celebrated super hero team in comics, as they journey into the Negative Zone to investigate a threat that has invaded their home headquarters and threatens to destroy the known unive\n\nISBN: 9781401235673\nTitle: Watchmen\nAuthors: Alan Moore\nCatalog categories: Comic books, strips, etc\nDescription: A graphic novel in which Rorschach, an aging superhero, digs up the past in his search for answers about the death of one of his former colleagues.\n\nISBN: 9780857688828\nTitle: Life in the Big City\nAuthors: Kurt Busiek, Brent Eric Anderson\nCatalog categories: Graphic novels\nDescription: Welcome to Astro City, a shining city on a hill where super-heroes patrol the skies. Each chapter in this collection is a standalone story, highlighting different aspects or characters in the Astro City world.\n\nISBN: 9781401295776\nTitle: Legion of Super-Heroes Vol. 1: Millennium\nAuthors: Brian Michael Bendis\nCatalog categories: Comic books, strips, etc\nDescription: \"Welcome to the 31st century! Inspired by the acts of and lessons learned from the greatest heroes of all time, the Legion of Super-Heroes have gathered together to stop a galaxy from repeating its past mistakes.... Why have the Legion of Super-Heroes broken the cardinal rule of the United Planets and inducted Jon Kent, a.k.a. Superboy, into the Legion? What are they hiding? And what does it have to do with Aquaman's long-lost trident?\"--\n\nISBN: 9781406215021\nTitle: The Stolen Superpowers\nAuthors: Martin Powell\nCatalog categories: Juvenile Fiction\nDescription: Graphic Novel. Superman, The Man of Steel, defeats aliens and super-villians, and rescues Lois Lane and Jimmy Olsen. Kid's favourite super hero comics turned into easy-to-read chapter books. New stories with original art by DC illustrators.\n\nISBN: 9781951774028\nTitle: I Am Jesus: The One, True Superhero\nAuthors: Lee Fredrickson\nCatalog categories: Bibles\nDescription: I Am Jesus, the only Superhero you will ever need. This, biblically accurate, historical graphic novel presents Me as God. All of the heroes in the Bible had one thing in common, they needed a superhero. I am that Superhero, for I had no beginning and no end. I was active in the creation of the universe and have had a part in everything that has ever happened on this earth. In fact, I hold the universe together with the power of My hand. Yet, at an appointed time, I came to this earth as a baby, to grow up alongside the mortals I created. During My brief thirty-three years on this earth, I hea\n\nISBN: 9781515874362\nTitle: DC Super Hero Girls\nAuthors: Shea Fontana\nCatalog categories: DC super hero girls\nDescription: Harley Quinn is center stage in this volume of the DC Super Hero Girls graphic novel series. For an assignment in Ms. June Moone's art class, the girls are working on their very own comic books. The character-created comic pages give us a glimpse into each girl's personality. But Harley isn't satisfied with her comics creation and thinks a little of Ms. Moone's special paint will really help her drawings come to life! The problem? Harley's drawings literally come to life!\n\nISBN: 9781416595304\nTitle: Superman Is Jewish?\nAuthors: Harry Brod\nCatalog categories: Comics & Graphic Novels\nDescription: An expose of the secret identities of famous superheroes explains how theme dilemmas faced by iconic characters reflect the evolution of Judaism in American culture and the Jewish identities of famous comic book writers.\n\nISBN: 9780199765812\nTitle: Our Superheroes, Ourselves\nAuthors: Robin S. Rosenberg\nCatalog categories: Comics & Graphic Novels\nDescription: Why are so many people fascinated by superheroes? In this thoughtful, engaging, and intelligent collection, editor Robin Rosenberg compiles essays by some of the world's leading scholars to address our relationships with superheroes (and supervillains) as well as the humanity of superheroes. How do characters and stories reflect human nature? What is the role of justice in superhero worlds? Finally, are superhero stories good for us? These questions and many more are addressed in this illuminating new book.\n\nISBN: 9781401242848\nTitle: Animal Man Vol. 5: the Meaning of Flesh\nAuthors: Tom Veitch\nCatalog categories: COMICS & GRAPHIC NOVELS\nDescription: \" ... collects the bizarre adventures of Animal Man, a second-rate super hero struggling with real-life issues and moral dilemmas. Buddy Baker is a caring husband, devoted father, animal activist and super-powered being. But as he attempts to live up to all of his roles, he soon finds that there are no black and white situations in life. With a strong focus on storytelling, these thought-provoking and innovative tales make the reader question the actions of Animal Man as well as their own behavior in similar situations.\"--Amazon\n\nISBN: 9780199795277\nTitle: What is a Superhero?\nAuthors: Robin S. Rosenberg, PhD, Peter MacFarland Coogan\nCatalog categories: Comics & Graphic Novels\nDescription: What is a superhero? Everyone knows, right? And yet everyone seems to have a different answer. In this innovative collection of essays, renowned psychologist Robin Rosenberg and comics scholar Peter Coogan explore this question from a variety of viewpoints. With essays from scholars and commentaries by the writers and creators themselves, What is a Superhero? is the first volume to provide a true synthesis and reflection of the state of superheroes in our society today.\n\nISBN: 9781932595789\nTitle: Siegel and Shuster's Funnyman\nAuthors: Tom Andrae, Mel Gordon, Jerry Siegel, Joe Shuster\nCatalog categories: Biography & Autobiography\nDescription: Documenting the amazing back story of the world's first Jewish superhero, Siegel and Shuster's Funnyman is an important document of comics and Jewish history. Funnyman, aka Larry Davis, is a red-haired television comedian whose agent talks him into performing a superhero-like stunt in order to obtain publicity. This stunt goes wrong when Larry finds himself in a real crime scene. Larry stops this criminal, not knowing what he is doing is real until after the fact. Discovering that he enjoys fighting crime, Larry begins a career as the costumed crime fighter Funnyman.\n\nISBN: 9781401246792\nTitle: Animal Man Vol. 6: Flesh and Blood\nAuthors: Jamie Delano\nCatalog categories: COMICS & GRAPHIC NOVELS\nDescription: \" ... collects the bizarre adventures of Animal Man, a second-rate super hero struggling with real-life issues and moral dilemmas. Buddy Baker is a caring husband, devoted father, animal activist and super-powered being. But as he attempts to live up to all of his roles, he soon finds that there are no black and white situations in life. With a strong focus on storytelling, these thought-provoking and innovative tales make the reader question the actions of Animal Man as well as their own behavior in similar situations.\"--Amazon\n\nISBN: 9781607061625\nTitle: Noble Causes Volume 9\nAuthors: Jay Faerber\nCatalog categories: Comic books, strips, etc\nDescription: A collection of comics featuring the adventures of Liz Donnelly, the widow of super-hero Race Noble, and her family.\n\nISBN: 9780998666709\nTitle: My Hero\nAuthors: Stephen Graham Jones\nCatalog categories: Comics & Graphic Novels\nDescription: What do you do when your dreams come true? When you were twelve, camping out in the back yard, you told your best friend that if he could draw a superhero good enough, you'd give him the perfect words to say. And then it didn't just happen, there's even action figures now. Your comic book is on every shelf. And you live beside your best friend again. Your kids even play together, with those action figures. Watch them on the lawn, there. Take a snapshot, and then look over their heads, over the tops of the houses, past the city, past the world itself. Look at all the stars, at all the adventure\n\nISBN: 9781934506905\nTitle: Irredeemable:\nAuthors: Mark Waid\nCatalog categories: Comics & Graphic Novels\nDescription: Follows the adventures of Plutonian, the world's greatest superhero who turns into the world's greatest villain.\n\nISBN: 9781421409535\nTitle: The Myth of the Superhero\nAuthors: Marco Arnaudo\nCatalog categories: Comics & Graphic Novels\nDescription: Myth and religion -- Ethics and society -- Epic and neobaroque\n\nISBN: 9781685711085\nTitle: Recovering the Radical Promise of Superheroes\nAuthors: Ellen Kirkpatrick\nCatalog categories: Comics & Graphic Novels\nDescription: Superhero meaning making is a site of struggle. Superheroes (are thought to) trouble borders and normative ways of seeing and being in the world. Superhero narratives (are thought to) represent, and thereby inspire, alternative visions of the real world. The superhero genre is (thought to be) a repository for radical or progressive ideas. In the superhero world and beyond, much is made of the genre's utopian and dystopian landscapes, queer identity-play, and transforming bodies, but might it not be the case that the genre's overblown normative framing, or representation, serves to muzzle, rath\n\nISBN: 9780203754047\nTitle: American Theology, Superhero Comics, and Cinema\nAuthors: Anthony R. Mills\nCatalog categories: Art\nDescription: \"Stan Lee, who was the head writer of Marvel Comics in the early 1960s, co-created such popular heroes as Spider-Man, Hulk, the X-Men, the Fantastic Four, Iron Man, Thor, and Daredevil. This book traces the ways in which American theologians and comic books of the era were not only both saying things about what it means to be human, but, starting with Lee, they were largely saying the same things. Author Anthony R. Mills argues that the shift away from individualistic ideas of human personhood and toward relational conceptions occurring within both American theology and American superhero comi",
+          "proposed_picks": [
+            {
+              "isbn13": "9781401235673",
+              "reason": "This graphic novel centers on Rorschach, an aging superhero, as he searches for answers about a former colleague's death. It clearly fits superhero fiction with a serious, questioning tone."
+            },
+            {
+              "isbn13": "9781401242848",
+              "reason": "This graphic novel follows Animal Man, a second-rate super hero facing real-life issues and moral dilemmas. The story says there are no black and white situations in life."
+            },
+            {
+              "isbn13": "9781401246792",
+              "reason": "This graphic novel also collects Animal Man stories about a second-rate super hero struggling with real-life issues and moral dilemmas. It explicitly says the tales make readers question his actions."
+            },
+            {
+              "isbn13": "9781934506905",
+              "reason": "This comic book follows Plutonian, the world's greatest superhero, as he turns into the world's greatest villain. That setup strongly suggests a superhero story built around ethical conflict."
+            },
+            {
+              "isbn13": "9781419761676",
+              "reason": "This original graphic novel is about the Fantastic Four, a celebrated super hero team. It sends them into the Negative Zone to investigate a threat to their home headquarters and the known universe."
+            },
+            {
+              "isbn13": "9780857688828",
+              "reason": "This graphic novel is set in Astro City, where super-heroes patrol the skies. Each chapter is a standalone story, so it suits readers wanting superhero comics in graphic novel form."
+            },
+            {
+              "isbn13": "9781515874362",
+              "reason": "This graphic novel series features Harley Quinn and other DC Super Hero Girls characters. Its story involves an art-class assignment and drawings that literally come to life."
+            },
+            {
+              "isbn13": "9780998666709",
+              "reason": "This comic book centers on a superhero created on the page and now found on every shelf. It directly focuses on superhero fiction and the world around that creation."
+            }
+          ],
+          "accepted_picks": [
+            {
+              "isbn13": "9781401235673",
+              "rank": 1,
+              "reason": "This graphic novel centers on Rorschach, an aging superhero, as he searches for answers about a former colleague's death. It clearly fits superhero fiction with a serious, questioning tone."
+            },
+            {
+              "isbn13": "9781401242848",
+              "rank": 2,
+              "reason": "This graphic novel follows Animal Man, a second-rate super hero facing real-life issues and moral dilemmas. The story says there are no black and white situations in life."
+            },
+            {
+              "isbn13": "9781401246792",
+              "rank": 3,
+              "reason": "This graphic novel also collects Animal Man stories about a second-rate super hero struggling with real-life issues and moral dilemmas. It explicitly says the tales make readers question his actions."
+            },
+            {
+              "isbn13": "9781934506905",
+              "rank": 4,
+              "reason": "This comic book follows Plutonian, the world's greatest superhero, as he turns into the world's greatest villain. That setup strongly suggests a superhero story built around ethical conflict."
+            },
+            {
+              "isbn13": "9781419761676",
+              "rank": 5,
+              "reason": "This original graphic novel is about the Fantastic Four, a celebrated super hero team. It sends them into the Negative Zone to investigate a threat to their home headquarters and the known universe."
+            },
+            {
+              "isbn13": "9780857688828",
+              "rank": 6,
+              "reason": "This graphic novel is set in Astro City, where super-heroes patrol the skies. Each chapter is a standalone story, so it suits readers wanting superhero comics in graphic novel form."
+            },
+            {
+              "isbn13": "9781515874362",
+              "rank": 7,
+              "reason": "This graphic novel series features Harley Quinn and other DC Super Hero Girls characters. Its story involves an art-class assignment and drawings that literally come to life."
+            },
+            {
+              "isbn13": "9780998666709",
+              "rank": 8,
+              "reason": "This comic book centers on a superhero created on the page and now found on every shelf. It directly focuses on superhero fiction and the world around that creation."
+            }
+          ],
+          "feedback": [],
+          "validation_issues": []
+        }
+      ],
+      "candidate_evidence": [
+        {
+          "isbn13": "9781563893308",
+          "title": "Kingdom Come",
+          "authors": [
+            "Mark Waid",
+            "Alex Ross"
+          ],
+          "language": "en",
+          "description": "Kingdom Come-the critically acclaimed Elseworlds saga by Mark Waid and Alex Ross- has been collected into a single-volume hardcover, produced by DC Comics and Graphitti Designs. With the addition of 12 new pages of story and art, previously available only in the deluxe slipcase edition, the hardcover edition offers reader's the complete version of the DC Universe's ultimate battle. An extensive 18 page design section includes some of Ross's exhaustive preliminary character illustrations, cover legends, a key to cameo appearances, trading-card art and art originally designed for promotional use.",
+          "page_count": 228,
+          "published_year": 1997,
+          "genres": [
+            "Comics & Graphic Novels"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9780929729022",
+          "title": "Alter Ego",
+          "authors": [
+            "Roy Thomas",
+            "Ron Harris (Comic book creator)"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 132,
+          "published_year": 1997,
+          "genres": [
+            "Comics & Graphic Novels"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781419761676",
+          "title": "Fantastic Four: Full Circle",
+          "authors": [
+            "Alex Ross"
+          ],
+          "language": "en",
+          "description": "\"Alex Ross is one of the most celebrated creators in comics, with a distinctive, realistic style of painting super heroes that has transformed the medium. This stunning, all-new graphic novel marks the first longform work he has written and illustrated-as well as the first time Marvel has licensed the rights to an original graphic novel in fifty years. Fantastic Four: Full Circle is the explosive story of the most celebrated super hero team in comics, as they journey into the Negative Zone to investigate a threat that has invaded their home headquarters and threatens to destroy the known universe. Told in bold, vivid colors and evocative of the work of Jack Kirby and Marvel's iconic black light posters, this action-packed stand-alone graphic novel is accessible to all ages, and will appeal to new readers and longtime Marvel fans alike\"--",
+          "page_count": null,
+          "published_year": 2022,
+          "genres": [
+            "COMICS & GRAPHIC NOVELS"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781401235673",
+          "title": "Watchmen",
+          "authors": [
+            "Alan Moore"
+          ],
+          "language": "en",
+          "description": "A graphic novel in which Rorschach, an aging superhero, digs up the past in his search for answers about the death of one of his former colleagues.",
+          "page_count": null,
+          "published_year": 2005,
+          "genres": [
+            "Comic books, strips, etc"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781544428345",
+          "title": "DC Super Hero Girls",
+          "authors": [
+            "Shea Fontana"
+          ],
+          "language": "en",
+          "description": "\"Earth's new Green Lantern, Jessica Cruz, learns that she must report to Oa and introduce herself to the Green Lantern Corps. Luckily, some of her new friends accompany Jessica. While the spacefaring girls take on an intergalactic threat, the Earthbound students are faced with pet-sitting Krypto!\"--Provided by publisher.",
+          "page_count": 144,
+          "published_year": 2019,
+          "genres": [
+            "JUVENILE FICTION"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9780857688828",
+          "title": "Life in the Big City",
+          "authors": [
+            "Kurt Busiek",
+            "Brent Eric Anderson"
+          ],
+          "language": "en",
+          "description": "Welcome to Astro City, a shining city on a hill where super-heroes patrol the skies. Each chapter in this collection is a standalone story, highlighting different aspects or characters in the Astro City world.",
+          "page_count": 192,
+          "published_year": 2011,
+          "genres": [
+            "Graphic novels"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781401245979",
+          "title": "Brightest Day Omnibus",
+          "authors": [
+            "Geoff Johns",
+            "Peter J. Tomasi"
+          ],
+          "language": "en",
+          "description": "Comics' hottest writer Geoff Johns (JUSTICE LEAGUE, GREEN LANTERN joins with Peter J. Tomasi (BATMAN & ROBIN) in the follow-up to The New York Times best-selling graphic novel, BLACKEST NIGHT, BRIGHTEST DAY. Once dead, twelve heroes and villains were resurrected by a white light expelled deep within the center of the earth. Now, Aquaman, Martian Manhunter, Firestorm, Hawkman, Hawkgirl, Deadman, Jade, Osiris, Hawk, Captain Boomerang and Zoom must discover the mysterious reason behind their return and uncover the secret that binds them all. Featuring work from some of the hottest artists in the industry, including Ivan Reis, Patrick Gleason, Fernando Pasarin and Ardian Syaf, the entire BRIGHTEST DAY storyline is now available in one complete hardcover omnibus.",
+          "page_count": null,
+          "published_year": 2014,
+          "genres": [
+            "COMICS & GRAPHIC NOVELS"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781401230760",
+          "title": "Superman: Grounded Vol. 1",
+          "authors": [
+            "J. Michael Straczynski",
+            "G. Willow Wilson",
+            "Eddy Barrows",
+            "Jerry Siegel",
+            "Joe Shuster",
+            "Rod Reis",
+            "John J. Hill"
+          ],
+          "language": "en",
+          "description": "\"Originally published in single magazine form in Superman 700-706\"--Colophon.",
+          "page_count": null,
+          "published_year": 2011,
+          "genres": [
+            "Extraterrestrial beings"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781401287450",
+          "title": "Powers Book One",
+          "authors": [
+            "Brian Michael Bendis",
+            "Michael Avon Oeming"
+          ],
+          "language": "en",
+          "description": "\"Originally published in single magazine form in Powers 1-11, Powers coloring/activity book\"--Copyright page.",
+          "page_count": null,
+          "published_year": 2018,
+          "genres": [
+            "COMICS & GRAPHIC NOVELS"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781799507680",
+          "title": "Wonder Woman: Spirit of Truth (New Edition)",
+          "authors": [
+            "Paul Dini"
+          ],
+          "language": "en",
+          "description": "A visually stunning and emotionally resonant exploration of Wonder Woman's mission in the modern world, from the Eisner Award-winning team of Paul Dini and Alex Ross. As she battles injustice across the globe, Diana finds that her message of peace is often met with fear and resistance. Can she bridge the gap between myth and humanity? Featuring breathtaking painted art and a timeless story, this oversized edition is a must-have for fans of Wonder Woman and graphic novel collectors alike.",
+          "page_count": null,
+          "published_year": 2026,
+          "genres": [
+            "Comics & Graphic Novels"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781496590879",
+          "title": "Red Riding Hood, Superhero",
+          "authors": [
+            "Otis Frampton"
+          ],
+          "language": "en",
+          "description": "While taking a tour of Area 54 with her grandmother, the President of the United States, little Ruby Topper discovers a mysterious little alien carrying a red hood. When Ruby dons the crimson cape and cowl, it grants her AMAZING SUPERPOWERS! But will her newfound abilities be enough to save the White House -- and her grandmother -- from the rampaging Big Bad Wolf-Bot?",
+          "page_count": 44,
+          "published_year": 2020,
+          "genres": [
+            "Juvenile Fiction"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781401295776",
+          "title": "Legion of Super-Heroes Vol. 1: Millennium",
+          "authors": [
+            "Brian Michael Bendis"
+          ],
+          "language": "en",
+          "description": "\"Welcome to the 31st century! Inspired by the acts of and lessons learned from the greatest heroes of all time, the Legion of Super-Heroes have gathered together to stop a galaxy from repeating its past mistakes.... Why have the Legion of Super-Heroes broken the cardinal rule of the United Planets and inducted Jon Kent, a.k.a. Superboy, into the Legion? What are they hiding? And what does it have to do with Aquaman's long-lost trident?\"--",
+          "page_count": 240,
+          "published_year": 2020,
+          "genres": [
+            "Comic books, strips, etc"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781406215021",
+          "title": "The Stolen Superpowers",
+          "authors": [
+            "Martin Powell"
+          ],
+          "language": "en",
+          "description": "Graphic Novel. Superman, The Man of Steel, defeats aliens and super-villians, and rescues Lois Lane and Jimmy Olsen. Kid's favourite super hero comics turned into easy-to-read chapter books. New stories with original art by DC illustrators.",
+          "page_count": 58,
+          "published_year": 2010,
+          "genres": [
+            "Juvenile Fiction"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9780062970763",
+          "title": "Mischief and Mayhem #1: Born to Be Bad",
+          "authors": [
+            "Ken Lamug"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 256,
+          "published_year": 2021,
+          "genres": [
+            "Juvenile Fiction"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781951774028",
+          "title": "I Am Jesus: The One, True Superhero",
+          "authors": [
+            "Lee Fredrickson"
+          ],
+          "language": "en",
+          "description": "I Am Jesus, the only Superhero you will ever need. This, biblically accurate, historical graphic novel presents Me as God. All of the heroes in the Bible had one thing in common, they needed a superhero. I am that Superhero, for I had no beginning and no end. I was active in the creation of the universe and have had a part in everything that has ever happened on this earth. In fact, I hold the universe together with the power of My hand. Yet, at an appointed time, I came to this earth as a baby, to grow up alongside the mortals I created. During My brief thirty-three years on this earth, I healed every manner of diseases and even raised people from the dead. I also gave the world its greatest teaching. I did this to show humankind that anyone who believes in Me, and places their complete trust in Me, would live forever with Me in Heaven. Experience Me, and let Me talk to you directly and change your life for eternity. -Jesus Christ Jesus is the only Superhero. Instead of coming from a planet far away to live on this earth, Jesus created the planets. Rather than being faster than a speeding bullet, Jesus travels faster than the speed of light. A number of the superheroes had their sidekicks. Batman had Robin, and Superman had Superboy. Jesus wants you as His sidekick. He is able to do what all the other superheroes could not do. He is able to give you the power to become one of the sons of God. Think about it, Jesus wants to give you His power. Now there's a dynamic duo! This historical graphic novel presents Jesus talking to you directly as God the Son. Jesus is the only Superhero you need for this life, and the life to come, for He has no beginning and no end. He was active in the creation of the universe. He has a part in everything that has or will ever happen on this earth and in the universe. In fact, He holds the universe together with the power of His hand. Yet, at an appointed time, He came to this earth as a baby, to grow up alongside the mortals He created. During His brief thirty-three years on this earth, He healed every manner of diseases and even raised people from the dead. He also gave the world its greatest teaching. He did this to show you that if you believe in Him, and place your complete trust in Him, you too can live forever with Him in Heaven. Experience Jesus, and let Him change your life for eternity. Dr. Elmer Towns Co-founder Liberty University",
+          "page_count": 130,
+          "published_year": 2019,
+          "genres": [
+            "Bibles"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781515874362",
+          "title": "DC Super Hero Girls",
+          "authors": [
+            "Shea Fontana"
+          ],
+          "language": "en",
+          "description": "Harley Quinn is center stage in this volume of the DC Super Hero Girls graphic novel series. For an assignment in Ms. June Moone's art class, the girls are working on their very own comic books. The character-created comic pages give us a glimpse into each girl's personality. But Harley isn't satisfied with her comics creation and thinks a little of Ms. Moone's special paint will really help her drawings come to life! The problem? Harley's drawings literally come to life!",
+          "page_count": 128,
+          "published_year": 2020,
+          "genres": [
+            "DC super hero girls"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781401265458",
+          "title": "Superman Wonder Woman Vol 5 Savage End",
+          "authors": [
+            "Brian Buccellato",
+            "Peter Tomasi",
+            "Keith Champagne"
+          ],
+          "language": "en",
+          "description": "The world's most powerful couple returns in the third volume of SUPERMAN/WONDER WOMAN by the all-star creative team of Peter J. Tomasi (BATMAN & ROBIN) and Doug Mahnke (GREEN LANTERN). Superman's powers have still not returned to full strength, and now Wonder Woman is forced to turn to rest of the Olympian gods in hopes of saving the man she loves. But this divine intervention turns out to be more trying than the God of War could have ever expected. Plus, Superman and Wonder Woman must also face off against another one of the most powerful duos in the DC Universe--the twin children of the immortal madman Vandal Savage! Collection SUPERMAN/WONDER WOMAN #25-30.",
+          "page_count": null,
+          "published_year": 2016,
+          "genres": [
+            "COMICS & GRAPHIC NOVELS"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9780815333449",
+          "title": "Reading Comics",
+          "authors": [
+            "Mila Bongco"
+          ],
+          "language": "en",
+          "description": "First published in 2000. Routledge is an imprint of Taylor & Francis, an informa company.",
+          "page_count": 258,
+          "published_year": 2000,
+          "genres": [
+            "History"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781401243302",
+          "title": "Joe Kubert Presents",
+          "authors": [
+            "Joe Kubert"
+          ],
+          "language": "en",
+          "description": "For over seven decades, Joe Kubert helped create some of the most memorable characters and stories in history. This anthology-style graphic novel includes original stories with far ranging characters, featuring heroes from Kubert's most famous works, Sgt. Rock and Hawkman, as well as the gritty war epics he was best known for.",
+          "page_count": null,
+          "published_year": 2013,
+          "genres": [
+            "Comic books, strips, etc"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781630089443",
+          "title": "Dark Horse Comics DC Comics Mask",
+          "authors": [
+            "Henry Gilroy",
+            "J. Arcudi",
+            "Ronnie Del Carmen",
+            "Alan Grant",
+            "Steven T. Seagle"
+          ],
+          "language": "en",
+          "description": "Between 1991 and 2007 Dark Horse Comics and DC Comics collaborated on an unprecedented level, pitting their top franchises against one another in no-holds-barred throwdowns! In this collection of DC Comics crossovers, Dark Horse brings never republished material featuring a host of heroes back to fans in a single volume. This volume features The Mask, The Grifter, and The Joker in crossover action!",
+          "page_count": 258,
+          "published_year": 2017,
+          "genres": [
+            "Comics & Graphic Novels"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781416595304",
+          "title": "Superman Is Jewish?",
+          "authors": [
+            "Harry Brod"
+          ],
+          "language": "en",
+          "description": "An expose of the secret identities of famous superheroes explains how theme dilemmas faced by iconic characters reflect the evolution of Judaism in American culture and the Jewish identities of famous comic book writers.",
+          "page_count": 235,
+          "published_year": 2012,
+          "genres": [
+            "Comics & Graphic Novels"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9780199765812",
+          "title": "Our Superheroes, Ourselves",
+          "authors": [
+            "Robin S. Rosenberg"
+          ],
+          "language": "en",
+          "description": "Why are so many people fascinated by superheroes? In this thoughtful, engaging, and intelligent collection, editor Robin Rosenberg compiles essays by some of the world's leading scholars to address our relationships with superheroes (and supervillains) as well as the humanity of superheroes. How do characters and stories reflect human nature? What is the role of justice in superhero worlds? Finally, are superhero stories good for us? These questions and many more are addressed in this illuminating new book.",
+          "page_count": 233,
+          "published_year": 2013,
+          "genres": [
+            "Comics & Graphic Novels"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781401242848",
+          "title": "Animal Man Vol. 5: the Meaning of Flesh",
+          "authors": [
+            "Tom Veitch"
+          ],
+          "language": "en",
+          "description": "\" ... collects the bizarre adventures of Animal Man, a second-rate super hero struggling with real-life issues and moral dilemmas. Buddy Baker is a caring husband, devoted father, animal activist and super-powered being. But as he attempts to live up to all of his roles, he soon finds that there are no black and white situations in life. With a strong focus on storytelling, these thought-provoking and innovative tales make the reader question the actions of Animal Man as well as their own behavior in similar situations.\"--Amazon",
+          "page_count": null,
+          "published_year": 2014,
+          "genres": [
+            "COMICS & GRAPHIC NOVELS"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9780199795277",
+          "title": "What is a Superhero?",
+          "authors": [
+            "Robin S. Rosenberg, PhD",
+            "Peter MacFarland Coogan"
+          ],
+          "language": "en",
+          "description": "What is a superhero? Everyone knows, right? And yet everyone seems to have a different answer. In this innovative collection of essays, renowned psychologist Robin Rosenberg and comics scholar Peter Coogan explore this question from a variety of viewpoints. With essays from scholars and commentaries by the writers and creators themselves, What is a Superhero? is the first volume to provide a true synthesis and reflection of the state of superheroes in our society today.",
+          "page_count": 200,
+          "published_year": 2013,
+          "genres": [
+            "Comics & Graphic Novels"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781932595789",
+          "title": "Siegel and Shuster's Funnyman",
+          "authors": [
+            "Tom Andrae",
+            "Mel Gordon",
+            "Jerry Siegel",
+            "Joe Shuster"
+          ],
+          "language": "en",
+          "description": "Documenting the amazing back story of the world's first Jewish superhero, Siegel and Shuster's Funnyman is an important document of comics and Jewish history. Funnyman, aka Larry Davis, is a red-haired television comedian whose agent talks him into performing a superhero-like stunt in order to obtain publicity. This stunt goes wrong when Larry finds himself in a real crime scene. Larry stops this criminal, not knowing what he is doing is real until after the fact. Discovering that he enjoys fighting crime, Larry begins a career as the costumed crime fighter Funnyman.",
+          "page_count": 201,
+          "published_year": 2010,
+          "genres": [
+            "Biography & Autobiography"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781401246792",
+          "title": "Animal Man Vol. 6: Flesh and Blood",
+          "authors": [
+            "Jamie Delano"
+          ],
+          "language": "en",
+          "description": "\" ... collects the bizarre adventures of Animal Man, a second-rate super hero struggling with real-life issues and moral dilemmas. Buddy Baker is a caring husband, devoted father, animal activist and super-powered being. But as he attempts to live up to all of his roles, he soon finds that there are no black and white situations in life. With a strong focus on storytelling, these thought-provoking and innovative tales make the reader question the actions of Animal Man as well as their own behavior in similar situations.\"--Amazon",
+          "page_count": null,
+          "published_year": 2014,
+          "genres": [
+            "COMICS & GRAPHIC NOVELS"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781588392800",
+          "title": "Superheroes",
+          "authors": [
+            "Andrew Bolton",
+            "Michael Chabon"
+          ],
+          "language": "en",
+          "description": "Essay af Michael Chabon: Secret Skin. An Essay in Unitard Theory",
+          "page_count": 162,
+          "published_year": 2008,
+          "genres": [
+            "Design"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781607061625",
+          "title": "Noble Causes Volume 9",
+          "authors": [
+            "Jay Faerber"
+          ],
+          "language": "en",
+          "description": "A collection of comics featuring the adventures of Liz Donnelly, the widow of super-hero Race Noble, and her family.",
+          "page_count": null,
+          "published_year": 2009,
+          "genres": [
+            "Comic books, strips, etc"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781401215538",
+          "title": "Sword of the Atom",
+          "authors": [
+            "Jan Strand",
+            "Gil Kane"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": null,
+          "published_year": 2007,
+          "genres": [
+            "Comic books, strips, etc"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9780998666709",
+          "title": "My Hero",
+          "authors": [
+            "Stephen Graham Jones"
+          ],
+          "language": "en",
+          "description": "What do you do when your dreams come true? When you were twelve, camping out in the back yard, you told your best friend that if he could draw a superhero good enough, you'd give him the perfect words to say. And then it didn't just happen, there's even action figures now. Your comic book is on every shelf. And you live beside your best friend again. Your kids even play together, with those action figures. Watch them on the lawn, there. Take a snapshot, and then look over their heads, over the tops of the houses, past the city, past the world itself. Look at all the stars, at all the adventures waiting out there. What do you do when all your dreams come true? You close your eyes, so the dream can last. You close your eyes and you roll your hands into fists, and you try to hold on.",
+          "page_count": 46,
+          "published_year": 2017,
+          "genres": [
+            "Comics & Graphic Novels"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781934506905",
+          "title": "Irredeemable:",
+          "authors": [
+            "Mark Waid"
+          ],
+          "language": "en",
+          "description": "Follows the adventures of Plutonian, the world's greatest superhero who turns into the world's greatest villain.",
+          "page_count": 128,
+          "published_year": 2009,
+          "genres": [
+            "Comics & Graphic Novels"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781401280680",
+          "title": "Ex Machina: the Complete Series Omnibus",
+          "authors": [
+            "Brian K. Vaughan"
+          ],
+          "language": "en",
+          "description": "\"Created by Brian K. Vaughan and Tony Harris.\"",
+          "page_count": null,
+          "published_year": 2018,
+          "genres": [
+            "COMICS & GRAPHIC NOVELS"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781421409535",
+          "title": "The Myth of the Superhero",
+          "authors": [
+            "Marco Arnaudo"
+          ],
+          "language": "en",
+          "description": "Myth and religion -- Ethics and society -- Epic and neobaroque",
+          "page_count": 218,
+          "published_year": 2013,
+          "genres": [
+            "Comics & Graphic Novels"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781399526081",
+          "title": "Marvel, DC and US Security",
+          "authors": [
+            "Julian Schmid"
+          ],
+          "language": "en",
+          "description": "This book considers how the long-standing superhero genre has been reinvigorated in the twenty-first century as an interlocutor of security and surveillance discourses following the events of ‘9/11’. While superheroes have a long cultural history, Schmid argues that their contemporary representations in Hollywood films and TV shows create and deepen specific discourses on security, terrorism and violence. He shows how the Marvel Cinematic Universe and the DC Extended Universe, in particular, are important artefacts that can help us to understand how these discourses are popularised and ultimately normalised.The book offers a rich account of the emergence of superheroes against the backdrop of America’s history since its founding in 1776 and their rise to popularity through comic books since the 1930s. Analysing the connections between superheroes, foreign policy and security from ‘9/11’ to the present, it demonstrates the significance of superheroes for the construction of heroism and security in contemporary times.",
+          "page_count": 249,
+          "published_year": 2025,
+          "genres": [
+            "Literary Criticism"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781685711085",
+          "title": "Recovering the Radical Promise of Superheroes",
+          "authors": [
+            "Ellen Kirkpatrick"
+          ],
+          "language": "en",
+          "description": "Superhero meaning making is a site of struggle. Superheroes (are thought to) trouble borders and normative ways of seeing and being in the world. Superhero narratives (are thought to) represent, and thereby inspire, alternative visions of the real world. The superhero genre is (thought to be) a repository for radical or progressive ideas. In the superhero world and beyond, much is made of the genre's utopian and dystopian landscapes, queer identity-play, and transforming bodies, but might it not be the case that the genre's overblown normative framing, or representation, serves to muzzle, rather than express, its protagonists' radical promise? Why, when set against otherwise unbounded, and often extreme, transformation-human to machine, human to animal, human to god-are certain categories seemingly untouchable? Why does this speculative genre routinely fail to fully speculate about other worlds and ways of being in those worlds? For all their nonconformity, superhero stories do not live up to the idea of a radical genre, in look, feel, or tone. The mainstream American superhero genre, and its surrounding discourses, tells and facilitates an astonishingly seamless tale of opposing ideologies. But how? Recovering the Radical Promise of Superheroes: Un/Making Worlds serves a speculative response, detailing not so much a hunt for genre meaning as a trip through a genre's meaningscape. Looking anew at superhero meaning-making practices allows a distinct way of thinking about and describing the creative, formal, and ideological conditions of the genre and its protagonists, one removed from corralling binaries, one foregrounding the idea of a synergy-often unseen, uneasy, and even hostile-between official and unofficial agents of superhero meaning and one reframing familiar questions: What kinds of meaning do superhero texts engender? How is this meaning made? By whom and under what conditions? What processes and practices inform, regulate, and extend superhero meaning? And finally, superhero narratives present a new question: How might we reimagine its agents, surfaces, and spaces? Centering the experiences and practices of excluded and marginalized superhero fans, Recovering the Radical Promise of Superheroes reveals that genre meaning is not lodged in one place or another, neither in its official creators or fans, nor in \"black and white\" conservatism or in a \"rainbow\" of progressive possibilities. Nor is it even located somewhere in the in-between; it is instead better conceived of as an antagonistic, in-process nexus of meaning undergirded by systems of power. Ellen Kirkpatrick, based in northern Ireland, is an activist-writer with a PhD in Cultural Studies. In her work, she writes about activism, pop culture, fan cultures, and the transformative power of storytelling. She has published work in a range of academic journals and media outlets and her writings and work can be found at The Break and on Twitter @elk_dash.",
+          "page_count": 415,
+          "published_year": 2023,
+          "genres": [
+            "Comics & Graphic Novels"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781978828216",
+          "title": "Christianity and Comics",
+          "authors": [
+            "Blair Davis"
+          ],
+          "language": "en",
+          "description": "This book presents an 80-year history of how the comics industry has drawn inspiration from biblical imagery, stories, and themes. Charting how comics have both reflected and influenced Americans' changing attitudes towards religion, it includes underground comix, books from Christian publishers, and a vast array of DC, Marvel, and Dark Horse titles, from Hellboy to Preacher.",
+          "page_count": 314,
+          "published_year": 2024,
+          "genres": [
+            "Literary Criticism"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781401220341",
+          "title": "Kingdom Come",
+          "authors": [
+            "Mark Waid",
+            "Alex Ross"
+          ],
+          "language": "en",
+          "description": "One of the most acclaimed graphic novels of all time is offered in this new edition, with lush new panoramic cover art.",
+          "page_count": null,
+          "published_year": 2008,
+          "genres": [
+            "Comics & Graphic Novels"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9780982453940",
+          "title": "Broken Frontier Anthology",
+          "authors": [
+            "Greg Pak",
+            "Cullen Bunn",
+            "Phil Hester",
+            "Marguerite Bennett",
+            "Fred Van Lente",
+            "Joshua Hale Fialkov",
+            "Adam Egypt Mortimer",
+            "Steve Orlando",
+            "David Hine",
+            "Justin Zimmerman",
+            "A David Lewis"
+          ],
+          "language": "en",
+          "description": "This oversized hardcover is jam-packed with gorgeous artwork and captivating stories from today's heavy hitters in both mainstream and indie comics. Greg Pak and Tom Raney deliver a poignant tale of police officer returning to duty thanks to a",
+          "page_count": 312,
+          "published_year": 2016,
+          "genres": [
+            "Comic books, strips, etc"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781910780107",
+          "title": "A Philosopher Reads... Marvel Comics' Civil War",
+          "authors": [
+            "Mark D. White"
+          ],
+          "language": "en",
+          "description": "Includes bibliographical references.",
+          "page_count": 226,
+          "published_year": 2016,
+          "genres": [
+            "Superheroes"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9780203754047",
+          "title": "American Theology, Superhero Comics, and Cinema",
+          "authors": [
+            "Anthony R. Mills"
+          ],
+          "language": "en",
+          "description": "\"Stan Lee, who was the head writer of Marvel Comics in the early 1960s, co-created such popular heroes as Spider-Man, Hulk, the X-Men, the Fantastic Four, Iron Man, Thor, and Daredevil. This book traces the ways in which American theologians and comic books of the era were not only both saying things about what it means to be human, but, starting with Lee, they were largely saying the same things. Author Anthony R. Mills argues that the shift away from individualistic ideas of human personhood and toward relational conceptions occurring within both American theology and American superhero comics and films does not occur simply on the ontological level, but is also inherent to epistemology and ethics, reflecting the comprehensive nature of human life in terms of being, knowing, and acting. This book explores the idea of the \"American monomyth\" that pervades American hero stories and examines its philosophical and theological origins and specific manifestations in early American superhero comics. Surveying the anthropologies of six American theologians who argue against many of the monomyth's assumptions, principally the staunch individualism taken to be the model of humanity, and who offer relationality as a more realistic and ethical alternative, this book offers a detailed argument for the intimate historical relationship between the now disparate fields of comic book/superhero film creation, on the one hand, and Christian theology, on the other, in the United States. An understanding of the early connections between theology and American conceptions of heroism helps to further make sense of their contemporary parallels, wherein superhero stories and theology are not strictly separate phenomena but have shared origins and concerns\"--Provided by publisher.",
+          "page_count": null,
+          "published_year": 2013,
+          "genres": [
+            "Art"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9780439298117",
+          "title": "Sidekicks",
+          "authors": [
+            "Dan Santat"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 224,
+          "published_year": 2011,
+          "genres": [
+            "Graphic novels",
+            "Superheroes",
+            "Pets",
+            "Fiction",
+            "Comic books, strips"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9780399549731",
+          "title": "Wonder Woman--Warbringer",
+          "authors": [
+            "Leigh Bardugo"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 384,
+          "published_year": 2014,
+          "genres": [
+            "War stories",
+            "Brothers and sisters",
+            "Fantasy fiction",
+            "Juvenile fiction",
+            "Bildungsromans"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781401209858",
+          "title": "Teen Titans Go!",
+          "authors": [
+            "J. Torres",
+            "Adam Beechen"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 104,
+          "published_year": 2004,
+          "genres": [
+            "Comic books, strips",
+            "Good and evil",
+            "Teen Titans (Fictitious characters)",
+            "Cartoons and comics",
+            "Teenagers"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781474710329",
+          "title": "Red Riding Hood, superhero",
+          "authors": [
+            "Otis Frampton"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 40,
+          "published_year": 2015,
+          "genres": [
+            "Little Red Riding Hood (Fictitious character)",
+            "Robots",
+            "Cartoons and comics",
+            "Science fiction",
+            "Fiction"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781401218072",
+          "title": "Teen Titans",
+          "authors": [
+            "Geoff Johns"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 144,
+          "published_year": 2004,
+          "genres": [
+            "Heroes",
+            "Time travel",
+            "Comic books, strips",
+            "Good and evil",
+            "Teen Titans (Fictitious characters)"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781401216825",
+          "title": "Batman chronicles",
+          "authors": [
+            "DC Comics, Inc"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 192,
+          "published_year": 2008,
+          "genres": [
+            "Superheroes",
+            "Comic books, strips",
+            "Superhero comic books, strips"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9780451474773",
+          "title": "My brother is a superhero",
+          "authors": [
+            "David Solomons"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 312,
+          "published_year": 2015,
+          "genres": [
+            "Fiction",
+            "Brothers",
+            "Superheroes",
+            "Cartoons and comics",
+            "JUVENILE FICTION / Humorous Stories"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9780316265980",
+          "title": "Public School Superhero",
+          "authors": [
+            "James Patterson",
+            "Christopher Tebbetts"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 278,
+          "published_year": 2015,
+          "genres": [
+            "Humorous stories",
+            "Middle schools",
+            "Juvenile fiction",
+            "Grandmothers",
+            "Fiction"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781439588567",
+          "title": "The adventures of Super Diaper Baby",
+          "authors": [
+            "Dav Pilkey"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 128,
+          "published_year": 2002,
+          "genres": [
+            "Humorous stories",
+            "Fiction",
+            "Heroes",
+            "Cartoons and comics",
+            "Children's fiction"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781663629425",
+          "title": "The oracle code",
+          "authors": [
+            "Marieke Nijkamp",
+            "Manuel Preitano"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 198,
+          "published_year": 2019,
+          "genres": [
+            "Children's fiction",
+            "Comic books, strips",
+            "Hackers",
+            "Rehabilitation",
+            "Self-actualization (Psychology)"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781401209377",
+          "title": "Scooby-Doo",
+          "authors": [
+            "Chris Duffy",
+            "Joe Edkin",
+            "Terrance Griep",
+            "Chuck Kim",
+            "John Rozum"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 112,
+          "published_year": 2006,
+          "genres": [
+            "Scooby-Doo (Fictitious character)",
+            "Juvenile fiction",
+            "Teenagers",
+            "Cartoons and comics",
+            "Ghosts"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781852860400",
+          "title": "James Bond",
+          "authors": [
+            "James Duncan Lawrence",
+            "Ian Fleming"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 108,
+          "published_year": 1988,
+          "genres": [
+            "Espionage & spy thriller",
+            "Comic books, strips",
+            "American Spy stories",
+            "Comics & graphic novels, superheroes",
+            "Bond, james (fictitious character), fiction"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781401216511",
+          "title": "John Constantine, Hellblazer",
+          "authors": [
+            "Andy Diggle",
+            "Leonardo Manco"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 191,
+          "published_year": 2008,
+          "genres": [
+            "Comic books, strips",
+            "Fiction",
+            "John Constantine (Fictitious character)",
+            "Horror",
+            "Comics & Graphic Novels / Graphic Novels / Horror"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781401216917",
+          "title": "Justice League unlimited",
+          "authors": [
+            "Adam Beechen",
+            "Paul D. Storrie",
+            "Carlos Barberi"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 104,
+          "published_year": 2005,
+          "genres": [
+            "Good and evil",
+            "Juvenile fiction",
+            "Fiction",
+            "Justice League of America (Fictitious characters)",
+            "Science fiction"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781406285697",
+          "title": "The Batman strikes!",
+          "authors": [
+            "Bill Matheny",
+            "J. Torres",
+            "Christopher Jones",
+            "Terry Beatty"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 144,
+          "published_year": 2007,
+          "genres": [
+            "Cartoons and comics",
+            "Adventure and adventurers",
+            "Graphic novels",
+            "Heroes and heroines",
+            "Superhero comic books, strips"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781563899614",
+          "title": "Legion of Super-Heroes Archives, Vol. 12",
+          "authors": [
+            "Jim Shooter"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 232,
+          "published_year": 1991,
+          "genres": [
+            "Comic books, strips",
+            "Legion of Super-Heroes (Fictitious characters)",
+            "Superheroes",
+            "Graphic novels"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781614791768",
+          "title": "Hand in hand",
+          "authors": [
+            "Peter David"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": null,
+          "published_year": 2014,
+          "genres": [
+            "Graphic novels",
+            "Superheroes",
+            "Fiction",
+            "Comic books, strips",
+            "Juvenile fiction"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781401212049",
+          "title": "Superman",
+          "authors": [
+            "Kurt Busiek"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 136,
+          "published_year": 2005,
+          "genres": [
+            "Comic books, strips",
+            "Superman (Fictitious character)",
+            "Heroes",
+            "Graphic novels",
+            "Science fiction comic books, strips"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9780316476997",
+          "title": "W.I.T.C.H.",
+          "authors": [
+            "Elisabetta Gnone",
+            "Alessandro Barbucci",
+            "Barbara Canepa"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 256,
+          "published_year": 2017,
+          "genres": [
+            "comic",
+            "comics",
+            "comic series",
+            "graphic novels",
+            "kids"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781401209049",
+          "title": "Batman",
+          "authors": [
+            "Devin Grayson"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 72,
+          "published_year": 2002,
+          "genres": [
+            "Comics & graphic novels, superheroes",
+            "Batman (fictitious character), fiction"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781000261257",
+          "title": "Personal Ethics and Ordinary Heroes",
+          "authors": [
+            "Michael J. DeValve",
+            "Michael C. Braswell"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 128,
+          "published_year": 2020,
+          "genres": [
+            "Criminology",
+            "Comics & graphic novels, superheroes",
+            "Heroes",
+            "Superheroes",
+            "Ethics"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781476669984",
+          "title": "Superheroes and Their Ancient Jewish Parallels",
+          "authors": [
+            "Johnny E. Miles"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 225,
+          "published_year": 2018,
+          "genres": [
+            "Comics & graphic novels, general",
+            "Superheroes",
+            "Jews",
+            "Civilization",
+            "Influence"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9780316256711",
+          "title": "Marvel's Ant-Man",
+          "authors": [
+            "Tomas Palacios"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 32,
+          "published_year": 2015,
+          "genres": [
+            "Children's fiction",
+            "Ants, fiction",
+            "Fantasy fiction",
+            "Animals",
+            "Superheroes"
+          ],
+          "source": "open_library"
+        }
+      ],
+      "recommendations": [
+        {
+          "isbn13": "9781401235673",
+          "title": "Watchmen",
+          "rank": 1,
+          "reason": "This graphic novel centers on Rorschach, an aging superhero, as he searches for answers about a former colleague's death. It clearly fits superhero fiction with a serious, questioning tone."
+        },
+        {
+          "isbn13": "9781401242848",
+          "title": "Animal Man Vol. 5: the Meaning of Flesh",
+          "rank": 2,
+          "reason": "This graphic novel follows Animal Man, a second-rate super hero facing real-life issues and moral dilemmas. The story says there are no black and white situations in life."
+        },
+        {
+          "isbn13": "9781401246792",
+          "title": "Animal Man Vol. 6: Flesh and Blood",
+          "rank": 3,
+          "reason": "This graphic novel also collects Animal Man stories about a second-rate super hero struggling with real-life issues and moral dilemmas. It explicitly says the tales make readers question his actions."
+        },
+        {
+          "isbn13": "9781934506905",
+          "title": "Irredeemable:",
+          "rank": 4,
+          "reason": "This comic book follows Plutonian, the world's greatest superhero, as he turns into the world's greatest villain. That setup strongly suggests a superhero story built around ethical conflict."
+        },
+        {
+          "isbn13": "9781419761676",
+          "title": "Fantastic Four: Full Circle",
+          "rank": 5,
+          "reason": "This original graphic novel is about the Fantastic Four, a celebrated super hero team. It sends them into the Negative Zone to investigate a threat to their home headquarters and the known universe."
+        },
+        {
+          "isbn13": "9780857688828",
+          "title": "Life in the Big City",
+          "rank": 6,
+          "reason": "This graphic novel is set in Astro City, where super-heroes patrol the skies. Each chapter is a standalone story, so it suits readers wanting superhero comics in graphic novel form."
+        },
+        {
+          "isbn13": "9781515874362",
+          "title": "DC Super Hero Girls",
+          "rank": 7,
+          "reason": "This graphic novel series features Harley Quinn and other DC Super Hero Girls characters. Its story involves an art-class assignment and drawings that literally come to life."
+        },
+        {
+          "isbn13": "9780998666709",
+          "title": "My Hero",
+          "rank": 8,
+          "reason": "This comic book centers on a superhero created on the page and now found on every shelf. It directly focuses on superhero fiction and the world around that creation."
+        }
+      ],
+      "checks": {
+        "authenticity": {
+          "status": "pass",
+          "detail": "All recommended ISBNs are unique retrieved candidates"
+        },
+        "language": {
+          "status": "pass",
+          "detail": "Recommendation languages match the request"
+        },
+        "count": {
+          "status": "pass",
+          "detail": "8 recommendations within 5-10"
+        },
+        "links": {
+          "status": "pass",
+          "detail": "Store-language, genre and free-only rules satisfied"
+        },
+        "reason": {
+          "status": "pass",
+          "detail": "Reasons have descriptions and pass the proper-word heuristic"
+        },
+        "latency": {
+          "status": "pass",
+          "detail": "First SSE book at 7506 ms"
+        }
+      },
+      "events": [
+        {
+          "event": "status",
+          "data": {
+            "stage": "parsing"
+          }
+        },
+        {
+          "event": "status",
+          "data": {
+            "stage": "searching"
+          }
+        },
+        {
+          "event": "candidates",
+          "data": {
+            "count": 63
+          }
+        },
+        {
+          "event": "status",
+          "data": {
+            "stage": "ranking"
+          }
+        },
+        {
+          "event": "book",
+          "data": {
+            "isbn13": "9781401235673",
+            "title": "Watchmen",
+            "authors": [
+              "Alan Moore"
+            ],
+            "language": "en",
+            "description": "A graphic novel in which Rorschach, an aging superhero, digs up the past in his search for answers about the death of one of his former colleagues.",
+            "cover_url": "https://books.google.com/books/content?id=x6M_ygEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            "page_count": null,
+            "published_year": 2005,
+            "genres": [
+              "Comic books, strips, etc"
+            ],
+            "rating": null,
+            "source": "google_books",
+            "rank": 1,
+            "reason": "This graphic novel centers on Rorschach, an aging superhero, as he searches for answers about a former colleague's death. It clearly fits superhero fiction with a serious, questioning tone.",
+            "links": [
+              {
+                "store": "amazon_es",
+                "label": "Amazon.es",
+                "url": "https://www.amazon.es/s?k=9781401235673",
+                "formats": [
+                  "paper",
+                  "kindle"
+                ],
+                "match": "isbn_search",
+                "language_verified": false,
+                "copyright_region": null
+              },
+              {
+                "store": "apple_books",
+                "label": "Apple Books",
+                "url": "https://books.apple.com/es/book/watchmen-international-edition/id556750885?uo=4",
+                "formats": [
+                  "apple_books"
+                ],
+                "match": "title_author",
+                "language_verified": false,
+                "copyright_region": null
+              }
+            ],
+            "formats": [
+              "paper",
+              "kindle",
+              "apple_books"
+            ]
+          }
+        },
+        {
+          "event": "book",
+          "data": {
+            "isbn13": "9781401242848",
+            "title": "Animal Man Vol. 5: the Meaning of Flesh",
+            "authors": [
+              "Tom Veitch"
+            ],
+            "language": "en",
+            "description": "\" ... collects the bizarre adventures of Animal Man, a second-rate super hero struggling with real-life issues and moral dilemmas. Buddy Baker is a caring husband, devoted father, animal activist and super-powered being. But as he attempts to live up to all of his roles, he soon finds that there are no black and white situations in life. With a strong focus on storytelling, these thought-provoking and innovative tales make the reader question the actions of Animal Man as well as their own behavior in similar situations.\"--Amazon",
+            "cover_url": "https://books.google.com/books/content?id=xCOinAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            "page_count": null,
+            "published_year": 2014,
+            "genres": [
+              "COMICS & GRAPHIC NOVELS"
+            ],
+            "rating": null,
+            "source": "google_books",
+            "rank": 2,
+            "reason": "This graphic novel follows Animal Man, a second-rate super hero facing real-life issues and moral dilemmas. The story says there are no black and white situations in life.",
+            "links": [
+              {
+                "store": "amazon_es",
+                "label": "Amazon.es",
+                "url": "https://www.amazon.es/s?k=9781401242848",
+                "formats": [
+                  "paper",
+                  "kindle"
+                ],
+                "match": "isbn_search",
+                "language_verified": false,
+                "copyright_region": null
+              },
+              {
+                "store": "apple_books",
+                "label": "Apple Books",
+                "url": "https://books.apple.com/es/book/animal-man-vol-5-the-meaning-of-flesh/id781712142?uo=4",
+                "formats": [
+                  "apple_books"
+                ],
+                "match": "title_author",
+                "language_verified": false,
+                "copyright_region": null
+              }
+            ],
+            "formats": [
+              "paper",
+              "kindle",
+              "apple_books"
+            ]
+          }
+        },
+        {
+          "event": "book",
+          "data": {
+            "isbn13": "9781401246792",
+            "title": "Animal Man Vol. 6: Flesh and Blood",
+            "authors": [
+              "Jamie Delano"
+            ],
+            "language": "en",
+            "description": "\" ... collects the bizarre adventures of Animal Man, a second-rate super hero struggling with real-life issues and moral dilemmas. Buddy Baker is a caring husband, devoted father, animal activist and super-powered being. But as he attempts to live up to all of his roles, he soon finds that there are no black and white situations in life. With a strong focus on storytelling, these thought-provoking and innovative tales make the reader question the actions of Animal Man as well as their own behavior in similar situations.\"--Amazon",
+            "cover_url": "https://books.google.com/books/content?id=jAE6nwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            "page_count": null,
+            "published_year": 2014,
+            "genres": [
+              "COMICS & GRAPHIC NOVELS"
+            ],
+            "rating": null,
+            "source": "google_books",
+            "rank": 3,
+            "reason": "This graphic novel also collects Animal Man stories about a second-rate super hero struggling with real-life issues and moral dilemmas. It explicitly says the tales make readers question his actions.",
+            "links": [
+              {
+                "store": "amazon_es",
+                "label": "Amazon.es",
+                "url": "https://www.amazon.es/s?k=9781401246792",
+                "formats": [
+                  "paper",
+                  "kindle"
+                ],
+                "match": "isbn_search",
+                "language_verified": false,
+                "copyright_region": null
+              },
+              {
+                "store": "apple_books",
+                "label": "Apple Books",
+                "url": "https://books.apple.com/es/book/animal-man-vol-6-flesh-and-blood/id895901352?uo=4",
+                "formats": [
+                  "apple_books"
+                ],
+                "match": "title_author",
+                "language_verified": false,
+                "copyright_region": null
+              }
+            ],
+            "formats": [
+              "paper",
+              "kindle",
+              "apple_books"
+            ]
+          }
+        },
+        {
+          "event": "book",
+          "data": {
+            "isbn13": "9781934506905",
+            "title": "Irredeemable:",
+            "authors": [
+              "Mark Waid"
+            ],
+            "language": "en",
+            "description": "Follows the adventures of Plutonian, the world's greatest superhero who turns into the world's greatest villain.",
+            "cover_url": "https://books.google.com/books/content?id=qbLhnQEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            "page_count": 128,
+            "published_year": 2009,
+            "genres": [
+              "Comics & Graphic Novels"
+            ],
+            "rating": null,
+            "source": "google_books",
+            "rank": 4,
+            "reason": "This comic book follows Plutonian, the world's greatest superhero, as he turns into the world's greatest villain. That setup strongly suggests a superhero story built around ethical conflict.",
+            "links": [
+              {
+                "store": "amazon_es",
+                "label": "Amazon.es",
+                "url": "https://www.amazon.es/s?k=9781934506905",
+                "formats": [
+                  "paper",
+                  "kindle"
+                ],
+                "match": "isbn_search",
+                "language_verified": false,
+                "copyright_region": null
+              }
+            ],
+            "formats": [
+              "paper",
+              "kindle"
+            ]
+          }
+        },
+        {
+          "event": "book",
+          "data": {
+            "isbn13": "9781419761676",
+            "title": "Fantastic Four: Full Circle",
+            "authors": [
+              "Alex Ross"
+            ],
+            "language": "en",
+            "description": "\"Alex Ross is one of the most celebrated creators in comics, with a distinctive, realistic style of painting super heroes that has transformed the medium. This stunning, all-new graphic novel marks the first longform work he has written and illustrated-as well as the first time Marvel has licensed the rights to an original graphic novel in fifty years. Fantastic Four: Full Circle is the explosive story of the most celebrated super hero team in comics, as they journey into the Negative Zone to investigate a threat that has invaded their home headquarters and threatens to destroy the known universe. Told in bold, vivid colors and evocative of the work of Jack Kirby and Marvel's iconic black light posters, this action-packed stand-alone graphic novel is accessible to all ages, and will appeal to new readers and longtime Marvel fans alike\"--",
+            "cover_url": "https://books.google.com/books/content?id=PGO1zgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            "page_count": null,
+            "published_year": 2022,
+            "genres": [
+              "COMICS & GRAPHIC NOVELS"
+            ],
+            "rating": null,
+            "source": "google_books",
+            "rank": 5,
+            "reason": "This original graphic novel is about the Fantastic Four, a celebrated super hero team. It sends them into the Negative Zone to investigate a threat to their home headquarters and the known universe.",
+            "links": [
+              {
+                "store": "amazon_es",
+                "label": "Amazon.es",
+                "url": "https://www.amazon.es/s?k=9781419761676",
+                "formats": [
+                  "paper",
+                  "kindle"
+                ],
+                "match": "isbn_search",
+                "language_verified": false,
+                "copyright_region": null
+              },
+              {
+                "store": "apple_books",
+                "label": "Apple Books",
+                "url": "https://books.apple.com/es/book/fantastic-four-full-circle/id6443370328?uo=4",
+                "formats": [
+                  "apple_books"
+                ],
+                "match": "title_author",
+                "language_verified": false,
+                "copyright_region": null
+              }
+            ],
+            "formats": [
+              "paper",
+              "kindle",
+              "apple_books"
+            ]
+          }
+        },
+        {
+          "event": "book",
+          "data": {
+            "isbn13": "9780857688828",
+            "title": "Life in the Big City",
+            "authors": [
+              "Kurt Busiek",
+              "Brent Eric Anderson"
+            ],
+            "language": "en",
+            "description": "Welcome to Astro City, a shining city on a hill where super-heroes patrol the skies. Each chapter in this collection is a standalone story, highlighting different aspects or characters in the Astro City world.",
+            "cover_url": "https://books.google.com/books/content?id=MG0pYAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            "page_count": 192,
+            "published_year": 2011,
+            "genres": [
+              "Graphic novels"
+            ],
+            "rating": null,
+            "source": "google_books",
+            "rank": 6,
+            "reason": "This graphic novel is set in Astro City, where super-heroes patrol the skies. Each chapter is a standalone story, so it suits readers wanting superhero comics in graphic novel form.",
+            "links": [
+              {
+                "store": "amazon_es",
+                "label": "Amazon.es",
+                "url": "https://www.amazon.es/s?k=9780857688828",
+                "formats": [
+                  "paper",
+                  "kindle"
+                ],
+                "match": "isbn_search",
+                "language_verified": false,
+                "copyright_region": null
+              }
+            ],
+            "formats": [
+              "paper",
+              "kindle"
+            ]
+          }
+        },
+        {
+          "event": "book",
+          "data": {
+            "isbn13": "9781515874362",
+            "title": "DC Super Hero Girls",
+            "authors": [
+              "Shea Fontana"
+            ],
+            "language": "en",
+            "description": "Harley Quinn is center stage in this volume of the DC Super Hero Girls graphic novel series. For an assignment in Ms. June Moone's art class, the girls are working on their very own comic books. The character-created comic pages give us a glimpse into each girl's personality. But Harley isn't satisfied with her comics creation and thinks a little of Ms. Moone's special paint will really help her drawings come to life! The problem? Harley's drawings literally come to life!",
+            "cover_url": null,
+            "page_count": 128,
+            "published_year": 2020,
+            "genres": [
+              "DC super hero girls"
+            ],
+            "rating": null,
+            "source": "google_books",
+            "rank": 7,
+            "reason": "This graphic novel series features Harley Quinn and other DC Super Hero Girls characters. Its story involves an art-class assignment and drawings that literally come to life.",
+            "links": [
+              {
+                "store": "amazon_es",
+                "label": "Amazon.es",
+                "url": "https://www.amazon.es/s?k=9781515874362",
+                "formats": [
+                  "paper",
+                  "kindle"
+                ],
+                "match": "isbn_search",
+                "language_verified": false,
+                "copyright_region": null
+              },
+              {
+                "store": "apple_books",
+                "label": "Apple Books",
+                "url": "https://books.apple.com/es/book/dc-super-hero-girls-summer-olympus/id1243030079?uo=4",
+                "formats": [
+                  "apple_books"
+                ],
+                "match": "title_author",
+                "language_verified": false,
+                "copyright_region": null
+              }
+            ],
+            "formats": [
+              "paper",
+              "kindle",
+              "apple_books"
+            ]
+          }
+        },
+        {
+          "event": "book",
+          "data": {
+            "isbn13": "9780998666709",
+            "title": "My Hero",
+            "authors": [
+              "Stephen Graham Jones"
+            ],
+            "language": "en",
+            "description": "What do you do when your dreams come true? When you were twelve, camping out in the back yard, you told your best friend that if he could draw a superhero good enough, you'd give him the perfect words to say. And then it didn't just happen, there's even action figures now. Your comic book is on every shelf. And you live beside your best friend again. Your kids even play together, with those action figures. Watch them on the lawn, there. Take a snapshot, and then look over their heads, over the tops of the houses, past the city, past the world itself. Look at all the stars, at all the adventures waiting out there. What do you do when all your dreams come true? You close your eyes, so the dream can last. You close your eyes and you roll your hands into fists, and you try to hold on.",
+            "cover_url": "https://books.google.com/books/content?id=cIvpswEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            "page_count": 46,
+            "published_year": 2017,
+            "genres": [
+              "Comics & Graphic Novels"
+            ],
+            "rating": null,
+            "source": "google_books",
+            "rank": 8,
+            "reason": "This comic book centers on a superhero created on the page and now found on every shelf. It directly focuses on superhero fiction and the world around that creation.",
+            "links": [
+              {
+                "store": "amazon_es",
+                "label": "Amazon.es",
+                "url": "https://www.amazon.es/s?k=9780998666709",
+                "formats": [
+                  "paper",
+                  "kindle"
+                ],
+                "match": "isbn_search",
+                "language_verified": false,
+                "copyright_region": null
+              }
+            ],
+            "formats": [
+              "paper",
+              "kindle"
+            ]
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "search_id": "aed30645-11be-4e58-bdfb-a4c8e2ecea7d",
+            "total": 8,
+            "limited": false
+          }
+        }
+      ],
+      "runtime_usage": {
+        "cache_hit": false,
+        "model_calls": 2,
+        "model_attempts": 2
+      }
+    }
+  ],
+  "limitation": "One current real frontend regression; cannot replace the complete 20-case gate."
+}

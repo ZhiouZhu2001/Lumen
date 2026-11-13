@@ -58,13 +58,13 @@ async def test_bounded_graph_never_retains_other_authors_after_broadening(monkey
     )
     source = AsyncMock(return_value=snapshot.state["candidates"])
     monkeypatch.setattr(workflow, "search_candidates", source)
-    model = scripted_model(requested, proposed, wider, proposed, wider, proposed)
+    model = scripted_model(requested, proposed, wider, wider)
     async with httpx.AsyncClient(
         transport=httpx.MockTransport(lambda _: pytest.fail("Unexpected HTTP request"))
     ) as client:
         result = await workflow.build_graph(model, client).ainvoke(state)
     assert [p.isbn13 for p in result["picks"]] == ["9788417346201"]
-    assert result["retries"] == 2 and result["model_calls"] <= 6
+    assert result["retries"] == 2 and result["model_calls"] == 4
     assert result["request_authors"] == ["Toine Heijmans"]
     assert all(
         "toine heijmans" in query.lower()

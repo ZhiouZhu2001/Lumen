@@ -20,6 +20,8 @@ from app.sources.schemas import Language
 from app.usage import UsageLimited, UsageUnavailable
 
 logger = logging.getLogger(__name__)
+FIRST_BOOK_TARGET_SECONDS = 15.0
+FIRST_CARD_LOOKUP_SECONDS = 1.0
 
 
 def encode_event(event: str, data: dict) -> str:
@@ -145,6 +147,7 @@ class SearchStream:
                         "request_authors",
                         state["parsed"].requested_authors if state["parsed"] else [],
                     ),
+                    requested_genre=filters.genre or state.get("request_genre"),
                 )
                 if [p.isbn13 for p in valid] != [p.isbn13 for p in state["picks"]]:
                     raise LLMError("Completed graph returned invalid recommendations")
@@ -167,7 +170,21 @@ class SearchStream:
                             b for b in state["candidates"] if b.isbn13 == pick.isbn13
                         )
                         batch = await self.cards.build(
-                            [book], [pick.model_copy(update={"rank": 1})]
+                            [book],
+                            [pick.model_copy(update={"rank": 1})],
+                            lookup_timeout=(
+                                min(
+                                    FIRST_CARD_LOOKUP_SECONDS,
+                                    max(
+                                        0.0,
+                                        FIRST_BOOK_TARGET_SECONDS
+                                        - (perf_counter() - started)
+                                        - 0.25,
+                                    ),
+                                )
+                                if not emitted
+                                else None
+                            ),
                         )
                         card = batch.cards[0].model_copy(update={"rank": pick.rank})
                         emitted.append(card)

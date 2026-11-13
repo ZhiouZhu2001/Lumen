@@ -26,6 +26,10 @@ Each search is sent on its own, so each one must combine the kind of book
 with a concrete subject, setting or author, like a librarian would type it.
 Every search must keep the main subject of the wish (its topic, place or
 period). A genre with one general word is too broad to be useful.
+For fictional narratives, keep an explicit novel/novela/story/relato or
+comics/manga form term in every search. Adventure, journey, expedition and
+travel are topics, not sufficient book-form constraints. A travel guide or
+true-travel writing collection cannot substitute for requested novels.
 An author's nationality is different from the requested book language. For
 example, "by Spanish authors" means authors from Spain, not Spanish lessons.
 For nationality-based requests, include the country name (translated into the

@@ -81,12 +81,53 @@ is unverified; it is not proof that a book is unavailable. Do not bypass access
 controls or label a challenge page a working product page. Manually inspect
 unverified store destinations before public release.
 
+## First-card optional channel deadline
+
+The first uncached card gives optional store lookup at most one second, reduced
+to the remaining 15-second first-book budget minus a 250 ms transport margin.
+The deadline includes provider-lock and request-spacing waits. If no time
+remains, optional work is not started. A completed fast lookup is still included;
+an unfinished lookup is cancelled and recorded as `unavailable`, not `not_found`.
+Static ISBN search links remain on the card. Timed-out work does not seed a
+negative lookup cache, and later calls retain the existing Apple request-spacing
+policy. Outer search/client cancellation still propagates normally.
+
+This changes no SSE fields or event ordering. There is no hidden background
+lookup or later link-update event. Later cards keep the existing optional lookup
+behavior within the overall 60-second stream deadline. A slow graph can still
+miss 15 seconds before card construction starts; the cap is not a guarantee of
+every live first-book measurement. A fresh complete live gate is still required.
+
 ## Release boundary
 
+For an explicitly approved temporary acceptance window, an operator can set
+`DAILY_AI_CALL_CAP=200` (or 300 only with separate explicit approval) in the
+evaluation backend's process environment and check the matching declared policy
+with `python -m scripts.check_runtime_readiness --expected-daily-cap 200` or
+`--expected-daily-cap 300` respectively.
+The diagnostic compares the configured cap with that declared expectation; it
+does not change configuration, initialize usage or reserve allowance. Without
+the explicit argument it continues to expect the standard cap of 100. Every
+attempt still uses the original PostgreSQL singleton and the database's UTC day.
+An hourly test namespace never grants another daily allowance.
+
+Restore the process policy to 100 after the authorized window and retain the
+actual cumulative count. If usage already exceeds 100, new uncached work remains
+blocked until the normal UTC reset; do not lower the row or refund attempts.
+Temporary cap approval is not upload, release or deployment approval.
+
 Keep the suite, six checks, fixed graph, two-broadening limit and daily budget
-unchanged when diagnosing a failed capture. Subsequent prompt/retrieval changes
+within its explicitly approved policy when diagnosing a failed capture. Subsequent prompt/retrieval changes
 need a new complete passing gate; replaying stored timing is not a new live
 measurement. Review the selected books independently of aggregate pass counts.
 Production activation still requires the host/domain, backup destination,
 deployment proposal and explicit first-release approval described in
 `production-deployment.md`.
+
+Retain failed full captures and supplementary probes separately. A single-case
+probe can pass all six automated checks and still fail manual semantic review;
+it never establishes the complete 20-case gate. Any later source change needs a
+fresh gate, even when an earlier filename contains `final`. Do not combine cases
+from different revisions into a passing result. If the approved remaining daily
+allowance cannot support a complete uncached run, retain the failure/pending state
+and obtain further explicit authorization or resume after the natural UTC reset.

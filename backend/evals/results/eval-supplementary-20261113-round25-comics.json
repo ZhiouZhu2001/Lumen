@@ -1,0 +1,1724 @@
+{
+  "report_version": 2,
+  "full_suite": false,
+  "kind": "single_frontend_regression",
+  "expected_cases": 1,
+  "completed_cases": 1,
+  "complete": true,
+  "gate_passed": false,
+  "all_single_case_checks_passed": false,
+  "completed_at": "2026-11-13T21:37:37.545489+00:00",
+  "model": "openai:gpt-5.4-mini",
+  "revision": {
+    "commit": "d5642f303ff2d3fe8bd1a1d45cfd3522b3f08db6",
+    "branch": "codex/update-25-reading-intent-and-latency",
+    "working_tree_dirty": true
+  },
+  "code_sha256": {
+    "app/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/api/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/api/books.py": "457b2f15c6b0ce9ae7e5f8121200d5201ee3104f270a8f0fa72b03a51ef46e79",
+    "app/api/health.py": "1ed7f4140e95a17528d6b4f18e023acc4bd31b7a08920127aae2f959b48f7e0b",
+    "app/api/search.py": "ed5918983fea2bcd3caef797c5c3ab96b9da26cd21224fbcd1dc1399720345e7",
+    "app/authors.py": "1b6bfba66375ed6240af0102e1ac460b8d70d719f01e35839cf0d3aa2a779283",
+    "app/book_cards.py": "c07244deef8061e978c47aa37fad0463916a8713074381bbf3ac3cd485851698",
+    "app/book_refresh.py": "d37f881316b475d4d44f395496833566f126699f120a9b1bd05b00d59503d856",
+    "app/cache.py": "94c3d705c6b9aea0fc64860b1e637ae2b550690d844f39df85d460a40847961b",
+    "app/catalog_cache.py": "338533c262d66c7b1d6f73ddbeaccbd605ddace9f6ecdeb308309555b9d6d2ed",
+    "app/channels/__init__.py": "109ecee08afebdc360e8de69680f3f7ff07fc47803cd1c8ac08cd12fba4816b9",
+    "app/channels/matching.py": "e2abc23d8ce371cd0d1aa2dd4c2dc075b21085f1c321a87ac95c399881ea9c71",
+    "app/channels/rules.py": "60c892d73704876db544a2f7646bfc0ef28cc76818b4155a84a95e95fe7a6057",
+    "app/channels/schemas.py": "7ff5cc38fd29b245d1c41d3d1de2fb7d773a55b39b8813249ef01cd8072954f3",
+    "app/config.py": "b02384c4b6a1c17975c54d2ea2eec6c3fd9c6a9904cdf2b230aa4a20a218147d",
+    "app/daily_budget.py": "b4e6530d9f2500735666f4059116275cdae8b7d63b7fabf371c3bee7ed593add",
+    "app/db.py": "1040966f399caf6d8e6cc311ecc6914ec9f43b62f5144b9693ed691459232c10",
+    "app/diagnostics.py": "9567a1dd9bb518e439d8d6622e29fb9f2b1d130f39568810c1743f34cc9628ac",
+    "app/filters.py": "70de03f2b86e529b515c49ff27e36661a866971b22f5b181b88fa8649adc6ac4",
+    "app/graph/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/graph/broaden.py": "51b0daad72342bed75e7cfe0b5b427786938d524c1457f5567c2b29327ca9505",
+    "app/graph/parse_query.py": "cc9c10c5612514393d7a0e4f25b67356d26f0fab91b33b164666e68c4e6b7ba1",
+    "app/graph/rank.py": "05ebac0711099fe8e95da8f65994c5124b4cd84c9e0114d23d8635e104559cc3",
+    "app/graph/search.py": "0024ec860203966b3a4a8b5435f97fe7a139ec86ab0735f3df587929cb8ff521",
+    "app/graph/state.py": "0a9a513ba0a4c9b4b1cbbe8ae28eac3b4a10c1afb19f38b4c97770a5e41ff565",
+    "app/graph/workflow.py": "299d3a9d5c8abf1f711414d3de740a3043fe1629bfc192717750104e3998a93f",
+    "app/grounding.py": "339b4a8a1a127ccea57518710b38fc351e27dd8d1bc025a6a376d606550301f3",
+    "app/http_client.py": "da0cf3b7a2a9adb4a475268f76d2545991f48f63cb360673fef2cb5957ad3767",
+    "app/llm.py": "eecf308198ae5183f39aedfa76401b5550161281a34cf492804dddc975c5b78c",
+    "app/main.py": "e24cae05b7e124b85dafb791887914697c4d734149e797752b50591f22e45c6b",
+    "app/models.py": "736562ff6474a4656c3e998cf07dfce7f68ef1c15e8764356d913ff24241efc0",
+    "app/observability.py": "97893c094af01d1c21bfd95bd8b4c71abc72d55ce48234012163c118d40e00d7",
+    "app/reading_intent.py": "278ca5ad840f4c76c296e2ac5328b6a9f9d55926d46490c390a3adf01b380ec2",
+    "app/repository.py": "f2c80363fab71a840975d7095c1c83103391dbce0adc6a0cf1789427f6cf13f5",
+    "app/search_cache.py": "df697d362cc8376fc7e38cf4451b4bb96a478297a92cea51f4063793cb8a3b07",
+    "app/search_stream.py": "e8349f6b499e9512893e833d3621777f5acf2e8a76d0cedd3d25a42561da1935",
+    "app/sources/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/sources/apple_books.py": "f91521a4cc0f10706806d514674d75c73e6b2732c98f0e31d4dcfd9d8b5f92fd",
+    "app/sources/descriptions.py": "368a4ba55f9820221abc27c3f3ed8e91e2e2aed141651ca6103f74ad73e2cea3",
+    "app/sources/edition.py": "2811e61ba6956e83ef85f068d48219a4c6a48e6c1f7ed36e5a5763548504a85e",
+    "app/sources/evidence.py": "0bcc8a522a7919e651ce2c62b4dd1efa4846ab7e8c2df153cba1d6485adda531",
+    "app/sources/google_books.py": "ec3a921860f7280b48778a50e5b17803a33bdefb7c66f197996ae8a1db72ad4a",
+    "app/sources/gutendex.py": "e72a2ab7ab21b083b3368bdc4d1540d6998a8ea0f00b1b32af00e881c9a4bf97",
+    "app/sources/isbn.py": "2a5de5a9b0151db24754ec91443d3035bcefdaebb4fa955c749ef7f3e321d5e6",
+    "app/sources/merge.py": "f433d53e212aaeae16a9faee3d035ad92fbb6e2d840bbfdca7987c22f4a91181",
+    "app/sources/open_library.py": "378bd33094244d494fdcd22bdad0c9bf318c7533a797d46822a2a235541f6368",
+    "app/sources/schemas.py": "9b16981f8500eb2cffb9aefe8d858aad0b19a64eb9fb62b90a25a3ad49b81bf2",
+    "app/stores.yaml": "b2c1e6bd7ae68dd6df6407eb4931802609ac45e1e3cdbfb56548e65e1289824c",
+    "app/usage.py": "4d32586cbc66f658dabdd0db41982bee5c68ada2a155e85feb5718af8d181a08",
+    "evals/__init__.py": "69255d7ea47cc6a91fe8c37332383dfa2e3e0357468aa04cfc5dab9d92e6dcb9",
+    "evals/author_run.py": "64e10a36609989334334855c1c9c57206ec3c3db5023cb4ca5e4452f6c97c74b",
+    "evals/checks.py": "dec95c53aaab71f2d642a186c4ef9f640b7c7888da2179e9ea32ee76cfb68b64",
+    "evals/http_run.py": "b38378c33af0880dd8961049b3f20cdb1afc0574a7d67715876b8f872d8a8a8d",
+    "evals/replay.py": "8142aa11459e2f2d2fed68d55c9c5e85b5e1bfc0b739f16094aec0f384ee41e5",
+    "evals/run.py": "bd722471ceef852cc23c2a07f542e1203767e6258d413f51e89052ac337b874b"
+  },
+  "budget_before": {
+    "status": "known",
+    "utc_day": "2026-11-13",
+    "used": 171,
+    "daily_cap": 200,
+    "retry_after": 8561
+  },
+  "budget_after": {
+    "status": "known",
+    "utc_day": "2026-11-13",
+    "used": 177,
+    "daily_cap": 200,
+    "retry_after": 8543
+  },
+  "budget_delta": {
+    "status": "same_utc_day",
+    "attempts": 6
+  },
+  "cases": [
+    {
+      "id": "en_comics",
+      "query": "Graphic novels about superheroes and moral dilemmas",
+      "language": "en",
+      "category": "normal",
+      "requested_filters": {
+        "genre": "graphic novels"
+      },
+      "unsupported_filters": [
+        "genre"
+      ],
+      "error_code": null,
+      "channel_error": null,
+      "channel_duration_ms": null,
+      "cards": [
+        {
+          "isbn13": "9781401228156",
+          "title": "Transmetropolitan",
+          "authors": [
+            "Warren Ellis"
+          ],
+          "language": "en",
+          "description": "Washed-up journalist Spider Jerusalem returns to The City, a place of noise, filth, and energy, where technology has drastically altered human life.",
+          "cover_url": null,
+          "page_count": 109,
+          "published_year": 2009,
+          "genres": [
+            "COMICS & GRAPHIC NOVELS"
+          ],
+          "rating": null,
+          "source": "google_books",
+          "rank": 1,
+          "reason": "Spider Jerusalem returns to The City in this comics and graphic novels title. It centers on a washed-up journalist and technology that has drastically altered human life.",
+          "links": [
+            {
+              "store": "amazon_es",
+              "label": "Amazon.es",
+              "url": "https://www.amazon.es/s?k=9781401228156",
+              "formats": [
+                "paper",
+                "kindle"
+              ],
+              "match": "isbn_search",
+              "language_verified": false,
+              "copyright_region": null
+            },
+            {
+              "store": "apple_books",
+              "label": "Apple Books",
+              "url": "https://books.apple.com/es/book/transmetropolitan-i-hate-it-here-1/id875085235?uo=4",
+              "formats": [
+                "apple_books"
+              ],
+              "match": "title_author",
+              "language_verified": false,
+              "copyright_region": null
+            }
+          ],
+          "formats": [
+            "paper",
+            "kindle",
+            "apple_books"
+          ]
+        },
+        {
+          "isbn13": "9781415512111",
+          "title": "It's a Magical World",
+          "authors": [
+            "Bill Watterson"
+          ],
+          "language": "en",
+          "description": "The final collection of comic strips from the popular syndicated series follows the adventures of Calvin and his stuffed tiger, Hobbes.",
+          "cover_url": null,
+          "page_count": 165,
+          "published_year": 1996,
+          "genres": [
+            "American wit and humor, Pictorial"
+          ],
+          "rating": null,
+          "source": "google_books",
+          "rank": 2,
+          "reason": "This collection follows the adventures of Calvin and his stuffed tiger, Hobbes. It is a comic-strip collection, but the catalog text does not mention superheroes or moral dilemmas.",
+          "links": [
+            {
+              "store": "amazon_es",
+              "label": "Amazon.es",
+              "url": "https://www.amazon.es/s?k=9781415512111",
+              "formats": [
+                "paper",
+                "kindle"
+              ],
+              "match": "isbn_search",
+              "language_verified": false,
+              "copyright_region": null
+            },
+            {
+              "store": "apple_books",
+              "label": "Apple Books",
+              "url": "https://books.apple.com/es/book/its-a-magical-world/id1060922907?uo=4",
+              "formats": [
+                "apple_books"
+              ],
+              "match": "title_author",
+              "language_verified": false,
+              "copyright_region": null
+            }
+          ],
+          "formats": [
+            "paper",
+            "kindle",
+            "apple_books"
+          ]
+        },
+        {
+          "isbn13": "9781606995891",
+          "title": "The Daniel Clowes Reader",
+          "authors": [
+            "Daniel Clowes"
+          ],
+          "language": "en",
+          "description": "A central figure in the emergence of the graphic novel, Daniel Clowes has set the standard for literary cartooning. The Daniel Clowes Reader, a landmark critical compilation, introduces new readers to the cartoonist's award-winning comics and provides those familiar with Clowes new ways of appreciating his visual and literary achievement. Parille organises 10 Clowes narratives into three thematic sections and supplies each story with an introduction and annotations that will open up its complexities.",
+          "cover_url": "https://books.google.com/books/content?id=iGyltgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+          "page_count": null,
+          "published_year": 2013,
+          "genres": [
+            "Comics & Graphic Novels"
+          ],
+          "rating": null,
+          "source": "google_books",
+          "rank": 3,
+          "reason": "This graphic novel compilation presents ten narratives with introductions and annotations. It is a literary comics collection that can suit a reader seeking thoughtful superhero-related graphic fiction.",
+          "links": [
+            {
+              "store": "amazon_es",
+              "label": "Amazon.es",
+              "url": "https://www.amazon.es/s?k=9781606995891",
+              "formats": [
+                "paper",
+                "kindle"
+              ],
+              "match": "isbn_search",
+              "language_verified": false,
+              "copyright_region": null
+            }
+          ],
+          "formats": [
+            "paper",
+            "kindle"
+          ]
+        },
+        {
+          "isbn13": "9780836221367",
+          "title": "It's a Magical World",
+          "authors": [
+            "Bill Watterson"
+          ],
+          "language": "en",
+          "description": "A Calvin and Hobbes collection.",
+          "cover_url": "https://books.google.com/books/content?id=y1NVNqOB5OIC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+          "page_count": 171,
+          "published_year": 1996,
+          "genres": [
+            "Comics & Graphic Novels"
+          ],
+          "rating": {
+            "value": "4.5",
+            "count": 33,
+            "source": "Google Books"
+          },
+          "source": "google_books",
+          "rank": 4,
+          "reason": "This is a comics and graphic novels collection. It gives you a complete Calvin and Hobbes volume in graphic form.",
+          "links": [
+            {
+              "store": "amazon_es",
+              "label": "Amazon.es",
+              "url": "https://www.amazon.es/s?k=9780836221367",
+              "formats": [
+                "paper",
+                "kindle"
+              ],
+              "match": "isbn_search",
+              "language_verified": false,
+              "copyright_region": null
+            },
+            {
+              "store": "apple_books",
+              "label": "Apple Books",
+              "url": "https://books.apple.com/es/book/its-a-magical-world/id1060922907?uo=4",
+              "formats": [
+                "apple_books"
+              ],
+              "match": "title_author",
+              "language_verified": false,
+              "copyright_region": null
+            }
+          ],
+          "formats": [
+            "paper",
+            "kindle",
+            "apple_books"
+          ]
+        }
+      ],
+      "channel_lookups": null,
+      "workflow_duration_ms": 0.03,
+      "first_book_sse_ms": 11972.15,
+      "retries": 2,
+      "searches_tried": [
+        "superhero graphic novels",
+        "moral dilemma comics superhero",
+        "superhero comics ethics",
+        "superhero ethics comics",
+        "ethical superhero graphic novel"
+      ],
+      "description_lookup_keys": [],
+      "request_genre": "graphic novels",
+      "reader_mismatch_isbns": [],
+      "candidate_isbns": [
+        "9780870703621",
+        "9789659022106",
+        "9780836221367",
+        "9781606995891",
+        "9781415512111",
+        "9780369392763",
+        "9781851773343",
+        "9781401228156",
+        "9781760653378",
+        "9780439298117",
+        "9780399549731",
+        "9781401209858",
+        "9781474710329",
+        "9781401218072",
+        "9781401216825",
+        "9780451474773",
+        "9780316265980",
+        "9781439588567",
+        "9781663629425",
+        "9781401209377",
+        "9781852860400",
+        "9781401216511",
+        "9781401216917",
+        "9781412936842",
+        "9781406285697",
+        "9781563899614",
+        "9781614791768",
+        "9781401212049",
+        "9781599475660",
+        "9780786447183",
+        "9781138548855",
+        "9781576835760",
+        "9780812695731",
+        "9780664231910",
+        "9781611475579",
+        "9781000261257",
+        "9781476669984",
+        "9781498549264",
+        "9780826441980",
+        "9780470396858",
+        "9780812699180",
+        "9780316256711",
+        "9780470482186",
+        "9781118074572",
+        "9780470575604"
+      ],
+      "parsed_query": {
+        "searches": [],
+        "genre": "graphic novels",
+        "requested_authors": [],
+        "is_book_request": true
+      },
+      "rankable_count": 9,
+      "shortlist_isbns": [
+        "9781401228156",
+        "9781606995891",
+        "9780836221367",
+        "9781415512111",
+        "9780870703621",
+        "9789659022106",
+        "9780369392763",
+        "9781851773343",
+        "9781760653378"
+      ],
+      "ranking_input": "ISBN: 9781401228156\nTitle: Transmetropolitan\nAuthors: Warren Ellis\nCatalog categories: COMICS & GRAPHIC NOVELS\nDescription: Washed-up journalist Spider Jerusalem returns to The City, a place of noise, filth, and energy, where technology has drastically altered human life.\n\nISBN: 9781606995891\nTitle: The Daniel Clowes Reader\nAuthors: Daniel Clowes\nCatalog categories: Comics & Graphic Novels\nDescription: A central figure in the emergence of the graphic novel, Daniel Clowes has set the standard for literary cartooning. The Daniel Clowes Reader, a landmark critical compilation, introduces new readers to the cartoonist's award-winning comics and provides those familiar with Clowes new ways of appreciating his visual and literary achievement. Parille organises 10 Clowes narratives into three thematic sections and supplies each story with an introduction and annotations that will open up its complexities.\n\nISBN: 9780836221367\nTitle: It's a Magical World\nAuthors: Bill Watterson\nCatalog categories: Comics & Graphic Novels\nDescription: A Calvin and Hobbes collection.\n\nISBN: 9781415512111\nTitle: It's a Magical World\nAuthors: Bill Watterson\nCatalog categories: American wit and humor, Pictorial\nDescription: The final collection of comic strips from the popular syndicated series follows the adventures of Calvin and his stuffed tiger, Hobbes.\n\nISBN: 9780870703621\nTitle: Drawing Now\nAuthors: Laura J. Hoptman\nCatalog categories: Architecture\nDescription: Published to accompany the exhibition held at the Museum of Modern Art QNS, New York, 17 October 2002 - 6 January 2003.\n\nISBN: 9789659022106\nTitle: Jetlag\nAuthors: Etgar Keret\nCatalog categories: Caricatures and cartoons\nDescription: 5 tegneserier, der alle bygger på noveller af den israelske forfatter Etgar Keret\n\nISBN: 9780369392763\nTitle: The Astronaughties\nAuthors: Andrew Cranna\nCatalog categories: unknown\nDescription: An out-of-this-world illustrated middle grade adventure that will have young readers giggling across the galaxy! You may be asking yourself, dear reader, how three naughty kids, one pet octopug and their handsome robot minder - that's me - accidentally got strapped inside a 400 megaton thermonuclear rocket on a one-way collision course to the moon? Good question! Well, let me take you back to the beginning . . . In 2120 the Moon has been transformed into the ultimate super-cool intergalactic amusement park. The Astronaughties, the children of some of the park's designers, get a chance to visit\n\nISBN: 9781851773343\nTitle: The Art of the Book\nAuthors: James Bettley\nCatalog categories: Book design\nDescription: Illuminated manuscripts, comics, fine bindings, the classics of children's literature, artists' books and their working documents - these are just some of the remarkable items to be found in the National Art Library at the V&A. In a series of thematic chapters, the contributors draw on their wide-ranging expertise to look at the Library's major holdings, an in the process illustrate the main aspects of book design and production over the centuries. With medieval books of hours sitting alongside contemporary paperback novels, the choice is wonderfully varied, from Leonardo da Vinci to Sir Eduar\n\nISBN: 9781760653378\nTitle: Astronaughties\nAuthors: Andrew Cranna\nCatalog categories: unknown\nDescription: An out-of-this-world illustrated middle grade adventure that will have young readers giggling across the galaxy! You may be asking yourself, dear reader, how three naughty kids, one pet octopug and their handsome robot minder - that's me - accidentally got strapped inside a 400 megaton thermonuclear rocket on a one-way collision course to the moon? Good question! Well, let me take you back to the beginning . . . In 2120 the Moon has been transformed into the ultimate super-cool intergalactic amusement park. The Astronaughties, the children of some of the park's designers, get a chance to visit",
+      "model_calls": 6,
+      "ranking_rounds": [
+        {
+          "retry": 0,
+          "model_called": true,
+          "shortlist_isbns": [
+            "9780870703621",
+            "9789659022106",
+            "9780836221367",
+            "9781606995891",
+            "9781415512111",
+            "9780369392763",
+            "9781851773343",
+            "9781401228156",
+            "9781760653378"
+          ],
+          "ranking_input": "ISBN: 9780870703621\nTitle: Drawing Now\nAuthors: Laura J. Hoptman\nCatalog categories: Architecture\nDescription: Published to accompany the exhibition held at the Museum of Modern Art QNS, New York, 17 October 2002 - 6 January 2003.\n\nISBN: 9789659022106\nTitle: Jetlag\nAuthors: Etgar Keret\nCatalog categories: Caricatures and cartoons\nDescription: 5 tegneserier, der alle bygger på noveller af den israelske forfatter Etgar Keret\n\nISBN: 9780836221367\nTitle: It's a Magical World\nAuthors: Bill Watterson\nCatalog categories: Comics & Graphic Novels\nDescription: A Calvin and Hobbes collection.\n\nISBN: 9781606995891\nTitle: The Daniel Clowes Reader\nAuthors: Daniel Clowes\nCatalog categories: Comics & Graphic Novels\nDescription: A central figure in the emergence of the graphic novel, Daniel Clowes has set the standard for literary cartooning. The Daniel Clowes Reader, a landmark critical compilation, introduces new readers to the cartoonist's award-winning comics and provides those familiar with Clowes new ways of appreciating his visual and literary achievement. Parille organises 10 Clowes narratives into three thematic sections and supplies each story with an introduction and annotations that will open up its complexities.\n\nISBN: 9781415512111\nTitle: It's a Magical World\nAuthors: Bill Watterson\nCatalog categories: American wit and humor, Pictorial\nDescription: The final collection of comic strips from the popular syndicated series follows the adventures of Calvin and his stuffed tiger, Hobbes.\n\nISBN: 9780369392763\nTitle: The Astronaughties\nAuthors: Andrew Cranna\nCatalog categories: unknown\nDescription: An out-of-this-world illustrated middle grade adventure that will have young readers giggling across the galaxy! You may be asking yourself, dear reader, how three naughty kids, one pet octopug and their handsome robot minder - that's me - accidentally got strapped inside a 400 megaton thermonuclear rocket on a one-way collision course to the moon? Good question! Well, let me take you back to the beginning . . . In 2120 the Moon has been transformed into the ultimate super-cool intergalactic amusement park. The Astronaughties, the children of some of the park's designers, get a chance to visit\n\nISBN: 9781851773343\nTitle: The Art of the Book\nAuthors: James Bettley\nCatalog categories: Book design\nDescription: Illuminated manuscripts, comics, fine bindings, the classics of children's literature, artists' books and their working documents - these are just some of the remarkable items to be found in the National Art Library at the V&A. In a series of thematic chapters, the contributors draw on their wide-ranging expertise to look at the Library's major holdings, an in the process illustrate the main aspects of book design and production over the centuries. With medieval books of hours sitting alongside contemporary paperback novels, the choice is wonderfully varied, from Leonardo da Vinci to Sir Eduar\n\nISBN: 9781401228156\nTitle: Transmetropolitan\nAuthors: Warren Ellis\nCatalog categories: COMICS & GRAPHIC NOVELS\nDescription: Washed-up journalist Spider Jerusalem returns to The City, a place of noise, filth, and energy, where technology has drastically altered human life.\n\nISBN: 9781760653378\nTitle: Astronaughties\nAuthors: Andrew Cranna\nCatalog categories: unknown\nDescription: An out-of-this-world illustrated middle grade adventure that will have young readers giggling across the galaxy! You may be asking yourself, dear reader, how three naughty kids, one pet octopug and their handsome robot minder - that's me - accidentally got strapped inside a 400 megaton thermonuclear rocket on a one-way collision course to the moon? Good question! Well, let me take you back to the beginning . . . In 2120 the Moon has been transformed into the ultimate super-cool intergalactic amusement park. The Astronaughties, the children of some of the park's designers, get a chance to visit",
+          "proposed_picks": [
+            {
+              "isbn13": "9781606995891",
+              "reason": "This is a comics and graphic novels title centered on Daniel Clowes. It gathers 10 narratives and explores their complexities, which suits a graphic-novel reader looking for moral tension."
+            },
+            {
+              "isbn13": "9781401228156",
+              "reason": "This graphic novel is in comics and graphic novels. It follows Spider Jerusalem returning to The City, and the description emphasizes technology that has drastically altered human life."
+            },
+            {
+              "isbn13": "9780836221367",
+              "reason": "This is a comics and graphic novels collection. It gives you a complete Calvin and Hobbes volume in graphic form."
+            },
+            {
+              "isbn13": "9781415512111",
+              "reason": "This is a comics and graphic novels collection. It follows the adventures of Calvin and his stuffed tiger, Hobbes, in a long-running comic-strip format."
+            }
+          ],
+          "accepted_picks": [
+            {
+              "isbn13": "9781606995891",
+              "rank": 1,
+              "reason": "This is a comics and graphic novels title centered on Daniel Clowes. It gathers 10 narratives and explores their complexities, which suits a graphic-novel reader looking for moral tension."
+            },
+            {
+              "isbn13": "9781401228156",
+              "rank": 2,
+              "reason": "This graphic novel is in comics and graphic novels. It follows Spider Jerusalem returning to The City, and the description emphasizes technology that has drastically altered human life."
+            },
+            {
+              "isbn13": "9780836221367",
+              "rank": 3,
+              "reason": "This is a comics and graphic novels collection. It gives you a complete Calvin and Hobbes volume in graphic form."
+            },
+            {
+              "isbn13": "9781415512111",
+              "rank": 4,
+              "reason": "This is a comics and graphic novels collection. It follows the adventures of Calvin and his stuffed tiger, Hobbes, in a long-running comic-strip format."
+            }
+          ],
+          "feedback": [
+            "Only 4 validated matching recommendations; target 5-10. Find additional matching books without inventing facts."
+          ],
+          "validation_issues": []
+        },
+        {
+          "retry": 1,
+          "model_called": true,
+          "shortlist_isbns": [
+            "9781606995891",
+            "9781401228156",
+            "9780836221367",
+            "9781415512111",
+            "9780870703621",
+            "9789659022106",
+            "9780369392763",
+            "9781851773343",
+            "9781760653378"
+          ],
+          "ranking_input": "ISBN: 9781606995891\nTitle: The Daniel Clowes Reader\nAuthors: Daniel Clowes\nCatalog categories: Comics & Graphic Novels\nDescription: A central figure in the emergence of the graphic novel, Daniel Clowes has set the standard for literary cartooning. The Daniel Clowes Reader, a landmark critical compilation, introduces new readers to the cartoonist's award-winning comics and provides those familiar with Clowes new ways of appreciating his visual and literary achievement. Parille organises 10 Clowes narratives into three thematic sections and supplies each story with an introduction and annotations that will open up its complexities.\n\nISBN: 9781401228156\nTitle: Transmetropolitan\nAuthors: Warren Ellis\nCatalog categories: COMICS & GRAPHIC NOVELS\nDescription: Washed-up journalist Spider Jerusalem returns to The City, a place of noise, filth, and energy, where technology has drastically altered human life.\n\nISBN: 9780836221367\nTitle: It's a Magical World\nAuthors: Bill Watterson\nCatalog categories: Comics & Graphic Novels\nDescription: A Calvin and Hobbes collection.\n\nISBN: 9781415512111\nTitle: It's a Magical World\nAuthors: Bill Watterson\nCatalog categories: American wit and humor, Pictorial\nDescription: The final collection of comic strips from the popular syndicated series follows the adventures of Calvin and his stuffed tiger, Hobbes.\n\nISBN: 9780870703621\nTitle: Drawing Now\nAuthors: Laura J. Hoptman\nCatalog categories: Architecture\nDescription: Published to accompany the exhibition held at the Museum of Modern Art QNS, New York, 17 October 2002 - 6 January 2003.\n\nISBN: 9789659022106\nTitle: Jetlag\nAuthors: Etgar Keret\nCatalog categories: Caricatures and cartoons\nDescription: 5 tegneserier, der alle bygger på noveller af den israelske forfatter Etgar Keret\n\nISBN: 9780369392763\nTitle: The Astronaughties\nAuthors: Andrew Cranna\nCatalog categories: unknown\nDescription: An out-of-this-world illustrated middle grade adventure that will have young readers giggling across the galaxy! You may be asking yourself, dear reader, how three naughty kids, one pet octopug and their handsome robot minder - that's me - accidentally got strapped inside a 400 megaton thermonuclear rocket on a one-way collision course to the moon? Good question! Well, let me take you back to the beginning . . . In 2120 the Moon has been transformed into the ultimate super-cool intergalactic amusement park. The Astronaughties, the children of some of the park's designers, get a chance to visit\n\nISBN: 9781851773343\nTitle: The Art of the Book\nAuthors: James Bettley\nCatalog categories: Book design\nDescription: Illuminated manuscripts, comics, fine bindings, the classics of children's literature, artists' books and their working documents - these are just some of the remarkable items to be found in the National Art Library at the V&A. In a series of thematic chapters, the contributors draw on their wide-ranging expertise to look at the Library's major holdings, an in the process illustrate the main aspects of book design and production over the centuries. With medieval books of hours sitting alongside contemporary paperback novels, the choice is wonderfully varied, from Leonardo da Vinci to Sir Eduar\n\nISBN: 9781760653378\nTitle: Astronaughties\nAuthors: Andrew Cranna\nCatalog categories: unknown\nDescription: An out-of-this-world illustrated middle grade adventure that will have young readers giggling across the galaxy! You may be asking yourself, dear reader, how three naughty kids, one pet octopug and their handsome robot minder - that's me - accidentally got strapped inside a 400 megaton thermonuclear rocket on a one-way collision course to the moon? Good question! Well, let me take you back to the beginning . . . In 2120 the Moon has been transformed into the ultimate super-cool intergalactic amusement park. The Astronaughties, the children of some of the park's designers, get a chance to visit",
+          "proposed_picks": [
+            {
+              "isbn13": "9781401228156",
+              "reason": "This is a graphic novel with a superhero story centered on Spider Jerusalem. Its futuristic setting and altered human life suggest conflicts that can support moral dilemmas."
+            },
+            {
+              "isbn13": "9781606995891",
+              "reason": "This graphic novel compilation presents ten narratives with introductions and annotations. It is a literary comics collection that can suit a reader seeking thoughtful superhero-related graphic fiction."
+            }
+          ],
+          "accepted_picks": [
+            {
+              "isbn13": "9781401228156",
+              "rank": 1,
+              "reason": "This is a graphic novel with a superhero story centered on Spider Jerusalem. Its futuristic setting and altered human life suggest conflicts that can support moral dilemmas."
+            },
+            {
+              "isbn13": "9781606995891",
+              "rank": 2,
+              "reason": "This graphic novel compilation presents ten narratives with introductions and annotations. It is a literary comics collection that can suit a reader seeking thoughtful superhero-related graphic fiction."
+            },
+            {
+              "isbn13": "9780836221367",
+              "rank": 3,
+              "reason": "This is a comics and graphic novels collection. It gives you a complete Calvin and Hobbes volume in graphic form."
+            },
+            {
+              "isbn13": "9781415512111",
+              "rank": 4,
+              "reason": "This is a comics and graphic novels collection. It follows the adventures of Calvin and his stuffed tiger, Hobbes, in a long-running comic-strip format."
+            }
+          ],
+          "feedback": [
+            "Only 4 validated matching recommendations; target 5-10. Find additional matching books without inventing facts."
+          ],
+          "validation_issues": []
+        },
+        {
+          "retry": 2,
+          "model_called": true,
+          "shortlist_isbns": [
+            "9781401228156",
+            "9781606995891",
+            "9780836221367",
+            "9781415512111",
+            "9780870703621",
+            "9789659022106",
+            "9780369392763",
+            "9781851773343",
+            "9781760653378"
+          ],
+          "ranking_input": "ISBN: 9781401228156\nTitle: Transmetropolitan\nAuthors: Warren Ellis\nCatalog categories: COMICS & GRAPHIC NOVELS\nDescription: Washed-up journalist Spider Jerusalem returns to The City, a place of noise, filth, and energy, where technology has drastically altered human life.\n\nISBN: 9781606995891\nTitle: The Daniel Clowes Reader\nAuthors: Daniel Clowes\nCatalog categories: Comics & Graphic Novels\nDescription: A central figure in the emergence of the graphic novel, Daniel Clowes has set the standard for literary cartooning. The Daniel Clowes Reader, a landmark critical compilation, introduces new readers to the cartoonist's award-winning comics and provides those familiar with Clowes new ways of appreciating his visual and literary achievement. Parille organises 10 Clowes narratives into three thematic sections and supplies each story with an introduction and annotations that will open up its complexities.\n\nISBN: 9780836221367\nTitle: It's a Magical World\nAuthors: Bill Watterson\nCatalog categories: Comics & Graphic Novels\nDescription: A Calvin and Hobbes collection.\n\nISBN: 9781415512111\nTitle: It's a Magical World\nAuthors: Bill Watterson\nCatalog categories: American wit and humor, Pictorial\nDescription: The final collection of comic strips from the popular syndicated series follows the adventures of Calvin and his stuffed tiger, Hobbes.\n\nISBN: 9780870703621\nTitle: Drawing Now\nAuthors: Laura J. Hoptman\nCatalog categories: Architecture\nDescription: Published to accompany the exhibition held at the Museum of Modern Art QNS, New York, 17 October 2002 - 6 January 2003.\n\nISBN: 9789659022106\nTitle: Jetlag\nAuthors: Etgar Keret\nCatalog categories: Caricatures and cartoons\nDescription: 5 tegneserier, der alle bygger på noveller af den israelske forfatter Etgar Keret\n\nISBN: 9780369392763\nTitle: The Astronaughties\nAuthors: Andrew Cranna\nCatalog categories: unknown\nDescription: An out-of-this-world illustrated middle grade adventure that will have young readers giggling across the galaxy! You may be asking yourself, dear reader, how three naughty kids, one pet octopug and their handsome robot minder - that's me - accidentally got strapped inside a 400 megaton thermonuclear rocket on a one-way collision course to the moon? Good question! Well, let me take you back to the beginning . . . In 2120 the Moon has been transformed into the ultimate super-cool intergalactic amusement park. The Astronaughties, the children of some of the park's designers, get a chance to visit\n\nISBN: 9781851773343\nTitle: The Art of the Book\nAuthors: James Bettley\nCatalog categories: Book design\nDescription: Illuminated manuscripts, comics, fine bindings, the classics of children's literature, artists' books and their working documents - these are just some of the remarkable items to be found in the National Art Library at the V&A. In a series of thematic chapters, the contributors draw on their wide-ranging expertise to look at the Library's major holdings, an in the process illustrate the main aspects of book design and production over the centuries. With medieval books of hours sitting alongside contemporary paperback novels, the choice is wonderfully varied, from Leonardo da Vinci to Sir Eduar\n\nISBN: 9781760653378\nTitle: Astronaughties\nAuthors: Andrew Cranna\nCatalog categories: unknown\nDescription: An out-of-this-world illustrated middle grade adventure that will have young readers giggling across the galaxy! You may be asking yourself, dear reader, how three naughty kids, one pet octopug and their handsome robot minder - that's me - accidentally got strapped inside a 400 megaton thermonuclear rocket on a one-way collision course to the moon? Good question! Well, let me take you back to the beginning . . . In 2120 the Moon has been transformed into the ultimate super-cool intergalactic amusement park. The Astronaughties, the children of some of the park's designers, get a chance to visit",
+          "proposed_picks": [
+            {
+              "isbn13": "9781401228156",
+              "reason": "Spider Jerusalem returns to The City in this comics and graphic novels title. It centers on a washed-up journalist and technology that has drastically altered human life."
+            },
+            {
+              "isbn13": "9780836221367",
+              "reason": "This is a Calvin and Hobbes collection in Comics & Graphic Novels. It gives you the comic-strip format, though the catalog text does not mention superheroes or moral conflict."
+            },
+            {
+              "isbn13": "9781415512111",
+              "reason": "This collection follows the adventures of Calvin and his stuffed tiger, Hobbes. It is a comic-strip collection, but the catalog text does not mention superheroes or moral dilemmas."
+            },
+            {
+              "isbn13": "9781606995891",
+              "reason": "This graphic-novel reader presents ten Clowes narratives in themed sections. It offers literary cartooning in Comics & Graphic Novels, with introductions and annotations that open up their complexities."
+            }
+          ],
+          "accepted_picks": [
+            {
+              "isbn13": "9781401228156",
+              "rank": 1,
+              "reason": "Spider Jerusalem returns to The City in this comics and graphic novels title. It centers on a washed-up journalist and technology that has drastically altered human life."
+            },
+            {
+              "isbn13": "9781415512111",
+              "rank": 2,
+              "reason": "This collection follows the adventures of Calvin and his stuffed tiger, Hobbes. It is a comic-strip collection, but the catalog text does not mention superheroes or moral dilemmas."
+            },
+            {
+              "isbn13": "9781606995891",
+              "rank": 3,
+              "reason": "This graphic novel compilation presents ten narratives with introductions and annotations. It is a literary comics collection that can suit a reader seeking thoughtful superhero-related graphic fiction."
+            },
+            {
+              "isbn13": "9780836221367",
+              "rank": 4,
+              "reason": "This is a comics and graphic novels collection. It gives you a complete Calvin and Hobbes volume in graphic form."
+            }
+          ],
+          "feedback": [
+            "Only 4 validated matching recommendations; target 5-10. Find additional matching books without inventing facts.",
+            "9780836221367: unsupported proper words Comics, Graphic, Novels",
+            "9781606995891: unsupported proper words Novels"
+          ],
+          "validation_issues": [
+            "9780836221367: unsupported proper words Comics, Graphic, Novels",
+            "9781606995891: unsupported proper words Novels"
+          ]
+        }
+      ],
+      "candidate_evidence": [
+        {
+          "isbn13": "9780870703621",
+          "title": "Drawing Now",
+          "authors": [
+            "Laura J. Hoptman"
+          ],
+          "language": "en",
+          "description": "Published to accompany the exhibition held at the Museum of Modern Art QNS, New York, 17 October 2002 - 6 January 2003.",
+          "page_count": 200,
+          "published_year": 2002,
+          "genres": [
+            "Architecture"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9789659022106",
+          "title": "Jetlag",
+          "authors": [
+            "Etgar Keret"
+          ],
+          "language": "en",
+          "description": "5 tegneserier, der alle bygger på noveller af den israelske forfatter Etgar Keret",
+          "page_count": null,
+          "published_year": 1998,
+          "genres": [
+            "Caricatures and cartoons"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9780836221367",
+          "title": "It's a Magical World",
+          "authors": [
+            "Bill Watterson"
+          ],
+          "language": "en",
+          "description": "A Calvin and Hobbes collection.",
+          "page_count": 171,
+          "published_year": 1996,
+          "genres": [
+            "Comics & Graphic Novels"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781606995891",
+          "title": "The Daniel Clowes Reader",
+          "authors": [
+            "Daniel Clowes"
+          ],
+          "language": "en",
+          "description": "A central figure in the emergence of the graphic novel, Daniel Clowes has set the standard for literary cartooning. The Daniel Clowes Reader, a landmark critical compilation, introduces new readers to the cartoonist's award-winning comics and provides those familiar with Clowes new ways of appreciating his visual and literary achievement. Parille organises 10 Clowes narratives into three thematic sections and supplies each story with an introduction and annotations that will open up its complexities.",
+          "page_count": null,
+          "published_year": 2013,
+          "genres": [
+            "Comics & Graphic Novels"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781415512111",
+          "title": "It's a Magical World",
+          "authors": [
+            "Bill Watterson"
+          ],
+          "language": "en",
+          "description": "The final collection of comic strips from the popular syndicated series follows the adventures of Calvin and his stuffed tiger, Hobbes.",
+          "page_count": 165,
+          "published_year": 1996,
+          "genres": [
+            "American wit and humor, Pictorial"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9780369392763",
+          "title": "The Astronaughties",
+          "authors": [
+            "Andrew Cranna"
+          ],
+          "language": "en",
+          "description": "An out-of-this-world illustrated middle grade adventure that will have young readers giggling across the galaxy! You may be asking yourself, dear reader, how three naughty kids, one pet octopug and their handsome robot minder - that's me - accidentally got strapped inside a 400 megaton thermonuclear rocket on a one-way collision course to the moon? Good question! Well, let me take you back to the beginning . . . In 2120 the Moon has been transformed into the ultimate super-cool intergalactic amusement park. The Astronaughties, the children of some of the park's designers, get a chance to visit the Lunar Park before it officially opens. But when they arrive, they discover their parents are missing. Now their mission is to find them, defeat the baddies and free a trapped alien. Hold on tight, this is going to be one wild rocket ride!",
+          "page_count": null,
+          "published_year": 2022,
+          "genres": [],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781851773343",
+          "title": "The Art of the Book",
+          "authors": [
+            "James Bettley"
+          ],
+          "language": "en",
+          "description": "Illuminated manuscripts, comics, fine bindings, the classics of children's literature, artists' books and their working documents - these are just some of the remarkable items to be found in the National Art Library at the V&A. In a series of thematic chapters, the contributors draw on their wide-ranging expertise to look at the Library's major holdings, an in the process illustrate the main aspects of book design and production over the centuries. With medieval books of hours sitting alongside contemporary paperback novels, the choice is wonderfully varied, from Leonardo da Vinci to Sir Eduardo Paolozzi, Joan of Arc to Judge Dredd, Aesop to Charles Dickens, and Babar the Elephant to Ian Fleming. superbly demonstrate the many facets of the art of bookmaking. This absorbing compendium will be of interest to all those with a love of art, literary history and illustration.",
+          "page_count": 208,
+          "published_year": 2001,
+          "genres": [
+            "Book design"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781401228156",
+          "title": "Transmetropolitan",
+          "authors": [
+            "Warren Ellis"
+          ],
+          "language": "en",
+          "description": "Washed-up journalist Spider Jerusalem returns to The City, a place of noise, filth, and energy, where technology has drastically altered human life.",
+          "page_count": 109,
+          "published_year": 2009,
+          "genres": [
+            "COMICS & GRAPHIC NOVELS"
+          ],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9781760653378",
+          "title": "Astronaughties",
+          "authors": [
+            "Andrew Cranna"
+          ],
+          "language": "en",
+          "description": "An out-of-this-world illustrated middle grade adventure that will have young readers giggling across the galaxy! You may be asking yourself, dear reader, how three naughty kids, one pet octopug and their handsome robot minder - that's me - accidentally got strapped inside a 400 megaton thermonuclear rocket on a one-way collision course to the moon? Good question! Well, let me take you back to the beginning . . . In 2120 the Moon has been transformed into the ultimate super-cool intergalactic amusement park. The Astronaughties, the children of some of the park's designers, get a chance to visit the Lunar Park before it officially opens. But when they arrive, they discover their parents are missing. Now their mission is to find them, defeat the baddies and free a trapped alien. Hold on tight, this is going to be one wild rocket ride!",
+          "page_count": 240,
+          "published_year": 2022,
+          "genres": [],
+          "source": "google_books"
+        },
+        {
+          "isbn13": "9780439298117",
+          "title": "Sidekicks",
+          "authors": [
+            "Dan Santat"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 224,
+          "published_year": 2011,
+          "genres": [
+            "Graphic novels",
+            "Superheroes",
+            "Pets",
+            "Fiction",
+            "Comic books, strips"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9780399549731",
+          "title": "Wonder Woman--Warbringer",
+          "authors": [
+            "Leigh Bardugo"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 384,
+          "published_year": 2014,
+          "genres": [
+            "War stories",
+            "Brothers and sisters",
+            "Fantasy fiction",
+            "Juvenile fiction",
+            "Bildungsromans"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781401209858",
+          "title": "Teen Titans Go!",
+          "authors": [
+            "J. Torres",
+            "Adam Beechen"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 104,
+          "published_year": 2004,
+          "genres": [
+            "Comic books, strips",
+            "Good and evil",
+            "Teen Titans (Fictitious characters)",
+            "Cartoons and comics",
+            "Teenagers"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781474710329",
+          "title": "Red Riding Hood, superhero",
+          "authors": [
+            "Otis Frampton"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 40,
+          "published_year": 2015,
+          "genres": [
+            "Little Red Riding Hood (Fictitious character)",
+            "Robots",
+            "Cartoons and comics",
+            "Science fiction",
+            "Fiction"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781401218072",
+          "title": "Teen Titans",
+          "authors": [
+            "Geoff Johns"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 144,
+          "published_year": 2004,
+          "genres": [
+            "Heroes",
+            "Time travel",
+            "Comic books, strips",
+            "Good and evil",
+            "Teen Titans (Fictitious characters)"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781401216825",
+          "title": "Batman chronicles",
+          "authors": [
+            "DC Comics, Inc"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 192,
+          "published_year": 2008,
+          "genres": [
+            "Superheroes",
+            "Comic books, strips",
+            "Superhero comic books, strips"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9780451474773",
+          "title": "My brother is a superhero",
+          "authors": [
+            "David Solomons"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 312,
+          "published_year": 2015,
+          "genres": [
+            "Fiction",
+            "Brothers",
+            "Superheroes",
+            "Cartoons and comics",
+            "JUVENILE FICTION / Humorous Stories"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9780316265980",
+          "title": "Public School Superhero",
+          "authors": [
+            "James Patterson",
+            "Christopher Tebbetts"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 278,
+          "published_year": 2015,
+          "genres": [
+            "Humorous stories",
+            "Middle schools",
+            "Juvenile fiction",
+            "Grandmothers",
+            "Fiction"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781439588567",
+          "title": "The adventures of Super Diaper Baby",
+          "authors": [
+            "Dav Pilkey"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 128,
+          "published_year": 2002,
+          "genres": [
+            "Humorous stories",
+            "Fiction",
+            "Heroes",
+            "Cartoons and comics",
+            "Children's fiction"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781663629425",
+          "title": "The oracle code",
+          "authors": [
+            "Marieke Nijkamp",
+            "Manuel Preitano"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 198,
+          "published_year": 2019,
+          "genres": [
+            "Children's fiction",
+            "Comic books, strips",
+            "Hackers",
+            "Rehabilitation",
+            "Self-actualization (Psychology)"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781401209377",
+          "title": "Scooby-Doo",
+          "authors": [
+            "Chris Duffy",
+            "Joe Edkin",
+            "Terrance Griep",
+            "Chuck Kim",
+            "John Rozum"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 112,
+          "published_year": 2006,
+          "genres": [
+            "Scooby-Doo (Fictitious character)",
+            "Juvenile fiction",
+            "Teenagers",
+            "Cartoons and comics",
+            "Ghosts"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781852860400",
+          "title": "James Bond",
+          "authors": [
+            "James Duncan Lawrence",
+            "Ian Fleming"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 108,
+          "published_year": 1988,
+          "genres": [
+            "Espionage & spy thriller",
+            "Comic books, strips",
+            "American Spy stories",
+            "Comics & graphic novels, superheroes",
+            "Bond, james (fictitious character), fiction"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781401216511",
+          "title": "John Constantine, Hellblazer",
+          "authors": [
+            "Andy Diggle",
+            "Leonardo Manco"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 191,
+          "published_year": 2008,
+          "genres": [
+            "Comic books, strips",
+            "Fiction",
+            "John Constantine (Fictitious character)",
+            "Horror",
+            "Comics & Graphic Novels / Graphic Novels / Horror"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781401216917",
+          "title": "Justice League unlimited",
+          "authors": [
+            "Adam Beechen",
+            "Paul D. Storrie",
+            "Carlos Barberi"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 104,
+          "published_year": 2005,
+          "genres": [
+            "Good and evil",
+            "Juvenile fiction",
+            "Fiction",
+            "Justice League of America (Fictitious characters)",
+            "Science fiction"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781412936842",
+          "title": "The graphic novel classroom",
+          "authors": [
+            "Maureen Bakis"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 176,
+          "published_year": 2012,
+          "genres": [
+            "Graphic novels in education",
+            "Comic books, strips, etc., in education",
+            "Comic books, strips, etc.",
+            "Education",
+            "Art in education"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781406285697",
+          "title": "The Batman strikes!",
+          "authors": [
+            "Bill Matheny",
+            "J. Torres",
+            "Christopher Jones",
+            "Terry Beatty"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 144,
+          "published_year": 2007,
+          "genres": [
+            "Cartoons and comics",
+            "Adventure and adventurers",
+            "Graphic novels",
+            "Heroes and heroines",
+            "Superhero comic books, strips"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781563899614",
+          "title": "Legion of Super-Heroes Archives, Vol. 12",
+          "authors": [
+            "Jim Shooter"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 232,
+          "published_year": 1991,
+          "genres": [
+            "Comic books, strips",
+            "Legion of Super-Heroes (Fictitious characters)",
+            "Superheroes",
+            "Graphic novels"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781614791768",
+          "title": "Hand in hand",
+          "authors": [
+            "Peter David"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": null,
+          "published_year": 2014,
+          "genres": [
+            "Graphic novels",
+            "Superheroes",
+            "Fiction",
+            "Comic books, strips",
+            "Juvenile fiction"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781401212049",
+          "title": "Superman",
+          "authors": [
+            "Kurt Busiek"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 136,
+          "published_year": 2005,
+          "genres": [
+            "Comic books, strips",
+            "Superman (Fictitious character)",
+            "Heroes",
+            "Graphic novels",
+            "Science fiction comic books, strips"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781599475660",
+          "title": "Superhero Ethics",
+          "authors": [
+            "Travis Smith"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 195,
+          "published_year": 2018,
+          "genres": [
+            "Comic books, strips, etc., moral and ethical aspects"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9780786447183",
+          "title": "War, politics and superheroes",
+          "authors": [
+            "Marc Di Paolo"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 330,
+          "published_year": 2011,
+          "genres": [
+            "Motion pictures",
+            "Moral and ethical aspects",
+            "History and criticism",
+            "Comic books, strips",
+            "Propaganda in motion pictures"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781138548855",
+          "title": "American Theology, Superhero Comics, and Cinema",
+          "authors": [
+            "Anthony Mills"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 221,
+          "published_year": 2013,
+          "genres": [
+            "Comic books, strips, etc., religious aspects",
+            "Comic books, strips, etc., history and criticism",
+            "Authors, american",
+            "Comic books, strips",
+            "Religious aspects"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781576835760",
+          "title": "Holy superheroes!",
+          "authors": [
+            "Greg Garrett"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 141,
+          "published_year": 2005,
+          "genres": [
+            "Comic books, strips",
+            "Motion pictures",
+            "Religious aspects",
+            "Moral and ethical aspects of Comic books, strips, etc",
+            "Religious aspects of Comic books, strips, etc"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9780812695731",
+          "title": "Superheroes and philosophy",
+          "authors": [
+            "Thomas V. Morris"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 291,
+          "published_year": 2005,
+          "genres": [
+            "Moral and ethical aspects",
+            "Heroes in literature",
+            "Comic books, strips",
+            "Philosophers, biography",
+            "Superheld"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9780664231910",
+          "title": "Holy Superheroes! Revised and Expanded Edition",
+          "authors": [
+            "Greg Garrett"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 216,
+          "published_year": 2008,
+          "genres": [
+            "Comic books, strips",
+            "Religious aspects",
+            "Motion pictures",
+            "Comic books, strips, etc., religious aspects",
+            "Comic books, strips, etc., moral and ethical aspects"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781611475579",
+          "title": "Comics as History, Comics as Literature",
+          "authors": [
+            "Annessa Ann Babic"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 267,
+          "published_year": 2013,
+          "genres": [
+            "Comic books, strips, etc.",
+            "Comic books, strips",
+            "Influence on mass media",
+            "Cross-cultural studies",
+            "Comic books, strips, etc., in education"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781000261257",
+          "title": "Personal Ethics and Ordinary Heroes",
+          "authors": [
+            "Michael J. DeValve",
+            "Michael C. Braswell"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 128,
+          "published_year": 2020,
+          "genres": [
+            "Criminology",
+            "Comics & graphic novels, superheroes",
+            "Heroes",
+            "Superheroes",
+            "Ethics"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781476669984",
+          "title": "Superheroes and Their Ancient Jewish Parallels",
+          "authors": [
+            "Johnny E. Miles"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 225,
+          "published_year": 2018,
+          "genres": [
+            "Comics & graphic novels, general",
+            "Superheroes",
+            "Jews",
+            "Civilization",
+            "Influence"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781498549264",
+          "title": "Superheroes and Critical Animal Studies",
+          "authors": [
+            "J. L. Schatz",
+            "Sean Parson",
+            "Vas Stanescu"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 176,
+          "published_year": 2017,
+          "genres": [
+            "Comic books, strips, etc., moral and ethical aspects",
+            "Animals in literature",
+            "Animal rights",
+            "Comic books, strips",
+            "Moral and ethical aspects"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9780826441980",
+          "title": "Do the gods wear capes?",
+          "authors": [
+            "Ben Saunders"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 178,
+          "published_year": 2011,
+          "genres": [
+            "Moral and ethical aspects",
+            "Religious aspects",
+            "Heroes",
+            "History and criticism",
+            "Superheroes"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9780470396858",
+          "title": "Watchmen and philosophy",
+          "authors": [
+            "Mark D. White"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 227,
+          "published_year": 2009,
+          "genres": [
+            "Moral and ethical aspects",
+            "Comic books, strips",
+            "Comic books, strips, etc., moral and ethical aspects"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9780812699180",
+          "title": "Batman, Superman, and Philosophy",
+          "authors": [
+            "Nicolas Michaud"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 288,
+          "published_year": 2016,
+          "genres": [
+            "Batman (fictitious character)",
+            "Heroes in literature",
+            "Superhero films",
+            "History and criticism",
+            "Motion pictures"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9780316256711",
+          "title": "Marvel's Ant-Man",
+          "authors": [
+            "Tomas Palacios"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 32,
+          "published_year": 2015,
+          "genres": [
+            "Children's fiction",
+            "Ants, fiction",
+            "Fantasy fiction",
+            "Animals",
+            "Superheroes"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9780470482186",
+          "title": "Iron Man and philosophy",
+          "authors": [
+            "Mark D. White"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 280,
+          "published_year": 2010,
+          "genres": [
+            "Moral and ethical aspects",
+            "Philosophy in literature",
+            "Iron Man (Fictitious character)",
+            "Iron Man (Motion picture)",
+            "Comic books, strips"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9781118074572",
+          "title": "The Avengers and philosophy",
+          "authors": [
+            "Mark D. White"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 232,
+          "published_year": 2012,
+          "genres": [
+            "Moral and ethical aspects",
+            "Philosophy in literature",
+            "Philosophy in motion pictures",
+            "History and criticism",
+            "PHILOSOPHY / General"
+          ],
+          "source": "open_library"
+        },
+        {
+          "isbn13": "9780470575604",
+          "title": "Spider-man and philosophy",
+          "authors": [
+            "Jonathan J. Sanford"
+          ],
+          "language": "en",
+          "description": null,
+          "page_count": 276,
+          "published_year": 2012,
+          "genres": [
+            "Moral and ethical aspects",
+            "Philosophy in literature",
+            "Philosophy in motion pictures",
+            "History and criticism",
+            "PHILOSOPHY / General"
+          ],
+          "source": "open_library"
+        }
+      ],
+      "recommendations": [
+        {
+          "isbn13": "9781401228156",
+          "title": "Transmetropolitan",
+          "rank": 1,
+          "reason": "Spider Jerusalem returns to The City in this comics and graphic novels title. It centers on a washed-up journalist and technology that has drastically altered human life."
+        },
+        {
+          "isbn13": "9781415512111",
+          "title": "It's a Magical World",
+          "rank": 2,
+          "reason": "This collection follows the adventures of Calvin and his stuffed tiger, Hobbes. It is a comic-strip collection, but the catalog text does not mention superheroes or moral dilemmas."
+        },
+        {
+          "isbn13": "9781606995891",
+          "title": "The Daniel Clowes Reader",
+          "rank": 3,
+          "reason": "This graphic novel compilation presents ten narratives with introductions and annotations. It is a literary comics collection that can suit a reader seeking thoughtful superhero-related graphic fiction."
+        },
+        {
+          "isbn13": "9780836221367",
+          "title": "It's a Magical World",
+          "rank": 4,
+          "reason": "This is a comics and graphic novels collection. It gives you a complete Calvin and Hobbes volume in graphic form."
+        }
+      ],
+      "checks": {
+        "authenticity": {
+          "status": "pass",
+          "detail": "All recommended ISBNs are unique retrieved candidates"
+        },
+        "language": {
+          "status": "pass",
+          "detail": "Recommendation languages match the request"
+        },
+        "count": {
+          "status": "fail",
+          "detail": "Expected 5-10, received 4"
+        },
+        "links": {
+          "status": "pass",
+          "detail": "Store-language, genre and free-only rules satisfied"
+        },
+        "reason": {
+          "status": "pass",
+          "detail": "Reasons have descriptions and pass the proper-word heuristic"
+        },
+        "latency": {
+          "status": "pass",
+          "detail": "First SSE book at 11972 ms"
+        }
+      },
+      "events": [
+        {
+          "event": "status",
+          "data": {
+            "stage": "parsing"
+          }
+        },
+        {
+          "event": "status",
+          "data": {
+            "stage": "searching"
+          }
+        },
+        {
+          "event": "candidates",
+          "data": {
+            "count": 45
+          }
+        },
+        {
+          "event": "status",
+          "data": {
+            "stage": "ranking"
+          }
+        },
+        {
+          "event": "status",
+          "data": {
+            "stage": "searching"
+          }
+        },
+        {
+          "event": "status",
+          "data": {
+            "stage": "searching"
+          }
+        },
+        {
+          "event": "candidates",
+          "data": {
+            "count": 45
+          }
+        },
+        {
+          "event": "status",
+          "data": {
+            "stage": "ranking"
+          }
+        },
+        {
+          "event": "status",
+          "data": {
+            "stage": "searching"
+          }
+        },
+        {
+          "event": "status",
+          "data": {
+            "stage": "searching"
+          }
+        },
+        {
+          "event": "candidates",
+          "data": {
+            "count": 45
+          }
+        },
+        {
+          "event": "status",
+          "data": {
+            "stage": "ranking"
+          }
+        },
+        {
+          "event": "book",
+          "data": {
+            "isbn13": "9781401228156",
+            "title": "Transmetropolitan",
+            "authors": [
+              "Warren Ellis"
+            ],
+            "language": "en",
+            "description": "Washed-up journalist Spider Jerusalem returns to The City, a place of noise, filth, and energy, where technology has drastically altered human life.",
+            "cover_url": null,
+            "page_count": 109,
+            "published_year": 2009,
+            "genres": [
+              "COMICS & GRAPHIC NOVELS"
+            ],
+            "rating": null,
+            "source": "google_books",
+            "rank": 1,
+            "reason": "Spider Jerusalem returns to The City in this comics and graphic novels title. It centers on a washed-up journalist and technology that has drastically altered human life.",
+            "links": [
+              {
+                "store": "amazon_es",
+                "label": "Amazon.es",
+                "url": "https://www.amazon.es/s?k=9781401228156",
+                "formats": [
+                  "paper",
+                  "kindle"
+                ],
+                "match": "isbn_search",
+                "language_verified": false,
+                "copyright_region": null
+              },
+              {
+                "store": "apple_books",
+                "label": "Apple Books",
+                "url": "https://books.apple.com/es/book/transmetropolitan-i-hate-it-here-1/id875085235?uo=4",
+                "formats": [
+                  "apple_books"
+                ],
+                "match": "title_author",
+                "language_verified": false,
+                "copyright_region": null
+              }
+            ],
+            "formats": [
+              "paper",
+              "kindle",
+              "apple_books"
+            ]
+          }
+        },
+        {
+          "event": "book",
+          "data": {
+            "isbn13": "9781415512111",
+            "title": "It's a Magical World",
+            "authors": [
+              "Bill Watterson"
+            ],
+            "language": "en",
+            "description": "The final collection of comic strips from the popular syndicated series follows the adventures of Calvin and his stuffed tiger, Hobbes.",
+            "cover_url": null,
+            "page_count": 165,
+            "published_year": 1996,
+            "genres": [
+              "American wit and humor, Pictorial"
+            ],
+            "rating": null,
+            "source": "google_books",
+            "rank": 2,
+            "reason": "This collection follows the adventures of Calvin and his stuffed tiger, Hobbes. It is a comic-strip collection, but the catalog text does not mention superheroes or moral dilemmas.",
+            "links": [
+              {
+                "store": "amazon_es",
+                "label": "Amazon.es",
+                "url": "https://www.amazon.es/s?k=9781415512111",
+                "formats": [
+                  "paper",
+                  "kindle"
+                ],
+                "match": "isbn_search",
+                "language_verified": false,
+                "copyright_region": null
+              },
+              {
+                "store": "apple_books",
+                "label": "Apple Books",
+                "url": "https://books.apple.com/es/book/its-a-magical-world/id1060922907?uo=4",
+                "formats": [
+                  "apple_books"
+                ],
+                "match": "title_author",
+                "language_verified": false,
+                "copyright_region": null
+              }
+            ],
+            "formats": [
+              "paper",
+              "kindle",
+              "apple_books"
+            ]
+          }
+        },
+        {
+          "event": "book",
+          "data": {
+            "isbn13": "9781606995891",
+            "title": "The Daniel Clowes Reader",
+            "authors": [
+              "Daniel Clowes"
+            ],
+            "language": "en",
+            "description": "A central figure in the emergence of the graphic novel, Daniel Clowes has set the standard for literary cartooning. The Daniel Clowes Reader, a landmark critical compilation, introduces new readers to the cartoonist's award-winning comics and provides those familiar with Clowes new ways of appreciating his visual and literary achievement. Parille organises 10 Clowes narratives into three thematic sections and supplies each story with an introduction and annotations that will open up its complexities.",
+            "cover_url": "https://books.google.com/books/content?id=iGyltgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            "page_count": null,
+            "published_year": 2013,
+            "genres": [
+              "Comics & Graphic Novels"
+            ],
+            "rating": null,
+            "source": "google_books",
+            "rank": 3,
+            "reason": "This graphic novel compilation presents ten narratives with introductions and annotations. It is a literary comics collection that can suit a reader seeking thoughtful superhero-related graphic fiction.",
+            "links": [
+              {
+                "store": "amazon_es",
+                "label": "Amazon.es",
+                "url": "https://www.amazon.es/s?k=9781606995891",
+                "formats": [
+                  "paper",
+                  "kindle"
+                ],
+                "match": "isbn_search",
+                "language_verified": false,
+                "copyright_region": null
+              }
+            ],
+            "formats": [
+              "paper",
+              "kindle"
+            ]
+          }
+        },
+        {
+          "event": "book",
+          "data": {
+            "isbn13": "9780836221367",
+            "title": "It's a Magical World",
+            "authors": [
+              "Bill Watterson"
+            ],
+            "language": "en",
+            "description": "A Calvin and Hobbes collection.",
+            "cover_url": "https://books.google.com/books/content?id=y1NVNqOB5OIC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+            "page_count": 171,
+            "published_year": 1996,
+            "genres": [
+              "Comics & Graphic Novels"
+            ],
+            "rating": {
+              "value": "4.5",
+              "count": 33,
+              "source": "Google Books"
+            },
+            "source": "google_books",
+            "rank": 4,
+            "reason": "This is a comics and graphic novels collection. It gives you a complete Calvin and Hobbes volume in graphic form.",
+            "links": [
+              {
+                "store": "amazon_es",
+                "label": "Amazon.es",
+                "url": "https://www.amazon.es/s?k=9780836221367",
+                "formats": [
+                  "paper",
+                  "kindle"
+                ],
+                "match": "isbn_search",
+                "language_verified": false,
+                "copyright_region": null
+              },
+              {
+                "store": "apple_books",
+                "label": "Apple Books",
+                "url": "https://books.apple.com/es/book/its-a-magical-world/id1060922907?uo=4",
+                "formats": [
+                  "apple_books"
+                ],
+                "match": "title_author",
+                "language_verified": false,
+                "copyright_region": null
+              }
+            ],
+            "formats": [
+              "paper",
+              "kindle",
+              "apple_books"
+            ]
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "search_id": "16e03d7b-07f5-47bc-9d4a-a2f7668caf49",
+            "total": 4,
+            "limited": true
+          }
+        }
+      ],
+      "runtime_usage": {
+        "cache_hit": false,
+        "model_calls": 6,
+        "model_attempts": 6
+      }
+    }
+  ],
+  "limitation": "One current real frontend regression; cannot replace the complete 20-case gate."
+}

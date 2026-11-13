@@ -45,8 +45,10 @@ attempt, including a retry, is still reserved and committed in the same singleto
 before sending. No later reconciliation or independent spending allowance is
 created. Existing interactive keys and caches are not cleared or copied.
 
-Never select a new PostgreSQL database, reset a ledger, refund failed attempts or
-raise the cap to obtain more evaluation allowance. Keep the normal daily budget
+Never select a new PostgreSQL database, reset a ledger or refund failed attempts
+to obtain more evaluation allowance. A temporary cap exception requires explicit
+user approval and process-only configuration as described in the acceptance runbook.
+Keep the normal daily budget
 even when separating Redis test data. Full result hits do not establish new model
 execution, and retained parse/catalog caches mean that a result-cache miss alone
 does not establish a fully cold run. The graph-only diagnostic cannot substitute
@@ -128,6 +130,63 @@ starts, and can flag ordinary capitalized words. It does not prove semantic
 grounding. Link host/rule checks do not prove that a store stocks a book or that
 a URL template works; the specification's manual store-template verification is
 still required when channels are implemented.
+
+Reading-form validation also rejects clear activity-book, nonfiction/report and
+literary-criticism substitutes for fictional reading requests. It uses the
+original query and retained request genre, including an explicit UI genre;
+broadenings cannot replace that original requirement. The same predicate runs
+before ranking and again before streaming, persistence and complete-cache reuse.
+The reason check flags this mismatch independently of ISBN authenticity, and
+direct English/Spanish type concessions are checked as well as the earlier
+"although" forms. It does not certify complete relevance, nationality, exact
+setting or audience. Explicit nonfiction requests and ambiguous fiction metadata
+remain eligible; ordinary plot negation is not a type concession. The immutable
+round-24 report and `reading-form-replay-20261112-round25.json` show why a real ISBN
+and previously passing reason heuristic were insufficient.
+
+The follow-up also rejects explicit essay/philosophical commentary and military
+expedition-account cues while keeping genuinely requested nonfiction. Only
+book-specific description evidence can support ranking and reasons: recognized
+publisher/copyright boilerplate is removed from the model projection, while the
+original catalog snapshot stays intact. HTML and escaped HTML are normalized
+before this check. A boilerplate-only description is missing evidence, not a
+usable synopsis. Candidate categories are supplied to ranking as catalog data;
+they do not by themselves prove the form of the book.
+
+Retained validated picks are supplied as already selected ISBNs, so the model
+need only explain additional matches. If every usable shortlist entry is already
+retained, ranking is skipped while the graph still executes its permitted
+broadening/search stages. Reports retain the corresponding `model_called: false`
+round rather than inventing a model call. The output still requires two short
+grounded sentences and at most 30 candidate books.
+
+Failed HTTP admission now retains only an allowlisted API error code from a
+bounded response body. A `rate_limited` error is no longer relabeled as a generic
+stream failure. Interrupted searches block all six checks. Top-level
+`recommendations` describe actual delivered cards; unfinished selections are
+separate `graph_recommendations` audit evidence. This prevents an interrupted
+four-pick graph with zero wire cards from being described as four delivered books
+with broken store links. Failed captures remain failed and are never overwritten.
+
+The retained original genre now reaches both catalog clients on every search
+round. Supported narrative-fiction genres add the catalogs' `subject:fiction`
+constraint; graphic novels/comics use `subject:comics`. Existing language, author, year
+and page constraints stay in place. Short-story collections keep their existing
+catalog coverage because valid anthologies may be categorized as literary
+collections rather than fiction. Manga retains or appends the literal `manga`
+form word instead of imposing an English subject label that excluded actual
+Spanish results in the retained intermediate run. Nonfiction requests receive no fictional
+subject constraint. These catalog categories guide retrieval and are rechecked
+by the production reading-form validation; a subject tag is not complete proof
+of exact relevance. Explicit Travel classification without fictional evidence
+cannot substitute for requested novels, while actual travel novels and requested
+guides remain eligible.
+
+The field syntax is documented by [Google Books](https://developers.google.com/books/docs/v1/using)
+and [Open Library](https://openlibrary.org/search/howto/more). No source, query
+count, broadening limit or extra model stage is added. A completed normal search
+with genuinely zero results fails the count check; interruption/admission errors
+remain blocked rather than becoming count or link defects.
 
 The same unchanged proper-word heuristic now lives in `app/grounding.py` and is
 also applied before accepting production picks. The approved 2026-11-06 flow
@@ -273,6 +332,25 @@ Clear language-course substitutions are excluded using the original request
 genre plus catalog/title/description cues, even if a broadening changes its genre.
 This conservative heuristic does not independently prove nationality or full
 semantic relevance. Manually inspect recommendations as well as the six checks.
+
+Narrative requests carry the original reading form into catalog subject searches.
+An explicit superhero-comics request uses the more specific `subject:superheroes`;
+exclusions and comparisons do not create a positive superhero requirement.
+Supported narrative searches request up to 40 Google Books records in the same
+HTTP request, while the ranker still sees at most 30. Manga and short-story
+collections avoid an overly restrictive generic subject label. Manga keeps its
+literal form word. An explicit superhero-graphic request needs catalog evidence
+for both that form and subject in title, categories or usable description. This
+stricter combined check can reject real comics whose captured metadata is too
+sparse. Other ambiguous forms retain the conservative heuristic. These checks
+do not prove every requested mood or moral theme.
+
+Sparse graphic searches may fill missing or publisher-only descriptions after a
+broadening: at most three verified work requests per retry, with the existing
+eight-work global ceiling, three-request concurrency and two-second deadline.
+Already supported form/topic metadata gets priority. Original catalog records
+and the verified work payload remain separate provenance evidence. No ISBN or
+synopsis is invented. Existing year/length-constrained enrichment keeps its bound.
 
 Browser review also identified explicit topic-mismatch admissions in reasons.
 Production ranking validation and the reason check now reject recognized English

@@ -1,0 +1,60 @@
+{
+  "source_report": "eval-live-20261113-round25-followup.json",
+  "source_sha256": "028c99d29a748779633863a8a51603c61a3d3d5bb555f7c9fba538434fe7f626",
+  "records": [
+    {
+      "query": "Classic adventure novels about journeys and exploration",
+      "genre": "adventure fiction",
+      "candidate": {
+        "isbn13": "9781698720012",
+        "title": "Travel Made Fiction \"Adventure Travel\" to British Columbia and Alaska",
+        "authors": [
+          "Mark J. Curran"
+        ],
+        "language": "en",
+        "description": "Travel Made Fiction “Adventure Travel” in British Columbia and Alaska is the 8th in the series of the travel - made - fiction “Adventure Travel” series by Curran. What is different is that this time the book is like a travelogue with an abundance of photos, although description on the places visited appears along with limited fictional remarks by the author. Travel to major sites in Vancouver, B.C., Victoria, B.C. and Vancouver Island, the Inside Passage and Prince Rupert appears in Part I. Travel to Anchorage, Denali National Park, the Kennecott Copper Town and Mill and Root Glacier, the Mat Su Valley, the Hood Float Plane Base in Anchorage and the Seward Fjord appears in Part II. Highlights in Part I are notes on the history of the British in B.C. including the famous railroad hotels, famous sights like the Empress Hotel and its Bengal Lounge, First Nation Culture including totems and murals in Duncan, Chemainus and Campbell River, the Logging Industry in British Columbia and especially the forests and nature. In Alaska Denali and Kennecott and Seward Fjord are important. On both trips, eagles, bears, Orcas and Puffins abound.",
+        "genres": [
+          "Travel"
+        ],
+        "source": "google_books"
+      }
+    },
+    {
+      "query": "Classic adventure novels about journeys and exploration",
+      "genre": "adventure fiction",
+      "candidate": {
+        "isbn13": "9781932361698",
+        "title": "The Best Travel Writing 2008",
+        "authors": [
+          "James O'Reilly",
+          "Larry Habegger",
+          "Sean O'Reilly"
+        ],
+        "language": "en",
+        "description": "Since 1993, readers have looked to Travelers' Tales for award-winning stories about the world, adventure, spirituality, and the transformative experiences that accompany life on the road. The Best Travel Writing 2008 is the fifth volume in the series launched in 2004 to celebrate the world's best travel writing — much of it never before published — from Nobel Prize winners to up-and-coming new writers. The stories provide a perspective and depth of understanding that can only come from people who have actually been there, and encompass everything from high adventure to misadventure, spiritual growth to romance, service to humanity to encounters with exotic cuisines. Reading the book is like sitting in a café filled with fellow travelers, swapping tales about destinations near and far — readers emerge changed, eager for more, and ready to plan their next trips.",
+        "genres": [
+          "Travel"
+        ],
+        "source": "google_books"
+      }
+    },
+    {
+      "query": "Classic adventure novels about journeys and exploration",
+      "genre": "adventure fiction",
+      "candidate": {
+        "isbn13": "9781400007882",
+        "title": "Adventure Travel",
+        "authors": [
+          "William Gray",
+          "Fodor's Travel Publications, Inc. Staff"
+        ],
+        "language": "en",
+        "description": "Adventure travel is the newest trend as greater numbers of travelers are ditching their beach chairs and pia coladas to hike ancient trails, paddle secluded coves, and raft fierce rapids. These activities plus many more are covered in \"Fodor's Adventure Travel.\"",
+        "genres": [
+          "Travel"
+        ],
+        "source": "google_books"
+      }
+    }
+  ]
+}

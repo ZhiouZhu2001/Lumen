@@ -28,6 +28,9 @@ from scripts.check_runtime_readiness import (
         ("missing_key", "not_ready"),
         ("blank_key", "not_ready"),
         ("changed_cap", "not_ready"),
+        ("temporary_cap", "ready"),
+        ("temporary_cap_without_expected_policy", "not_ready"),
+        ("temporary_cap_300", "ready"),
         ("older_migration", "not_ready"),
         ("empty_version", "not_ready"),
         ("missing_version", "not_ready"),
@@ -81,8 +84,18 @@ async def test_actual_readiness_never_changes_usage_or_schema(
         settings.openai_api_key = SecretStr("   ") if case == "blank_key" else None
     if case == "changed_cap":
         settings.daily_ai_call_cap = 101
+    if case.startswith("temporary_cap"):
+        settings.daily_ai_call_cap = 300 if case == "temporary_cap_300" else 200
     keys = sorted([key async for key in redis.scan_iter()])
-    report = await inspect_runtime(settings, engine, redis, heads)
+    report = await inspect_runtime(
+        settings,
+        engine,
+        redis,
+        heads,
+        expected_cap=settings.daily_ai_call_cap
+        if case in {"temporary_cap", "temporary_cap_300"}
+        else 100,
+    )
     assert report["state"] == expected
     assert report["model_requests"] == report["catalog_requests"] == 0
     assert report["read_only"]

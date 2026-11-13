@@ -74,6 +74,18 @@ async def test_unsafe_work_path_or_existing_description_makes_no_request():
         assert await enrich_descriptions(client, books) == books
 
 
+async def test_copyright_only_text_can_be_replaced_by_verified_work_evidence():
+    original = book(0, "This work has been selected by scholars as being important.")
+    original = original.model_copy(update={"work_key": FIXTURE["key"]})
+    async with httpx.AsyncClient(
+        transport=httpx.MockTransport(lambda _: httpx.Response(200, json=FIXTURE))
+    ) as client:
+        enriched = (await enrich_descriptions(client, [original]))[0]
+    assert enriched.description == FIXTURE["description"]["value"]
+    assert enriched.provider_records["open_library_work"][0].payload == FIXTURE
+    assert original.description.startswith("This work has been selected")
+
+
 async def test_open_library_sends_real_metadata_constraints():
     def handler(request):
         q = request.url.params["q"]

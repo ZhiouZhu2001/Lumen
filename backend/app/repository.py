@@ -91,6 +91,8 @@ class SearchRepository:
                     state["parsed"].requested_authors if state["parsed"] else [],
                 ),
             ),
+            requested_genre=state.get("filters", SearchFilters()).genre
+            or state.get("request_genre"),
         )
         if (
             not 3 <= len(state["query"]) <= 300

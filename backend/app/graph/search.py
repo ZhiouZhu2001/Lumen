@@ -4,7 +4,7 @@ from collections.abc import Awaitable
 
 import httpx
 
-from app.filters import SearchFilters
+from app.filters import SearchFilters, catalog_subject
 from app.sources.google_books import search_google_books
 from app.sources.merge import merge_candidates
 from app.sources.open_library import search_open_library
@@ -57,7 +57,18 @@ async def search_candidates(
     google_calls = [
         _try_source(
             "Google Books",
-            search_google_books(client, search, language, api_key=google_api_key),
+            search_google_books(
+                client,
+                search,
+                language,
+                api_key=google_api_key,
+                **(
+                    {"max_results": 40}
+                    if filters and catalog_subject(filters.genre)
+                    else {}
+                ),
+                **({"filters": filters} if filters else {}),
+            ),
         )
         for search in searches
     ]

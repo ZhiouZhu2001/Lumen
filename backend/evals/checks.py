@@ -11,8 +11,8 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from app.authors import matches_authors
 from app.channels.matching import normalize
 from app.graph.state import SearchState
-from app.grounding import unknown_proper_words
-from app.reading_intent import concedes_mismatch
+from app.grounding import description_evidence, unknown_proper_words
+from app.reading_intent import concedes_mismatch, matches_reader_type
 from app.sources.isbn import to_isbn13
 from app.sources.schemas import Language
 
@@ -209,8 +209,7 @@ def evaluate_case(
         book = candidates.get(pick.isbn13)
         if (
             not book
-            or not book.description
-            or not book.description.strip()
+            or not description_evidence(book.description)
             or not pick.reason.strip()
         ):
             reason_problems.append(f"{pick.isbn13}: missing reason or description")
@@ -218,8 +217,12 @@ def evaluate_case(
             reason_problems.append(
                 f"{pick.isbn13}: reason concedes a missing reader requirement"
             )
+        elif not matches_reader_type(
+            book, case.query, case.filters.genre or state.get("request_genre")
+        ):
+            reason_problems.append(f"{pick.isbn13}: wrong requested reading form")
         elif unknown := unknown_proper_words(
-            pick.reason, f"{book.title} {book.description}"
+            pick.reason, f"{book.title} {description_evidence(book.description)}"
         ):
             reason_problems.append(
                 f"{pick.isbn13}: unsupported proper words {', '.join(unknown)}"

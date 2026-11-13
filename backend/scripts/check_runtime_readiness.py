@@ -6,8 +6,10 @@ This does not establish provider credentials, recommendation quality or public
 deployment readiness. The existing health endpoint remains a connectivity check.
 """
 
+import argparse
 import asyncio
 import json
+import sys
 from pathlib import Path
 
 from alembic.config import Config
@@ -63,7 +65,7 @@ async def redis_status(redis):
         return {"status": "unavailable"}
 
 
-async def inspect_runtime(settings, engine, redis, heads):
+async def inspect_runtime(settings, engine, redis, heads, *, expected_cap=EXPECTED_CAP):
     postgres, cache = await asyncio.gather(
         migration_status(engine, heads), redis_status(redis)
     )
@@ -95,8 +97,8 @@ async def inspect_runtime(settings, engine, redis, heads):
         issues.append("database_or_migrations_unready")
     if cache["status"] != "ok":
         issues.append("redis_unavailable")
-    if settings.daily_ai_call_cap != EXPECTED_CAP:
-        issues.append("daily_cap_must_be_100")
+    if settings.daily_ai_call_cap != expected_cap:
+        issues.append(f"daily_cap_must_be_{expected_cap}")
     if not all(model[field] for field in ["name_configured", "key_configured"]):
         issues.append("model_configuration_missing")
     if budget["status"] in {"unknown", "not_checked"}:
@@ -110,6 +112,7 @@ async def inspect_runtime(settings, engine, redis, heads):
     )
     return {
         "state": state,
+        "expected_daily_cap": expected_cap,
         "uncached_model_work_locally_ready": state == "ready",
         "checks": {
             "postgres": postgres,
@@ -125,7 +128,7 @@ async def inspect_runtime(settings, engine, redis, heads):
     }
 
 
-async def run_check(settings):
+async def run_check(settings, *, expected_cap=EXPECTED_CAP):
     # Deliberately do not use SQL_ECHO; configuration/connection secrets must not
     # be written into this operator report or SQL logs.
     heads = expected_heads()
@@ -133,7 +136,9 @@ async def run_check(settings):
     redis = None
     try:
         redis = make_redis(settings.redis_url)
-        return await inspect_runtime(settings, engine, redis, heads)
+        return await inspect_runtime(
+            settings, engine, redis, heads, expected_cap=expected_cap
+        )
     finally:
         try:
             if redis is not None:
@@ -142,9 +147,20 @@ async def run_check(settings):
             await engine.dispose()
 
 
-def main():
+def main(argv=()):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--expected-daily-cap",
+        type=int,
+        choices=(100, 200, 300),
+        default=EXPECTED_CAP,
+        help="Expected configured policy only; 200 or 300 requires an explicitly approved temporary acceptance window. Does not alter usage or configuration.",
+    )
+    args = parser.parse_args(argv)
     try:
-        report = asyncio.run(run_check(get_settings()))
+        report = asyncio.run(
+            run_check(get_settings(), expected_cap=args.expected_daily_cap)
+        )
     except (
         ValidationError,
         SQLAlchemyError,
@@ -167,4 +183,4 @@ def main():
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(main(sys.argv[1:]))

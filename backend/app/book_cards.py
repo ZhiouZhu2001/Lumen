@@ -91,7 +91,11 @@ class BookCardBuilder:
             ), "matched" if link else "not_found"
 
     async def build(
-        self, candidates: list[BookCandidate], picks: list[Pick]
+        self,
+        candidates: list[BookCandidate],
+        picks: list[Pick],
+        *,
+        lookup_timeout: float | None = None,
     ) -> CardBatch:
         """Return cards in pick order; invalid picks fail before any HTTP request."""
         books = {book.isbn13: book for book in candidates}
@@ -107,6 +111,18 @@ class BookCardBuilder:
         ):
             raise ValueError("Book cards require unique validated picks in rank order")
 
+        async def optional_lookup(rule, book):
+            if lookup_timeout is None:
+                return await self._lookup(rule, book)
+            if lookup_timeout <= 0:
+                return None, "unavailable"
+            try:
+                async with asyncio.timeout(lookup_timeout):
+                    return await self._lookup(rule, book)
+            except TimeoutError:
+                # A timeout is missing optional evidence, never a no-match.
+                return None, "unavailable"
+
         async def one(pick: Pick):
             book = books[pick.isbn13]
             links = search_links(book, self._rules)
@@ -116,7 +132,7 @@ class BookCardBuilder:
                 if rule.mode == "lookup" and applies(rule, book)
             ]
             outcomes = await asyncio.gather(
-                *(self._lookup(rule, book) for rule in lookup_rules)
+                *(optional_lookup(rule, book) for rule in lookup_rules)
             )
             statuses = {}
             for rule, (link, status) in zip(lookup_rules, outcomes, strict=True):

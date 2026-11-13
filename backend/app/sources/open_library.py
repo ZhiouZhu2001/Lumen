@@ -6,7 +6,7 @@ from typing import Any
 import httpx
 from pydantic import ValidationError
 
-from app.filters import SearchFilters
+from app.filters import SearchFilters, catalog_query
 from app.sources.evidence import mark_fetched, record
 from app.sources.isbn import to_isbn13
 from app.sources.schemas import BookCandidate, Language, Rating
@@ -62,7 +62,7 @@ async def search_open_library(
 ) -> list[BookCandidate]:
     """Search Open Library. Raises httpx.HTTPError if the request fails."""
     params: dict[str, str | int] = {
-        "q": f"{query} language:{LANGUAGE_CODES[language]}",
+        "q": f"{catalog_query(query, filters.genre if filters else None)} language:{LANGUAGE_CODES[language]}",
         "fields": FIELDS,
         "limit": limit,
     }
