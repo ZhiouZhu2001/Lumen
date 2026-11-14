@@ -10,7 +10,7 @@ export default function BookCardSkeleton() {
           <div className="h-3 rounded bg-zinc-100" />
           <div className="h-3 w-5/6 rounded bg-zinc-100" />
         </div>
-        <div className="h-11 w-28 rounded bg-zinc-100" />
+        <div className="h-11 w-28 max-w-full rounded bg-zinc-100" />
       </div>
     </div>
   );

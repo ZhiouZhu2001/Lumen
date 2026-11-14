@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useRef, type SubmitEvent } from "react";
+import { useEffect, useId, useRef, type SubmitEvent } from "react";
 import { useLocale, useTranslations } from "next-intl";
 
 import BookCard from "@/components/BookCard";
@@ -25,7 +25,14 @@ export default function Home() {
   const search = useBookSearch(language);
   const loading = search.status === "loading";
   const formId = useId();
+  const queryInput = useRef<HTMLInputElement>(null);
   const requestedLanguage = useRef(language);
+
+  useEffect(() => {
+    if (search.status === "error" || search.status === "cancelled") {
+      queryInput.current?.focus();
+    }
+  }, [search.status]);
 
   function changeLanguage(next: Language) {
     if (next === language && next === requestedLanguage.current) return;
@@ -70,11 +77,11 @@ export default function Home() {
         <label htmlFor={`${formId}-query`} className="block text-sm font-medium">{t("requestLabel")}</label>
         <div className="flex flex-col gap-3 sm:flex-row">
           <input
-            id={`${formId}-query`} value={search.query} onChange={event => search.setQuery(event.target.value)}
+            ref={queryInput} id={`${formId}-query`} value={search.query} onChange={event => search.setQuery(event.target.value)}
             placeholder={t("placeholder")} minLength={3} maxLength={300} required disabled={loading}
             className={`${FIELD} flex-1`}
           />
-          <div className="flex gap-2">
+          <div className="flex min-w-0 flex-wrap gap-2">
             <button type="submit" disabled={loading} className="min-h-11 flex-1 rounded bg-black px-5 py-2 text-white hover:bg-zinc-800 active:bg-zinc-700 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50">
               {loading ? t("searchingButton") : t("search")}
             </button>

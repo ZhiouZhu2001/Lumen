@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 
 import { bookPath } from "@/lib/book-details";
@@ -12,6 +12,11 @@ export default function ShareBook({isbn13}: {isbn13: string}) {
   const [url, setUrl] = useState("");
   const [status, setStatus] = useState<"copied" | "copyManually" | null>(null);
   const [copying, setCopying] = useState(false);
+  const linkField = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (status === "copyManually") linkField.current?.focus();
+  }, [status, url]);
 
   async function copyLink() {
     // Build from the origin and public identity only; discard queries and fragments.
@@ -24,6 +29,8 @@ export default function ShareBook({isbn13}: {isbn13: string}) {
       setStatus("copied");
     } catch {
       setStatus("copyManually");
+      // The effect handles first mount; this also supports immediate retries.
+      linkField.current?.focus();
     } finally {
       setCopying(false);
     }
@@ -36,7 +43,7 @@ export default function ShareBook({isbn13}: {isbn13: string}) {
       </button>
       <p className="mt-2 text-xs text-zinc-600">{t("shareNote")}</p>
       {url ? <label className="mt-3 block text-sm">{t("linkLabel")}
-        <input readOnly value={url} onFocus={event => event.currentTarget.select()} className="mt-1 min-h-11 w-full rounded border border-zinc-300 px-3 py-2 text-sm" />
+        <input ref={linkField} readOnly value={url} onFocus={event => event.currentTarget.select()} className="mt-1 min-h-11 w-full rounded border border-zinc-300 px-3 py-2 text-base" />
       </label> : null}
       <p role="status" aria-live="polite" className="mt-2 text-sm text-zinc-600">{status ? t(status) : ""}</p>
     </section>
