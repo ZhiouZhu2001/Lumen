@@ -64,6 +64,9 @@
     "notFound": "This book has not been saved in Lumen. Complete a search first, then open its details.",
     "unavailable": "Book information could not be loaded. Please try again.",
     "retry": "Try again",
-    "storedCatalog": "Saved catalog"
+    "storedCatalog": "Saved catalog",
+    "previewDescriptionWithAuthors": "Details for {title} by {authors}. ISBN {isbn}.",
+    "previewDescriptionWithoutAuthors": "Details for {title}. ISBN {isbn}.",
+    "previewCoverAlt": "Cover of {title}"
   }
 }

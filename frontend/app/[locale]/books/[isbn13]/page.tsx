@@ -1,14 +1,33 @@
-import { Suspense } from "react";
-import { useTranslations } from "next-intl";
+import type { Metadata } from "next";
+import { cache, Suspense } from "react";
+import { hasLocale, useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 
 import BookDisplay from "@/components/BookDisplay";
 import ShareBook from "@/components/ShareBook";
 import { Link } from "@/i18n/navigation";
+import { routing } from "@/i18n/routing";
 import { bookPath, fetchBookDetails } from "@/lib/book-details";
+import { createBookMetadata } from "@/lib/book-metadata";
 import type { Language } from "@/lib/types";
 
 type Props = PageProps<"/[locale]/books/[isbn13]">;
+
+// The bounded fetch supplies an AbortSignal, so share its result explicitly
+// between page and metadata within this request, without a persistent cache.
+const getBookDetails = cache((isbn13: string) => fetchBookDetails(isbn13, process.env.BACKEND_URL ?? "http://localhost:8001"));
+
+export async function generateMetadata({params}: Props): Promise<Metadata> {
+  const {locale, isbn13} = await params;
+  if (!hasLocale(routing.locales, locale)) return {robots: {index: false, follow: false}};
+  const [result, t] = await Promise.all([getBookDetails(isbn13), getTranslations({locale, namespace: "BookDetails"})]);
+  return createBookMetadata(result, {
+    unavailableTitle: t("errorTitle"),
+    statuses: {invalid: t("invalid"), notFound: t("notFound"), unavailable: t("unavailable")},
+    describe: (title, authors, isbn) => t(authors ? "previewDescriptionWithAuthors" : "previewDescriptionWithoutAuthors", {title, authors, isbn}),
+    coverAlt: title => t("previewCoverAlt", {title}),
+  });
+}
 
 function Loading() {
   const t = useTranslations("BookDetails");
@@ -17,7 +36,7 @@ function Loading() {
 
 async function Details({params}: Props) {
   const [{locale, isbn13}, t] = await Promise.all([params, getTranslations("BookDetails")]);
-  const result = await fetchBookDetails(isbn13, process.env.BACKEND_URL ?? "http://localhost:8001");
+  const result = await getBookDetails(isbn13);
   const sourceLabels: Record<string, string> = {google_books: "Google Books", open_library: "Open Library"};
 
   return (

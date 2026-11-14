@@ -64,6 +64,9 @@
     "notFound": "Este libro aún no está guardado en Lumen. Completa una búsqueda y abre sus detalles.",
     "unavailable": "No se ha podido cargar la información del libro. Inténtalo de nuevo.",
     "retry": "Reintentar",
-    "storedCatalog": "Catálogo guardado"
+    "storedCatalog": "Catálogo guardado",
+    "previewDescriptionWithAuthors": "Detalles de {title}, de {authors}. ISBN {isbn}.",
+    "previewDescriptionWithoutAuthors": "Detalles de {title}. ISBN {isbn}.",
+    "previewCoverAlt": "Portada de {title}"
   }
 }
