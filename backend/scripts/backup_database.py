@@ -156,12 +156,16 @@ async def verify_archive(archive, image, database, expected, label, cap):
             image,
         )
         created = True
+        # The image entrypoint first runs a socket-only bootstrap server, then
+        # restarts it. Wait for the final TCP listener before any restore SQL.
         for _ in range(60):
             proc = await asyncio.create_subprocess_exec(
                 "docker",
                 "exec",
                 name,
                 "pg_isready",
+                "-h",
+                "127.0.0.1",
                 "-U",
                 "restore_check",
                 "-d",

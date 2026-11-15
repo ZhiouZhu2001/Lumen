@@ -6,6 +6,37 @@ The base Compose file runs the specified five services. Only Caddy publishes hos
 
 Keep the current project name and `pgdata` volume when changing startup methods. The PostgreSQL image remains `pgvector/pgvector:pg17`; this round does not change the existing database major version or schema. Never use `down -v` on an existing installation. Take a verified private backup before switching an installation.
 
+For normal local use, prefer the full Docker stack. Stop the owned native
+Next.js/FastAPI processes, verify the backup, then run the base Compose file
+without `compose.host.yml`:
+
+```console
+docker compose up -d --build --wait
+docker compose ps
+```
+
+The frontend container runs the current production build, the backend container
+uses its existing migration/Uvicorn entry point, and Caddy is the browser/API
+entry. No temporary host Python launcher is involved. Changes to application
+source need another build/start command; restarting alone does not rebuild code.
+
+Port 8080 is the default, not a requirement. If it is occupied by another
+project, keep that project running and set `LUMEN_HTTP_PORT=8081` in Lumen's
+private `.env`. Then the local entry is `http://127.0.0.1:8081/es` (or `/en`).
+Keep `LUMEN_BIND_ADDRESS=127.0.0.1` and the local `:80` site when choosing another
+port; selecting a port does not approve public exposure, DNS or TLS activation.
+Use `docker compose config --quiet` for a safe syntax check; do not paste the
+fully rendered environment into logs or an issue.
+
+Before and after switching an existing installation, compare the PostgreSQL
+volume/cluster identity, public table fingerprints and raw daily-usage row with
+all AI workers paused. Do not initialize, clear, refund or replace its ledger.
+Changing from the host override to base Compose removes direct data-service
+ports and may recreate containers. Reuse the existing PostgreSQL and Redis
+volumes; do not request anonymous-volume renewal or delete volumes. Retain the
+verified private archive/receipt. Confirm the container readiness report before
+handing the new local entry to the user.
+
 For Python/Next.js development on the host, publish only the two data services on loopback:
 
 ```console

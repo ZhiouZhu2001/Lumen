@@ -10,7 +10,16 @@ The bilingual interface follows a restrained literary-journal design: warm ivory
 
 The current setup was verified with Python 3.12, Node 24, uv and Docker Desktop.
 
-For the complete five-container stack, see [container startup and proxy verification](docs/containers.md). `make dev` builds both applications and starts Caddy, the frontend, backend, PostgreSQL and Redis; the default entry is [http://127.0.0.1:8080/es](http://127.0.0.1:8080/es). A new database still needs explicit daily-budget initialization before AI searches. The instructions below retain the separate native development workflow.
+The normal local workflow runs all five services in Docker. From the repository root:
+
+```console
+docker compose up -d --build --wait
+docker compose ps
+```
+
+This builds the current frontend/backend code and starts Caddy, the frontend, backend, PostgreSQL and Redis. Only Caddy publishes local ports. The default entry is [http://127.0.0.1:8080/es](http://127.0.0.1:8080/es); if that port belongs to another project, set `LUMEN_HTTP_PORT=8081` in the private `.env` and use [http://127.0.0.1:8081/es](http://127.0.0.1:8081/es). `make dev` runs the same startup command. Later source changes require rebuilding; the production containers do not use the native development server's automatic reload.
+
+See [container startup and proxy verification](docs/containers.md) before switching an existing installation. Preserve its volumes and usage ledger, take a verified private backup, and stop native application processes before handing traffic to Docker. An existing initialized database must not be initialized again. A genuinely new database still needs explicit daily-budget initialization before AI searches. Docker does not require a host Python startup helper. The instructions below are the optional native development workflow.
 
 1. Copy `.env.example` to `.env` and configure the database, Redis and existing API credentials. Keep `.env` private.
 2. From the repository root, start the data services:
