@@ -1,10 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useId, useRef, type SubmitEvent } from "react";
 import { useLocale, useTranslations } from "next-intl";
 
 import BookCard from "@/components/BookCard";
 import BookCardSkeleton from "@/components/BookCardSkeleton";
+import { ArrowIcon, ChevronIcon } from "@/components/Icons";
+import { Masthead, SiteFooter } from "@/components/SiteChrome";
 import { usePreferences } from "@/components/PreferencesProvider";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { useBookSearch } from "@/lib/use-book-search";
@@ -14,7 +17,7 @@ const LANGUAGES: {code: Language; label: string}[] = [
   {code: "es", label: "Español"},
   {code: "en", label: "English"},
 ];
-const FIELD = "min-h-11 w-full min-w-0 rounded border border-zinc-300 bg-white px-3 py-2 text-base focus-visible:outline-2 focus-visible:outline-offset-2 disabled:bg-zinc-50 disabled:text-zinc-500";
+const FIELD = "field";
 
 export default function Home() {
   const language = useLocale();
@@ -54,88 +57,90 @@ export default function Home() {
       : search.status === "cancelled" ? t("cancelled") : "";
 
   return (
-    <main className="mx-auto w-full max-w-2xl px-4 py-6 sm:p-8">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-        <div>
-          <h1 className="text-3xl font-semibold">Lumen</h1>
-          <p className="mt-2 text-zinc-600">{t("tagline")}</p>
-        </div>
-        <div role="group" aria-label={t("languageLabel")} className="flex w-fit shrink-0 gap-2 text-sm">
+    <div className="site-shell">
+      <Masthead>
+        <div role="group" aria-label={t("languageLabel")} className="locale-controls">
           {LANGUAGES.map(({code, label}) => (
-            <button
-              key={code} type="button" lang={code}
-              onClick={() => changeLanguage(code)} aria-pressed={language === code}
-              className={`min-h-11 rounded border px-4 py-2 focus-visible:outline-2 focus-visible:outline-offset-2 ${language === code ? "border-black bg-black text-white" : "border-zinc-300 hover:bg-zinc-100 active:bg-zinc-200"}`}
-            >
-              {label}
-            </button>
+            <button key={code} type="button" lang={code} onClick={() => changeLanguage(code)} aria-pressed={language === code} className="locale-link">{label}</button>
           ))}
         </div>
-      </div>
+      </Masthead>
+      <main id="main-content">
+        <section className="hero" aria-labelledby={`${formId}-heading`}>
+          <div>
+            <h1 id={`${formId}-heading`}><span>{t("heroTitle")}</span><em>{t("heroAccent")}</em></h1>
+            <p className="hero-intro"><span>{t("heroIntro")}</span><span>{t("heroSupport")}</span></p>
+          </div>
+          <Image src="/images/books-engraving.png" alt="" width={1904} height={816} sizes="(max-width: 672px) 1px, 480px" className="hero-art" />
+        </section>
 
-      <form onSubmit={handleSubmit} className="mt-6 space-y-4" aria-label={t("requestLabel")}>
-        <label htmlFor={`${formId}-query`} className="block text-sm font-medium">{t("requestLabel")}</label>
-        <div className="flex flex-col gap-3 sm:flex-row">
+      <form onSubmit={handleSubmit} className="search-form" aria-label={t("requestLabel")}>
+        <label htmlFor={`${formId}-query`} className="field-label">{t("requestLabel")}</label>
+        <div className="search-line">
           <input
             ref={queryInput} id={`${formId}-query`} value={search.query} onChange={event => search.setQuery(event.target.value)}
             placeholder={t("placeholder")} minLength={3} maxLength={300} required disabled={loading}
-            className={`${FIELD} flex-1`}
+            className={FIELD}
           />
-          <div className="flex min-w-0 flex-wrap gap-2">
-            <button type="submit" disabled={loading} className="min-h-11 flex-1 rounded bg-black px-5 py-2 text-white hover:bg-zinc-800 active:bg-zinc-700 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50">
-              {loading ? t("searchingButton") : t("search")}
+          <div className="search-buttons">
+            <button type="submit" disabled={loading} className="primary-button">
+              {loading ? t("searchingButton") : t("search")}<ArrowIcon />
             </button>
             {loading ? (
-              <button type="button" onClick={search.cancel} className="min-h-11 rounded border border-zinc-300 px-4 py-2 hover:bg-zinc-100 active:bg-zinc-200 focus-visible:outline-2 focus-visible:outline-offset-2">
+              <button type="button" onClick={search.cancel} className="secondary-button">
                 {t("cancel")}
               </button>
             ) : null}
           </div>
         </div>
-        <div className="grid gap-3 sm:grid-cols-3">
-          <div className="min-w-0 text-sm">
+        <div className="filters">
+          <div className="filter-group">
             <label htmlFor={`${formId}-genre`}>{t("genre")}</label>
-            <select id={`${formId}-genre`} value={search.filters.genre} onChange={event => search.setFilter("genre", event.target.value)} disabled={loading} className={`${FIELD} mt-1`} aria-describedby={`${formId}-note`}>
+            <div className="select-wrap"><select id={`${formId}-genre`} value={search.filters.genre} onChange={event => search.setFilter("genre", event.target.value)} disabled={loading} className={FIELD} aria-describedby={`${formId}-note`}>
               <option value="">{t("any")}</option>
               <option value="historical fiction">{t("historical")}</option>
               <option value="graphic novels">{t("comics")}</option>
               <option value="manga">Manga</option>
               <option value="fantasy">{t("fantasy")}</option>
               <option value="thriller">Thriller</option>
-            </select>
+            </select><ChevronIcon /></div>
           </div>
-          <div className="min-w-0 text-sm">
+          <div className="filter-group">
             <label htmlFor={`${formId}-era`}>{t("era")}</label>
-            <select id={`${formId}-era`} value={search.filters.era} onChange={event => search.setFilter("era", event.target.value)} disabled={loading} className={`${FIELD} mt-1`} aria-describedby={`${formId}-note`}>
+            <div className="select-wrap"><select id={`${formId}-era`} value={search.filters.era} onChange={event => search.setFilter("era", event.target.value)} disabled={loading} className={FIELD} aria-describedby={`${formId}-note`}>
               <option value="">{t("any")}</option>
               {["2020s", "2010s", "2000s", "1990s", "1980s"].map(value => <option key={value}>{value}</option>)}
-            </select>
+            </select><ChevronIcon /></div>
           </div>
-          <div className="min-w-0 text-sm">
+          <div className="filter-group">
             <label htmlFor={`${formId}-length`}>{t("length")}</label>
-            <select id={`${formId}-length`} value={search.filters.length} onChange={event => search.setFilter("length", event.target.value)} disabled={loading} className={`${FIELD} mt-1`} aria-describedby={`${formId}-note`}>
+            <div className="select-wrap"><select id={`${formId}-length`} value={search.filters.length} onChange={event => search.setFilter("length", event.target.value)} disabled={loading} className={FIELD} aria-describedby={`${formId}-note`}>
               <option value="">{t("any")}</option>
               <option value="short">{t("short")}</option>
               <option value="medium">{t("medium")}</option>
               <option value="long">{t("long")}</option>
-            </select>
+            </select><ChevronIcon /></div>
           </div>
         </div>
-        <p id={`${formId}-note`} className="text-xs leading-relaxed text-zinc-600">{t("filterNote")}</p>
+        <p id={`${formId}-note`} className="filter-note">{t("filterNote")}</p>
       </form>
 
-      <div role="status" aria-live="polite" aria-atomic="true" className="mt-4 min-h-6 text-sm text-zinc-600">
-        {status}
-        {loading && search.count !== null ? ` · ${t("candidates", {count: search.count})}` : ""}
-      </div>
-      {search.error ? <p role="alert" className="mt-4 text-sm text-red-700">{t(search.error)}</p> : null}
-
-      <section aria-label={t("resultsLabel")} aria-busy={loading} className="mt-6 space-y-4">
+      <section aria-label={t("resultsLabel")} aria-busy={loading}>
+        <div className="results-heading">
+          {loading || search.books.length > 0 ? <h2>{t("resultsHeading")}</h2> : null}
+          <div role="status" aria-live="polite" aria-atomic="true" className="search-status">
+            {status}
+            {loading && search.count !== null ? ` · ${t("candidates", {count: search.count})}` : ""}
+          </div>
+        </div>
+        {search.error ? <p role="alert" className="search-error">{t(search.error)}</p> : null}
         {loading && search.books.length === 0 ? <><BookCardSkeleton /><BookCardSkeleton /></> : null}
         {search.books.map(book => (
           <BookCard key={book.isbn13} book={book} detailsAvailable={search.status === "complete"} />
         ))}
       </section>
-    </main>
+      </main>
+      <SiteFooter />
+    </div>
   );
 }

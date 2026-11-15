@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 
+import { CopyIcon } from "@/components/Icons";
 import { bookPath } from "@/lib/book-details";
 import type { Language } from "@/lib/types";
 
@@ -37,15 +38,13 @@ export default function ShareBook({isbn13}: {isbn13: string}) {
   }
 
   return (
-    <section className="mt-6 rounded-lg border border-zinc-200 p-4" aria-label={t("share")}>
-      <button type="button" onClick={copyLink} disabled={copying} className="min-h-11 rounded bg-black px-4 py-2 text-sm text-white hover:bg-zinc-800 focus-visible:outline-2 focus-visible:outline-offset-4 disabled:opacity-50">
-        {t("share")}
-      </button>
-      <p className="mt-2 text-xs text-zinc-600">{t("shareNote")}</p>
-      {url ? <label className="mt-3 block text-sm">{t("linkLabel")}
-        <input ref={linkField} readOnly value={url} onFocus={event => event.currentTarget.select()} className="mt-1 min-h-11 w-full rounded border border-zinc-300 px-3 py-2 text-base" />
+    <section className="share-book" aria-label={t("share")}>
+      <div><h2>{t("shareTitle")}</h2><p>{t("shareNote")}</p></div>
+      <button type="button" onClick={copyLink} disabled={copying} className="primary-button"><CopyIcon />{t("share")}</button>
+      {url ? <label className="share-field">{t("linkLabel")}
+        <input ref={linkField} readOnly value={url} onFocus={event => event.currentTarget.select()} className="field" />
       </label> : null}
-      <p role="status" aria-live="polite" className="mt-2 text-sm text-zinc-600">{status ? t(status) : ""}</p>
+      <p role="status" aria-live="polite" className="share-feedback">{status ? t(status) : ""}</p>
     </section>
   );
 }

@@ -5,6 +5,8 @@ import { getTranslations } from "next-intl/server";
 
 import BookDisplay from "@/components/BookDisplay";
 import ShareBook from "@/components/ShareBook";
+import { ArrowIcon } from "@/components/Icons";
+import { Masthead, SiteFooter } from "@/components/SiteChrome";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { bookPath, fetchBookDetails } from "@/lib/book-details";
@@ -31,7 +33,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
 
 function Loading() {
   const t = useTranslations("BookDetails");
-  return <main className="mx-auto w-full max-w-2xl p-4 sm:p-8"><p role="status">{t("loading")}</p></main>;
+  return <main id="main-content" className="site-shell detail-message"><p role="status">{t("loading")}</p></main>;
 }
 
 async function Details({params}: Props) {
@@ -40,33 +42,34 @@ async function Details({params}: Props) {
   const sourceLabels: Record<string, string> = {google_books: "Google Books", open_library: "Open Library"};
 
   return (
-    <main className="mx-auto w-full max-w-2xl p-4 sm:p-8">
-      <nav aria-label={t("navigation")} className="mb-6 flex flex-wrap items-center justify-between gap-2 text-sm">
-        <Link href="/" className="inline-flex min-h-11 items-center rounded underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4">{t("back")}</Link>
-        <div className="flex flex-wrap gap-2">
+    <div className="site-shell">
+      <Masthead>
+        <nav aria-label={t("navigation")} className="locale-controls">
           {([{code: "es", label: "Español"}, {code: "en", label: "English"}] as const).map(({code, label}) => (
-            <Link key={code} href={`/books/${isbn13}`} locale={code} prefetch={false} aria-current={locale === code ? "page" : undefined} className={`inline-flex min-h-11 items-center rounded border px-3 py-2 ${locale === code ? "border-black bg-black text-white" : "border-zinc-300 hover:bg-zinc-100"}`}>
-              {label}
-            </Link>
+            <Link key={code} href={`/books/${isbn13}`} locale={code} prefetch={false} aria-current={locale === code ? "page" : undefined} className="locale-link">{label}</Link>
           ))}
-        </div>
-      </nav>
+        </nav>
+      </Masthead>
+      <main id="main-content">
+      <Link href="/" className="back-link"><ArrowIcon direction="left" />{t("back")}</Link>
       {result.status === "found" ? <>
-        <BookDisplay book={result.book} heading="h1" />
-        <dl className="mt-6 grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-2 break-words text-sm">
-          <dt className="text-zinc-600">ISBN-13</dt><dd>{result.book.isbn13}</dd>
-          <dt className="text-zinc-600">{t("language")}</dt><dd>{t(result.book.language === "en" ? "english" : "spanish")}</dd>
-          <dt className="text-zinc-600">{t("source")}</dt><dd>{sourceLabels[result.book.source] ?? t("storedCatalog")}</dd>
-          <dt className="text-zinc-600">{t("fetchedAt")}</dt><dd><time dateTime={result.book.fetched_at}>{new Intl.DateTimeFormat(locale, {dateStyle: "medium", timeZone: "UTC"}).format(new Date(result.book.fetched_at))}</time></dd>
+        <BookDisplay book={result.book} heading="h1" language={result.book.language} />
+        <dl className="snapshot">
+          <div><dt>ISBN-13</dt><dd>{result.book.isbn13}</dd></div>
+          <div><dt>{t("language")}</dt><dd>{t(result.book.language === "en" ? "english" : "spanish")}</dd></div>
+          <div><dt>{t("source")}</dt><dd>{sourceLabels[result.book.source] ?? t("storedCatalog")}</dd></div>
+          <div><dt>{t("fetchedAt")}</dt><dd><time dateTime={result.book.fetched_at}>{new Intl.DateTimeFormat(locale, {dateStyle: "medium", timeZone: "UTC"}).format(new Date(result.book.fetched_at))}</time></dd></div>
         </dl>
-        <p className="mt-3 text-xs text-zinc-600">{t("snapshotNote")}</p>
+        <p className="snapshot-note">{t("snapshotNote")}</p>
         <ShareBook key={`${locale}:${isbn13}`} isbn13={result.book.isbn13} />
-      </> : <section className="rounded-lg border border-zinc-200 p-6">
-        <h1 className="text-2xl font-semibold">{t("errorTitle")}</h1>
-        <p role="alert" className="mt-3 text-zinc-600">{t(result.status)}</p>
-        {result.status === "unavailable" ? <a href={bookPath(locale as Language, isbn13)} className="mt-4 inline-flex min-h-11 items-center rounded border border-zinc-300 px-4 py-2 text-sm hover:bg-zinc-100">{t("retry")}</a> : null}
+      </> : <section className="detail-message">
+        <h1>{t("errorTitle")}</h1>
+        <p role="alert">{t(result.status)}</p>
+        {result.status === "unavailable" ? <a href={bookPath(locale as Language, isbn13)} className="secondary-button">{t("retry")}</a> : null}
       </section>}
-    </main>
+      </main>
+      <SiteFooter />
+    </div>
   );
 }
 

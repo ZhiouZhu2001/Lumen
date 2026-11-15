@@ -1,16 +1,16 @@
 {
   "HomePage": {
     "tagline": "Find your next book.",
-    "placeholder": "magical realism",
-    "search": "Search",
+    "placeholder": "A classic adventure of travel and discovery",
+    "search": "Find books",
     "searching": "Searching book catalogs…",
     "searchFailed": "Search failed. Please try again.",
     "rateLimited": "Too many searches this hour. Please wait before trying again.",
     "dailyLimit": "The daily AI limit has been reached. Try a recent search or come back later.",
     "requestLabel": "What would you like to read?",
     "genre": "Genre",
-    "era": "Publication decade",
-    "length": "Length (pages)",
+    "era": "Era",
+    "length": "Length",
     "any": "Any",
     "historical": "Historical fiction",
     "comics": "Graphic novels",
@@ -29,7 +29,12 @@
     "languageLabel": "Book and interface language",
     "resultsLabel": "Book recommendations",
     "cancel": "Cancel",
-    "cancelled": "Search stopped. You can change your request and search again."
+    "cancelled": "Search stopped. You can change your request and search again.",
+    "heroTitle": "Your next",
+    "heroAccent": "good story.",
+    "heroIntro": "Tell us what you feel like reading.",
+    "heroSupport": "Find real books in English and Spanish.",
+    "resultsHeading": "Between these pages"
   },
   "BookCard": {
     "coverAlt": "Cover of {title}",
@@ -42,19 +47,21 @@
     "channelNote": "Store searches do not guarantee stock or format. Apple Books matches the title and author; check the edition and language before buying.",
     "paper": "Paper",
     "ebook": "Ebook",
-    "viewDetails": "Book details and share link"
+    "viewDetails": "View book and share",
+    "whyFits": "Why it fits",
+    "where": "Where to find it"
   },
   "BookDetails": {
     "loading": "Loading book details…",
     "navigation": "Book navigation",
-    "back": "Find another book",
+    "back": "Back to search",
     "language": "Book language",
     "english": "English",
     "spanish": "Spanish",
     "source": "Catalog source",
     "fetchedAt": "Catalog snapshot (UTC)",
     "snapshotNote": "Saved catalog information may be out of date. Check the edition, language and availability at the store.",
-    "share": "Copy book link",
+    "share": "Copy link",
     "shareNote": "The link shares only this book. Your search and recommendation reason are not included.",
     "linkLabel": "Book link",
     "copied": "Link copied.",
@@ -67,6 +74,11 @@
     "storedCatalog": "Saved catalog",
     "previewDescriptionWithAuthors": "Details for {title} by {authors}. ISBN {isbn}.",
     "previewDescriptionWithoutAuthors": "Details for {title}. ISBN {isbn}.",
-    "previewCoverAlt": "Cover of {title}"
+    "previewCoverAlt": "Cover of {title}",
+    "shareTitle": "A story to share."
+  },
+  "Site": {
+    "skip": "Skip to content",
+    "footer": "Books from real catalogs. Places to buy in Spain."
   }
 }

@@ -4,6 +4,8 @@ An English/Spanish book recommendation assistant for readers in Spain. Recommend
 
 The local preview supports streamed progress and cards, genre guidance, strict publication-decade/page-count filters, and explicit feedback when bounded searches find fewer matches. Free-only reading is temporarily unavailable under the approved scope revision.
 
+The bilingual interface follows a restrained literary-journal design: warm ivory, forest-green actions, serif headings, open book rows and a matching saved-book/share page. Fonts and the decorative engraving are served locally; book covers and bibliography still come from catalog data. Keyboard recovery, manual-copy selection and narrow/enlarged-text layouts retain their existing functionality. See the [editorial design](docs/editorial-design.md) for the approved visual system and the production differences from the illustrative mockups.
+
 ## Run locally
 
 The current setup was verified with Python 3.12, Node 24, uv and Docker Desktop.

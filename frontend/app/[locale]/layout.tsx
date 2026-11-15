@@ -1,21 +1,27 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { NextIntlClientProvider } from "next-intl";
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { routing } from "@/i18n/routing";
 import PreferencesProvider from "@/components/PreferencesProvider";
 
 import "../globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const reader = localFont({
+  src: "../fonts/reader-regular.woff2",
+  variable: "--font-reader",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const literary = localFont({
+  src: [
+    {path: "../fonts/literary-regular.woff2", weight: "400 700", style: "normal"},
+    {path: "../fonts/literary-italic.woff2", weight: "400 700", style: "italic"},
+  ],
+  variable: "--font-literary",
+  display: "swap",
+  adjustFontFallback: "Times New Roman",
 });
 
 export const metadata: Metadata = {
@@ -33,13 +39,15 @@ export default async function LocaleLayout({
 }: LayoutProps<"/[locale]">) {
   // Comes from i18n/request.ts, which also rejects unknown languages (404)
   const locale = await getLocale();
+  const t = await getTranslations("Site");
 
   return (
     <html
       lang={locale}
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${reader.variable} ${literary.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body>
+        <a href="#main-content" className="skip-link">{t("skip")}</a>
         <NextIntlClientProvider>
           <PreferencesProvider language={locale}>{children}</PreferencesProvider>
         </NextIntlClientProvider>

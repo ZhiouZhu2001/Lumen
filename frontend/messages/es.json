@@ -1,16 +1,16 @@
 {
   "HomePage": {
     "tagline": "Encuentra tu próximo libro.",
-    "placeholder": "realismo mágico",
-    "search": "Buscar",
+    "placeholder": "Una aventura clásica de viajes y descubrimientos",
+    "search": "Encontrar libros",
     "searching": "Buscando en los catálogos…",
     "searchFailed": "La búsqueda ha fallado. Inténtalo de nuevo.",
     "rateLimited": "Has realizado demasiadas búsquedas esta hora. Espera antes de intentarlo de nuevo.",
     "dailyLimit": "Se ha alcanzado el límite diario de IA. Repite una búsqueda reciente o vuelve más tarde.",
     "requestLabel": "¿Qué te gustaría leer?",
     "genre": "Género",
-    "era": "Década de publicación",
-    "length": "Extensión (páginas)",
+    "era": "Época",
+    "length": "Extensión",
     "any": "Cualquiera",
     "historical": "Novela histórica",
     "comics": "Novela gráfica",
@@ -29,7 +29,12 @@
     "languageLabel": "Idioma de los libros y de la interfaz",
     "resultsLabel": "Recomendaciones de libros",
     "cancel": "Cancelar",
-    "cancelled": "Búsqueda detenida. Puedes cambiar tu petición y buscar de nuevo."
+    "cancelled": "Búsqueda detenida. Puedes cambiar tu petición y buscar de nuevo.",
+    "heroTitle": "Tu próxima",
+    "heroAccent": "buena historia.",
+    "heroIntro": "Cuéntanos qué te apetece leer.",
+    "heroSupport": "Encuentra libros reales, en inglés y español.",
+    "resultsHeading": "Entre estas páginas"
   },
   "BookCard": {
     "coverAlt": "Portada de {title}",
@@ -42,19 +47,21 @@
     "channelNote": "Las búsquedas en tiendas no garantizan existencias ni formato. Apple Books se vincula por título y autor; comprueba la edición y el idioma antes de comprar.",
     "paper": "Papel",
     "ebook": "Libro electrónico",
-    "viewDetails": "Detalles del libro y enlace para compartir"
+    "viewDetails": "Ver libro y compartir",
+    "whyFits": "Por qué encaja",
+    "where": "Dónde encontrarlo"
   },
   "BookDetails": {
     "loading": "Cargando los detalles del libro…",
     "navigation": "Navegación del libro",
-    "back": "Buscar otro libro",
+    "back": "Volver a la búsqueda",
     "language": "Idioma del libro",
     "english": "Inglés",
     "spanish": "Español",
     "source": "Fuente del catálogo",
     "fetchedAt": "Datos del catálogo (UTC)",
     "snapshotNote": "La información guardada del catálogo puede estar desactualizada. Comprueba la edición, el idioma y la disponibilidad en la tienda.",
-    "share": "Copiar enlace del libro",
+    "share": "Copiar enlace",
     "shareNote": "El enlace solo comparte este libro. No incluye tu búsqueda ni el motivo de la recomendación.",
     "linkLabel": "Enlace del libro",
     "copied": "Enlace copiado.",
@@ -67,6 +74,11 @@
     "storedCatalog": "Catálogo guardado",
     "previewDescriptionWithAuthors": "Detalles de {title}, de {authors}. ISBN {isbn}.",
     "previewDescriptionWithoutAuthors": "Detalles de {title}. ISBN {isbn}.",
-    "previewCoverAlt": "Portada de {title}"
+    "previewCoverAlt": "Portada de {title}",
+    "shareTitle": "Una historia para compartir."
+  },
+  "Site": {
+    "skip": "Saltar al contenido",
+    "footer": "Libros de catálogos reales. Enlaces de compra en España."
   }
 }
